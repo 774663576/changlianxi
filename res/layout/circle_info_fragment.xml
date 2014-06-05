@@ -1,0 +1,164 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/titlebar"
+        android:layout_width="fill_parent"
+        layout="@layout/title_bar" />
+
+    <LinearLayout
+        android:id="@+id/layCirName"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dip"
+        android:layout_marginLeft="25dip"
+        android:layout_marginRight="11dip"
+        android:layout_marginTop="20dip" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/circle_name"
+            android:textColor="#333333"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/circleName"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:textColor="@color/font6f"
+            android:textSize="17sp" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:layout_marginLeft="25dip"
+        android:background="#D1D1D1" />
+
+    <LinearLayout
+        android:id="@+id/layCirName"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dip"
+        android:layout_marginLeft="25dip"
+        android:layout_marginRight="11dip"
+        android:layout_marginTop="20dip" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="创  建  者："
+            android:textColor="#333333"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/creatorName"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:textColor="@color/font6f"
+            android:textSize="17sp" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:layout_marginLeft="25dip"
+        android:background="#D1D1D1" />
+
+    <LinearLayout
+        android:id="@+id/layCirIcon"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dip"
+        android:layout_marginLeft="25dip"
+        android:layout_marginTop="10dip"
+        android:gravity="center_vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="10dip"
+            android:text="@string/circle_icon"
+            android:textColor="#333333"
+            android:textSize="17sp" />
+
+        <com.changlianxi.view.CircularImage
+            android:id="@+id/circleLogo"
+            android:layout_width="80dip"
+            android:layout_height="80dip" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/line2"
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:layout_marginLeft="25dip"
+        android:background="#D1D1D1" />
+
+    <LinearLayout
+        android:id="@+id/layCirDis"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dip"
+        android:layout_marginRight="11dip"
+        android:paddingBottom="15dip"
+        android:paddingTop="15dip" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/circle_describe"
+            android:textColor="#333333"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/circleDis"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:textColor="@color/font6f"
+            android:textSize="17sp" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/line4"
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:layout_marginLeft="25dip"
+        android:background="#D1D1D1" />
+
+    <LinearLayout
+        android:id="@+id/layCirCY"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dip"
+        android:paddingBottom="15dip"
+        android:paddingTop="15dip" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/circle_member"
+            android:textColor="#333333"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/circleMemberCount"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:textColor="@color/font6f"
+            android:textSize="17sp" />
+    </LinearLayout>
+
+</LinearLayout>

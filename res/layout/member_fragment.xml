@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/titileLay"
+        android:layout_width="fill_parent"
+        layout="@layout/layout_title_bar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/titileLay"
+        android:orientation="vertical" >
+
+        <ViewStub
+            android:id="@+id/lay_edit"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout="@layout/edit_my_detail" />
+
+        <ViewStub
+            android:id="@+id/viewstub_lay_invite"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout="@layout/lay_invite" />
+
+        <com.changlianxi.view.PullDownView
+            android:id="@+id/PullDownlistView"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:cacheColorHint="@android:color/transparent" >
+        </com.changlianxi.view.PullDownView>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/selected_tv"
+        android:layout_width="70dip"
+        android:layout_height="70dip"
+        android:layout_centerInParent="true"
+        android:background="@drawable/yuanjiao"
+        android:gravity="center"
+        android:textColor="#FFFFFF"
+        android:textSize="50dip"
+        android:visibility="gone" >
+    </TextView>
+
+    <com.changlianxi.view.QuickAlphabeticBar
+        android:id="@+id/indexBar"
+        android:layout_width="30dip"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="right"
+        android:layout_marginBottom="5dip"
+        android:layout_marginTop="70dip"
+        android:background="@drawable/yuanjiao" >
+    </com.changlianxi.view.QuickAlphabeticBar>
+
+</RelativeLayout>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#efefef"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@drawable/footer_nav_bg"
+            android:gravity="center"
+            android:paddingBottom="10dip"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:paddingTop="15dip" >
+
+            <ImageView
+                android:id="@+id/imgAdd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dip"
+                android:src="@drawable/icon_add_chat" />
+
+            <EditText
+                android:id="@+id/editContent"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/growth_search_bg"
+                android:gravity="center_vertical"
+                android:minHeight="38dip"
+                android:paddingLeft="10dip"
+                android:scrollbars="vertical"
+                android:textSize="15sp" />
+
+            <Button
+                android:id="@+id/btnSend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dip"
+                android:background="@drawable/btn_bg_send"
+                android:paddingBottom="7dip"
+                android:paddingLeft="17dip"
+                android:paddingRight="17dip"
+                android:paddingTop="5dip"
+                android:text="@string/send"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutAdd"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dip"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="10dip"
+            android:layout_marginTop="5dip"
+            android:padding="5dip"
+            android:visibility="gone" >
+
+            <TextView
+                android:id="@+id/layoutExpression"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawablePadding="5dip"
+                android:drawableTop="@drawable/icon_expression"
+                android:gravity="center"
+                android:text="@string/expression"
+                android:textColor="@color/default_font_color" />
+
+            <TextView
+                android:id="@+id/layoutImg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawablePadding="5dip"
+                android:drawableTop="@drawable/icon_pic"
+                android:gravity="center"
+                android:text="@string/picture"
+                android:textColor="@color/default_font_color" />
+
+            <TextView
+                android:id="@+id/layoutText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawablePadding="5dip"
+                android:drawableTop="@drawable/icon_documentation"
+                android:gravity="center"
+                android:text="@string/text"
+                android:textColor="@color/default_font_color" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/expression"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" >
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewpager"
+                android:layout_width="wrap_content"
+                android:layout_height="130dip"
+                android:layout_gravity="center"
+                android:background="#f32f33" >
+            </android.support.v4.view.ViewPager>
+
+            <LinearLayout
+                android:id="@+id/page_select"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/viewpager"
+                android:background="#efefef"
+                android:gravity="center_horizontal" >
+
+                <LinearLayout
+                    android:id="@+id/viewGroup"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal" >
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+</merge>

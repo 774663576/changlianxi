@@ -1,0 +1,85 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/titlebar"
+        android:layout_width="fill_parent"
+        layout="@layout/title_bar" />
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1" >
+
+        <ListView
+            android:id="@+id/contactList"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:fastScrollEnabled="true" >
+        </ListView>
+
+        <TextView
+            android:id="@+id/selected_tv"
+            android:layout_width="70dip"
+            android:layout_height="70dip"
+            android:layout_gravity="center"
+            android:background="@drawable/yuanjiao"
+            android:gravity="center"
+            android:textColor="#FFFFFF"
+            android:textSize="50dip" >
+        </TextView>
+
+        <com.changlianxi.view.QuickAlphabeticBar
+            android:id="@+id/indexBar"
+            android:layout_width="30dip"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginBottom="5dip"
+            android:layout_marginTop="50dip"
+            android:background="@drawable/yuanjiao" >
+        </com.changlianxi.view.QuickAlphabeticBar>
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/layBottom"
+        android:layout_width="fill_parent"
+        android:layout_height="55dip"
+        android:background="@drawable/footer_bg"
+        android:gravity="center" >
+
+        <HorizontalScrollView
+            android:id="@+id/horizontalScrollView1"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:scrollbars="none" >
+
+            <LinearLayout
+                android:id="@+id/addicon"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal" >
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <Button
+            android:id="@+id/btnfinish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dip"
+            android:background="@drawable/btn_14c1c7"
+            android:gravity="center"
+            android:paddingBottom="8dip"
+            android:paddingLeft="15dip"
+            android:paddingRight="15dip"
+            android:paddingTop="8dip"
+            android:text="完成(0)"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,51 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/f6"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/title"
+        android:layout_width="fill_parent"
+        layout="@layout/title_bar" />
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#fbf6d6"
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/scale44dip"
+        android:paddingLeft="@dimen/scale52dip"
+        android:paddingRight="@dimen/scale58dip"
+        android:paddingTop="@dimen/scale44dip"
+        android:text="请选择您在本圈子中公开的个人资料"
+        android:textColor="#ff7800"
+        android:textSize="@dimen/scale32sp" />
+
+    <ExpandableListView
+        android:id="@+id/expandableListView1"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:childDivider="#eaeaea"
+        android:divider="@null"
+        android:dividerHeight="2dip"
+        android:scrollbars="none" >
+    </ExpandableListView>
+
+    <!-- <Button -->
+    <!-- android:id="@+id/btnSave" -->
+    <!-- android:layout_width="fill_parent" -->
+    <!-- android:layout_height="@dimen/scale110dip" -->
+    <!-- android:layout_marginBottom="@dimen/scale30dip" -->
+    <!-- android:layout_marginLeft="@dimen/scale55dip" -->
+    <!-- android:layout_marginRight="@dimen/scale55dip" -->
+    <!-- android:layout_marginTop="@dimen/scale58dip" -->
+    <!-- android:background="@drawable/btn_14c1c7" -->
+    <!-- android:text="@string/save" -->
+    <!-- android:textColor="#ffffff" -->
+    <!-- android:textSize="@dimen/scale50sp" /> -->
+
+</LinearLayout>

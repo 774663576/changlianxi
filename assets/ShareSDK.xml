@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DevInfor>
+   
+    <ShareSDK 
+        AppKey = "120efd2f3a78"/> 
+    
+    <SinaWeibo
+        Id="1"
+        SortId="1"
+        AppKey="3270091145"
+        AppSecret="62182efe4b3ec2dcdaa54d78aeeb821e"
+        RedirectUrl="http://i.changlianxi.com"
+        ShortLinkConversationEnable="true"  
+        Enable="true" />
+
+    <TencentWeibo
+        Id="2" 
+        SortId="2"
+        AppKey="801307650"
+        AppSecret="722ee3054f64a1fdf789cf96f2c46633"
+        Enable="true" />
+
+    <QZone
+        Id="3"
+        SortId="3"
+        AppId="101021356"
+        AppKey="722ee3054f64a1fdf789cf96f2c46633"
+        RedirectUrl="http://i.changlianxi.com"
+        ShareByAppClient="true"
+        Enable="true" />
+    <Wechat
+        Id="4"
+        SortId="4"
+        AppId="wx387c10c2e338aa3c"
+        
+        Enable="true" />
+    
+    <WechatMoments
+        Id="5"
+        SortId="5"
+        AppId="wx387c10c2e338aa3c"
+        
+        Enable="true" />
+        
+	<WechatFavorite
+        Id="6"
+        SortId="6"
+        AppId="wx387c10c2e338aa3c"
+        
+        Enable="true" />
+    
+	<QQ
+        Id="7"     
+        SortId="7"
+        AppId="101021356"
+        AppKey="722ee3054f64a1fdf789cf96f2c46633"
+        RedirectUrl="http://i.changlianxi.com"
+        ShareByAppClient="true"
+        Enable="true" />
+    
+    <Facebook
+        Id="8"
+        SortId="8"
+        ConsumerKey="107704292745179"
+        ConsumerSecret="38053202e1a5fe26c80c753071f0b573"
+        Enable="true" />
+
+    <Twitter
+        Id="9"
+        SortId="9"
+        ConsumerKey="mnTGqtXk0TYMXYTN7qUxg"
+        ConsumerSecret="ROkFqr8c3m1HXqS3rm3TJ0WkAJuwBOSaWhPbZ9Ojuc"
+        CallbackUrl="http://www.sharesdk.cn"
+        Enable="true" />
+
+    <Renren
+        Id="10"
+        SortId="10"
+        AppId="226427"
+        ApiKey="c4a62f2aa83649f386becd20c3ec4065"
+        SecretKey="c22da17937f3441e907465539da5781a"
+        Enable="true" />
+    
+    
+    
+    <Email
+        Id="12" 
+        SortId="12"
+        Enable="true" />
+    
+    <ShortMessage
+        Id="13" 
+        SortId="13"
+        Enable="true" />
+
+</DevInfor>

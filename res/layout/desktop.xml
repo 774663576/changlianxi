@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/lfetMenu"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#262626"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dip"
+        android:layout_marginTop="30dip" >
+
+        <ImageView
+            android:id="@+id/avatarBg"
+            android:layout_width="95dip"
+            android:layout_height="95dip"
+            android:layout_centerInParent="true"
+            android:contentDescription="@null"
+            android:src="@drawable/home_image_bg" />
+
+        <com.changlianxi.view.CircularImage
+            android:id="@+id/avatar"
+            android:layout_width="82dip"
+            android:layout_height="82dip"
+            android:layout_centerInParent="true"
+            android:src="@drawable/head_bg" />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/menulist"
+        android:layout_width="fill_parent"
+        android:layout_height="1000dip"
+        android:layout_marginTop="60dip"
+        android:divider="#404040"
+        android:dividerHeight="0.2dip"
+        android:listSelector="@color/left_menu_blue" >
+    </ListView>
+
+</LinearLayout>

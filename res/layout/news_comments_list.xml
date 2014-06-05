@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/bgLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/scale30dip"
+        android:layout_marginLeft="@dimen/scale20dip"
+        android:layout_marginRight="@dimen/scale20dip"
+        android:layout_marginTop="@dimen/scale30dip"
+        android:gravity="center" >
+
+        <com.changlianxi.view.CircularImage
+            android:id="@+id/avatar"
+            android:layout_width="35dip"
+            android:layout_height="35dip" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/scale31dip"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="刘丹丹"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="09-14"
+                    android:textColor="#7f737373"
+                    android:textSize="@dimen/scale28sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+                </TextView>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/scale19dip"
+                android:text="43454343543643543"
+                android:textColor="#737373"
+                android:textSize="@dimen/scale28sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/home_fragment"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <RelativeLayout
+        android:id="@+id/title"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/scale110dip"
+        android:background="@drawable/top_bg"
+        android:gravity="center_vertical" >
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:paddingLeft="@dimen/scale30dip"
+            android:paddingRight="@dimen/scale29dip"
+            android:src="@drawable/icon_list" />
+
+        <ImageView
+            android:id="@+id/line"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_marginRight="@dimen/scale28dip"
+            android:layout_toRightOf="@+id/back"
+            android:src="@drawable/top_line" />
+
+        <TextView
+            android:id="@+id/titleTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/line"
+            android:singleLine="true"
+            android:text="圈子"
+            android:textColor="#FFFFFF"
+            android:textSize="23sp" />
+
+        <ImageView
+            android:id="@+id/imgNews"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/back"
+            android:layout_alignTop="@+id/titleTxt"
+            android:src="@drawable/icon_list_news"
+            android:visibility="invisible" />
+    </RelativeLayout>
+
+    <com.changlianxi.view.BounceScrollView
+        android:id="@+id/bounceScrollView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/title"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="50dip"
+            android:orientation="vertical" >
+
+            <ViewStub
+                android:id="@+id/firstLayoutPrompt"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:id="@+id/searchLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#c9c9ce"
+                android:orientation="vertical"
+                android:visibility="gone" >
+
+                <com.changlianxi.view.SearchEditText
+                    android:id="@+id/search"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="9dip"
+                    android:layout_marginLeft="10dip"
+                    android:layout_marginRight="10dip"
+                    android:layout_marginTop="9dip"
+                    android:background="@drawable/search_bg"
+                    android:focusable="false"
+                    android:hint="@string/search_member"
+                    android:paddingLeft="29dip"
+                    android:singleLine="true"
+                    android:textColor="#b3b3b3"
+                    android:textColorHint="#b3b3b3"
+                    android:textSize="@dimen/scale30sp" >
+                </com.changlianxi.view.SearchEditText>
+            </LinearLayout>
+
+            <com.changlianxi.view.GrowthImgGridView
+                android:id="@+id/gridView1"
+                android:layout_width="fill_parent"
+                android:layout_height="0dip"
+                android:layout_marginLeft="@dimen/scale25dip"
+                android:layout_marginRight="@dimen/scale25dip"
+                android:layout_marginTop="14dip"
+                android:layout_weight="1"
+                android:numColumns="3"
+                android:scrollbars="none" >
+            </com.changlianxi.view.GrowthImgGridView>
+        </LinearLayout>
+    </com.changlianxi.view.BounceScrollView>
+
+</RelativeLayout>

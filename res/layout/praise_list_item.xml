@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center" >
+
+    <com.changlianxi.view.CircularImage
+        android:id="@+id/img"
+        android:layout_width="35dip"
+        android:layout_height="35dip"
+        android:layout_marginTop="@dimen/scale34dip"
+        android:layout_marginBottom="@dimen/scale34dip"
+        android:layout_marginLeft="@dimen/scale10dip"
+        android:layout_marginRight="@dimen/scale10dip"
+        />
+
+</LinearLayout>

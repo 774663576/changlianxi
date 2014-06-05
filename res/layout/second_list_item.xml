@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/scale32dip"
+        android:layout_marginLeft="@dimen/scale44dip"
+        android:layout_marginRight="@dimen/scale32dip"
+        android:layout_marginTop="@dimen/scale41dip" >
+
+        <com.changlianxi.view.CircularImage
+            android:id="@+id/circle_img"
+            android:layout_width="35dip"
+            android:layout_height="35dip"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true" />
+
+        <CheckBox
+            android:id="@+id/checkBox1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:button="@drawable/checkbox2"
+            android:focusable="false" />
+
+        <TextView
+            android:id="@+id/circle_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/circle_img"
+            android:paddingLeft="@dimen/scale19dip"
+            android:text="圈子名称"
+            android:textColor="#535252"
+            android:textSize="@dimen/sp34" />
+    </RelativeLayout>
+
+</LinearLayout>

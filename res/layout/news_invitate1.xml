@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/laybg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_vertical"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dip"
+        android:layout_marginLeft="5dip"
+        android:layout_marginRight="5dip"
+        android:layout_marginTop="@dimen/scale20dip"
+        android:background="@drawable/box_bg"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:layout_marginTop="10dip" >
+
+            <com.changlianxi.view.CircularImage
+                android:id="@+id/avatarInvite"
+                android:layout_width="38dip"
+                android:layout_height="38dip" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="14dip"
+                android:layout_marginTop="5dip"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/timeInvite"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/default_font_color"
+                    android:textSize="@dimen/scale20sp" />
+
+                <TextView
+                    android:id="@+id/contentInvite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dip"
+                    android:lineSpacingExtra="4dip"
+                    android:paddingRight="10dip"
+                    android:textColor="@color/default_font_color"
+                    android:textSize="@dimen/scale26sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/scale81dip"
+            android:layout_marginTop="@dimen/scale32dip" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/box_footer_bg"
+                android:orientation="vertical" >
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical" >
+
+                <Button
+                    android:id="@+id/btnAgree"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:text="@string/i_agree"
+                    android:textColor="#000000"
+                    android:textSize="@dimen/scale36sp" />
+
+                <View
+                    android:layout_width="0.2dip"
+                    android:layout_height="fill_parent"
+                    android:background="#b0b0b0" />
+
+                <Button
+                    android:id="@+id/btnNotAgree"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:text="@string/ignore"
+                    android:textSize="@dimen/scale36sp" />
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layParent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/scale20dip"
+        android:layout_marginRight="@dimen/scale20dip"
+        android:layout_marginTop="@dimen/scale17dip"
+        android:background="@drawable/record_bg"
+        android:orientation="vertical" >
+
+        <com.changlianxi.view.CircularImage
+            android:id="@+id/avatar"
+            android:layout_width="45dip"
+            android:layout_height="45dip"
+            android:layout_marginLeft="@dimen/scale20dip"
+            android:layout_marginTop="@dimen/scale30dip" />
+
+        <LinearLayout
+            android:id="@+id/layContent"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/scale20dip"
+            android:layout_marginRight="3dip"
+            android:layout_marginTop="@dimen/scale30dip"
+            android:layout_toRightOf="@+id/avatar"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical" >
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="bottom"
+                    android:singleLine="true"
+                    android:text="徐呆呆"
+                    android:textColor="#333333"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:id="@+id/txtUpLoading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dip"
+                    android:text="上传中"
+                    android:textColor="#919191"
+                    android:textSize="15sp"
+                    android:visibility="gone" />
+
+                <ProgressBar
+                    android:id="@+id/pbLoading"
+                    android:layout_width="18dip"
+                    android:layout_height="18dip"
+                    android:layout_marginRight="8dip"
+                    android:indeterminateDrawable="@drawable/iamge_progress"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/growthLoading_fail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="8dip"
+                    android:drawableLeft="@drawable/growth_fail"
+                    android:drawablePadding="5dip"
+                    android:text="失败"
+                    android:textColor="#ff2400"
+                    android:textSize="17sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="13dip"
+                android:gravity="left"
+                android:singleLine="true"
+                android:text="20分钟前"
+                android:textColor="#8e8e8e"
+                android:textSize="11sp" />
+
+            <TextView
+                android:id="@+id/content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="4dip"
+                android:text="据 软件服务、动漫等多个领域。"
+                android:textColor="#4e4e4e"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:id="@+id/img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginRight="60dip"
+                android:adjustViewBounds="true"
+                android:maxHeight="200dip"
+                android:maxWidth="200dip"
+                android:visibility="gone" />
+
+            <com.changlianxi.view.GrowthImgGridView
+                android:id="@+id/imgGridview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numColumns="3"
+                android:scrollbars="none"
+                android:visibility="visible" >
+            </com.changlianxi.view.GrowthImgGridView>
+
+            <TextView
+                android:id="@+id/location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/scale20dip"
+                android:layout_marginTop="3dip"
+                android:gravity="left"
+                android:text="aaaaaaaaaaaa"
+                android:textColor="#787676"
+                android:textSize="13sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dip" >
+
+                <!-- android:gravity="right" -->
+
+                <LinearLayout
+                    android:id="@+id/layPraise"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right|center_vertical"
+                    android:paddingBottom="10dip"
+                    android:paddingRight="10dip"
+                    android:paddingTop="10dip" >
+
+                    <ImageView
+                        android:id="@+id/imgPraise"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon_praise" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dip"
+                        android:layout_marginTop="1dip"
+                        android:singleLine="true"
+                        android:text="赞"
+                        android:textColor="#7e7e7e"
+                        android:textSize="@dimen/scale26sp" />
+
+                    <TextView
+                        android:id="@+id/praise"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dip"
+                        android:layout_marginTop="1dip"
+                        android:singleLine="true"
+                        android:textColor="#7e7e7e"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layComment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:paddingBottom="10dip"
+                    android:paddingRight="10dip"
+                    android:paddingTop="10dip" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dip"
+                        android:src="@drawable/icon_review" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dip"
+                        android:singleLine="true"
+                        android:text="评论"
+                        android:textColor="#7e7e7e"
+                        android:textSize="@dimen/scale26sp" />
+
+                    <TextView
+                        android:id="@+id/comment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dip"
+                        android:singleLine="true"
+                        android:textColor="#7e7e7e"
+                        android:textSize="16dip" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layShare"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dip"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:paddingBottom="10dip"
+                    android:paddingTop="10dip" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dip"
+                        android:src="@drawable/icon_forward" />
+
+                    <TextView
+                        android:id="@+id/share"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dip"
+                        android:layout_marginTop="4dip"
+                        android:singleLine="true"
+                        android:text="分享"
+                        android:textColor="#7e7e7e"
+                        android:textSize="@dimen/scale26sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

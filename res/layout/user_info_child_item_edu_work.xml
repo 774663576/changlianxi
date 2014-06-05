@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bg"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <TextView
+        android:id="@+id/key"
+        android:layout_width="85dip"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:text="a"
+        android:textColor="#bfbfbf"
+        android:textSize="15sp" />
+
+    <LinearLayout
+        android:id="@+id/valueLayout"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="23dip"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/scale30dip" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/startTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#c8313131"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="3dip"
+                android:layout_marginRight="3dip"
+                android:gravity="center"
+                android:text="@string/to"
+                android:textColor="#996f6f6f"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/endTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#c8313131"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dip"
+            android:paddingBottom="7dip"
+            android:text="aaaa"
+            android:textColor="#c8313131"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+</LinearLayout>

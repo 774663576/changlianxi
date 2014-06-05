@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/dialogContent"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/scale69dip"
+        android:layout_marginTop="@dimen/scale83dip"
+        android:gravity="center"
+        android:lineSpacingExtra="5dip"
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip"
+        android:text="@string/is_delete"
+        android:textColor="#5c5c5c"
+        android:textSize="17sp" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:src="#37a6af" />
+
+    <Button
+        android:id="@+id/btnOk"
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:background="#e8e6e7"
+        android:paddingBottom="@dimen/scale28dip"
+        android:paddingTop="@dimen/scale28dip"
+        android:text="@string/yes"
+        android:textColor="#37a6af"
+        android:textSize="17sp" />
+
+</LinearLayout>

@@ -1,0 +1,121 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white" >
+
+    <include
+        android:id="@+id/title"
+        android:layout_width="fill_parent"
+        layout="@layout/layout_title_bar" />
+
+    <LinearLayout
+        android:id="@+id/layCirName"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:layout_marginLeft="25dip"
+        android:layout_marginTop="20dip" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dip"
+            android:text="@string/circle_name2"
+            android:textColor="#333333"
+            android:textSize="17sp" />
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="0.2dp"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="10dip"
+            android:background="#d1d1d1" />
+
+        <EditText
+            android:id="@+id/circleName"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:paddingBottom="10dip"
+            android:singleLine="true"
+            android:textColor="@color/font6f"
+            android:textSize="17sp" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:layout_below="@+id/layCirName"
+        android:layout_marginLeft="25dip"
+        android:background="#d1d1d1" />
+
+    <LinearLayout
+        android:id="@+id/layCirIcon"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line1"
+        android:layout_marginBottom="@dimen/dip30"
+        android:layout_marginLeft="25dip"
+        android:layout_marginTop="@dimen/dip30"
+        android:gravity="center_vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="10dip"
+            android:text="圈子图标"
+            android:textColor="#333333"
+            android:textSize="17sp" />
+
+        <com.changlianxi.view.CircularImage
+            android:id="@+id/circleLogo"
+            android:layout_width="80dip"
+            android:layout_height="80dip" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layCirDis"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layCirIcon"
+        android:layout_marginBottom="@dimen/dip30"
+        android:layout_marginLeft="25dip" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_gravity="top"
+            android:paddingRight="10dip"
+            android:text="@string/circle_describe2"
+            android:textColor="#333333"
+            android:textSize="17sp" />
+
+        <EditText
+            android:id="@+id/circleDis"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/dip180"
+            android:layout_marginRight="11dip"
+            android:background="@drawable/input_bg"
+            android:gravity="top"
+            android:textColor="@color/font6f"
+            android:textSize="17sp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnsave"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/scale110dip"
+        android:layout_below="@+id/layCirDis"
+        android:layout_marginLeft="11dip"
+        android:layout_marginRight="11dip"
+        android:layout_marginTop="15dip"
+        android:background="@drawable/btn_14c1c7"
+        android:text="@string/save_circle_message"
+        android:textColor="@color/white"
+        android:textSize="19sp" />
+
+</RelativeLayout>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bottomLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dip"
+            android:background="#d1d1d1" />
+
+        <TextView
+            android:id="@+id/btnHistory"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dip"
+            android:paddingBottom="@dimen/scale34dip"
+            android:paddingTop="@dimen/scale97dip"
+            android:text="查看修改历史"
+            android:textColor="#03a4f4"
+            android:textSize="@dimen/scale32sp" />
+
+        <TextView
+            android:id="@+id/line2"
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:layout_marginBottom="@dimen/scale97dip"
+            android:layout_marginLeft="25dip"
+            android:background="#e0e0e0"
+            android:paddingTop="@dimen/scale97dip" />
+    </LinearLayout>
+
+</LinearLayout>

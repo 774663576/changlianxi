@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:gravity="center_vertical"
+    android:orientation="vertical" >
+
+    <!-- 首字母 -->
+
+    <TextView
+        android:id="@+id/alpha"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/scale56dip"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/scale32dip"
+        android:textColor="#737373"
+        android:textSize="16sp"
+        android:visibility="gone" />
+
+    <View
+        android:id="@id/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.1dip"
+        android:background="#e3e3e3" />
+    <!-- 联系人信息 -->
+
+    <RelativeLayout
+        android:id="@+id/changebg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <include
+            android:id="@+id/userimg_layout"
+            android:layout_width="fill_parent"
+            layout="@layout/circle_member_item_avatar" />
+
+        <LinearLayout
+            android:id="@+id/layName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dip"
+            android:layout_marginTop="9dip"
+            android:layout_toRightOf="@+id/userimg_layout"
+            android:gravity="center_vertical" >
+
+            <TextView
+                android:id="@+id/username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:textColor="#242424"
+                android:textSize="@dimen/scale36sp" />
+
+            <TextView
+                android:id="@+id/authState"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dip"
+                android:background="@drawable/btn_14c1c7"
+                android:paddingBottom="3dip"
+                android:paddingLeft="5dip"
+                android:paddingRight="5dip"
+                android:paddingTop="3dip"
+                android:text="@string/already_identification"
+                android:textColor="@color/white"
+                android:textSize="9sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/userinfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layName"
+            android:layout_toRightOf="@+id/userimg_layout"
+            android:singleLine="true"
+            android:text="优米科技设计总监优米科技设计总监优米科技设计总监"
+            android:textColor="@color/a3"
+            android:textSize="@dimen/scale24sp" />
+
+        <TextView
+            android:id="@+id/userdt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/userinfo"
+            android:layout_marginBottom="5dip"
+            android:layout_toRightOf="@+id/userimg_layout"
+            android:singleLine="true"
+            android:text="在欧美大厦9分钟前"
+            android:textColor="@color/a3"
+            android:textSize="@dimen/scale24sp" />
+
+        <Button
+            android:id="@+id/btnWarn"
+            android:layout_width="@dimen/scale129dip"
+            android:layout_height="33dip"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/scale49dip"
+            android:background="@drawable/btn_warn"
+            android:focusable="false"
+            android:gravity="center"
+            android:text="@string/remind_him"
+            android:textColor="#33c7cb"
+            android:textSize="@dimen/scale30sp" />
+    </RelativeLayout>
+
+</LinearLayout>

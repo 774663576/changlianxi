@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white" >
+
+    <RelativeLayout
+        android:id="@+id/top"
+        android:layout_width="fill_parent"
+        android:layout_height="140dip"
+        android:background="@drawable/header_boxbg" >
+
+        <Button
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="13dip"
+            android:layout_marginTop="10dip"
+            android:background="@drawable/header_btn"
+            android:paddingBottom="7dip"
+            android:paddingLeft="12dip"
+            android:paddingRight="13dip"
+            android:paddingTop="7dip"
+            android:text="取消"
+            android:textColor="@color/white"
+            android:textSize="17sp" />
+
+        <RelativeLayout
+            android:id="@+id/avatarLay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp" >
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="92dip"
+                android:layout_height="92dip"
+                android:layout_centerInParent="true"
+                android:src="@drawable/header_bg" />
+
+            <com.changlianxi.view.CircularImage
+                android:id="@+id/avatar"
+                android:layout_width="82.5dip"
+                android:layout_height="82.5dip"
+                android:layout_centerInParent="true" />
+
+            <ImageView
+                android:id="@+id/avatarRelace"
+                android:layout_width="82.5dip"
+                android:layout_height="82.5dip"
+                android:layout_centerInParent="true"
+                android:background="@drawable/replace" />
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dip"
+            android:layout_marginTop="10dip"
+            android:background="@drawable/header_btn"
+            android:paddingBottom="7dip"
+            android:paddingLeft="12dip"
+            android:paddingRight="13dip"
+            android:paddingTop="7dip"
+            android:text="@string/save"
+            android:textColor="@color/white"
+            android:textSize="17sp" />
+    </RelativeLayout>
+
+    <ExpandableListView
+        android:id="@+id/expandableListView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/top"
+        android:layout_marginLeft="20dip"
+        android:cacheColorHint="@android:color/transparent"
+        android:divider="@null"
+        android:listSelector="@android:color/transparent"
+        android:scrollbars="none" >
+    </ExpandableListView>
+
+</RelativeLayout>

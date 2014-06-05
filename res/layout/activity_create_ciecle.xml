@@ -1,0 +1,54 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/title"
+        android:layout_width="fill_parent"
+        layout="@layout/title_bar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="13dip"
+        android:layout_marginRight="13dip"
+        android:layout_marginTop="20dip"
+        android:background="@drawable/input_bg"
+        android:paddingLeft="20dip" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/circle_name"
+            android:textColor="#a0a0a0"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/circleName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:paddingBottom="10dip"
+            android:paddingRight="15dip"
+            android:paddingTop="10dip"
+            android:singleLine="true"
+            android:textColor="#a0a0a0"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/createCircle"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/scale97dip"
+        android:layout_marginLeft="11dip"
+        android:layout_marginRight="11dip"
+        android:layout_marginTop="15dip"
+        android:background="@drawable/btn_14c1c7"
+        android:text="@string/complete"
+        android:textColor="@color/white"
+        android:textSize="19sp" />
+
+</LinearLayout>

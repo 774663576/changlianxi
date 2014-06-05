@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white" >
+
+    <RelativeLayout
+        android:id="@+id/top"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/scale390dip"
+        android:background="@drawable/header_boxbg" >
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="18dp"
+            android:paddingLeft="18dp"
+            android:paddingRight="18dip"
+            android:src="@drawable/icon_return" />
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp" >
+
+            <ImageView
+                android:id="@+id/iv_headbg"
+                android:layout_width="92dip"
+                android:layout_height="92dip"
+                android:layout_centerInParent="true"
+                android:src="@drawable/header_bg" />
+
+            <com.changlianxi.view.CircularImage
+                android:id="@+id/avatar"
+                android:layout_width="82.5dip"
+                android:layout_height="82.5dip"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="4.75dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/head_bg" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/selMes"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/relativeLayout1" >
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="8dip"
+                android:layout_marginTop="8dip"
+                android:maxLength="8"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:textSize="23sp" />
+
+            <TextView
+                android:id="@+id/txtnews"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/name"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:id="@+id/img_sex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/name"
+                android:layout_toRightOf="@+id/name"
+                android:paddingLeft="5dip"
+                android:src="@drawable/icon_b"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/authState"
+                android:layout_width="40dip"
+                android:layout_height="18dip"
+                android:layout_alignTop="@+id/img_sex"
+                android:layout_marginLeft="5dip"
+                android:layout_toRightOf="@+id/img_sex"
+                android:background="@drawable/btn_14c1c7"
+                android:gravity="center"
+                android:text="@string/already_identification"
+                android:textColor="@color/white"
+                android:textSize="9sp"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btnedit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dip"
+            android:layout_marginTop="10dip"
+            android:background="@drawable/header_btn"
+            android:paddingBottom="7dip"
+            android:paddingLeft="12dip"
+            android:paddingRight="13dip"
+            android:paddingTop="7dip"
+            android:text="@string/edit"
+            android:textColor="@color/white"
+            android:textSize="@dimen/scale36sp" />
+    </RelativeLayout>
+
+    <ViewStub
+        android:id="@+id/lay_prompt"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/top"
+        android:layout="@layout/user_info_prompt" />
+
+    <ExpandableListView
+        android:id="@+id/expandableListView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/top"
+        android:layout_marginTop="-70dp"
+        android:cacheColorHint="#00000000"
+        android:divider="@null"
+        android:fadingEdge="none"
+        android:listSelector="@android:color/transparent"
+        android:scrollbars="none" >
+    </ExpandableListView>
+
+</RelativeLayout>

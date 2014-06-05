@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white" >
+
+    <RelativeLayout
+        android:id="@+id/top"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/scale390dip"
+        android:background="@drawable/header_boxbg" >
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="18dp"
+            android:paddingLeft="18dp"
+            android:paddingRight="18dip"
+            android:src="@drawable/icon_list" />
+
+        <RelativeLayout
+            android:id="@+id/avatarLay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp" >
+
+            <ImageView
+                android:id="@+id/iv_headbg"
+                android:layout_width="92dip"
+                android:layout_height="92dip"
+                android:layout_centerInParent="true"
+                android:src="@drawable/header_bg" />
+
+            <com.changlianxi.view.CircularImage
+                android:id="@+id/avatar"
+                android:layout_width="82.5dip"
+                android:layout_height="82.5dip"
+                android:layout_centerInParent="true" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/txtShow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/avatarLay"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="3dip"
+            android:layout_marginTop="8dip"
+            android:singleLine="true"
+            android:text="我的名片"
+            android:textColor="@color/white"
+            android:textSize="23sp" />
+
+        <Button
+            android:id="@+id/btnedit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dip"
+            android:layout_marginTop="10dip"
+            android:background="@drawable/header_btn"
+            android:paddingBottom="7dip"
+            android:paddingLeft="12dip"
+            android:paddingRight="13dip"
+            android:paddingTop="7dip"
+            android:text="@string/edit"
+            android:textColor="@color/white"
+            android:textSize="17sp" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/changed"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/scale83dip"
+        android:layout_below="@+id/top"
+        android:background="@drawable/yellow_bg"
+        android:gravity="center"
+        android:text="@string/card_change"
+        android:textColor="#ff7800"
+        android:textSize="@dimen/scale28sp"
+        android:visibility="gone" />
+
+    <View
+        android:id="@+id/changeline"
+        android:layout_width="match_parent"
+        android:layout_height="0.3dip"
+        android:layout_below="@+id/changed"
+        android:background="#e3d392" />
+
+    <ExpandableListView
+        android:id="@+id/expandableListView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/top"
+        android:layout_marginTop="-70dp"
+        android:cacheColorHint="#00000000"
+        android:divider="@null"
+        android:fadingEdge="none"
+        android:listSelector="@android:color/transparent"
+        android:scrollbars="none" >
+    </ExpandableListView>
+
+</RelativeLayout>

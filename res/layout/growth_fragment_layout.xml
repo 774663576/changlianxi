@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:background="@color/f6"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/noMessage"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dip"
+        android:gravity="center"
+        android:lineSpacingExtra="4dip"
+        android:padding="5dip"
+        android:text="@string/noGrowth"
+        android:textColor="#c8313131"
+        android:textSize="18sp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/promptCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/noMessage"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_margin="10dip"
+        android:background="@drawable/news_bg"
+        android:paddingBottom="8dip"
+        android:paddingLeft="30dip"
+        android:paddingRight="30dip"
+        android:paddingTop="8dip"
+        android:textColor="@color/white"
+        android:textSize="@dimen/scale26sp"
+        android:visibility="gone" />
+
+    <com.changlianxi.view.PullDownViewGrowth
+        android:id="@+id/PullDownlistView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/promptCount"
+        android:cacheColorHint="@android:color/transparent" >
+    </com.changlianxi.view.PullDownViewGrowth>
+
+</RelativeLayout>

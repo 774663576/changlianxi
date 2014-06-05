@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="15dip" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dip" >
+
+        <TextView
+            android:id="@+id/key"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="5dip"
+            android:drawablePadding="6dip"
+            android:drawableRight="@drawable/angle_down2"
+            android:gravity="center"
+            android:paddingLeft="15dip"
+            android:paddingRight="10dip"
+            android:text="@string/nickname"
+            android:textColor="#bfbfbf"
+            android:textSize="15sp" />
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="1dip"
+            android:layout_height="fill_parent"
+            android:background="#d1d1d1" />
+
+        <EditText
+            android:id="@+id/value"
+            android:layout_width="0dip"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="5dip"
+            android:layout_weight="1"
+            android:background="@null"
+            android:paddingLeft="15dip"
+            android:singleLine="true"
+            android:text="value"
+            android:textColor="#c8313131"
+            android:textSize="15sp" >
+        </EditText>
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dip"
+            android:text="（不可更改）"
+            android:textColor="#bfbfbf"
+            android:textSize="15sp"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/btnDel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="15dip"
+            android:layout_marginTop="2dip"
+            android:src="@drawable/icon_del__edit" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="#d1d1d1" />
+
+</LinearLayout>

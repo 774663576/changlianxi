@@ -1,0 +1,32 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ImageView
+        android:id="@+id/imgLine"
+        android:layout_width="1dip"
+        android:layout_height="fill_parent"
+        android:layout_marginLeft="35dip"
+        android:scaleType="fitXY"
+        android:src="@drawable/news_line" />
+
+    <TextView
+        android:id="@+id/noDynamic"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dip"
+        android:gravity="center"
+        android:lineSpacingExtra="4dip"
+        android:padding="5dip"
+        android:text="@string/no_dynamic"
+        android:textColor="#c8313131"
+        android:textSize="18sp"
+        android:visibility="gone" />
+
+    <com.changlianxi.view.PullDownView
+        android:id="@+id/PullDownlistView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
+
+</RelativeLayout>

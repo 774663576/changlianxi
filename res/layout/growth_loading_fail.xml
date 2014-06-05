@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layoutBg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingLeft="10dip"
+    android:paddingRight="10dip" >
+
+    <Button
+        android:id="@+id/btnSend"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/scale128dip"
+        android:layout_marginLeft="2dip"
+        android:layout_marginRight="2dip"
+        android:background="@drawable/btn_14c1c7"
+        android:text="重新发送"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/btnDel"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/scale128dip"
+        android:layout_marginLeft="2dip"
+        android:layout_marginRight="2dip"
+        android:layout_marginTop="20dip"
+        android:background="@drawable/btn_14c1c7"
+        android:text="刪除"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+</LinearLayout>

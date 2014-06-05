@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <Button
+        android:id="@+id/btn_save"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/scale89dip"
+        android:background="@drawable/btn_bg2"
+        android:textColor="#ffffff"
+        android:textSize="@dimen/sp42"
+        android:layout_marginTop="@dimen/scale66dip"
+        android:layout_marginLeft="@dimen/scale55dip"
+        android:layout_marginRight="@dimen/scale55dip"
+        android:layout_marginBottom="@dimen/scale30dip"
+        android:text="@string/save" />
+
+</LinearLayout>

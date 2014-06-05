@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="100dip"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/circleLogo"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true" >
+
+        <ImageView
+            android:id="@+id/circleBg"
+            android:layout_width="93dip"
+            android:layout_height="93dip"
+            android:layout_centerInParent="true"
+            android:contentDescription="@null"
+            android:src="@drawable/home_image_bg" />
+
+        <com.changlianxi.view.CircularImage
+            android:id="@+id/circleImg"
+            android:layout_width="80dip"
+            android:layout_height="80dip"
+            android:layout_centerInParent="true" />
+
+        <TextView
+            android:id="@+id/txtPrompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/circleBg"
+            android:background="@drawable/updates"
+            android:gravity="center"
+            android:text="new"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            android:visibility="visible" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/circleName"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/circleLogo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/scale20dip"
+        android:gravity="center"
+        android:lineSpacingExtra="4dip"
+        android:maxLines="2"
+        android:paddingBottom="@dimen/scale30dip"
+        android:text="aaaaaa"
+        android:textColor="#cc000000"
+        android:textSize="13sp" />
+
+</RelativeLayout>

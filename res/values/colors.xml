@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="default_font_color">#828282</color>
+    <color name="transparent">#00000000</color>
+    <color name="gold">#b89766</color>
+    <color name="f6">#F6F6F6</color>
+    <color name="bgcolor">#f2f2f2</color>
+    <color name="gray_b8">#ffb8b8b8</color>
+    <color name="gray_f4">#f4b8b8b8</color>
+    <color name="white">#ffffff</color>
+    <color name="a3">#a3a3a3</color>
+    <color name="d9">#D9D9D9</color>
+    <color name="f6f">#6f6f6f</color>
+    <color name="black">#000000</color>
+    <color name="line">#ffe0e0e0</color>
+    <color name="font81">#818181</color>
+    <color name="font6f">#6f6f6f</color>
+    <color name="yellow">#fd7a00</color>
+    <color name="blue">#3d8394</color>
+    <color name="dc">#dcdcdc</color>
+    <color name="versionbg">#d8d9d4</color>
+    <color name="red">#ff00ff</color>
+    <color name="tabfond">#828282</color>
+    <color name="sliding_menu_item_down">#ff39393b</color>
+    <color name="sliding_menu_item_release">#00000000</color>
+    <color name="sliding_menu_background">#ff2c2c2e</color>
+    <color name="sliding_menu_body_background">#fff5f5f5</color>
+    <color name="auth">#88e0e4</color>
+    <color name="left_menu_blue">#14c1c7</color>
+    <color name="left_menu_black">#262626</color>
+    <color name="search_layer_bg">#7f000000</color>
+    <color name="setingpublic80">#808080</color>
+    <color name="setingpublic14">#14c1c7</color>
+    <color name="d2">#d2d2d2</color>
+    <color name="ca">#CACACA</color>
+    <color name="ff5400">#ff5400</color>
+    <color name="member_list_item_line">#e3e3e3</color>
+
+</resources>

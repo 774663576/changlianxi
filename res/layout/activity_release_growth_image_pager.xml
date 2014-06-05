@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="30dip"
+        android:gravity="center_vertical" >
+
+        <TextView
+            android:id="@+id/indicator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:gravity="center"
+            android:paddingBottom="@dimen/scale40dip"
+            android:paddingTop="@dimen/scale40dip"
+            android:text="@string/viewpager_indicator"
+            android:textColor="@color/white"
+            android:textSize="19sp" />
+
+        <ImageView
+            android:id="@+id/btnDel"
+            android:layout_width="75dip"
+            android:layout_height="75dip"
+            android:layout_weight="1"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:src="@drawable/icon_delete"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <com.changlianxi.view.HackyViewPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dip" />
+
+</LinearLayout>

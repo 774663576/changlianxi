@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:gravity="center_vertical" >
+
+    <TextView
+        android:id="@+id/key"
+        android:layout_width="@dimen/scale170dip"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:text="TextView"
+        android:textColor="#8c8c8c"
+        android:textSize="@dimen/scale28sp" />
+
+    <com.changlianxi.view.CircularImage
+        android:id="@+id/avatar"
+        android:layout_width="60dip"
+        android:layout_height="60dip"
+        android:layout_marginBottom="8dip"
+        android:layout_marginLeft="7dip"
+        android:layout_marginTop="8dip" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+    <com.changlianxi.view.MySlipSwitch
+        android:id="@+id/mySwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dip"
+        android:layout_marginRight="@dimen/scale30dip"
+        android:layout_marginTop="4dip" />
+
+</LinearLayout>

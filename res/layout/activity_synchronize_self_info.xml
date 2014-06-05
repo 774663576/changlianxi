@@ -1,0 +1,39 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/f6"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        layout="@layout/layout_title_bar" />
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/btnOk"
+        android:layout_below="@+id/title"
+        android:layout_marginTop="6dip"
+        android:cacheColorHint="@android:color/transparent"
+        android:divider="@null"
+        android:listSelector="@android:color/transparent" >
+    </ListView>
+
+    <Button
+        android:id="@+id/btnOk"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/scale110dip"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/scale30dip"
+        android:layout_marginLeft="@dimen/scale55dip"
+        android:layout_marginRight="@dimen/scale55dip"
+        android:layout_marginTop="@dimen/scale58dip"
+        android:background="@drawable/btn_14c1c7"
+        android:text="@string/determine"
+        android:textColor="#ffffff"
+        android:textSize="@dimen/scale50sp" />
+
+</RelativeLayout>

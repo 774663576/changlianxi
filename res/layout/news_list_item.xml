@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <LinearLayout
+        android:id="@+id/laybg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/scale20dip"
+        android:layout_marginLeft="@dimen/scale32dip"
+        android:layout_marginTop="@dimen/scale20dip" >
+
+        <com.changlianxi.view.CircularImage
+            android:id="@+id/avatar"
+            android:layout_width="38dip"
+            android:layout_height="38dip" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="14dip"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/search"
+                android:textColor="#7f737373"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dip"
+                android:text="@string/search"
+                android:textColor="#7f737373"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dip"
+                android:textColor="#7f737373"
+                android:textSize="15sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

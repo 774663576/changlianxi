@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bottomLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dip"
+        android:background="#d1d1d1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dip"
+        android:layout_marginTop="@dimen/scale97dip"
+        android:orientation="vertical"
+        android:paddingBottom="50dip" >
+
+        <TextView
+            android:id="@+id/btnSave"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/scale34dip"
+            android:text="保存到本机通讯录"
+            android:textColor="#03a4f4"
+            android:textSize="@dimen/scale32sp" />
+
+        <TextView
+            android:id="@+id/line1"
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="#e0e0e0" />
+
+        <TextView
+            android:id="@+id/btnSendMessage"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/scale34dip"
+            android:paddingTop="@dimen/scale34dip"
+            android:text="发送私信"
+            android:textColor="#03a4f4"
+            android:textSize="@dimen/scale32sp" />
+
+        <TextView
+            android:id="@+id/line4"
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="#e0e0e0" />
+
+        <TextView
+            android:id="@+id/btnHistory"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/scale34dip"
+            android:paddingTop="@dimen/scale34dip"
+            android:text="查看修改历史"
+            android:textColor="#03a4f4"
+            android:textSize="@dimen/scale32sp" />
+
+        <TextView
+            android:id="@+id/line2"
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="#e0e0e0"
+            android:paddingBottom="@dimen/scale34dip"
+            android:paddingTop="@dimen/scale34dip" />
+
+        <TextView
+            android:id="@+id/btnKickOut"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/scale34dip"
+            android:paddingTop="@dimen/scale34dip"
+            android:text="踢出本圈子"
+            android:textColor="#03a4f4"
+            android:textSize="@dimen/scale32sp" />
+
+        <TextView
+            android:id="@+id/line3"
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="#e0e0e0" />
+    </LinearLayout>
+
+</LinearLayout>

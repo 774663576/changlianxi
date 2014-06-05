@@ -1,0 +1,88 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/titlebar"
+        android:layout_width="fill_parent"
+        layout="@layout/title_bar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dip"
+        android:layout_marginLeft="13dip"
+        android:layout_marginRight="13dip"
+        android:layout_marginTop="12dip"
+        android:background="@drawable/input_bg"
+        android:paddingLeft="20dip" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/name"
+            android:textColor="#a0a0a0"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/editname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:paddingBottom="10dip"
+            android:paddingRight="10dip"
+            android:paddingTop="10dip"
+            android:singleLine="true"
+            android:textColor="#a0a0a0" >
+        </EditText>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="13dip"
+        android:layout_marginRight="13dip"
+        android:background="@drawable/input_bg"
+        android:paddingLeft="20dip" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mobile"
+            android:textColor="#a0a0a0"
+            android:textSize="15sp" />
+
+        <com.changlianxi.view.SearchEditText
+            android:id="@+id/editmobile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:inputType="number"
+            android:maxLength="13"
+            android:paddingBottom="10dip"
+            android:paddingRight="15dip"
+            android:paddingTop="10dip"
+            android:singleLine="true"
+            android:textColor="#a0a0a0" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/next"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/scale97dip"
+        android:layout_marginLeft="13dip"
+        android:layout_marginRight="13dip"
+        android:layout_marginTop="23dip"
+        android:background="@drawable/btn_14c1c7"
+        android:gravity="center"
+        android:paddingBottom="5dip"
+        android:paddingTop="5dip"
+        android:text="@string/invitation"
+        android:textColor="@color/white"
+        android:textSize="21sp" />
+
+</LinearLayout>

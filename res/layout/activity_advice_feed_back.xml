@@ -1,0 +1,40 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/titlebar"
+        android:layout_width="fill_parent"
+        layout="@layout/title_bar" />
+
+    <EditText
+        android:id="@+id/editAdvice"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/scale280dip"
+        android:layout_marginLeft="@dimen/scale20dip"
+        android:layout_marginRight="@dimen/scale20dip"
+        android:layout_marginTop="@dimen/scale30dip"
+        android:background="@drawable/input_bg"
+        android:gravity="top"
+        android:hint="@string/leave_opinion"
+        android:padding="@dimen/scale30dip"
+        android:textColor="#737373"
+        android:textSize="@dimen/scale28sp" >
+    </EditText>
+
+    <Button
+        android:id="@+id/submit"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/scale97dip"
+        android:layout_marginLeft="@dimen/scale20dip"
+        android:layout_marginRight="@dimen/scale20dip"
+        android:layout_marginTop="@dimen/scale30dip"
+        android:background="@drawable/btn_14c1c7"
+        android:text="@string/submit"
+        android:textColor="@color/white"
+        android:textSize="21sp" />
+
+</LinearLayout>

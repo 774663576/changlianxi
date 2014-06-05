@@ -1,0 +1,106 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/layout1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="#EEEEEE"
+        android:padding="@dimen/scale28dip" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/button"
+            android:layout_alignBottom="@+id/button"
+            android:layout_centerHorizontal="true"
+            android:text="@string/my_pictures"
+            android:textColor="#6B6B6B"
+            android:textSize="@dimen/sp26" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:text="@string/photo_album"
+            android:textColor="#9E9E9E" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:text="@string/cancel"
+            android:textColor="#9E9E9E" />
+    </RelativeLayout>
+
+    <GridView
+        android:id="@+id/child_grid"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/layout1"
+        android:layout_above="@+id/btnSave"
+        android:background="#000000"
+        android:cacheColorHint="@android:color/transparent"
+        android:columnWidth="90dip"
+        android:gravity="center"
+        android:horizontalSpacing="5dip"
+        android:listSelector="@android:color/transparent"
+        android:numColumns="auto_fit"
+        android:padding="5dip"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="5dip" >
+    </GridView>
+
+    <RelativeLayout
+        android:id="@+id/btnSave"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/scale107dip"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:background="#24282B" >
+
+        <RelativeLayout
+            android:id="@+id/button"
+            android:layout_width="@dimen/scale140dip"
+            android:layout_height="fill_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:background="#37A6AF" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="@string/determine"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/txt_num_show"
+                android:layout_width="wrap_content"	
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/scale10dip"
+                android:layout_marginRight="@dimen/scale10dip"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/icon_numbg"
+                android:gravity="center"
+                android:textColor="#ffffff"
+                android:textSize="@dimen/scale20sp"
+                android:visibility="invisible"/>
+        </RelativeLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

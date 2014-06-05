@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textrompt1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/txt_show_num"
+        android:layout_marginBottom="10dip"
+        android:gravity="center"
+        android:shadowColor="#ffffff"
+        android:shadowDx="0.6"
+        android:shadowDy="0.6"
+        android:shadowRadius="0.5"
+        android:text="@string/auth_code_finish"
+        android:textColor="#5F6761"
+        android:textSize="@dimen/scale36sp" />
+
+    <TextView
+        android:id="@+id/txt_show_num"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/lay_input"
+        android:layout_marginBottom="20dip"
+        android:gravity="center"
+        android:textSize="@dimen/scale66sp" />
+
+    <LinearLayout
+        android:id="@+id/lay_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="@dimen/scale34dip"
+        android:layout_marginRight="@dimen/scale34dip"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingBottom="50dip" >
+
+        <EditText
+            android:id="@+id/editCode"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/scale129dip"
+            android:background="@drawable/input_top_radius"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:hint="@string/input_auth_code"
+            android:inputType="number"
+            android:paddingLeft="@dimen/scale44dip"
+            android:singleLine="true"
+            android:textColor="#000000"
+            android:textColorHint="#B8B8B8"
+            android:textSize="@dimen/scale46sp" >
+        </EditText>
+
+        <Button
+            android:id="@+id/btfinish_yz"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/scale129dip"
+            android:layout_marginLeft="-1dip"
+            android:layout_marginRight="-1dip"
+            android:background="@drawable/bor_radius_bottom"
+            android:singleLine="true"
+            android:text="@string/verify_complete"
+            android:textColor="@color/white"
+            android:textSize="@dimen/scale46sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layBottom"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="15dip"
+        android:background="@drawable/back2"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/scale34dip"
+            android:layout_marginRight="@dimen/scale34dip"
+            android:layout_marginTop="15dip"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/bt_get_code"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/scale97dip"
+                android:layout_marginRight="5dip"
+                android:layout_weight="1"
+                android:background="@drawable/btn_tran51"
+                android:text="@string/again_auth_code"
+                android:textColor="@color/white"
+                android:textSize="@dimen/scale32sp" />
+
+            <Button
+                android:id="@+id/bt_sendmessage"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/scale97dip"
+                android:layout_marginLeft="5dip"
+                android:layout_weight="1"
+                android:background="@drawable/btn_tran51"
+                android:text="@string/send_verify_message"
+                android:textColor="@color/white"
+                android:textSize="@dimen/scale32sp" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dip"
+            android:layout_marginLeft="@dimen/scale34dip"
+            android:layout_marginRight="@dimen/scale34dip"
+            android:paddingTop="@dimen/scale35dip"
+            android:shadowColor="#ffffff"
+            android:shadowDx="0.6"
+            android:shadowDy="0.6"
+            android:shadowRadius="0.5"
+            android:text="@string/send_clx_message"
+            android:textColor="#5F6761"
+            android:textSize="@dimen/scale36sp" />
+    </LinearLayout>
+
+</RelativeLayout>

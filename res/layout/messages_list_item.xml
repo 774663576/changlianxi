@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:gravity="center"
+    android:paddingBottom="@dimen/scale30dip"
+    android:paddingLeft="@dimen/scale20dip"
+    android:paddingRight="@dimen/scale20dip"
+    android:paddingTop="@dimen/scale30dip" >
+
+    <com.changlianxi.view.CircularImage
+        android:id="@+id/avatar"
+        android:layout_width="42dip"
+        android:layout_height="42dip" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/scale31dip"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text="刘丹丹"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/scale12dip"
+                android:layout_toRightOf="@+id/name"
+                android:background="@drawable/tab_prompt"
+                android:gravity="center"
+                android:text="5"
+                android:textColor="@color/white"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="09-14"
+                android:textColor="#7f737373"
+                android:textSize="@dimen/scale28sp" />
+        </RelativeLayout>
+
+        <com.changlianxi.view.EmojiEditText
+            android:id="@+id/content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/scale19dip"
+            android:background="@null"
+            android:focusable="false"
+            android:singleLine="true"
+            android:text="43454343543643543"
+            android:textColor="#737373"
+            android:textSize="@dimen/scale28sp" />
+    </LinearLayout>
+
+</LinearLayout>

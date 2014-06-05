@@ -1,0 +1,120 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/titlebar"
+        android:layout_width="fill_parent"
+        layout="@layout/title_bar" />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_margin="@dimen/dip20"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <com.changlianxi.view.GrowthImgGridView
+                android:id="@+id/imgGridview"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:numColumns="4"
+                android:scrollbars="none" >
+            </com.changlianxi.view.GrowthImgGridView>
+
+            <EditText
+                android:id="@+id/content"
+                android:layout_width="fill_parent"
+                android:layout_height="100dip"
+                android:background="@drawable/input_bg"
+                android:gravity="top"
+                android:hint="@string/record_growth"
+                android:padding="10dip"
+                android:textColor="@color/font81"
+                android:textSize="15sp" >
+            </EditText>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dip20"
+                android:background="@drawable/input_bg"
+                android:paddingLeft="15dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/happen_time"
+                    android:textColor="@color/font81"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:focusable="false"
+                    android:paddingBottom="12dip"
+                    android:paddingTop="12dip"
+                    android:textColor="@color/font81"
+                    android:textSize="15sp" >
+                </EditText>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dip20"
+                android:background="@drawable/input_bg"
+                android:gravity="center"
+                android:paddingLeft="15dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/happen_place"
+                    android:textColor="@color/font81"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/location"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:hint="正在获取地址..."
+                    android:paddingBottom="12dip"
+                    android:paddingTop="12dip"
+                    android:textColor="@color/font81"
+                    android:textSize="15sp" >
+                </EditText>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnUpload"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/scale97dip"
+                android:layout_marginBottom="30dip"
+                android:layout_marginTop="@dimen/dip40"
+                android:background="@drawable/btn_14c1c7"
+                android:text="@string/release"
+                android:textColor="@color/white"
+                android:textSize="21sp" />
+        </LinearLayout>
+    </ScrollView>
+
+    <com.baidu.mapapi.MapView
+        android:id="@+id/map_View"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:clickable="true"
+        android:visibility="gone" />
+
+</LinearLayout>

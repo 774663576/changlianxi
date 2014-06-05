@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/scale41dip"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/scale48dip"
+        android:background="@drawable/time_bg"
+        android:gravity="center"
+        android:paddingLeft="@dimen/scale30dip"
+        android:paddingRight="@dimen/scale30dip"
+        android:text="TextView"
+        android:textColor="@color/white"
+        android:textSize="@dimen/scale18sp" />
+
+    <RelativeLayout
+        android:id="@+id/selfLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/scale20dip"
+        android:layout_marginRight="@dimen/scale20dip"
+        android:layout_marginTop="@dimen/scale48dip" >
+
+        <com.changlianxi.view.CircularImage
+            android:id="@+id/selfAvatar"
+            android:layout_width="40dip"
+            android:layout_height="40dip"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dip" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="18dip"
+            android:background="@drawable/caht_box_blue_bg" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/selfContent"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/scale20dip"
+                android:layout_marginTop="@dimen/scale26dip"
+                android:paddingRight="60dip" >
+
+                <ImageView
+                    android:id="@+id/selfImg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:maxHeight="200dip"
+                    android:minWidth="200dip"
+                    android:visibility="gone" />
+
+                <com.changlianxi.view.EmojiEditText
+                    android:id="@+id/selfContent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dip"
+                    android:background="@null"
+                    android:focusable="false"
+                    android:gravity="left|center_vertical"
+                    android:lineSpacingExtra="4dip"
+                    android:text=" sdfsdfsdfsdfsdf"
+                    android:textColor="#e5000000"
+                    android:textSize="16sp" />
+            </LinearLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+
+</LinearLayout>

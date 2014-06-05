@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#fff8de" >
+
+    <TextView
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dip"
+        android:layout_weight="1"
+        android:paddingBottom="15dip"
+        android:paddingTop="15dip"
+        android:text="有人修改了您的资料"
+        android:textColor="#ff7800"
+        android:textSize="@dimen/scale32sp" />
+
+    <Button
+        android:id="@+id/btnLook"
+        android:layout_width="@dimen/scale129dip"
+        android:layout_height="33dip"
+        android:layout_marginRight="@dimen/scale49dip"
+        android:background="@drawable/btn_warn"
+        android:focusable="false"
+        android:gravity="center"
+        android:text="查看"
+        android:textColor="#33c7cb"
+        android:textSize="@dimen/scale30sp" />
+
+</LinearLayout>

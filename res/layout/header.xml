@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#c9c9ce" >
+
+    <com.changlianxi.view.SearchEditText
+        android:id="@+id/search"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="9dip"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_marginTop="9dip"
+        android:background="@drawable/search_bg"
+        android:focusable="false"
+        android:hint="@string/search_member"
+        android:paddingLeft="29dip"
+        android:singleLine="true"
+        android:textColor="#b3b3b3"
+        android:textColorHint="#b3b3b3"
+        android:textSize="@dimen/scale30sp" >
+    </com.changlianxi.view.SearchEditText>
+    <!-- @dimen/scale66dip -->
+
+</LinearLayout>

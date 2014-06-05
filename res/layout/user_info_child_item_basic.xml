@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF" >
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_alignBottom="@+id/content"
+        android:layout_alignTop="@+id/content"
+        android:layout_marginLeft="25.0dip" >
+
+        <ImageView
+            android:id="@+id/line_top"
+            android:layout_width="1.0dip"
+            android:layout_height="10.0dip"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:scaleType="fitXY"
+            android:src="#e9e9e9" />
+
+        <ImageView
+            android:id="@+id/line_bottom"
+            android:layout_width="1.0dip"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/image"
+            android:layout_centerHorizontal="true"
+            android:scaleType="fitXY"
+            android:src="#e9e9e9" />
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10.0dip"
+            android:scaleType="fitXY"
+            android:src="@drawable/dian1" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/content"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="52.0dip"
+        android:layout_marginRight="25.0dip"
+        android:paddingBottom="7.0dip"
+        android:paddingTop="7.0dip" >
+
+        <TextView
+            android:id="@+id/key"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dip"
+            android:text="key"
+            android:textColor="#bfbfbf"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="10dip"
+            android:layout_toRightOf="@+id/key"
+            android:text="value"
+            android:textColor="#c8313131"
+            android:textSize="15sp" >
+        </TextView>
+    </RelativeLayout>
+
+</RelativeLayout>
