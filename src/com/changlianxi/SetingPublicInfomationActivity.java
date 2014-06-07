@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import net.tsz.afinal.FinalBitmap;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -25,7 +24,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.changlianxi.applation.CLXApplication;
 import com.changlianxi.data.Circle;
 import com.changlianxi.data.CircleMember;
 import com.changlianxi.data.Global;
@@ -41,6 +39,7 @@ import com.changlianxi.util.BroadCast;
 import com.changlianxi.util.Constants;
 import com.changlianxi.util.DateUtils;
 import com.changlianxi.util.DialogUtil;
+import com.changlianxi.util.FinalBitmapLoadTool;
 import com.changlianxi.util.SortPersonType;
 import com.changlianxi.util.UserInfoUtils;
 import com.changlianxi.util.Utils;
@@ -74,7 +73,6 @@ public class SetingPublicInfomationActivity extends BaseActivity implements
     private String personalIDs = "";
     private TextView text;
     private String type = "";
-    private FinalBitmap fb;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -83,7 +81,6 @@ public class SetingPublicInfomationActivity extends BaseActivity implements
         cid = getIntent().getIntExtra("cid", 0);
         type = getIntent().getStringExtra("type");
         group = new ArrayList<GroupModle>();
-        initFB();
         initView();
         card = new MyCard(0, Global.getIntUid());
         card.read(DBUtils.getDBsa(1));
@@ -93,12 +90,6 @@ public class SetingPublicInfomationActivity extends BaseActivity implements
         circleMember.readDetails(DBUtils.getDBsa(1));
         getData();
         getGroupData();
-    }
-
-    private void initFB() {
-        fb = CLXApplication.getFb();
-        fb.configLoadfailImage(R.drawable.head_bg);
-        fb.configLoadingImage(R.drawable.head_bg);
     }
 
     private void initView() {
@@ -554,7 +545,10 @@ public class SetingPublicInfomationActivity extends BaseActivity implements
             switch (viewType) {
                 case TYPE_1:
                     avatarHolder.key.setText(key + ":");
-                    fb.display(avatarHolder.avatar, value);
+                    // fb.display(avatarHolder.avatar, value);
+                    FinalBitmapLoadTool.display(value, avatarHolder.avatar,
+                            R.drawable.head_bg);
+
                     avatarHolder.mySwitch
                             .setOnSwitchListener(new OnSwitchListener() {
 
@@ -767,8 +761,9 @@ public class SetingPublicInfomationActivity extends BaseActivity implements
                 ChildModle c = basic.get(i);
                 c.setFalg(flag);
                 if (!flag) {
-                    if (i - 1 >= 0 && (c.getKey() == PersonDetailType.D_NAME)) {
-                        if (basic.get(i - 1).getKey() == c.getKey()) {
+                    if (i - 1 >= 0
+                            && (c.getKey().equals(PersonDetailType.D_NAME))) {
+                        if (basic.get(i - 1).getKey().equals(c.getKey())) {
                             c.setFalg(true);
                         }
                     }

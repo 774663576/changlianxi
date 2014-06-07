@@ -250,7 +250,7 @@ public class MessageActivity extends BaseActivity implements OnClickListener,
         back = (ImageView) findViewById(R.id.back);
         name = (TextView) findViewById(R.id.titleTxt);
         name.setText(receiveName);
-        adapter = new MessageAdapter(this, chatsList, cid, receiveAvatar,
+        adapter = new MessageAdapter(this, chatsList, receiveAvatar,
                 receiveName, receivePid);
         listview.setAdapter(adapter);
         viewPager = (ViewPager) findViewById(R.id.viewpager);

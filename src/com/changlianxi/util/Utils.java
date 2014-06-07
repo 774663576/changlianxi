@@ -201,7 +201,8 @@ public class Utils {
                 }
                 name += circleMembers.get(i).getName() + "、";
             }
-            name = name.substring(0, name.length() - 1) + "等";
+            name = name.substring(0, name.length() - 1) + "等"
+                    + circleMembers.size() + "人";
         }
         String content = StringUtils.getWarneContent(nameWarn, inviteCode,
                 circleName, name);

@@ -185,7 +185,7 @@ public class HomeFragMent extends Fragment implements OnClickListener,
         btnOk = (Button) getView().findViewById(R.id.btnOk);
         btnOk.setText("立即去完善");
         btnCancle = (Button) getView().findViewById(R.id.btnCancle);
-        btnCancle.setText("稍候完善");
+        btnCancle.setText("稍后完善");
         btnOk.setOnClickListener(this);
         btnCancle.setOnClickListener(this);
         TextView txt = (TextView) getView().findViewById(R.id.txtShow);
@@ -285,7 +285,7 @@ public class HomeFragMent extends Fragment implements OnClickListener,
                     c.setNewGrowthCnt(0);
                     c.setNewGrowthCommentCnt(0);
                 } else if (type.equals(ResolutionPushJson.NEW_TYPE)) {
-                    c.setNewGrowthCommentCnt(0);
+                    c.setNewDynamicCnt(0);
                 } else if (type.equals(ResolutionPushJson.TYPE_MY_EDIT)) {
                     c.setNewMyDetailEditCnt(0);
                 }
@@ -442,7 +442,6 @@ public class HomeFragMent extends Fragment implements OnClickListener,
     @Override
     public void onDestroy() {
         super.onDestroy();
-        SharedUtils.setInt("loginType", 2);
         getActivity().unregisterReceiver(mBroadcastReceiver);
     }
 

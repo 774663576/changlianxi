@@ -42,6 +42,7 @@ import com.changlianxi.showBigPic.ImagePagerActivity;
 import com.changlianxi.util.BitmapUtils;
 import com.changlianxi.util.Constants;
 import com.changlianxi.util.FileUtils;
+import com.changlianxi.util.FinalBitmapLoadTool;
 import com.changlianxi.util.MD5;
 import com.changlianxi.util.StringUtils;
 import com.changlianxi.util.Utils;
@@ -66,7 +67,6 @@ public class ShareActivity extends BaseActivity implements OnClickListener,
     private List<GridModle> lists = new ArrayList<GridModle>();
     private MyAdapter adapter;
     private TextView title;
-    private FinalBitmap fb;
     private Bitmap mBitmap;
     private String imgNetPath = "";
     private TextView txtShow;
@@ -78,8 +78,6 @@ public class ShareActivity extends BaseActivity implements OnClickListener,
         ShareSDK.initSDK(this);
         setContentView(R.layout.activity_share);
         findViewByID();
-        fb = CLXApplication.getFb();
-        fb.configLoadingImage(R.drawable.empty_photo);
         content = getIntent().getExtras().getString("content");
         from = getIntent().getExtras().getInt("from");
         gid = getIntent().getExtras().getInt("gid");
@@ -101,7 +99,7 @@ public class ShareActivity extends BaseActivity implements OnClickListener,
     }
 
     private void setImage() {
-        fb.configDisplayer(new Displayer() {
+        FinalBitmapLoadTool.getFb().configDisplayer(new Displayer() {
 
             @Override
             public void loadFailDisplay(View arg0, Bitmap arg1) {
@@ -117,12 +115,8 @@ public class ShareActivity extends BaseActivity implements OnClickListener,
 
             }
         });
-        fb.display(iv_get, imgNetPath);
-        // mBitmap = fb.getBitmapFromDiskCache(imgNetPath,
-        // new BitmapDisplayConfig());
-        // if (mBitmap != null) {
-        // iv_get.setImageBitmap(mBitmap);
-        // }
+        FinalBitmapLoadTool.display(imgNetPath, iv_get, R.drawable.empty_photo);
+
     }
 
     /**

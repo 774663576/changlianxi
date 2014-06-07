@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import net.tsz.afinal.FinalBitmap;
 import net.tsz.afinal.bitmap.core.BitmapDisplayConfig;
 import net.tsz.afinal.bitmap.display.Displayer;
 import android.annotation.SuppressLint;
@@ -38,7 +37,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.changlianxi.applation.CLXApplication;
 import com.changlianxi.data.Circle;
 import com.changlianxi.data.CircleMember;
 import com.changlianxi.data.Global;
@@ -57,6 +55,7 @@ import com.changlianxi.util.BroadCast;
 import com.changlianxi.util.Constants;
 import com.changlianxi.util.DateUtils;
 import com.changlianxi.util.DialogUtil;
+import com.changlianxi.util.FinalBitmapLoadTool;
 import com.changlianxi.util.SaveContactsToPhone;
 import com.changlianxi.util.SortPersonType;
 import com.changlianxi.util.UserInfoUtils;
@@ -117,7 +116,6 @@ public class UserInfoActivity extends BaseActivity implements OnClickListener,
     private ImageView iv_sex;
     private LinearLayout warnLayout;
     private LinearLayout btnOk;
-    private FinalBitmap fb;
     private String sex = "";
     private Info inSex = null;
     private ViewStub layPrompt;
@@ -129,6 +127,7 @@ public class UserInfoActivity extends BaseActivity implements OnClickListener,
     private int botsi = 0;
     private View emptheadview;
     private ImageView iv_headbg;
+    private Bitmap editAvatarBitmap;
     private Handler mHandler = new Handler() {
         @SuppressLint("NewApi")
         public void handleMessage(android.os.Message msg) {
@@ -143,8 +142,7 @@ public class UserInfoActivity extends BaseActivity implements OnClickListener,
                     if (sex.equals("1") || "男".equals(sex)) {
                         iv_sex.setVisibility(View.VISIBLE);
                         iv_sex.setImageResource(R.drawable.icon_b);
-                    }
-                    if (sex.equals("2") || "女".equals(sex)) {
+                    } else if (sex.equals("2") || "女".equals(sex)) {
                         iv_sex.setImageResource(R.drawable.icon_g);
                         iv_sex.setVisibility(View.VISIBLE);
                     }
@@ -162,13 +160,11 @@ public class UserInfoActivity extends BaseActivity implements OnClickListener,
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_info);
-        initFB();
         init();
     }
 
     @SuppressWarnings("unchecked")
     private void init() {
-        cellPhone = getIntent().getStringExtra("cellPhone");
         circleMember = (CircleMember) getIntent().getExtras().getSerializable(
                 "member");
         if (circleMember.getState().equals(CircleMemberState.STATUS_INVITING)) {
@@ -180,13 +176,8 @@ public class UserInfoActivity extends BaseActivity implements OnClickListener,
         pid = circleMember.getPid();
         cid = circleMember.getCid();
         uid = circleMember.getUid();
+        cellPhone = circleMember.getCellphone();
         mHandler.sendEmptyMessageDelayed(5, 200);
-    }
-
-    private void initFB() {
-        fb = CLXApplication.getFb();
-        fb.configLoadingImage(R.drawable.head_bg);
-        fb.configLoadfailImage(R.drawable.head_bg);
     }
 
     private void initView() {
@@ -202,6 +193,7 @@ public class UserInfoActivity extends BaseActivity implements OnClickListener,
         iv_sex = (ImageView) findViewById(R.id.img_sex);
         initFooterView();
         inithead();
+        setFooterVisible();
         setOnClickListener();
     }
 
@@ -312,11 +304,10 @@ public class UserInfoActivity extends BaseActivity implements OnClickListener,
     }
 
     private void setAvatar() {
-        Bitmap mBitmap = fb.getBitmapFromDiskCache(iconPath,
-                new BitmapDisplayConfig());
+        Bitmap mBitmap = FinalBitmapLoadTool.getFb().getBitmapFromDiskCache(
+                iconPath, new BitmapDisplayConfig());
         if (mBitmap != null) {
             avatar.setImageBitmap(mBitmap);
-            // setBackGroubdOfDrable(BitmapUtils.convertBimapToDrawable(mBitmap));
             new BoxBlurFilterThread(mBitmap).start();
         } else {
             avatar.setImageResource(R.drawable.head_bg);
@@ -325,7 +316,7 @@ public class UserInfoActivity extends BaseActivity implements OnClickListener,
     }
 
     private void loadingAvatar() {
-        fb.configDisplayer(new Displayer() {
+        FinalBitmapLoadTool.getFb().configDisplayer(new Displayer() {
             @Override
             public void loadFailDisplay(View arg0, Bitmap arg1) {
 
@@ -338,7 +329,8 @@ public class UserInfoActivity extends BaseActivity implements OnClickListener,
                 new BoxBlurFilterThread(mBitmap).start();
             }
         });
-        fb.display(avatar, iconPath);
+        FinalBitmapLoadTool.display(iconPath, avatar, R.drawable.head_bg);
+
     }
 
     private void setBackGroubdOfDrable(Drawable darble) {
@@ -448,7 +440,6 @@ public class UserInfoActivity extends BaseActivity implements OnClickListener,
                 if (dialog != null) {
                     dialog.dismiss();
                 }
-                setFooterVisible();
                 // 分类
                 clearData();
                 List<PersonDetail> details = circleMember.getDetails();
@@ -1122,6 +1113,7 @@ public class UserInfoActivity extends BaseActivity implements OnClickListener,
         bundle.putSerializable("eduList", (Serializable) showEduList);
         bundle.putSerializable("workList", (Serializable) showWorkList);
         bundle.putSerializable("emailList", (Serializable) showEmailList);
+        bundle.putParcelable("avatarBitmap", editAvatarBitmap);
         it.putExtras(bundle);
         it.putExtra("circleMumber", circleMember);
         it.setClass(this, UserInfoEditActivity.class);
@@ -1130,18 +1122,14 @@ public class UserInfoActivity extends BaseActivity implements OnClickListener,
     }
 
     private void addInSex() {
-        for (Info in : showBasicList) {
-            if (in.getKey().equals("性别")) {
-                return;
-            }
-        }
         if (inSex != null) {
-            if ("1".equals(inSex.getKey())) {
+            if ("1".equals(inSex.getValue())) {
                 inSex.setValue("男");
-            } else {
+            } else if ("2".equals(inSex.getValue())) {
                 inSex.setValue("女");
             }
             showBasicList.add(inSex);
+            inSex = null;
         }
     }
 
@@ -1221,6 +1209,7 @@ public class UserInfoActivity extends BaseActivity implements OnClickListener,
                 confirmDialog("确认要把  " + username + " 踢出圈子吗？", username);
                 break;
             case R.id.btnSave:
+                // circleMember.getContactsValues(DBUtils.getDBsa(1));
                 Dialog dialog = DialogUtil.confirmDialog(UserInfoActivity.this,
                         "请选择保存方式", "保存至已有联系人", "新建联系人", new ConfirmDialog() {
                             @Override
@@ -1288,10 +1277,10 @@ public class UserInfoActivity extends BaseActivity implements OnClickListener,
             if (!"".equals(nameStr)) {
                 name.setText(nameStr);
             }
-            Bitmap avatarBitmap = data.getExtras().getParcelable("avatar");
-            if (avatarBitmap != null) {
-                avatar.setImageBitmap(avatarBitmap);
-                new BoxBlurFilterThread(avatarBitmap).start();
+            editAvatarBitmap = data.getExtras().getParcelable("avatar");
+            if (editAvatarBitmap != null) {
+                avatar.setImageBitmap(editAvatarBitmap);
+                new BoxBlurFilterThread(editAvatarBitmap).start();
             }
             filldata();
         }
@@ -1333,4 +1322,9 @@ public class UserInfoActivity extends BaseActivity implements OnClickListener,
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        BroadCast.sendBroadCast(this, Constants.REFRESH_CIRCLE_USER_LIST);
+    }
 }

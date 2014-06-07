@@ -2,7 +2,6 @@ package com.changlianxi.adapter;
 
 import java.util.List;
 
-import net.tsz.afinal.FinalBitmap;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -14,7 +13,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.changlianxi.R;
-import com.changlianxi.applation.CLXApplication;
 import com.changlianxi.data.ChatPartner;
 import com.changlianxi.data.CircleMember;
 import com.changlianxi.data.enums.ChatType;
@@ -22,19 +20,16 @@ import com.changlianxi.db.DBUtils;
 import com.changlianxi.inteface.OnAvatarClickListener;
 import com.changlianxi.util.DateUtils;
 import com.changlianxi.util.EmojiParser;
+import com.changlianxi.util.FinalBitmapLoadTool;
 import com.changlianxi.view.EmojiEditText;
 
 public class MessageListAdapter extends BaseAdapter {
     private Context mContext;
     private List<ChatPartner> listModle;
-    private FinalBitmap fb;
 
     public MessageListAdapter(Context context, List<ChatPartner> modle) {
         this.mContext = context;
         this.listModle = modle;
-        fb = CLXApplication.getFb();
-        fb.configLoadingImage(R.drawable.head_bg);
-        fb.configLoadfailImage(R.drawable.head_bg);
     }
 
     @Override
@@ -66,6 +61,9 @@ public class MessageListAdapter extends BaseAdapter {
         ChatType type = listModle.get(position).getType();
         CircleMember c = getNameAndAvatar(cid, uid, mContext);
         String avatar = c.getAvatar();
+        if (cid == 0) {
+            avatar = listModle.get(position).getuAvatar();
+        }
         if ("".equals(name)) {
             name = c.getName();
         }
@@ -105,7 +103,9 @@ public class MessageListAdapter extends BaseAdapter {
         if (!avatar.startsWith("http")) {
             holder.avatar.setImageResource(R.drawable.head_bg);
         } else {
-            fb.display(holder.avatar, avatar);
+            // fb.display(holder.avatar, avatar);
+            FinalBitmapLoadTool.display(avatar, holder.avatar,
+                    R.drawable.head_bg);
         }
         if (position % 2 == 0) {
             holder.layParent.setBackgroundColor(Color.WHITE);

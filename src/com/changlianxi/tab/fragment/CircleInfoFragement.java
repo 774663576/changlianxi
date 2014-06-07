@@ -4,12 +4,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.tsz.afinal.FinalBitmap;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -25,7 +25,6 @@ import android.widget.Toast;
 
 import com.changlianxi.EditCircleActivity;
 import com.changlianxi.R;
-import com.changlianxi.applation.CLXApplication;
 import com.changlianxi.data.Circle;
 import com.changlianxi.data.CircleMember;
 import com.changlianxi.data.Global;
@@ -41,6 +40,7 @@ import com.changlianxi.task.CircleIdetailTask;
 import com.changlianxi.util.BroadCast;
 import com.changlianxi.util.Constants;
 import com.changlianxi.util.DialogUtil;
+import com.changlianxi.util.FinalBitmapLoadTool;
 import com.changlianxi.util.Utils;
 
 public class CircleInfoFragement extends Fragment implements OnClickListener {
@@ -58,7 +58,7 @@ public class CircleInfoFragement extends Fragment implements OnClickListener {
     private Dialog dialog;
     private View rootView;// 缓存Fragment view
     private boolean isOnCreate = false;
-    private FinalBitmap fb;
+    private Bitmap logoBmp;
     private Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -98,6 +98,7 @@ public class CircleInfoFragement extends Fragment implements OnClickListener {
         super.onActivityCreated(savedInstanceState);
         if (!isOnCreate) {
             initView();
+
         }
         isOnCreate = true;
     }
@@ -119,12 +120,6 @@ public class CircleInfoFragement extends Fragment implements OnClickListener {
         registerBoradcastReceiver();
     }
 
-    private void initFB() {
-        fb = CLXApplication.getFb();
-        fb.configLoadfailImage(R.drawable.pic_bg_no);
-        fb.configLoadingImage(R.drawable.pic_bg_no);
-    }
-
     private void invisibleEdit() {
         CircleMember cm = new CircleMember(cid, 0, Global.getIntUid());
         cm.getMemberState(DBUtils.getDBsa(1));
@@ -142,7 +137,6 @@ public class CircleInfoFragement extends Fragment implements OnClickListener {
     }
 
     private void setValue() {
-        initFB();
         getServerData();
 
     }
@@ -165,13 +159,20 @@ public class CircleInfoFragement extends Fragment implements OnClickListener {
         if ("".equals(img)) {
             circleLogo.setImageResource(R.drawable.pic_bg_no);
         } else {
-            fb.display(circleLogo, img);
+            if (FinalBitmapLoadTool.getFb() == null) {
+                return;
+            }
+            logoBmp = FinalBitmapLoadTool.getFb().getBitmapFromDiskCache(img);
+            if (logoBmp != null) {
+                circleLogo.setImageBitmap(logoBmp);
+            }
+
+            // FinalBitmapLoadTool.display(img, circleLogo,
+            // R.drawable.pic_bg_no);
         }
     }
 
     private void getServerData() {
-        dialog = DialogUtil.getWaitDialog(getActivity(), "请稍候");
-        dialog.show();
         circle = new Circle(cid);
         CircleIdetailTask circleIdetailTask = new CircleIdetailTask(circle);
         circleIdetailTask
@@ -179,9 +180,6 @@ public class CircleInfoFragement extends Fragment implements OnClickListener {
 
                     @Override
                     public void taskFinish(RetError result) {
-                        if (dialog != null) {
-                            dialog.dismiss();
-                        }
                         if (circle == null) {
                             return;
                         }
@@ -192,9 +190,6 @@ public class CircleInfoFragement extends Fragment implements OnClickListener {
 
                     @Override
                     public void readDBFinish() {
-                        if (dialog != null) {
-                            dialog.dismiss();
-                        }
                         mHandler.sendEmptyMessage(0);
                     }
                 });
@@ -245,6 +240,7 @@ public class CircleInfoFragement extends Fragment implements OnClickListener {
                             intent.setClass(getActivity(),
                                     EditCircleActivity.class);
                             intent.putExtra("circle", (Serializable) circle);
+                            intent.putExtra("logoBmp", logoBmp);
                             startActivityForResult(intent, 2);
                             getActivity().overridePendingTransition(
                                     R.anim.in_from_right, R.anim.out_to_left);
@@ -449,7 +445,11 @@ public class CircleInfoFragement extends Fragment implements OnClickListener {
                 circleDescription.setText(circle.getDescription());
                 circleName.setText(circle.getName());
                 titleName.setText(circle.getName());
-                setCircleImg(circle.getLogo());
+                Bitmap bmp = intent.getExtras().getParcelable("logoBmp");
+                if (bmp != null) {
+                    circleLogo.setImageBitmap(bmp);
+                    logoBmp = bmp;
+                }
                 Intent it = new Intent(Constants.UPDECIRNAME);
                 it.putExtra("circleName", circle.getName());
                 BroadCast.sendBroadCast(getActivity(), it);

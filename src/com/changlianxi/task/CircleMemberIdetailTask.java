@@ -14,7 +14,7 @@ public class CircleMemberIdetailTask extends
             return null;
         }
         circleMember = arg0[0];
-        circleMember.read(DBUtils.getDBsa(1));
+//        circleMember.read(DBUtils.getDBsa(1));
         circleMember.readDetails(DBUtils.getDBsa(1));
         return RetError.NONE;
 

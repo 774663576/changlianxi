@@ -2,7 +2,6 @@ package com.changlianxi;
 
 import java.io.File;
 
-import net.tsz.afinal.FinalBitmap;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -17,7 +16,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.changlianxi.applation.CLXApplication;
 import com.changlianxi.data.Circle;
 import com.changlianxi.data.enums.RetError;
 import com.changlianxi.inteface.ConfirmDialog;
@@ -50,27 +48,19 @@ public class EditCircleActivity extends BaseActivity implements OnClickListener 
     private String upLoadPath = "";
     private ImageView back;
     private SelectPicPopwindow pop;
-
     private Circle circle;
     private boolean isCamera = false;
-    private FinalBitmap fb;
+    private Bitmap logoBmp;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_circle);
-        initFB();
         circle = (Circle) getIntent().getSerializableExtra("circle");
         cid = circle.getId();
         findViewByID();
         setListener();
         filldata();
-    }
-
-    private void initFB() {
-        fb = CLXApplication.getFb();
-        fb.configLoadfailImage(R.drawable.pic_bg_no);
-        fb.configLoadingImage(R.drawable.pic_bg_no);
     }
 
     /**
@@ -108,7 +98,14 @@ public class EditCircleActivity extends BaseActivity implements OnClickListener 
     }
 
     private void setLogo(String logo) {
-        fb.display(circleLogo, logo);
+        Bitmap logoBmp = getIntent().getExtras().getParcelable("logoBmp");
+        if (logoBmp != null) {
+            circleLogo.setImageBitmap(logoBmp);
+        } else {
+            circleLogo.setImageResource(R.drawable.pic_bg_no);
+        }
+        // FinalBitmapLoadTool.display(logo, circleLogo,
+        // R.drawable.empty_photo);
     }
 
     private void findViewByID() {
@@ -147,7 +144,6 @@ public class EditCircleActivity extends BaseActivity implements OnClickListener 
     private void exitConfig() {
         Dialog dialog = DialogUtil.confirmDialog(this, "是否放弃编辑？", "是", "否",
                 new ConfirmDialog() {
-
                     @Override
                     public void onOKClick() {
                         exit();
@@ -215,6 +211,7 @@ public class EditCircleActivity extends BaseActivity implements OnClickListener 
                         }
                         Intent intent = new Intent(Constants.EDIT_CIRCLE_INFO);
                         intent.putExtra("cid", cid);
+                        intent.putExtra("logoBmp", logoBmp);
                         BroadCast
                                 .sendBroadCast(EditCircleActivity.this, intent);
                         BroadCast.sendBroadCast(EditCircleActivity.this,
@@ -242,6 +239,9 @@ public class EditCircleActivity extends BaseActivity implements OnClickListener 
             isCamera = false;
         }// 拍摄图片
         else if (requestCode == Constants.REQUEST_CODE_GETIMAGE_BYCAMERA) {
+            if (pop == null) {
+                return;
+            }
             logoPath = pop.getTakePhotoPath();
             upLoadPath = BitmapUtils.startPhotoZoom(this,
                     Uri.fromFile(new File(logoPath)));
@@ -258,6 +258,7 @@ public class EditCircleActivity extends BaseActivity implements OnClickListener 
             if (extras != null) {
                 Bitmap photo = extras.getParcelable("data");
                 circleLogo.setImageBitmap(photo);
+                logoBmp = photo;
             }
         }
     }

@@ -46,6 +46,7 @@ import com.changlianxi.util.DateUtils;
  */
 public class PersonChatList extends AbstractData {
     public final static String LIST_API = "/messages/imessages";
+    public final static String PUBLIC_LIST_API = "/messages/ipubMessages";// 公共账号
 
     private int partner = 0;
     private long startTime = 0L; // data start time, in milliseconds
@@ -300,7 +301,28 @@ public class PersonChatList extends AbstractData {
             return ret.getErr();
         }
     }
-    
+
+    public RetError refreshPublic(long startTime, long endTime) {
+        IParser parser = new PersonChatListParser();
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("ruid", partner);
+        if (startTime > 0) {
+            params.put("start", startTime);
+        }
+        if (endTime > 0) {
+            params.put("end", endTime);
+        }
+
+        Result ret = ApiRequest.requestWithToken(PersonChatList.PUBLIC_LIST_API,
+                params, parser);
+        if (ret.getStatus() == RetStatus.SUCC) {
+            update((PersonChatList) ret.getData());
+            return RetError.NONE;
+        } else {
+            return ret.getErr();
+        }
+    }
+
     public void insert(PersonChat chat) {
         PersonChatList pcl = new PersonChatList(chat.getPartner());
         List<PersonChat> chats = new ArrayList<PersonChat>();

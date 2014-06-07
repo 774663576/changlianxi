@@ -37,6 +37,7 @@ import com.changlianxi.task.PostAsyncTask.PostCallBack;
 import com.changlianxi.util.BroadCast;
 import com.changlianxi.util.Constants;
 import com.changlianxi.util.DialogUtil;
+import com.changlianxi.util.FinalBitmapLoadTool;
 import com.changlianxi.util.SharedUtils;
 import com.changlianxi.util.StringUtils;
 import com.changlianxi.util.UserInfoUtils;
@@ -68,7 +69,8 @@ public class SyncchronousInformationActivity extends BaseActivity implements
     private ImageView back;
     private String headicon;
     private TextView title;
-    private FinalBitmap fb;
+
+    // private FinalBitmap fb;
 
     @SuppressWarnings("unchecked")
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,9 +82,9 @@ public class SyncchronousInformationActivity extends BaseActivity implements
         token = SharedUtils.getString("token", "");
         lists = (List<EditData>) getIntent().getExtras().getSerializable(
                 "change");
-        fb = CLXApplication.getFb();
-        fb.configLoadfailImage(R.drawable.head_bg);
-        fb.configLoadingImage(R.drawable.head_bg);
+        // fb = CLXApplication.getFb();
+        // fb.configLoadfailImage(R.drawable.head_bg);
+        // fb.configLoadingImage(R.drawable.head_bg);
         initView();
 
     }
@@ -205,7 +207,9 @@ public class SyncchronousInformationActivity extends BaseActivity implements
                         || !detail.startsWith("http")) {
                     holder.headImg.setImageResource(R.drawable.head_bg);
                 } else {
-                    fb.display(holder.headImg, detail);
+                    // fb.display(holder.headImg, detail);
+                    FinalBitmapLoadTool.display(detail, holder.headImg,
+                            R.drawable.head_bg);
 
                 }
             } else {
@@ -271,7 +275,10 @@ public class SyncchronousInformationActivity extends BaseActivity implements
                     || !circleLogo.startsWith("http")) {
                 viewHolder.circleImg.setImageResource(R.drawable.pic_bg_no);
             } else {
-                fb.display(viewHolder.circleImg, circleLogo);
+                // fb.display(viewHolder.circleImg, circleLogo);
+                FinalBitmapLoadTool.display(circleLogo, viewHolder.circleImg,
+                        R.drawable.pic_bg_no);
+
             }
 
             viewHolder.checkBox.setChecked(circles.get(position).isNew());

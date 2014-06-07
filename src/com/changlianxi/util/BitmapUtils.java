@@ -718,7 +718,7 @@ public class BitmapUtils {
         String filePthh = FileUtils.getRootDir() + "/changlianxi" + fileName;
         File file = new File(filePthh);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        int options = 70;// 个人喜欢从80开始,
+        int options = 70;//
         bmp.compress(Bitmap.CompressFormat.JPEG, options, baos);
         while (baos.toByteArray().length / 1024 > 100) {
             baos.reset();

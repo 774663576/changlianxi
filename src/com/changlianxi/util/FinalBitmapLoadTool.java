@@ -22,7 +22,7 @@ public class FinalBitmapLoadTool {
                 + "changlianxi" + File.separator + "img");
     }
 
-    public void display(String uri, ImageView imageView, int default_pic) {
+    public static void display(String uri, ImageView imageView, int default_pic) {
         fb.configLoadfailImage(default_pic);
         fb.configLoadingImage(default_pic);
         fb.display(imageView, uri);

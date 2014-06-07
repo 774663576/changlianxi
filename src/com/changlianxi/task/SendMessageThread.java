@@ -2,7 +2,6 @@ package com.changlianxi.task;
 
 import com.changlianxi.data.PersonChat;
 import com.changlianxi.data.enums.RetError;
-import com.changlianxi.db.DBUtils;
 import com.changlianxi.inteface.SendMessageAndChatCallBack;
 
 /**
@@ -39,7 +38,7 @@ public class SendMessageThread extends Thread {
         // if (send) {
         RetError ret = pChat.sendText();
         if (ret == RetError.NONE) {
-            pChat.write(DBUtils.getDBsa(2));
+            // pChat.write(DBUtils.getDBsa(2));
         } else {
             // callBack.getRetError(ret);
         }

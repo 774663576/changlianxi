@@ -11,9 +11,14 @@ import android.widget.ImageView;
 import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.changlianxi.R;
 import com.changlianxi.applation.CLXApplication;
+import com.changlianxi.data.CircleMember;
+import com.changlianxi.data.Global;
+import com.changlianxi.data.enums.CircleMemberState;
+import com.changlianxi.db.DBUtils;
 import com.changlianxi.util.BroadCast;
 import com.changlianxi.util.Constants;
 import com.changlianxi.util.ResolutionPushJson;
@@ -136,7 +141,19 @@ public class MainTabActivity extends FragmentActivity implements
     }
 
     @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        return false;
+    }
+
+    @Override
     public void onTabChanged(String tabId) {
+        CircleMember c = new CircleMember(cid, 0, Global.getIntUid());
+        c.getMemberState(DBUtils.getDBsa(1));
+        if (c.getState().equals(CircleMemberState.STATUS_INVITING)) {
+            mTabHost.setCurrentTab(0);
+            Utils.showToast("亲，加入圈子以后才能看到这些精彩内容哦！", Toast.LENGTH_SHORT);
+            return;
+        }
         View v = mTabHost.getCurrentTabView();
         TextView numTxt = (TextView) v.findViewById(R.id.un_read_num);
         numTxt.setVisibility(View.INVISIBLE);

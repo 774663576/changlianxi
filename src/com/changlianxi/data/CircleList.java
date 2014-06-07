@@ -277,14 +277,16 @@ public class CircleList extends AbstractData {
             this.circles.get(i).setNewGrowthCommentCnt(newGrowthCommentCnt);
             this.circles.get(i).setNewMemberCnt(newMemberCnt);
             this.circles.get(i).setNewMyDetailEditCnt(newMyDetailEditCnt);
-            // this.circles.get(i).setNewDynamicCnt(
-            // this.circles.get(i).getNewDynamicCnt() + newDynamicCount);
-            // this.circles.get(i).setNewGrowthCnt(
-            // this.circles.get(i).getNewGrowthCnt() + newGrowthCount);
-            // this.circles.get(i).setNewGrowthCommentCnt(
-            // this.circles.get(i).getNewGrowthCommentCnt()
-            // + newCommentCount);
         }
 
+    }
+
+    public int getCircleCount(SQLiteDatabase db) {
+        int count = 0;
+        Cursor cursor = db.query(Const.CIRCLE_TABLE_NAME,
+                new String[] { "id" }, null, null, null, null, null);
+        count = cursor.getCount();
+        cursor.close();
+        return count;
     }
 }

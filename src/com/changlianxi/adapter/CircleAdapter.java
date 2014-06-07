@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.changlianxi.R;
 import com.changlianxi.applation.CLXApplication;
 import com.changlianxi.data.Circle;
+import com.changlianxi.util.FinalBitmapLoadTool;
 import com.changlianxi.util.StringUtils;
 import com.changlianxi.view.CircularImage;
 
@@ -32,9 +33,9 @@ public class CircleAdapter extends BaseAdapter {
     public CircleAdapter(Context context, List<Circle> listModle) {
         this.circleLists = listModle;
         this.mcontext = context;
-        fb = CLXApplication.getFb();
-        fb.configLoadfailImage(R.drawable.pic_bg_no);
-        fb.configLoadingImage(R.drawable.pic_bg_no);
+        // fb = CLXApplication.getFb();
+        // fb.configLoadfailImage(R.drawable.pic_bg_no);
+        // fb.configLoadingImage(R.drawable.pic_bg_no);
     }
 
     @Override
@@ -90,9 +91,9 @@ public class CircleAdapter extends BaseAdapter {
             holder.circleBg.setImageResource(R.drawable.pic_bg_no);
             holder.circleImg.setVisibility(View.GONE);
         } else {
-            fb.display(holder.circleImg, circleLogo);
-            // FinalBitmapLoadTool.display(circleLogo, holder.circleImg,
-            // R.drawable.pic_bg_no);
+            // fb.display(holder.circleImg, circleLogo);
+            FinalBitmapLoadTool.display(circleLogo, holder.circleImg,
+                    R.drawable.pic_bg_no);
 
         }
         boolean isnew = circleLists.get(position).isNew();

@@ -37,8 +37,8 @@ import com.changlianxi.util.Constants;
 import com.changlianxi.util.DateUtils;
 import com.changlianxi.util.DialogUtil;
 import com.changlianxi.util.Utils;
-import com.changlianxi.view.PullDownView;
-import com.changlianxi.view.PullDownView.OnPullDownListener;
+import com.changlianxi.view.PullDownViewGrowth;
+import com.changlianxi.view.PullDownViewGrowth.OnPullDownListener;
 
 public class AlumMonthActivity extends BaseActivity implements OnClickListener,
         OnPullDownListener, OnScrollListener {
@@ -50,7 +50,7 @@ public class AlumMonthActivity extends BaseActivity implements OnClickListener,
     private List<GrowthAlbum> album = new ArrayList<GrowthAlbum>();
     private List<Growth> growthList = new ArrayList<Growth>();
     private ListView listview;
-    private PullDownView mPullDownView;
+    private PullDownViewGrowth mPullDownView;
     private GrowthMonthAlbumAdapter adapter;
     private Dialog dialog;
     private int startY;
@@ -106,7 +106,7 @@ public class AlumMonthActivity extends BaseActivity implements OnClickListener,
         title.setGravity(Gravity.CENTER);
         rightImg.setImageResource(R.drawable.icon_camera);
         rightImg.setVisibility(View.VISIBLE);
-        mPullDownView = (PullDownView) findViewById(R.id.PullDownlistView);
+        mPullDownView = (PullDownViewGrowth) findViewById(R.id.PullDownlistView);
         listview = mPullDownView.getListView();
         listview.setAdapter(adapter);
         listview.setSelector(new ColorDrawable(Color.TRANSPARENT));
@@ -125,6 +125,9 @@ public class AlumMonthActivity extends BaseActivity implements OnClickListener,
         task.setTaskCallBack(new PostCallBack<RetError>() {
             @Override
             public void taskFinish(RetError result) {
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
                 mPullDownView.notifyDidMore();
                 mPullDownView.RefreshComplete();
                 mHandler.sendEmptyMessage(0);
@@ -268,6 +271,7 @@ public class AlumMonthActivity extends BaseActivity implements OnClickListener,
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem,
             int visibleItemCount, int totalItemCount) {
+        mPullDownView.setFirstItemIndex(firstVisibleItem);
         if (album.size() == 0 || firstVisibleItem == album.size()) {
             return;
         }

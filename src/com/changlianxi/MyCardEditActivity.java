@@ -12,7 +12,6 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
-import net.tsz.afinal.FinalBitmap;
 import net.tsz.afinal.bitmap.core.BitmapDisplayConfig;
 
 import org.json.JSONArray;
@@ -48,12 +47,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.changlianxi.applation.CLXApplication;
+import com.changlianxi.data.CircleList;
 import com.changlianxi.data.Global;
 import com.changlianxi.data.MyCard;
 import com.changlianxi.data.PersonDetail;
 import com.changlianxi.data.enums.PersonDetailType;
 import com.changlianxi.data.enums.RetError;
+import com.changlianxi.db.DBUtils;
 import com.changlianxi.inteface.ConfirmDialog;
 import com.changlianxi.modle.Info;
 import com.changlianxi.popwindow.SelectPicPopwindow;
@@ -66,6 +66,7 @@ import com.changlianxi.util.BroadCast;
 import com.changlianxi.util.Constants;
 import com.changlianxi.util.DateUtils;
 import com.changlianxi.util.DialogUtil;
+import com.changlianxi.util.FinalBitmapLoadTool;
 import com.changlianxi.util.UserInfoUtils;
 import com.changlianxi.util.Utils;
 import com.changlianxi.view.CircularImage;
@@ -101,7 +102,6 @@ public class MyCardEditActivity extends BaseActivity implements OnClickListener 
     private MyCard circleMember;
     private MyCard newCircleMember;
     private List<PersonDetail> newDetails;
-    private Drawable bitmapFuzzy;
     private ExpandableListView listView;
     private Adapter adapter;
     private final int TYPE_1 = 1;
@@ -109,7 +109,7 @@ public class MyCardEditActivity extends BaseActivity implements OnClickListener 
     private SelectPicPopwindow pop;
     private String selectPicPath = "";
     private String specialKey[] = { "姓名", "性別", "生日", "单位" };
-    private FinalBitmap fb;
+    // private FinalBitmap fb;
     private Handler mHandler = new Handler() {
         @SuppressLint("NewApi")
         public void handleMessage(android.os.Message msg) {
@@ -155,9 +155,9 @@ public class MyCardEditActivity extends BaseActivity implements OnClickListener 
     }
 
     private void initFB() {
-        fb = CLXApplication.getFb();
-        fb.configLoadingImage(R.drawable.head_bg);
-        fb.configLoadfailImage(R.drawable.head_bg);
+        // fb = CLXApplication.getFb();
+        // fb.configLoadingImage(R.drawable.head_bg);
+        // fb.configLoadfailImage(R.drawable.head_bg);
     }
 
     @SuppressWarnings("unchecked")
@@ -307,8 +307,8 @@ public class MyCardEditActivity extends BaseActivity implements OnClickListener 
             avatar.setImageResource(R.drawable.head_bg);
             return;
         }
-        Bitmap mBitmap = fb.getBitmapFromDiskCache(avatarURL,
-                new BitmapDisplayConfig());
+        Bitmap mBitmap = FinalBitmapLoadTool.getFb().getBitmapFromDiskCache(
+                avatarURL, new BitmapDisplayConfig());
         if (mBitmap != null) {
             avatar.setImageBitmap(mBitmap);
             // setBackGroubdOfDrable(BitmapUtils.convertBimapToDrawable(mBitmap));
@@ -1033,6 +1033,10 @@ public class MyCardEditActivity extends BaseActivity implements OnClickListener 
                 default:
                     break;
             }
+            if (array.length == 0) {
+                Utils.showToast("没有可选择的类别", Toast.LENGTH_SHORT);
+                return;
+            }
             UserInfoEditSelectTypePopwindow pop = new UserInfoEditSelectTypePopwindow(
                     MyCardEditActivity.this, layParent, array,
                     UserInfoUtils.infoTitleKey[position]);
@@ -1586,8 +1590,12 @@ public class MyCardEditActivity extends BaseActivity implements OnClickListener 
 
     // TODO 修改成功
     private void updateSucceed() {
-        if (circleMember.getEditData().size() > 0) {
+        CircleList cir = new CircleList(null);
+        int count = cir.getCircleCount(DBUtils.getDBsa(1));
+        if (circleMember.getEditData().size() > 0 && count > 0) {
             synchronizeConfirmDialog();
+        } else {
+            finishAc();
         }
     }
 

@@ -12,7 +12,6 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
-import net.tsz.afinal.FinalBitmap;
 import net.tsz.afinal.bitmap.core.BitmapDisplayConfig;
 
 import org.json.JSONArray;
@@ -48,7 +47,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.changlianxi.applation.CLXApplication;
 import com.changlianxi.data.CircleMember;
 import com.changlianxi.data.Global;
 import com.changlianxi.data.PersonDetail;
@@ -63,10 +61,10 @@ import com.changlianxi.popwindow.UserInfoEditSelectTypePopwindow.OnSelectKey;
 import com.changlianxi.task.BaseAsyncTask;
 import com.changlianxi.task.UpLoadCircleMemberIdetailTask;
 import com.changlianxi.util.BitmapUtils;
-import com.changlianxi.util.BroadCast;
 import com.changlianxi.util.Constants;
 import com.changlianxi.util.DateUtils;
 import com.changlianxi.util.DialogUtil;
+import com.changlianxi.util.FinalBitmapLoadTool;
 import com.changlianxi.util.UserInfoUtils;
 import com.changlianxi.util.Utils;
 import com.changlianxi.view.CircularImage;
@@ -112,7 +110,7 @@ public class UserInfoEditActivity extends BaseActivity implements
     private String selectPicPath = "";
     private Bitmap avatarBitmap = null;
     private String specialKey[] = { "姓名", "性別", "生日", "单位" };
-    private FinalBitmap fb;
+    // private FinalBitmap fb;
     private Handler mHandler = new Handler() {
         @SuppressLint("NewApi")
         public void handleMessage(android.os.Message msg) {
@@ -151,15 +149,16 @@ public class UserInfoEditActivity extends BaseActivity implements
         initView();
         circleMember = (CircleMember) getIntent().getSerializableExtra(
                 "circleMumber");
+        avatarBitmap = getIntent().getExtras().getParcelable("avatarBitmap");
         setListener();
         setAvatar();
         filldata();
     }
 
     private void initFB() {
-        fb = CLXApplication.getFb();
-        fb.configLoadingImage(R.drawable.head_bg);
-        fb.configLoadfailImage(R.drawable.head_bg);
+        // fb = CLXApplication.getFb();
+        // fb.configLoadingImage(R.drawable.head_bg);
+        // fb.configLoadfailImage(R.drawable.head_bg);
     }
 
     @SuppressWarnings("unchecked")
@@ -249,25 +248,25 @@ public class UserInfoEditActivity extends BaseActivity implements
         gmodle.setTitle(UserInfoUtils.infoTitleKey[3]);
         group.add(gmodle);
         lists.add(addressList);
+
         gmodle = new GroupModle();
         gmodle.setTitle(UserInfoUtils.infoTitleKey[4]);
         group.add(gmodle);
         lists.add(eduList);
-
-        gmodle = new GroupModle();
-        gmodle.setTitle(UserInfoUtils.infoTitleKey[5]);
-        group.add(gmodle);
-        lists.add(workList);
-
-        gmodle = new GroupModle();
-        gmodle.setTitle(UserInfoUtils.infoTitleKey[6]);
-        group.add(gmodle);
-        lists.add(finalInfo);
+        if (!circleMember.getState().equals(CircleMemberState.STATUS_INVITING)) {
+            gmodle = new GroupModle();
+            gmodle.setTitle(UserInfoUtils.infoTitleKey[5]);
+            group.add(gmodle);
+            lists.add(workList);
+            gmodle = new GroupModle();
+            gmodle.setTitle(UserInfoUtils.infoTitleKey[6]);
+            group.add(gmodle);
+            lists.add(finalInfo);
+        }
         adapter = new Adapter();
         listView.setAdapter(adapter);
         for (int i = 0; i < adapter.getGroupCount(); i++) {
             listView.expandGroup(i);
-
         }
     }
 
@@ -305,13 +304,19 @@ public class UserInfoEditActivity extends BaseActivity implements
     }
 
     private void setAvatar() {
-        Bitmap mBitmap = fb.getBitmapFromDiskCache(avatarURL,
-                new BitmapDisplayConfig());
+        if (avatarBitmap != null) {
+            avatar.setImageBitmap(avatarBitmap);
+            new BoxBlurFilterThread(avatarBitmap).start();
+            return;
+        }
+        Bitmap mBitmap = FinalBitmapLoadTool.getFb().getBitmapFromDiskCache(
+                avatarURL, new BitmapDisplayConfig());
         if (mBitmap != null) {
             avatar.setImageBitmap(mBitmap);
             new BoxBlurFilterThread(mBitmap).start();
         } else {
             avatar.setImageResource(R.drawable.head_bg);
+
         }
     }
 
@@ -827,7 +832,6 @@ public class UserInfoEditActivity extends BaseActivity implements
             if (editType == 2) {
                 valuesList.get(position).setValue(s.toString());
             } else {
-
                 String values = valuesList.get(position).getValue();
                 if (!values.equals(s.toString())) {
                     valuesList.get(position).setValue(s.toString());
@@ -1036,6 +1040,10 @@ public class UserInfoEditActivity extends BaseActivity implements
                 default:
                     break;
             }
+            if (array.length == 0) {
+                Utils.showToast("没有可选择的类别", Toast.LENGTH_SHORT);
+                return;
+            }
             UserInfoEditSelectTypePopwindow pop = new UserInfoEditSelectTypePopwindow(
                     UserInfoEditActivity.this, layParent, array,
                     UserInfoUtils.infoTitleKey[position]);
@@ -1199,21 +1207,9 @@ public class UserInfoEditActivity extends BaseActivity implements
                     addressList.add(info);
                     break;
                 case 5:
-                    if (circleMember.getState().equals(
-                            CircleMemberState.STATUS_INVITING)) {
-                        Utils.showToast("该成员还未加入圈子，暂时不能添加教育经历",
-                                Toast.LENGTH_LONG);
-                        return;
-                    }
                     eduList.add(info);
                     break;
                 case 6:
-                    if (circleMember.getState().equals(
-                            CircleMemberState.STATUS_INVITING)) {
-                        Utils.showToast("该成员还未加入圈子，暂时不能添加工作经历",
-                                Toast.LENGTH_LONG);
-                        return;
-                    }
                     workList.add(info);
                     listView.setSelectedChild(position, workList.size(), false);
                     break;
@@ -1542,9 +1538,6 @@ public class UserInfoEditActivity extends BaseActivity implements
                                 if (result != RetError.NONE) {
                                     return;
                                 }
-                                BroadCast.sendBroadCast(
-                                        UserInfoEditActivity.this,
-                                        Constants.REFRESH_CIRCLE_USER_LIST);
                                 updateSucceed();
 
                             }

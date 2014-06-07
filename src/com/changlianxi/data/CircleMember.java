@@ -611,6 +611,9 @@ public class CircleMember extends AbstractData implements Serializable {
                         value == null ? "" : value);
                 detail.setEnd(end);
                 detail.setStart(start);
+                System.out.println("value::::::::::::::read" + type + "      "
+                        + value);
+
                 details.add(detail);
                 cursor.moveToNext();
             }
@@ -1347,7 +1350,6 @@ public class CircleMember extends AbstractData implements Serializable {
     // }
     public RetError uploadAfterEdit(CircleMember another, String avatarUrl) {
         JSONArray changedDetails = getChangedDetails(another);
-
         if (changedDetails.length() == 0 && "".equals(avatarUrl)) {
             return RetError.NONE;
         }
@@ -1803,4 +1805,29 @@ public class CircleMember extends AbstractData implements Serializable {
         }
     }
 
+    /**
+     * 获取保存到联系人用到的字段值
+     */
+    public void getContactsValues(SQLiteDatabase db) {
+        Cursor cursor;
+        String conditionsKey = "cid=? and uid=? and (type=? or type=?)";
+        String[] conditionsValue = new String[] { this.cid + "", uid + "",
+                PersonDetailType.D_AVATAR.name(),
+                PersonDetailType.D_CELLPHONE.name() };
+        cursor = db.query(Const.PERSON_DETAIL_TABLE_NAME1, new String[] {
+                "value", "type" }, conditionsKey, conditionsValue, null, null,
+                null);
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            for (int i = 0; i < cursor.getCount(); i++) {
+                String value = cursor.getString(cursor.getColumnIndex("value"));
+                String type = cursor.getString(cursor.getColumnIndex("type"));
+                System.out.println("value::::::::::::::" + type + "       "
+                        + value);
+                cursor.moveToNext();
+            }
+        }
+        cursor.close();
+
+    }
 }

@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import net.tsz.afinal.FinalBitmap;
 import net.tsz.afinal.bitmap.core.BitmapDisplayConfig;
 
 import org.json.JSONException;
@@ -26,7 +25,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.changlianxi.adapter.CircleAdapter;
-import com.changlianxi.applation.CLXApplication;
 import com.changlianxi.data.Circle;
 import com.changlianxi.data.CircleList;
 import com.changlianxi.db.DBUtils;
@@ -36,6 +34,7 @@ import com.changlianxi.task.PostAsyncTask;
 import com.changlianxi.task.PostAsyncTask.PostCallBack;
 import com.changlianxi.util.Constants;
 import com.changlianxi.util.DialogUtil;
+import com.changlianxi.util.FinalBitmapLoadTool;
 import com.changlianxi.util.SharedUtils;
 import com.changlianxi.util.Utils;
 import com.umeng.analytics.MobclickAgent;
@@ -58,15 +57,12 @@ public class ShareOthersActivity extends BaseActivity implements PostCallBack,
     private String PATH = "/growth/ishare";
     private String gimg;
     private GridView gridview;
-    private FinalBitmap fb;
     private TextView title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_share_others);
-        fb = CLXApplication.getFb();
-        fb.configLoadingImage(R.drawable.empty_photo);
         from = getIntent().getExtras().getInt("from");
         gid = getIntent().getExtras().getInt("gid");
         gridview = (GridView) findViewById(R.id.gridview);
@@ -96,8 +92,8 @@ public class ShareOthersActivity extends BaseActivity implements PostCallBack,
         // 添加并且显示
         gridview.setAdapter(saImageItems);
         content = getIntent().getExtras().getString("content");
-        Bitmap mBitmap = fb.getBitmapFromDiskCache(gimg,
-                new BitmapDisplayConfig());
+        Bitmap mBitmap = FinalBitmapLoadTool.getFb().getBitmapFromDiskCache(
+                gimg, new BitmapDisplayConfig());
         iv_get.setImageBitmap(mBitmap);
         tv_get.setText(content);
         gridview.setOnItemClickListener(new OnItemClickListener() {

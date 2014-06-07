@@ -25,6 +25,7 @@ public class ChatPartner extends AbstractChat {
     private int partner = 0; // the other user id, who chat with me
     private String partnerName = "";
     private int unReadCnt = 0; // my unread chat count
+    private String uAvatar = "";
 
     public ChatPartner(int cid, int partner, int chatId) {
         super(chatId);
@@ -37,6 +38,14 @@ public class ChatPartner extends AbstractChat {
         this.cid = cid;
         this.partner = partner;
         this.content = content;
+    }
+
+    public String getuAvatar() {
+        return uAvatar;
+    }
+
+    public void setuAvatar(String uAvatar) {
+        this.uAvatar = uAvatar;
     }
 
     public int getCid() {
@@ -75,19 +84,21 @@ public class ChatPartner extends AbstractChat {
     public String toString() {
         return "PersonChatPartner [cid=" + cid + ", partner=" + partner
                 + ", partnerName=" + partnerName + ", chatId=" + chatId
-                + ", type=" + type + ", content=" + content + ", time=" + time + "]";
+                + ", type=" + type + ", content=" + content + ", time=" + time
+                + "]";
     }
 
     @Override
     public void read(SQLiteDatabase db) {
         Cursor cursor = db.query(Const.CHAT_PARTNER_TABLE_NAME, new String[] {
-                "cid", "partnerName", "chatId", "type", "content", "time", "unReadCnt" },
-                "partner=?", new String[] { this.partner + "" }, null, null,
-                null);
+                "cid", "partnerName", "chatId", "type", "content", "time",
+                "unReadCnt" }, "partner=?", new String[] { this.partner + "" },
+                null, null, null);
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
             int cid = cursor.getInt(cursor.getColumnIndex("cid"));
-            String partnerName = cursor.getString(cursor.getColumnIndex("partnerName"));
+            String partnerName = cursor.getString(cursor
+                    .getColumnIndex("partnerName"));
             int chatId = cursor.getInt(cursor.getColumnIndex("chatId"));
             String type = cursor.getString(cursor.getColumnIndex("type"));
             String content = cursor.getString(cursor.getColumnIndex("content"));

@@ -35,8 +35,12 @@ public class ChatPartnerListParser implements IParser {
             JSONObject obj = (JSONObject) jsonArr.opt(i);
             int partnerId = obj.getInt("uid");
             String partnerName = "";
+            String uavatar = "";
             if (obj.has("uname")) {
                 partnerName = obj.getString("uname");
+            }
+            if (obj.has("uavatar")) {
+                uavatar = obj.getString("uavatar");
             }
             int chatId = obj.getInt("mid");
             int cid = obj.getInt("cid");
@@ -44,7 +48,6 @@ public class ChatPartnerListParser implements IParser {
             String content = obj.getString("msg");
             String time = obj.getString("time");
             int unReadCnt = obj.getInt("new");
-
             ChatPartner partner = new ChatPartner(cid, partnerId, chatId,
                     content);
             partner.setPartnerName(partnerName);
@@ -52,7 +55,7 @@ public class ChatPartnerListParser implements IParser {
             partner.setTime(time);
             partner.setUnReadCnt(unReadCnt);
             partner.setStatus(Status.NEW);
-
+            partner.setuAvatar(uavatar);
             partners.add(partner);
 
             long tmp = DateUtils.convertToDate(time);

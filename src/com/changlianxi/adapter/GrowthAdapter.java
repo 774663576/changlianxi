@@ -46,7 +46,10 @@ import com.changlianxi.task.BaseAsyncTask.PostCallBack;
 import com.changlianxi.task.UpLoadNewGrowthTask;
 import com.changlianxi.util.Constants;
 import com.changlianxi.util.DateUtils;
+import com.changlianxi.util.FinalBitmapLoadTool;
+import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.StringUtils;
+import com.changlianxi.util.UniversalImageLoadTool;
 import com.changlianxi.util.Utils;
 import com.changlianxi.view.CircularImage;
 import com.changlianxi.view.GrowthImgGridView;
@@ -57,19 +60,11 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 public class GrowthAdapter extends BaseAdapter {
     private List<Growth> listData;
     private Context mContext;
-    private FinalBitmap fb;
     public boolean isScrolling = false;
-    private DisplayImageOptions option;
-    private ImageLoader imageLoader;
 
     public GrowthAdapter(Context context, List<Growth> modle) {
         this.mContext = context;
         this.listData = modle;
-        fb = CLXApplication.getFb();
-        fb.configLoadingImage(R.drawable.empty_photo);
-        fb.configLoadfailImage(R.drawable.empty_photo);
-        imageLoader = CLXApplication.getImageLoader();
-        option = CLXApplication.getOption();
 
     }
 
@@ -79,8 +74,6 @@ public class GrowthAdapter extends BaseAdapter {
     }
 
     public void clearCache() {
-        // FinalBitmapLoadTool.getFb().clearCache();
-        fb.clearDiskCache();
     }
 
     public void setData(List<Growth> listData) {
@@ -162,9 +155,11 @@ public class GrowthAdapter extends BaseAdapter {
             } else {
                 imgPath = "file://" + imgPath;
             }
-            fb.display(holder.img, imgPath);
+            // fb.display(holder.img, imgPath);
             // FinalBitmapLoadTool.display(imgPath, holder.img,
             // R.drawable.empty_photo);
+            UniversalImageLoadTool.disPlay(imgPath, new RotateImageViewAware(
+                    holder.img, imgPath), R.drawable.empty_photo);
             holder.img.setVisibility(View.VISIBLE);
             holder.img.setOnClickListener(new ImgOnClick(growth.getImages()
                     .get(0).getImg(), position));
@@ -187,7 +182,10 @@ public class GrowthAdapter extends BaseAdapter {
             holder.avatar.setImageResource(R.drawable.head_bg);
         } else {
             // fb.display(holder.avatar, path);
-            imageLoader.displayImage(path, holder.avatar, option);
+            // imageLoader.displayImage(path, holder.avatar, option);
+            FinalBitmapLoadTool
+                    .display(path, holder.avatar, R.drawable.head_bg);
+
         }
         holder.name.setText(name);
         holder.time.setText(DateUtils.publishedTime(growth.getPublished()));

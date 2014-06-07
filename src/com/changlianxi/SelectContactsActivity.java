@@ -97,10 +97,12 @@ public class SelectContactsActivity extends BaseActivity implements
         setContentView(R.layout.activity_select_contacts);
         CLXApplication.addInviteActivity(this);
         type = getIntent().getStringExtra("type");
+        initView();
+        titleTxt.setText("添加第一批成员");
         if (type.equals("add")) {
+            titleTxt.setText("添加成员");
             cid = getIntent().getIntExtra("cid", 0);
         }
-        initView();
         adapter = new ContactsAdapter(this, listModle);
         listview.setAdapter(adapter);
         asyncQuery = new MyAsyncQueryHandler(getContentResolver());
@@ -109,7 +111,7 @@ public class SelectContactsActivity extends BaseActivity implements
         init();
 
     }
-
+   
     /**设置页面统计
      * 
      */
@@ -202,7 +204,6 @@ public class SelectContactsActivity extends BaseActivity implements
         editSearch.addTextChangedListener(new EditWather());
         listview.addHeaderView(view);
         titleTxt = (TextView) findViewById(R.id.titleTxt);
-        titleTxt.setText("添加第一批成员");
         indexBar = (QuickAlphabeticBar) findViewById(R.id.indexBar);
         indexBar.setOnTouchingLetterChangedListener(this);
         indexBar.getBackground().setAlpha(0);

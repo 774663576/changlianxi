@@ -167,6 +167,8 @@ public class MainActivity extends SlidingActivity implements
                     transaction.add(R.id.main_rl, messageListFragMent);
                 } else {
                     transaction.show(messageListFragMent);
+                    messageListFragMent.refush();
+
                 }
                 break;
             case 3:
@@ -236,19 +238,29 @@ public class MainActivity extends SlidingActivity implements
     @Override
     public void onBackPressed() {
         if (currentFramentIndex != 0) {
+            if (!getSlidingMenu().isMenuShowing()) {
+                toggle();
+            } else {
+                changeFrag(0);
+                toggle();
+                menuFragMent.setCurrentMenu(0);
+            }
+            return;
+        }
+        if (getSlidingMenu().isMenuShowing()) {
             toggle();
             return;
         }
+        SharedUtils.setInt("loginType", 2);
         unregisterReceiver(mBroadcastReceiver);
         CLXApplication.exit(true);
         super.onBackPressed();
     }
 
     @Override
-    public void onDestroy() {
+    protected void onDestroy() {
+        SharedUtils.setInt("loginType", 2);
         super.onDestroy();
-        unregisterReceiver(mBroadcastReceiver);
-
     }
 
     /**

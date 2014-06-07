@@ -9,18 +9,11 @@
         android:layout_width="fill_parent"
         layout="@layout/title_bar" />
 
-    <!-- <ListView -->
-    <!-- android:id="@+id/albumMonthListView" -->
-    <!-- android:layout_width="match_parent" -->
-    <!-- android:layout_height="match_parent" -->
-    <!-- android:listSelector="@android:color/transparent" > -->
-    <!-- </ListView> -->
-
-    <com.changlianxi.view.PullDownView
+    <com.changlianxi.view.PullDownViewGrowth
         android:id="@+id/PullDownlistView"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:cacheColorHint="@android:color/transparent" >
-    </com.changlianxi.view.PullDownView>
+    </com.changlianxi.view.PullDownViewGrowth>
 
 </LinearLayout>

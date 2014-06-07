@@ -22,6 +22,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.changlianxi.MessageActivity;
+import com.changlianxi.PublicMessageActivity;
 import com.changlianxi.R;
 import com.changlianxi.adapter.MessageListAdapter;
 import com.changlianxi.data.AbstractData.Status;
@@ -152,6 +153,10 @@ public class MessageListFragMent extends Fragment implements OnClickListener,
         task.executeWithCheckNet(list);
     }
 
+    public void refush() {
+        getMessageList();
+    }
+
     @Override
     public void onItemClick(AdapterView<?> arg0, View arg1, int position,
             long arg3) {
@@ -171,7 +176,13 @@ public class MessageListFragMent extends Fragment implements OnClickListener,
         intent.putExtra("ruid", partnersList.get(position).getPartner());// 要读私信者的id
         intent.putExtra("cid", partnersList.get(position).getCid());// 私信所属圈子ID
         intent.putExtra("name", partnersList.get(position).getPartnerName());
-        intent.setClass(getActivity(), MessageActivity.class);
+        if (partnersList.get(position).getCid() == 0) {
+            intent.setClass(getActivity(), PublicMessageActivity.class);
+            intent.putExtra("uavatar", partnersList.get(position).getuAvatar());
+        } else {
+            intent.setClass(getActivity(), MessageActivity.class);
+
+        }
         getActivity().startActivity(intent);
         Utils.leftOutRightIn(getActivity());
         ChatPartner c = partnersList.get(position);

@@ -28,6 +28,7 @@ import com.changlianxi.task.BaseAsyncTask;
 import com.changlianxi.task.BaseAsyncTask.PostCallBack;
 import com.changlianxi.util.DateUtils;
 import com.changlianxi.util.DialogUtil;
+import com.changlianxi.util.FinalBitmapLoadTool;
 import com.changlianxi.util.StringUtils;
 import com.changlianxi.util.Utils;
 import com.changlianxi.view.CircularImage;
@@ -41,16 +42,16 @@ import com.changlianxi.view.CircularImage;
 public class DynamicAdoutMeAdapter extends BaseAdapter {
     private Context mCotext;
     private List<CircleDynamic> listModle;
-    private FinalBitmap fb;
+    // private FinalBitmap fb;
     private final int TYPE_1 = 0;
     private final int TYPE_2 = 1;
 
     public DynamicAdoutMeAdapter(Context context, List<CircleDynamic> listModle) {
         this.mCotext = context;
         this.listModle = listModle;
-        fb = CLXApplication.getFb();
-        fb.configLoadfailImage(R.drawable.head_bg);
-        fb.configLoadingImage(R.drawable.head_bg);
+        // fb = CLXApplication.getFb();
+        // fb.configLoadfailImage(R.drawable.head_bg);
+        // fb.configLoadingImage(R.drawable.head_bg);
     }
 
     @Override
@@ -164,7 +165,9 @@ public class DynamicAdoutMeAdapter extends BaseAdapter {
                     holderInvite.avatarInvite
                             .setImageResource(R.drawable.head_bg);
                 } else {
-                    fb.display(holderInvite.avatarInvite, avatarUrl);
+                    // fb.display(holderInvite.avatarInvite, avatarUrl);
+                    FinalBitmapLoadTool.display(avatarUrl,
+                            holderInvite.avatarInvite, R.drawable.head_bg);
                 }
                 holderInvite.btnAgreeInvite.setOnClickListener(new BtnClick(
                         listModle.get(position), position, m1, m2));
@@ -189,8 +192,9 @@ public class DynamicAdoutMeAdapter extends BaseAdapter {
                 if (avatarUrl.equals("") || avatarUrl == null) {
                     holder.avatar.setImageResource(R.drawable.head_bg);
                 } else {
-                    fb.display(holder.avatar, avatarUrl);
-
+                    // fb.display(holder.avatar, avatarUrl);
+                    FinalBitmapLoadTool.display(avatarUrl, holder.avatar,
+                            R.drawable.head_bg);
                 }
                 holder.avatar.setOnClickListener(new OnAvatarClickListener(
                         mCotext, cid, m1 == null & m2 == null ? 0

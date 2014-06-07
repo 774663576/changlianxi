@@ -35,7 +35,7 @@ public class SelectPicPopwindow implements OnClickListener {
     private Button btnPickPhoto;
     private Button btnCancle;
     private View view;
-    private String fileName;
+    private String fileName = "";
     private int imageNum = -1;
 
     public SelectPicPopwindow(Context mContext, View v, int cid, int imageNum) {

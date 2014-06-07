@@ -19,6 +19,7 @@ import com.changlianxi.data.CircleMember;
 import com.changlianxi.db.DBUtils;
 import com.changlianxi.inteface.OnAvatarClickListener;
 import com.changlianxi.util.DateUtils;
+import com.changlianxi.util.FinalBitmapLoadTool;
 import com.changlianxi.util.StringUtils;
 import com.changlianxi.view.CircularImage;
 
@@ -31,14 +32,15 @@ import com.changlianxi.view.CircularImage;
 public class DynamicAllAdapter extends BaseAdapter {
     private Context mCotext;
     private List<CircleDynamic> listModle;
-    private FinalBitmap fb;
+
+    // private FinalBitmap fb;
 
     public DynamicAllAdapter(Context context, List<CircleDynamic> listModle) {
         this.mCotext = context;
         this.listModle = listModle;
-        fb = CLXApplication.getFb();
-        fb.configLoadfailImage(R.drawable.head_bg);
-        fb.configLoadingImage(R.drawable.head_bg);
+        // fb = CLXApplication.getFb();
+        // fb.configLoadfailImage(R.drawable.head_bg);
+        // fb.configLoadingImage(R.drawable.head_bg);
     }
 
     @Override
@@ -102,7 +104,9 @@ public class DynamicAllAdapter extends BaseAdapter {
         if (avatarUrl == null || avatarUrl.equals("")) {
             holderOther.avatar.setImageResource(R.drawable.head_bg);
         } else {
-            fb.display(holderOther.avatar, avatarUrl);
+            // fb.display(holderOther.avatar, avatarUrl);
+            FinalBitmapLoadTool.display(avatarUrl, holderOther.avatar,
+                    R.drawable.head_bg);
         }
         holderOther.avatar.setOnClickListener(new OnAvatarClickListener(
                 mCotext, cid, m1 == null & m2 == null ? 0 : m1 == null ? m2

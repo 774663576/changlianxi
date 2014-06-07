@@ -2,7 +2,6 @@ package com.changlianxi.adapter;
 
 import java.util.List;
 
-import net.tsz.afinal.FinalBitmap;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -14,20 +13,21 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.changlianxi.R;
-import com.changlianxi.applation.CLXApplication;
 import com.changlianxi.modle.NewsComments;
+import com.changlianxi.util.FinalBitmapLoadTool;
 
 public class NewsCommentsListAdapter extends BaseAdapter {
     private Context mContext;
     private List<NewsComments> listModle;
-    private FinalBitmap fb;
+
+    // private FinalBitmap fb;
 
     public NewsCommentsListAdapter(Context context, List<NewsComments> modle) {
         this.mContext = context;
         this.listModle = modle;
-        fb = CLXApplication.getFb();
-        fb.configLoadfailImage(R.drawable.head_bg);
-        fb.configLoadingImage(R.drawable.head_bg);
+        // fb = CLXApplication.getFb();
+        // fb.configLoadfailImage(R.drawable.head_bg);
+        // fb.configLoadingImage(R.drawable.head_bg);
     }
 
     @Override
@@ -71,7 +71,9 @@ public class NewsCommentsListAdapter extends BaseAdapter {
         holder.content.setText(listModle.get(position).getContent());
         holder.name.setText(listModle.get(position).getName());
         holder.time.setText(listModle.get(position).getTime());
-        fb.display(holder.avatar, listModle.get(position).getAvatar());
+        // fb.display(holder.avatar, listModle.get(position).getAvatar());
+        FinalBitmapLoadTool.display(listModle.get(position).getAvatar(),
+                holder.avatar, R.drawable.head_bg);
         if (position % 2 == 0) {
             holder.layParent.setBackgroundColor(Color.WHITE);
         } else {

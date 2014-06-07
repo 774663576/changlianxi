@@ -186,11 +186,11 @@ public class SlidingActivity extends FragmentActivity implements
      * 
      * @see android.app.Activity#onKeyUp(int, android.view.KeyEvent)
      */
-    @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event) {
-        boolean b = mHelper.onKeyUp(keyCode, event);
-        if (b) return b;
-        return super.onKeyUp(keyCode, event);
-    }
+    // @Override
+    // public boolean onKeyUp(int keyCode, KeyEvent event) {
+    // boolean b = mHelper.onKeyUp(keyCode, event);
+    // if (b) return b;
+    // return super.onKeyUp(keyCode, event);
+    // }
 
 }

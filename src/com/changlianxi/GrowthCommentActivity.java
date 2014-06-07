@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.tsz.afinal.FinalBitmap;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -28,7 +27,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.changlianxi.adapter.GrowthImgAdapter;
-import com.changlianxi.applation.CLXApplication;
 import com.changlianxi.data.CircleMember;
 import com.changlianxi.data.Global;
 import com.changlianxi.data.Growth;
@@ -43,6 +41,7 @@ import com.changlianxi.task.BaseAsyncTask.PostCallBack;
 import com.changlianxi.task.GrowthCommentsTask;
 import com.changlianxi.util.DateUtils;
 import com.changlianxi.util.DialogUtil;
+import com.changlianxi.util.FinalBitmapLoadTool;
 import com.changlianxi.util.SharedUtils;
 import com.changlianxi.util.StringUtils;
 import com.changlianxi.util.Utils;
@@ -88,7 +87,6 @@ public class GrowthCommentActivity extends BaseActivity implements
     private List<GrowthComment> comments;
     private String avatarImg = "";
     private Dialog dialog;
-    private FinalBitmap fb;
     private HorizontalListView hlistView;
     private HorizListAdapter mListAdapter;
     private LinearLayout pra_layoutLayout;
@@ -110,8 +108,6 @@ public class GrowthCommentActivity extends BaseActivity implements
         growth = (Growth) bundle.getSerializable("growth");
         from = getIntent().getStringExtra("from");
         pisition = getIntent().getIntExtra("position", 0);
-        fb = CLXApplication.getFb();
-        fb.configLoadingImage(R.drawable.empty_photo);
         cid = growth.getCid();
         gid = growth.getId();
         uid = growth.getPublisher();
@@ -124,7 +120,8 @@ public class GrowthCommentActivity extends BaseActivity implements
         if ("".equals(avatarImg)) {
             img.setImageResource(R.drawable.head_bg);
         } else {
-            fb.display(img, avatarImg);
+            FinalBitmapLoadTool.display(avatarImg, img, R.drawable.head_bg);
+
         }
         commentList = growth.getCommentList();
         filldata(0);
@@ -248,6 +245,7 @@ public class GrowthCommentActivity extends BaseActivity implements
         listview.setSelector(new ColorDrawable(Color.TRANSPARENT));
         listview.setDivider(getResources().getDrawable(R.color.d2));
         listview.setDividerHeight(1);
+        listview.setVerticalScrollBarEnabled(false);
         mListAdapter = new HorizListAdapter();
         hlistView.setAdapter(mListAdapter);
         setViewListener();
@@ -337,12 +335,13 @@ public class GrowthCommentActivity extends BaseActivity implements
 
             oneImg.setVisibility(View.VISIBLE);
             gridView.setVisibility(View.GONE);
-            fb.display(oneImg, imgPath);
+            // fb.display(oneImg, imgPath);
+            FinalBitmapLoadTool.display(imgPath, oneImg, R.drawable.head_bg);
+
         } else {
             oneImg.setVisibility(View.GONE);
             gridView.setVisibility(View.VISIBLE);
-            gridView.setAdapter(new GrowthImgAdapter(this, growth.getImages()
-                    ));
+            gridView.setAdapter(new GrowthImgAdapter(this, growth.getImages()));
         }
     }
 
@@ -450,7 +449,10 @@ public class GrowthCommentActivity extends BaseActivity implements
             if (path == null || path.equals("")) {
                 holder.img.setImageResource(R.drawable.head_bg);
             } else {
-                fb.display(holder.img, path);
+                // fb.display(holder.img, path);
+                FinalBitmapLoadTool.display(path, holder.img,
+                        R.drawable.head_bg);
+
             }
             holder.img.setOnClickListener(new OnAvatarClick(cid, uid, pid,
                     name, avatar));
@@ -786,8 +788,11 @@ public class GrowthCommentActivity extends BaseActivity implements
                 holder = (ViewHolder) convertView.getTag();
             }
 
-            fb.display(holder.img_headIcon, praiseLists.get(position)
-                    .getAvatar());
+            // fb.display(holder.img_headIcon, praiseLists.get(position)
+            // .getAvatar());
+            FinalBitmapLoadTool.display(praiseLists.get(position).getAvatar(),
+                    holder.img_headIcon, R.drawable.head_bg);
+
             return convertView;
         }
     }

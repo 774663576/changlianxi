@@ -2,7 +2,6 @@ package com.changlianxi.adapter;
 
 import java.util.List;
 
-import net.tsz.afinal.FinalBitmap;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import com.changlianxi.R;
-import com.changlianxi.applation.CLXApplication;
 import com.changlianxi.data.GrowthImage;
 import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.StringUtils;
@@ -21,14 +19,14 @@ public class GrowthImgAdapter extends BaseAdapter {
     private Context mContext;
     private List<GrowthImage> listData;
 
-    private FinalBitmap fb;
+    // private FinalBitmap fb;
 
     public GrowthImgAdapter(Context context, List<GrowthImage> data) {
         this.mContext = context;
         this.listData = data;
-        fb = CLXApplication.getFb();
-        fb.configLoadingImage(R.drawable.empty_photo);
-        fb.configLoadfailImage(R.drawable.empty_photo);
+        // fb = FinalBitmap.create(context);
+        // fb.configLoadingImage(R.drawable.empty_photo);
+        // fb.configLoadfailImage(R.drawable.empty_photo);
     }
 
     @Override
@@ -66,9 +64,11 @@ public class GrowthImgAdapter extends BaseAdapter {
                     R.drawable.empty_photo);
         } else {
             path = StringUtils.JoinString(path, "_200x200");
-            fb.display(holder.img, path);
+            // fb.display(holder.img, path);
             // FinalBitmapLoadTool.display(path, holder.img,
             // R.drawable.empty_photo);
+            UniversalImageLoadTool.disPlay(path, new RotateImageViewAware(
+                    holder.img, path), R.drawable.empty_photo);
         }
         return convertView;
     }

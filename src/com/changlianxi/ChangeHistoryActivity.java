@@ -6,8 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import net.tsz.afinal.FinalBitmap;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,7 +26,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.changlianxi.applation.CLXApplication;
 import com.changlianxi.data.CircleMember;
 import com.changlianxi.data.EditData;
 import com.changlianxi.data.enums.PersonDetailType;
@@ -37,7 +34,9 @@ import com.changlianxi.task.PostAsyncTask;
 import com.changlianxi.task.PostAsyncTask.PostCallBack;
 import com.changlianxi.util.DateUtils;
 import com.changlianxi.util.DialogUtil;
+import com.changlianxi.util.FinalBitmapLoadTool;
 import com.changlianxi.util.SharedUtils;
+import com.changlianxi.util.StringUtils;
 import com.changlianxi.util.Utils;
 import com.changlianxi.view.CircularImage;
 
@@ -62,16 +61,12 @@ public class ChangeHistoryActivity extends BaseActivity implements
     private ImageView back;
     private String headicon;
     private Dialog pd;
-    private FinalBitmap fb;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_history);
         pd = DialogUtil.getWaitDialog(this, "请稍候");
         pd.show();
-        fb = CLXApplication.getFb();
-        fb.configLoadfailImage(R.drawable.head_bg);
-        fb.configLoadingImage(R.drawable.head_bg);
         listView = (ListView) findViewById(R.id.history_list);
         back = (ImageView) findViewById(R.id.back);
         back.setOnClickListener(this);
@@ -203,7 +198,9 @@ public class ChangeHistoryActivity extends BaseActivity implements
             if (lists.get(position).getType() == PersonDetailType.D_AVATAR) {
                 holder.content.setVisibility(View.GONE);
                 holder.avatar.setVisibility(View.VISIBLE);
-                fb.display(holder.avatar, value);
+                FinalBitmapLoadTool.display(
+                        StringUtils.JoinString(value, "_160x160"),
+                        holder.avatar, R.drawable.head_bg);
             } else {
                 holder.content.setVisibility(View.VISIBLE);
                 holder.avatar.setVisibility(View.GONE);

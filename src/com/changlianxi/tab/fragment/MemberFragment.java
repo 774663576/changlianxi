@@ -106,7 +106,6 @@ public class MemberFragment extends Fragment implements
                     lists = circleMemberList.getLegalMembers();
                     if (lists.size() > 0 && progressDialog != null) {
                         progressDialog.dismiss();
-
                     }
                     isAuth();
                     break;
@@ -171,12 +170,10 @@ public class MemberFragment extends Fragment implements
         btadd.setImageResource(R.drawable.icon_add);
         title = (TextView) getView().findViewById(R.id.titleTxt);
         listView.setCacheColorHint(0);
-        // if (!isNewCircle) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.header,
                 null);
         editSearch = (SearchEditText) view.findViewById(R.id.search);
         listView.addHeaderView(view, null, false);
-        // }
         indexBar = (QuickAlphabeticBar) getView().findViewById(R.id.indexBar);
         indexBar.getBackground().setAlpha(0);
         indexBar.setOnTouchUp(this);
@@ -318,6 +315,9 @@ public class MemberFragment extends Fragment implements
                     listView.removeFooterView(fotter);
                 }
                 listView.addFooterView(fotter, null, false);
+                for (int i = lists.size() - 1; i >= 20; i--) {
+                    lists.remove(i);
+                }
             }
         } else {
             btadd.setVisibility(View.VISIBLE);

@@ -57,6 +57,7 @@ import com.changlianxi.util.BroadCast;
 import com.changlianxi.util.Constants;
 import com.changlianxi.util.DateUtils;
 import com.changlianxi.util.DialogUtil;
+import com.changlianxi.util.FinalBitmapLoadTool;
 import com.changlianxi.util.SaveContactsToPhone;
 import com.changlianxi.util.SortPersonType;
 import com.changlianxi.util.UserInfoUtils;
@@ -122,7 +123,7 @@ public class SetPublicInfoShowInfoActivity extends BaseActivity implements
     private ImageView iv_sex;
     private LinearLayout warnLayout;
     private Button btnOk;
-    private FinalBitmap fb;
+    // private FinalBitmap fb;
     private String sex = "";
     private Info inSex = null;
     private ViewStub layPrompt;
@@ -182,9 +183,9 @@ public class SetPublicInfoShowInfoActivity extends BaseActivity implements
     }
 
     private void initFB() {
-        fb = CLXApplication.getFb();
-        fb.configLoadingImage(R.drawable.head_bg);
-        fb.configLoadfailImage(R.drawable.head_bg);
+        // fb = CLXApplication.getFb();
+        // fb.configLoadingImage(R.drawable.head_bg);
+        // fb.configLoadfailImage(R.drawable.head_bg);
     }
 
     private void initView() {
@@ -305,8 +306,8 @@ public class SetPublicInfoShowInfoActivity extends BaseActivity implements
     }
 
     private void setAvatar() {
-        Bitmap mBitmap = fb.getBitmapFromDiskCache(iconPath,
-                new BitmapDisplayConfig());
+        Bitmap mBitmap = FinalBitmapLoadTool.getFb().getBitmapFromDiskCache(
+                iconPath, new BitmapDisplayConfig());
         if (mBitmap != null) {
             avatar.setImageBitmap(mBitmap);
             new BoxBlurFilterThread(mBitmap).start();
@@ -316,7 +317,7 @@ public class SetPublicInfoShowInfoActivity extends BaseActivity implements
     }
 
     private void loadingAvatar() {
-        fb.configDisplayer(new Displayer() {
+        FinalBitmapLoadTool.getFb().configDisplayer(new Displayer() {
 
             @Override
             public void loadFailDisplay(View arg0, Bitmap arg1) {
@@ -330,7 +331,9 @@ public class SetPublicInfoShowInfoActivity extends BaseActivity implements
                 new BoxBlurFilterThread(mBitmap).start();
             }
         });
-        fb.display(avatar, iconPath);
+        // fb.display(avatar, iconPath);
+        FinalBitmapLoadTool.display(iconPath, avatar, R.drawable.head_bg);
+
     }
 
     private void setBackGroubdOfDrable(Drawable darble) {

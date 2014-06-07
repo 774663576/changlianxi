@@ -41,6 +41,7 @@ public class Constants {
     public static final String CHANGE_GROWTHFRAGMENTANDALBUMFRAGMENT = "com.changlianxi.changeGrowthAndAlbum";// 切换成长和相册界面
     public static final String REMOVE_CIRCLE_PROMPT_COUNT = "com.changlianxi.removeCirclePromptCount";// 清除圈子提示数量
     public static final String REFUSH_MYCARD = "com.changlianxi.refushMycard";// 刷新个人名片
+    public static final String REFUSH_USER_INFO = "com.changlianxi.refushUserInfo";// 刷新成员资料
 
     /***************************************************/
     public static final String USERLIST_TABLE = "userlist";// 成员列表

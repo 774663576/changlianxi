@@ -16,18 +16,20 @@ import com.changlianxi.applation.CLXApplication;
 import com.changlianxi.data.Circle;
 import com.changlianxi.data.CircleMember;
 import com.changlianxi.db.DBUtils;
+import com.changlianxi.util.FinalBitmapLoadTool;
 import com.changlianxi.util.StringUtils;
 import com.changlianxi.view.CircularImage;
 
 public class HomeSearchAdapter extends BaseAdapter {
     private Context context;
     private List<CircleMember> circleMembers;
-    private FinalBitmap fb;
+
+    // private FinalBitmap fb;
 
     public HomeSearchAdapter(Context context, List<CircleMember> circleMembers) {
-        fb = CLXApplication.getFb();
-        fb.configLoadingImage(R.drawable.head_bg);
-        fb.configLoadfailImage(R.drawable.head_bg);
+        // fb = CLXApplication.getFb();
+        // fb.configLoadingImage(R.drawable.head_bg);
+        // fb.configLoadfailImage(R.drawable.head_bg);
         this.circleMembers = circleMembers;
         this.context = context;
 
@@ -91,7 +93,8 @@ public class HomeSearchAdapter extends BaseAdapter {
 
         } else {
             holder.img.setVisibility(View.VISIBLE);
-            fb.display(holder.img, path);
+            // fb.display(holder.img, path);
+            FinalBitmapLoadTool.display(path, holder.img, R.drawable.head_bg);
         }
         return convertView;
     }

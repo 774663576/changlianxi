@@ -1,0 +1,29 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/titlebar"
+        android:layout_width="fill_parent"
+        layout="@layout/title_bar" />
+
+    <com.changlianxi.view.MyListView
+        android:id="@+id/listView"
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:layout_marginBottom="10dip"
+        android:layout_weight="1"
+        android:cacheColorHint="#00000000"
+        android:divider="@null"
+        android:transcriptMode="normal" />
+
+    <include
+        android:id="@+id/expression"
+        android:layout_width="fill_parent"
+        android:layout_marginTop="5dip"
+        layout="@layout/expression_layout" />
+
+</LinearLayout>

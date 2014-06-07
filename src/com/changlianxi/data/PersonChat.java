@@ -13,6 +13,7 @@ import com.changlianxi.data.enums.RetError;
 import com.changlianxi.data.enums.RetStatus;
 import com.changlianxi.data.parser.IParser;
 import com.changlianxi.data.parser.PersonChatParser;
+import com.changlianxi.data.parser.PulbicChatParser;
 import com.changlianxi.data.request.ApiRequest;
 import com.changlianxi.data.request.Result;
 import com.changlianxi.db.Const;
@@ -45,11 +46,15 @@ import com.changlianxi.db.Const;
 public class PersonChat extends AbstractChat {
     public final static String SEND_TEXT_API = "/messages/isend";
     public final static String SEND_IMAGE_API = "/messages/isendImg";
+    public final static String PUBLIC_SEND_TEXT_API = "/messages/ipubSend";
+    public final static String PUBLIC_SEND_IMAGE_API = "/messages/ipubSendImg";
 
     private int cid = 0; // circle id
     private int partner = 0; // the other user id, who i chat with
     private int sender = 0; // sender uid, me or the partner
     private boolean isRead = true;
+    private String response = "";// 公共账号回复内容
+    private int response_mid = 0;// 公共账号回复私信id
 
     public PersonChat(int cid, int partner, int chatId) {
         super(chatId);
@@ -64,6 +69,22 @@ public class PersonChat extends AbstractChat {
         this.partner = partner;
         this.sender = sender;
         this.content = content;
+    }
+
+    public String getResponse() {
+        return response;
+    }
+
+    public void setResponse(String response) {
+        this.response = response;
+    }
+
+    public int getResponse_mid() {
+        return response_mid;
+    }
+
+    public void setResponse_mid(int response_mid) {
+        this.response_mid = response_mid;
     }
 
     public int getCid() {
@@ -204,7 +225,14 @@ public class PersonChat extends AbstractChat {
             this.isRead = another.isRead;
             isChange = true;
         }
-
+        if (!this.response.equals(another.response)) {
+            this.response = another.response;
+            isChange = true;
+        }
+        if (this.response_mid != another.response_mid) {
+            this.response_mid = another.response_mid;
+            isChange = true;
+        }
         if (isChange && this.status == Status.OLD) {
             this.status = Status.UPDATE;
         }
@@ -264,4 +292,50 @@ public class PersonChat extends AbstractChat {
         }
     }
 
+    public RetError sendPulbicImage() {
+        File file = new File(content);
+        if (file == null || !file.exists()) {
+            return RetError.INVALID;
+        }
+
+        IParser parser = new PersonChatParser();
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("cid", cid);
+        params.put("ruid", partner);
+        params.put("type", ChatType.TYPE_IMAGE.name());
+
+        Result ret = ApiRequest
+                .uploadFileWithToken(PersonChat.PUBLIC_SEND_IMAGE_API, params,
+                        file, "image", parser);
+        file.delete();
+        if (ret.getStatus() == RetStatus.SUCC) {
+            this.update(ret.getData());
+            return RetError.NONE;
+        } else {
+            return ret.getErr();
+        }
+    }
+
+    /**
+     * send a text chat to server, and reset local data info while upload
+     * success
+     * 
+     * @return
+     */
+    public RetError sendPublicText() {
+        IParser parser = new PulbicChatParser();
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("cid", cid);
+        params.put("ruid", partner);
+        params.put("content", content);
+        params.put("type", ChatType.TYPE_TEXT.name());
+        Result ret = ApiRequest.requestWithToken(
+                PersonChat.PUBLIC_SEND_TEXT_API, params, parser);
+        if (ret.getStatus() == RetStatus.SUCC) {
+            this.update(ret.getData());
+            return RetError.NONE;
+        } else {
+            return ret.getErr();
+        }
+    }
 }

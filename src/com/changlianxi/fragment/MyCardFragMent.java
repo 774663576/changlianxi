@@ -52,6 +52,7 @@ import com.changlianxi.task.ReadMyCardTask;
 import com.changlianxi.util.BitmapUtils;
 import com.changlianxi.util.Constants;
 import com.changlianxi.util.DateUtils;
+import com.changlianxi.util.FinalBitmapLoadTool;
 import com.changlianxi.util.SortPersonType;
 import com.changlianxi.util.UserInfoUtils;
 import com.changlianxi.util.Utils;
@@ -66,7 +67,7 @@ public class MyCardFragMent extends Fragment implements OnClickListener,
     private CircularImage avatar;
     private TextView btnHistory;
     private Button btnEdit;
-    private FinalBitmap fb;
+    // private FinalBitmap fb;
     private List<Info> showBasicList = new ArrayList<Info>();// 存放基本信息数据
     private List<Info> showContactList = new ArrayList<Info>();// 存放联系方式数据
     private List<Info> showEmailList = new ArrayList<Info>();// 存放联系方式数据
@@ -161,9 +162,9 @@ public class MyCardFragMent extends Fragment implements OnClickListener,
     }
 
     private void initFB() {
-        fb = CLXApplication.getFb();
-        fb.configLoadfailImage(R.drawable.head_bg);
-        fb.configLoadingImage(R.drawable.head_bg);
+        // fb = CLXApplication.getFb();
+        // fb.configLoadfailImage(R.drawable.head_bg);
+        // fb.configLoadingImage(R.drawable.head_bg);
     }
 
     private void setValue() {
@@ -204,8 +205,8 @@ public class MyCardFragMent extends Fragment implements OnClickListener,
             avatar.setImageResource(R.drawable.head_bg);
             return;
         }
-        Bitmap mBitmap = fb.getBitmapFromDiskCache(card.getAvatar(),
-                new BitmapDisplayConfig());
+        Bitmap mBitmap = FinalBitmapLoadTool.getFb().getBitmapFromDiskCache(
+                card.getAvatar(), new BitmapDisplayConfig());
         if (mBitmap != null) {
             avatar.setImageBitmap(mBitmap);
             new BoxBlurFilterThread(mBitmap).start();
@@ -215,7 +216,7 @@ public class MyCardFragMent extends Fragment implements OnClickListener,
     }
 
     private void loadingAvatar(String avatarURL) {
-        fb.configDisplayer(new Displayer() {
+        FinalBitmapLoadTool.getFb().configDisplayer(new Displayer() {
 
             @Override
             public void loadFailDisplay(View arg0, Bitmap arg1) {
@@ -230,7 +231,8 @@ public class MyCardFragMent extends Fragment implements OnClickListener,
 
             }
         });
-        fb.display(avatar, avatarURL);
+        // fb.display(avatar, avatarURL);
+        FinalBitmapLoadTool.display(avatarURL, avatar, R.drawable.head_bg);
     }
 
     /**
@@ -762,7 +764,7 @@ public class MyCardFragMent extends Fragment implements OnClickListener,
     private void addInSex() {
         for (Info in : showBasicList) {
             if (in.getKey().equals("性别")) {
-                if ("1".equals(in.getKey())) {
+                if ("1".equals(in.getValue())) {
                     in.setValue("男");
                 } else {
                     in.setValue("女");

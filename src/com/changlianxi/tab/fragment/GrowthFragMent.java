@@ -28,6 +28,7 @@ import android.widget.TextView;
 import com.changlianxi.CommentsListActivity;
 import com.changlianxi.R;
 import com.changlianxi.adapter.GrowthAdapter;
+import com.changlianxi.chooseImage.CheckImageLoaderConfiguration;
 import com.changlianxi.data.AbstractData.Status;
 import com.changlianxi.data.Circle;
 import com.changlianxi.data.Growth;
@@ -71,7 +72,6 @@ public class GrowthFragMent extends Fragment implements OnClickListener,
                         }
                     }
                     adapter.setData(listData);
-
                     break;
                 default:
                     break;
@@ -108,6 +108,8 @@ public class GrowthFragMent extends Fragment implements OnClickListener,
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if (!isOnCreate) {
+            CheckImageLoaderConfiguration
+                    .checkImageLoaderConfiguration(getActivity());
             initView();
         }
         isOnCreate = true;
@@ -124,13 +126,13 @@ public class GrowthFragMent extends Fragment implements OnClickListener,
         mListView.setSelector(new ColorDrawable(Color.TRANSPARENT));
         promptCount = (TextView) getView().findViewById(R.id.promptCount);
         noGrowth = (TextView) getView().findViewById(R.id.noMessage);
-        if (!isAuth) {
-            View v = LayoutInflater.from(getActivity()).inflate(
-                    R.layout.auth_foot_view, null);
-            TextView t = (TextView) v.findViewById(R.id.txtFoot);
-            t.setText("您不是认证成员只能看到部分数据，赶快去认证吧！");
-            mListView.addFooterView(v);
-        }
+        // if (!isAuth) {
+        // View v = LayoutInflater.from(getActivity()).inflate(
+        // R.layout.auth_foot_view, null);
+        // TextView t = (TextView) v.findViewById(R.id.txtFoot);
+        // t.setText("您不是认证成员只能看到部分数据，赶快去认证吧！");
+        // mListView.addFooterView(v);
+        // }
         setListener();
         visivlePromptCount();
     }
@@ -220,6 +222,12 @@ public class GrowthFragMent extends Fragment implements OnClickListener,
 
     @Override
     public void onMore() {
+        if (listData.size() > 0) {
+            if (listData.get(0).isUpLoading()) {
+                mPullDownView.RefreshComplete();
+                return;
+            }
+        }
         start = 0l;
         end = Long.valueOf(DateUtils.phpTime(DateUtils.convertToDate(listData
                 .get(listData.size() - 1).getPublished())));

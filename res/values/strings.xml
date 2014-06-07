@@ -192,5 +192,6 @@
     <string name="title_activity_no_exist_person_info">NoExistPersonInfoActivity</string>
     <string name="title_activity_select_share_image">SelectShareImageActivity</string>
     <string name="title_activity_release_growth_activity1">ReleaseGrowthActivity1</string>
+    <string name="title_activity_public_message">PublicMessageActivity</string>
 
 </resources>

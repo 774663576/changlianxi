@@ -3,7 +3,6 @@ package com.changlianxi.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.tsz.afinal.FinalBitmap;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -22,7 +21,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.changlianxi.R;
-import com.changlianxi.applation.CLXApplication;
 import com.changlianxi.data.Global;
 import com.changlianxi.data.MyCard;
 import com.changlianxi.data.enums.RetError;
@@ -42,7 +40,7 @@ public class LeftMenuFragMent extends Fragment implements OnItemClickListener {
     private MyCard myCard = null;
     private CircularImage avatar;
     private ChangeFragMentListener mOnChangeFragMentListener;
-    private FinalBitmap fb;
+    // private FinalBitmap fb;
     private Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -98,9 +96,9 @@ public class LeftMenuFragMent extends Fragment implements OnItemClickListener {
     }
 
     private void initFB() {
-        fb = CLXApplication.getFb();
-        fb.configLoadfailImage(R.drawable.head_bg);
-        fb.configLoadingImage(R.drawable.head_bg);
+        // fb = CLXApplication.getFb();
+        // fb.configLoadfailImage(R.drawable.head_bg);
+        // fb.configLoadingImage(R.drawable.head_bg);
     }
 
     private void setValue() {
@@ -150,8 +148,8 @@ public class LeftMenuFragMent extends Fragment implements OnItemClickListener {
             avatar.setImageResource(R.drawable.head_bg);
             return;
         }
-        fb.display(avatar, avatarUrl);
-        // FinalBitmapLoadTool.display(avatarUrl, avatar, R.drawable.head_bg);
+        // fb.display(avatar, avatarUrl);
+        FinalBitmapLoadTool.display(avatarUrl, avatar, R.drawable.head_bg);
     }
 
     private void getMenu() {

@@ -81,7 +81,7 @@
         android:gravity="center"
         android:paddingBottom="5dip"
         android:paddingTop="5dip"
-        android:text="@string/invitation"
+        android:text="下一步"
         android:textColor="@color/white"
         android:textSize="21sp" />
 

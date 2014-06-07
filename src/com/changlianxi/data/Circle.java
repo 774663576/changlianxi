@@ -651,7 +651,10 @@ public class Circle extends AbstractData implements Serializable {
             this.isNew = another.isNew;
             isChange = true;
         }
-
+        if (this.creator != another.creator) {
+            this.creator = another.creator;
+            isChange = true;
+        }
         if (isChange && this.status == Status.OLD) {
             this.status = Status.UPDATE;
         }

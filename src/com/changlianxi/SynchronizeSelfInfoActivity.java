@@ -26,6 +26,7 @@ import com.changlianxi.R;
 import com.changlianxi.applation.CLXApplication;
 import com.changlianxi.data.EditData;
 import com.changlianxi.data.enums.PersonDetailType;
+import com.changlianxi.util.FinalBitmapLoadTool;
 import com.changlianxi.util.Utils;
 import com.changlianxi.view.CircularImage;
 import com.umeng.analytics.MobclickAgent;
@@ -47,7 +48,8 @@ public class SynchronizeSelfInfoActivity extends BaseActivity implements
     private String headicon;
     private TextView title;
     private List<EditData> selectLists = new ArrayList<EditData>();
-    private FinalBitmap fb;
+
+    // private FinalBitmap fb;
 
     @SuppressWarnings("unchecked")
     @Override
@@ -62,9 +64,9 @@ public class SynchronizeSelfInfoActivity extends BaseActivity implements
         setChooseFlag(true);
         adapter = new MyAdapter();
         initView();
-        fb = CLXApplication.getFb();
-        fb.configLoadfailImage(R.drawable.head_bg);
-        fb.configLoadingImage(R.drawable.head_bg);
+        // fb = CLXApplication.getFb();
+        // fb.configLoadfailImage(R.drawable.head_bg);
+        // fb.configLoadingImage(R.drawable.head_bg);
     }
 
     private void initView() {
@@ -199,7 +201,10 @@ public class SynchronizeSelfInfoActivity extends BaseActivity implements
                     .equals(PersonDetailType.D_AVATAR)) {
                 holder.avatr.setVisibility(View.VISIBLE);
                 holder.value.setVisibility(View.GONE);
-                fb.display(holder.avatr, value);
+                // fb.display(holder.avatr, value);
+                FinalBitmapLoadTool.display(value, holder.avatr,
+                        R.drawable.head_bg);
+
             } else {
                 holder.avatr.setVisibility(View.GONE);
                 holder.value.setVisibility(View.VISIBLE);

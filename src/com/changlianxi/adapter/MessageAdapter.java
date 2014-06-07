@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.tsz.afinal.FinalBitmap;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -19,7 +18,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.changlianxi.R;
-import com.changlianxi.applation.CLXApplication;
 import com.changlianxi.data.Global;
 import com.changlianxi.data.MyCard;
 import com.changlianxi.data.PersonChat;
@@ -29,35 +27,26 @@ import com.changlianxi.showBigPic.ImagePagerActivity;
 import com.changlianxi.util.Constants;
 import com.changlianxi.util.DateUtils;
 import com.changlianxi.util.EmojiParser;
+import com.changlianxi.util.FinalBitmapLoadTool;
 import com.changlianxi.view.CircularImage;
 import com.changlianxi.view.EmojiEditText;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
 
 public class MessageAdapter extends BaseAdapter {
     private Context mContext;
     private List<PersonChat> listModle;
-    private DisplayImageOptions options;
-    private ImageLoader imageLoader;
     private String selfAvatar = "";
     private String otherAvater = "";
     private String otherName = "";
     private int pid;
     private final int TYPE_1 = 0;
     private final int TYPE_2 = 1;
-    private FinalBitmap fb;
 
-    public MessageAdapter(Context context, List<PersonChat> chatsList, int cid,
+    public MessageAdapter(Context context, List<PersonChat> chatsList,
             String otherAvatar, String otherName, int pid) {
         this.mContext = context;
         this.listModle = chatsList;
-        fb = CLXApplication.getFb();
-        fb.configLoadingImage(R.drawable.empty_photo);
-        fb.configLoadfailImage(R.drawable.empty_photo);
-        options = CLXApplication.getOption();
-        imageLoader = CLXApplication.getImageLoader();
         MyCard card = new MyCard(0, Global.getIntUid());
         card.read(DBUtils.getDBsa(1));
         selfAvatar = card.getAvatar();
@@ -179,7 +168,9 @@ public class MessageAdapter extends BaseAdapter {
                     if (!content.startsWith("http")) {
                         content = "file://" + content;
                     }
-                    fb.display(selfHolder.selfImg, content);
+                    // fb.display(selfHolder.selfImg, content);
+                    FinalBitmapLoadTool.display(content, selfHolder.selfImg,
+                            R.drawable.empty_photo);
                 }
                 selfHolder.selfLayout.setVisibility(View.VISIBLE);
                 selfHolder.selfContent.setText(EmojiParser
@@ -187,8 +178,12 @@ public class MessageAdapter extends BaseAdapter {
                 if (selfAvatar == null || selfAvatar.equals("")) {
                     selfHolder.selfAvatar.setImageResource(R.drawable.head_bg);
                 } else {
-                    imageLoader.displayImage(selfAvatar, selfHolder.selfAvatar,
-                            options);
+                    // imageLoader.displayImage(selfAvatar,
+                    // selfHolder.selfAvatar,
+                    // options);
+                    FinalBitmapLoadTool.display(selfAvatar,
+                            selfHolder.selfAvatar, R.drawable.head_bg);
+
                 }
                 selfHolder.selfImg.setOnClickListener(new ImageOnClick(content
                         .replace("file://", "")));
@@ -201,8 +196,9 @@ public class MessageAdapter extends BaseAdapter {
                 } else if (type == ChatType.TYPE_IMAGE) {
                     otherHolder.otherImg.setVisibility(View.VISIBLE);
                     otherHolder.otherContent.setVisibility(View.GONE);
-                    fb.display(otherHolder.otherAvatar, content);
-
+                    // fb.display(otherHolder.otherAvatar, content);
+                    FinalBitmapLoadTool.display(content,
+                            otherHolder.otherAvatar, R.drawable.empty_photo);
                 }
                 otherHolder.otherLayout.setVisibility(View.VISIBLE);
                 otherHolder.otherContent.setText(EmojiParser
@@ -213,8 +209,10 @@ public class MessageAdapter extends BaseAdapter {
                     otherHolder.otherAvatar
                             .setImageResource(R.drawable.head_bg);
                 } else {
-                    imageLoader.displayImage(path, otherHolder.otherAvatar,
-                            options);
+                    // imageLoader.displayImage(path, otherHolder.otherAvatar,
+                    // options);
+                    FinalBitmapLoadTool.display(path, otherHolder.otherAvatar,
+                            R.drawable.head_bg);
                 }
                 otherHolder.otherAvatar.setOnClickListener(new OnAvatarClick(
                         cid, uid, pid, otherName, otherAvater));

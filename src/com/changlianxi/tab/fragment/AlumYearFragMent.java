@@ -104,6 +104,9 @@ public class AlumYearFragMent extends Fragment implements OnPullDownListener {
         task.setTaskCallBack(new PostCallBack<RetError>() {
             @Override
             public void taskFinish(RetError result) {
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
                 mPullDownView.notifyDidMore();
                 mPullDownView.RefreshComplete();
                 mHandler.sendEmptyMessage(0);

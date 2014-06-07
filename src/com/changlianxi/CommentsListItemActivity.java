@@ -45,6 +45,7 @@ import com.changlianxi.util.BroadCast;
 import com.changlianxi.util.Constants;
 import com.changlianxi.util.DateUtils;
 import com.changlianxi.util.DialogUtil;
+import com.changlianxi.util.FinalBitmapLoadTool;
 import com.changlianxi.util.SharedUtils;
 import com.changlianxi.util.StringUtils;
 import com.changlianxi.util.Utils;
@@ -88,7 +89,7 @@ public class CommentsListItemActivity extends BaseActivity implements
     private List<GrowthComment> comments;
     private String avatarImg = "";
     private Dialog dialog;
-    private FinalBitmap fb;
+    // private FinalBitmap fb;
     private HorizontalListView hlistView;
     private HorizListAdapter mListAdapter;
     private LinearLayout pra_layoutLayout;
@@ -105,8 +106,8 @@ public class CommentsListItemActivity extends BaseActivity implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comments_list_item);
-        fb = CLXApplication.getFb();
-        fb.configLoadingImage(R.drawable.empty_photo);
+        // fb = CLXApplication.getFb();
+        // fb.configLoadingImage(R.drawable.empty_photo);
         cid = getIntent().getIntExtra("cid", 0);
         gid = Integer.valueOf(getIntent().getStringExtra("gid"));
         initView();
@@ -315,7 +316,8 @@ public class CommentsListItemActivity extends BaseActivity implements
         if ("".equals(avatarImg)) {
             img.setImageResource(R.drawable.head_bg);
         } else {
-            fb.display(img, avatarImg);
+            // fb.display(img, avatarImg);
+            FinalBitmapLoadTool.display(avatarImg, img, R.drawable.head_bg);
         }
         initImg(growth);
 
@@ -363,7 +365,9 @@ public class CommentsListItemActivity extends BaseActivity implements
 
             oneImg.setVisibility(View.VISIBLE);
             gridView.setVisibility(View.GONE);
-            fb.display(oneImg, imgPath);
+            // fb.display(oneImg, imgPath);
+            FinalBitmapLoadTool.display(imgPath, oneImg, R.drawable.head_bg);
+
         } else {
             oneImg.setVisibility(View.GONE);
             gridView.setVisibility(View.VISIBLE);
@@ -476,7 +480,10 @@ public class CommentsListItemActivity extends BaseActivity implements
             if (path == null || path.equals("")) {
                 holder.img.setImageResource(R.drawable.head_bg);
             } else {
-                fb.display(holder.img, path);
+                // fb.display(holder.img, path);
+                FinalBitmapLoadTool.display(path, holder.img,
+                        R.drawable.head_bg);
+
             }
             holder.img.setOnClickListener(new OnAvatarClick(cid, uid, pid,
                     name, avatar));
@@ -802,8 +809,11 @@ public class CommentsListItemActivity extends BaseActivity implements
                 holder = (ViewHolder) convertView.getTag();
             }
 
-            fb.display(holder.img_headIcon, praiseLists.get(position)
-                    .getAvatar());
+            // fb.display(holder.img_headIcon, praiseLists.get(position)
+            // .getAvatar());
+            FinalBitmapLoadTool.display(praiseLists.get(position).getAvatar(),
+                    holder.img_headIcon, R.drawable.head_bg);
+
             return convertView;
         }
     }

@@ -3,7 +3,6 @@ package com.changlianxi.adapter;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import net.tsz.afinal.FinalBitmap;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -16,11 +15,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.changlianxi.R;
-import com.changlianxi.applation.CLXApplication;
 import com.changlianxi.data.Circle;
 import com.changlianxi.data.CircleMember;
 import com.changlianxi.data.enums.CircleMemberState;
 import com.changlianxi.db.DBUtils;
+import com.changlianxi.util.FinalBitmapLoadTool;
 import com.changlianxi.util.StringUtils;
 import com.changlianxi.util.Utils;
 import com.changlianxi.view.CircularImage;
@@ -35,12 +34,8 @@ public class MemberAdapter extends BaseAdapter {
     private Context context;
     private boolean isAuth = true;
     private List<CircleMember> circleMembers;
-    private FinalBitmap fb;
 
     public MemberAdapter(Context context, List<CircleMember> circleMembers) {
-        fb = CLXApplication.getFb();
-        fb.configLoadingImage(R.drawable.head_bg);
-        fb.configLoadingImage(R.drawable.head_bg);
         this.circleMembers = circleMembers;
         this.context = context;
     }
@@ -126,7 +121,9 @@ public class MemberAdapter extends BaseAdapter {
 
         } else {
             holder.img.setVisibility(View.VISIBLE);
-            fb.display(holder.img, path);
+            // fb.display(holder.img, path);
+            FinalBitmapLoadTool.display(path, holder.img, R.drawable.head_bg);
+
         }
         holder.btnWarn.setOnClickListener(new BtnWranClick(position));
         return convertView;
