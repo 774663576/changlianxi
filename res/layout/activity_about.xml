@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="90dip"
-        android:src="@drawable/app_icon" />
+        android:src="@drawable/about_logo" />
 
     <TextView
         android:id="@+id/version"

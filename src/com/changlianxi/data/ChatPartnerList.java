@@ -286,7 +286,7 @@ public class ChatPartnerList extends AbstractData {
     private Result request(long startTime, long endTime) {
         IParser parser = new ChatPartnerListParser();
         Map<String, Object> params = new HashMap<String, Object>();
-        params.put("pub", this.pub);
+        params.put("pub", 1);
         if (startTime > 0) {
             params.put("start", startTime);
         }

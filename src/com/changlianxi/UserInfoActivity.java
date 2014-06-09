@@ -114,7 +114,6 @@ public class UserInfoActivity extends BaseActivity implements OnClickListener,
     private TextView line4;
     private TextView authState;
     private ImageView iv_sex;
-    private LinearLayout warnLayout;
     private LinearLayout btnOk;
     private String sex = "";
     private Info inSex = null;
@@ -207,7 +206,7 @@ public class UserInfoActivity extends BaseActivity implements OnClickListener,
     private void setFooterVisible() {
         authState(circleMember.getState());
         if (circleMember.getState() == CircleMemberState.STATUS_INVITING) {
-            initLayPrompt();
+            // initLayPrompt();
         }
         if (circleMember.getState() != CircleMemberState.STATUS_VERIFIED) {
             sendMessage.setVisibility(View.GONE);
@@ -215,7 +214,6 @@ public class UserInfoActivity extends BaseActivity implements OnClickListener,
         }
         if (circleMember.getState() == CircleMemberState.STATUS_INVITING
                 && uid == Global.getIntUid()) {
-            warnLayout.setVisibility(View.GONE);
             btnEdit.setVisibility(View.GONE);
             footView.setVisibility(View.GONE);
         }
@@ -1039,10 +1037,10 @@ public class UserInfoActivity extends BaseActivity implements OnClickListener,
                     Constants.REFRESH_CIRCLE_USER_LIST);
             String str = "";
             if (result == 0) {
-                str = userName + "已被成功踢出";
+                str = userName + " 已被成功踢出";
 
             } else {
-                str = "您已经向" + userName + "发出了踢出申请,还需要本圈子中至少" + result
+                str = "您已经向  " + userName + "  发出了踢出申请,还需要本圈子中至少" + result
                         + "个成员同意,踢出才能成功。";
             }
             promptDialog(str);
@@ -1203,10 +1201,10 @@ public class UserInfoActivity extends BaseActivity implements OnClickListener,
                 c.read(DBUtils.getDBsa(1));
                 int creator = c.getCreator();
                 if (creator == Global.getIntUid()) {
-                    confirmDialog("确认要把   " + username + " 踢出圈子吗？", username);
+                    confirmDialog("确认要把  " + username + "  踢出圈子吗？", username);
                     return;
                 }
-                confirmDialog("确认要把  " + username + " 踢出圈子吗？", username);
+                confirmDialog("确认要把  " + username + "  踢出圈子吗？", username);
                 break;
             case R.id.btnSave:
                 // circleMember.getContactsValues(DBUtils.getDBsa(1));

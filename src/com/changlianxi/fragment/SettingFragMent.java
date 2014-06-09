@@ -181,7 +181,7 @@ public class SettingFragMent extends Fragment implements OnClickListener,
             }
             if (position == 0) {
                 if (!"".equals(card.getCellphone())) {
-                    holder.txt.setText("已绑定:" + card.getCellphone());
+                    holder.txt.setText("已绑定" + card.getCellphone());
                     holder.txt.setVisibility(View.VISIBLE);
                     holder.img.setVisibility(View.GONE);
                 }

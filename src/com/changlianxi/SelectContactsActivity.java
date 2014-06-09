@@ -10,7 +10,6 @@ import android.app.Dialog;
 import android.content.AsyncQueryHandler;
 import android.content.ContentResolver;
 import android.content.ContentUris;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -19,6 +18,8 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.ContactsContract;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -103,7 +104,7 @@ public class SelectContactsActivity extends BaseActivity implements
             titleTxt.setText("添加成员");
             cid = getIntent().getIntExtra("cid", 0);
         }
-        adapter = new ContactsAdapter(this, listModle);
+        adapter = new ContactsAdapter(listModle);
         listview.setAdapter(adapter);
         asyncQuery = new MyAsyncQueryHandler(getContentResolver());
         dialog = DialogUtil.getWaitDialog(this, "请稍候");
@@ -111,7 +112,7 @@ public class SelectContactsActivity extends BaseActivity implements
         init();
 
     }
-   
+
     /**设置页面统计
      * 
      */
@@ -162,8 +163,10 @@ public class SelectContactsActivity extends BaseActivity implements
                 for (int i = 0; i < cursor.getCount(); i++) {
                     cursor.moveToPosition(i);
                     String name = cursor.getString(0);
-                    String number = cursor.getString(1).replace(" ", "");
-                    if (!Utils.isPhoneNum(StringUtils.cutHead(number, "+86"))) {
+                    String number = cursor.getString(1);
+                    number = StringUtils.StringFilter(number);
+                    number = StringUtils.cutHead(number, "86");
+                    if (!Utils.isPhoneNum(number)) {
                         continue;
                     }
                     String sortKey = cursor.getString(2);
@@ -171,15 +174,24 @@ public class SelectContactsActivity extends BaseActivity implements
                     Long photoId = cursor.getLong(4);
                     ContactModle modle = new ContactModle();
                     modle.setName(name);
-                    modle.setNum(number.replace("-", ""));
+                    modle.setNum(number);
                     modle.setSort_key(sortKey.replace(" ", ""));
                     modle.setPhotoid(photoId);
-                    modle.setKey_pinyin_fir(PinYinUtils.getFirstPinYin(name)
-                            .replace(" ", ""));
+                    // modle.setKey_pinyin_fir(PinYinUtils.getFirstPinYin(name)
+                    // .replace(" ", ""));
                     modle.setContactid((long) contactId);
-                    adapter.add(modle);
-                }
+                    listModle.add(modle);
 
+                }
+                adapter.setData(listModle);
+                new Thread() {
+                    public void run() {
+                        for (ContactModle modle : listModle) {
+                            modle.setKey_pinyin_fir(PinYinUtils.getFirstPinYin(
+                                    modle.getName()).replace(" ", ""));
+                        }
+                    }
+                }.start();
             }
         }
     }
@@ -327,34 +339,42 @@ public class SelectContactsActivity extends BaseActivity implements
         int position = arg2 - 1;
         ViewHolder holder = (ViewHolder) view.getTag();
         holder.check.toggle();
+        String name = "";
+        String num = "";
+        String tag = "";
         if (searchListModles.size() > 0) {
+            name = searchListModles.get(position).getName();
+            num = searchListModles.get(position).getNum();
+            tag = name + num;
             searchListModles.get(position).setChecked(holder.check.isChecked());
             adapter.notifyDataSetChanged();
             if (holder.check.isChecked()) {
                 Bitmap bmp = searchListModles.get(position).getBmp();
-                addImg(bmp, position + "", searchListModles.get(position)
-                        .getName());
+                addImg(bmp, tag, name);
                 ContactModle m = (ContactModle) adapter.getItem(position);
-                m.setTag(position + "");
+                m.setTag(tag);
                 addSelectList(m);
             } else {
-                delicon(position + "");
-                delSelectList(position + "");
+                delicon(tag);
+                delSelectList(tag);
             }
             btfinish.setText("完成(" + addicon.getChildCount() + ")");
             return;
         }
         listModle.get(position).setChecked(holder.check.isChecked());
         adapter.notifyDataSetChanged();
+        name = listModle.get(position).getName();
+        num = listModle.get(position).getNum();
+        tag = name + num;
         if (holder.check.isChecked()) {
             Bitmap bmp = listModle.get(position).getBmp();
-            addImg(bmp, position + "", listModle.get(position).getName());
+            addImg(bmp, tag, name);
             ContactModle m = (ContactModle) adapter.getItem(position);
-            m.setTag(position + "");
+            m.setTag(tag);
             addSelectList(m);
         } else {
-            delicon(position + "");
-            delSelectList(position + "");
+            delicon(tag);
+            delSelectList(tag);
 
         }
         btfinish.setText("完成(" + addicon.getChildCount() + ")");
@@ -501,7 +521,7 @@ public class SelectContactsActivity extends BaseActivity implements
                 existCount += 1;
             }
         }
-        String str = "添加完毕\n结果：添加" + contactsList.size() + "人";
+        String str = "添加完毕\n添加" + contactsList.size() + "人";
         if (successCount > 0) {
             str += ",成功" + successCount + "人";
         }
@@ -518,7 +538,8 @@ public class SelectContactsActivity extends BaseActivity implements
         ViewHolder holder = null;
         List<ContactModle> listData = new ArrayList<ContactModle>();
 
-        public ContactsAdapter(Context context, List<ContactModle> list) {
+        public ContactsAdapter(List<ContactModle> listData) {
+            this.listData = listData;
         }
 
         @Override
@@ -541,7 +562,6 @@ public class SelectContactsActivity extends BaseActivity implements
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
-            // setViewWidth(holder.img);
             String name = listData.get(position).getName();
             // 绘制联系人名称
             holder.name.setText(name);
@@ -582,21 +602,9 @@ public class SelectContactsActivity extends BaseActivity implements
             return listData.size();
         }
 
-        public void add(ContactModle modle) {
-            listModle.add(modle);
-            listData.add(modle);
-            notifyDataSetChanged();
-        }
-
-        public List<ContactModle> getData() {
-            return listData;
-
-        }
-
         public void setData(List<ContactModle> list) {
-            listData.clear();
-            listData.addAll(list);
-            notifyDataSetChanged();
+            this.listData = list;
+            this.notifyDataSetChanged();
         }
 
         @Override

@@ -38,7 +38,7 @@ public class VerifyActivity extends BaseActivity implements OnClickListener,
     private Button yanzhengButton;
     private SearchEditText editText;
     private TextView tiaoguoTextView;
-    private TextView textView2, textView3;
+    private TextView textView3;
     private String cellphone = "";
     private ImageView iv_back;
     private String PATH = "/users/ibindCellphone";
@@ -52,14 +52,13 @@ public class VerifyActivity extends BaseActivity implements OnClickListener,
         type = getIntent().getExtras().getString("type");
         parent = (InputMethodRelativeLayout) findViewById(R.id.Layparent);
         parent.setOnSizeChangedListenner(this);
-        textView2 = (TextView) findViewById(R.id.textView2);
         textView3 = (TextView) findViewById(R.id.textView3);
         yanzhengButton = (Button) findViewById(R.id.yanzheng);
         editText = (SearchEditText) findViewById(R.id.num);
         editText.addTextChangedListener(new EditWather(editText, this));
         editText.setInputType(InputType.TYPE_CLASS_NUMBER);
         tiaoguoTextView = (TextView) findViewById(R.id.tiaoguo);
-        tiaoguoTextView.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
+        // tiaoguoTextView.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
         tiaoguoTextView.setOnClickListener(this);
         if (type.equals("laterbind")) {
             tiaoguoTextView.setVisibility(View.GONE);
@@ -161,11 +160,9 @@ public class VerifyActivity extends BaseActivity implements OnClickListener,
         // TODO Auto-generated method stub
         if (flag) {// 键盘弹出时
             parent.setPadding(0, -10, 0, 0);
-            textView2.setVisibility(View.GONE);
             textView3.setVisibility(View.GONE);
         } else { // 键盘隐藏时
             parent.setPadding(0, 0, 0, 0);
-            textView2.setVisibility(View.VISIBLE);
             textView3.setVisibility(View.VISIBLE);
         }
     }

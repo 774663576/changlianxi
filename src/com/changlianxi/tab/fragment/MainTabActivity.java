@@ -175,8 +175,12 @@ public class MainTabActivity extends FragmentActivity implements
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            finish();
-            Utils.rightOut(this);
+            if (mTabHost.getCurrentTab() != 0) {
+                mTabHost.setCurrentTab(0);
+            } else {
+                finish();
+                Utils.rightOut(this);
+            }
         }
         return super.onKeyDown(keyCode, event);
     }

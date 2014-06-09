@@ -25,7 +25,7 @@
         android:layout_centerVertical="true"
         android:layout_toLeftOf="@+id/img"
         android:text="TextView"
-        android:textColor="@color/black"
+        android:textColor="#7f7f7f"
         android:textSize="@dimen/scale34sp"
         android:visibility="gone" />
 

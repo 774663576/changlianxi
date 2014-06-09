@@ -34,7 +34,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/layViewStub" >
+        android:layout_below="@+id/layViewStub"
+        android:layout_marginTop="-1dip" >
 
         <com.changlianxi.view.PullDownView
             android:id="@+id/PullDownlistView"

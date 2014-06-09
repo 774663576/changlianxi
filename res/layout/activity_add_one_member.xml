@@ -37,7 +37,8 @@
             android:paddingRight="10dip"
             android:paddingTop="10dip"
             android:singleLine="true"
-            android:textColor="#a0a0a0" >
+            android:textColor="#a0a0a0"
+            android:textSize="15sp" >
         </EditText>
     </LinearLayout>
 
@@ -67,7 +68,8 @@
             android:paddingRight="15dip"
             android:paddingTop="10dip"
             android:singleLine="true"
-            android:textColor="#a0a0a0" />
+            android:textColor="#a0a0a0"
+            android:textSize="15sp" />
     </LinearLayout>
 
     <Button

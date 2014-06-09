@@ -191,7 +191,7 @@ public class PullDownView extends LinearLayout implements OnScrollOverListener {
     }
 
     public void removeFooterView() {
-        if (mFooterView == null) {
+        if (mListView == null) {
             return;
         }
         mListView.removeFooterView(mFooterView);

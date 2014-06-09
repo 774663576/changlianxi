@@ -155,8 +155,8 @@ public class MemberFragment extends Fragment implements
         titileLayout = (LinearLayout) getView().findViewById(R.id.titileLay);
         mPullDownView = (PullDownView) getView().findViewById(
                 R.id.PullDownlistView);
-        mPullDownView.removeFooterView();
         listView = mPullDownView.getListView();
+        mPullDownView.removeFooterView();
         listView.setCacheColorHint(0);
         listView.setVerticalScrollBarEnabled(false);
         listView.setDivider(getActivity().getResources().getDrawable(
@@ -540,7 +540,7 @@ public class MemberFragment extends Fragment implements
         int uid = 0;
         uid = lists.get(position).getUid();
         if (!isAuth && uid != Global.getIntUid()) {
-            Utils.showToast("亲，加入圈子以后才能看到些精彩内容哦！", Toast.LENGTH_SHORT);
+            Utils.showToast("亲，加入圈子以后才能看到精彩内容哦！", Toast.LENGTH_SHORT);
             return;
         }
         intentUserInfoActivity(lists.get(position));

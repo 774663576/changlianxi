@@ -562,6 +562,8 @@ public class ThreeLoginActivity extends BaseActivity implements Callback,
             it.putExtra("type", "firstbind");
             it.setClass(ThreeLoginActivity.this, VerifyActivity.class);
             startActivity(it);
+            SharedUtils.setInt("loginType", 1);// 登录方式标记 1 注册登录 2 正常登录
+
         } catch (JSONException e) {
             e.printStackTrace();
         }

@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import net.tsz.afinal.FinalBitmap;
 import net.tsz.afinal.bitmap.core.BitmapDisplayConfig;
 import net.tsz.afinal.bitmap.display.Displayer;
 import android.annotation.SuppressLint;
@@ -25,12 +24,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.ExpandableListView;
-import android.widget.AbsListView.OnScrollListener;
 import android.widget.ExpandableListView.OnGroupClickListener;
-import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -39,13 +38,13 @@ import android.widget.TextView;
 import com.changlianxi.ChangeHistoryActivity;
 import com.changlianxi.MyCardEditActivity;
 import com.changlianxi.R;
-import com.changlianxi.applation.CLXApplication;
 import com.changlianxi.data.Global;
 import com.changlianxi.data.MyCard;
 import com.changlianxi.data.PersonDetail;
 import com.changlianxi.data.enums.PersonDetailType;
 import com.changlianxi.data.enums.RetError;
 import com.changlianxi.modle.Info;
+import com.changlianxi.showBigPic.AvatarImagePagerActivity;
 import com.changlianxi.slidingmenu.lib.app.SlidingActivity;
 import com.changlianxi.task.BaseAsyncTask.PostCallBack;
 import com.changlianxi.task.ReadMyCardTask;
@@ -67,7 +66,6 @@ public class MyCardFragMent extends Fragment implements OnClickListener,
     private CircularImage avatar;
     private TextView btnHistory;
     private Button btnEdit;
-    // private FinalBitmap fb;
     private List<Info> showBasicList = new ArrayList<Info>();// 存放基本信息数据
     private List<Info> showContactList = new ArrayList<Info>();// 存放联系方式数据
     private List<Info> showEmailList = new ArrayList<Info>();// 存放联系方式数据
@@ -118,7 +116,6 @@ public class MyCardFragMent extends Fragment implements OnClickListener,
     }
 
     private void initView() {
-        initFB();
         txtShow = (TextView) getView().findViewById(R.id.txtShow);
         iv_headbg = (ImageView) getView().findViewById(R.id.iv_headbg);
         back = (ImageView) getView().findViewById(R.id.back);
@@ -159,12 +156,6 @@ public class MyCardFragMent extends Fragment implements OnClickListener,
             }
         });
         setValue();
-    }
-
-    private void initFB() {
-        // fb = CLXApplication.getFb();
-        // fb.configLoadfailImage(R.drawable.head_bg);
-        // fb.configLoadingImage(R.drawable.head_bg);
     }
 
     private void setValue() {
@@ -737,6 +728,19 @@ public class MyCardFragMent extends Fragment implements OnClickListener,
                 startActivity(intent);
                 Utils.leftOutRightIn(getActivity());
                 break;
+            case R.id.avatar:
+                List<String> imgUrl = new ArrayList<String>();
+                imgUrl.add(card.getAvatar().replace("_160x160", ""));
+                intent = new Intent(getActivity(),
+                        AvatarImagePagerActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(Constants.EXTRA_IMAGE_URLS,
+                        (Serializable) imgUrl);
+                intent.putExtras(bundle);
+                intent.putExtra("defaultImg", R.drawable.head_bg);
+                intent.putExtra(Constants.EXTRA_IMAGE_INDEX, 1);
+                startActivity(intent);
+                break;
             default:
                 break;
         }
@@ -763,12 +767,14 @@ public class MyCardFragMent extends Fragment implements OnClickListener,
 
     private void addInSex() {
         for (Info in : showBasicList) {
-            if (in.getKey().equals("性别")) {
-                if ("1".equals(in.getValue())) {
+            if (PersonDetailType.D_GENDAR.name().equals(in.getType())) {
+                if ("1".equals(in.getValue()) || "男".equals(in.getValue())) {
                     in.setValue("男");
-                } else {
+                } else if ("2".equals(in.getValue())
+                        || "女".equals(in.getValue())) {
                     in.setValue("女");
                 }
+
                 break;
             }
         }

@@ -1,9 +1,11 @@
 package com.changlianxi.fragment;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,6 +13,7 @@ import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -25,8 +28,10 @@ import com.changlianxi.data.Global;
 import com.changlianxi.data.MyCard;
 import com.changlianxi.data.enums.RetError;
 import com.changlianxi.db.DBUtils;
+import com.changlianxi.showBigPic.AvatarImagePagerActivity;
 import com.changlianxi.task.BaseAsyncTask.PostCallBack;
 import com.changlianxi.task.MyCardTask;
+import com.changlianxi.util.Constants;
 import com.changlianxi.util.FinalBitmapLoadTool;
 import com.changlianxi.util.SharedUtils;
 import com.changlianxi.util.Utils;
@@ -40,7 +45,6 @@ public class LeftMenuFragMent extends Fragment implements OnItemClickListener {
     private MyCard myCard = null;
     private CircularImage avatar;
     private ChangeFragMentListener mOnChangeFragMentListener;
-    // private FinalBitmap fb;
     private Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -85,20 +89,30 @@ public class LeftMenuFragMent extends Fragment implements OnItemClickListener {
 
     private void findViewByID() {
         listview = (ListView) getView().findViewById(R.id.menulist);
-        initFB();
         setListener();
     }
 
     private void setListener() {
         avatar = (CircularImage) getView().findViewById(R.id.avatar);
         listview.setOnItemClickListener(this);
-        setValue();
-    }
+        avatar.setOnClickListener(new OnClickListener() {
 
-    private void initFB() {
-        // fb = CLXApplication.getFb();
-        // fb.configLoadfailImage(R.drawable.head_bg);
-        // fb.configLoadingImage(R.drawable.head_bg);
+            @Override
+            public void onClick(View v) {
+                List<String> imgUrl = new ArrayList<String>();
+                imgUrl.add(myCard.getAvatar().replace("_160x160", ""));
+                Intent intent = new Intent(getActivity(),
+                        AvatarImagePagerActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(Constants.EXTRA_IMAGE_URLS,
+                        (Serializable) imgUrl);
+                intent.putExtras(bundle);
+                intent.putExtra("defaultImg", R.drawable.head_bg);
+                intent.putExtra(Constants.EXTRA_IMAGE_INDEX, 1);
+                startActivity(intent);
+            }
+        });
+        setValue();
     }
 
     private void setValue() {

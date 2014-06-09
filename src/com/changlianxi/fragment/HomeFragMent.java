@@ -190,7 +190,7 @@ public class HomeFragMent extends Fragment implements OnClickListener,
         btnCancle.setOnClickListener(this);
         TextView txt = (TextView) getView().findViewById(R.id.txtShow);
         txt.setTextColor(getResources().getColor(R.color.ff5400));
-        txt.setText("为了更好的体验，\n建议您尽快完成您的个人名片");
+        txt.setText("为了更好的体验，\n建议您尽快完善个人名片");
     }
 
     private void showSearchPopWindow() {

@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.tsz.afinal.FinalBitmap;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -28,7 +27,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.changlianxi.adapter.GrowthImgAdapter;
-import com.changlianxi.applation.CLXApplication;
 import com.changlianxi.data.CircleMember;
 import com.changlianxi.data.Global;
 import com.changlianxi.data.Growth;

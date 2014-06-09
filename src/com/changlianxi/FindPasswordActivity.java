@@ -25,6 +25,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.changlianxi.applation.CLXApplication;
 import com.changlianxi.inteface.PasswordEditTextWatcher;
 import com.changlianxi.task.PostAsyncTask;
 import com.changlianxi.task.PostAsyncTask.PostCallBack;
@@ -326,28 +327,6 @@ public class FindPasswordActivity extends BaseActivity implements
         }
     }
 
-    /***
-     * 找回密码处理
-     * 
-     * @param result
-     */
-    // JSONObject object = new JSONObject(result);
-    // rt = object.getInt("rt");
-    // if (rt == 1) {
-    // Message msg = new Message();
-    // msg.what = 0;
-    // if (num == 1) {
-    // mHandler.sendEmptyMessage(0);
-    // }
-    //
-    // uid = object.getString("uid");
-    // SharedUtils.setString("uid", uid);
-    // if (type.equals("1")) {
-    // rGroup.setView(reg4);
-    // txtShowNum2.setText(txtnum);
-    // return;
-    // }
-
     private void FindPassword(String result) {
         try {
             JSONObject object = new JSONObject(result);
@@ -414,15 +393,16 @@ public class FindPasswordActivity extends BaseActivity implements
             JSONObject object = new JSONObject(result);
             int rt = object.getInt("rt");
             if (rt == 1) {
-                String token = object.getString("token");
-                String uid = object.getString("uid");
-                SharedUtils.setString("token", token);
-                SharedUtils.setString("uid", uid);
-                Intent intent = new Intent();
-                intent.setClass(this, MainActivity.class);
-                startActivity(intent);
+                // String token = object.getString("token");
+                // String uid = object.getString("uid");
+                // SharedUtils.setString("token", token);
+                // SharedUtils.setString("uid", uid);
+                // CLXApplication.exit(false);
+                // Intent intent = new Intent();
+                // intent.setClass(this, LoginActivity.class);
+                // startActivity(intent);
                 finish();
-                Utils.rightOut(this);
+                // Utils.rightOut(this);
             } else {
                 Utils.showToast("啊哦，密码设置没有成功，请查看下您的网络是否正常！", Toast.LENGTH_SHORT);
             }

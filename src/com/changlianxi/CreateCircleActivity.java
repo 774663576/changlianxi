@@ -197,7 +197,7 @@ public class CreateCircleActivity extends BaseActivity implements
                     promptDialog("圈子创建成功");
                     return;
                 }
-                promptDialog("圈子创建成功,添加新成员" + contactsList.size() + "名");
+                promptDialog("圈子创建成功");
 
             }
 

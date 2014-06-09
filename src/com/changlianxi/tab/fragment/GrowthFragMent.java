@@ -48,7 +48,6 @@ public class GrowthFragMent extends Fragment implements OnClickListener,
     private PullDownViewGrowth mPullDownView;
     private GrowthAdapter adapter;
     private TextView promptCount;
-    private TextView noGrowth;
     private GrowthListTask growthListTask;
     private ListView mListView;
     private List<Growth> listData = new ArrayList<Growth>();
@@ -125,14 +124,14 @@ public class GrowthFragMent extends Fragment implements OnClickListener,
         mListView.setCacheColorHint(0);
         mListView.setSelector(new ColorDrawable(Color.TRANSPARENT));
         promptCount = (TextView) getView().findViewById(R.id.promptCount);
-        noGrowth = (TextView) getView().findViewById(R.id.noMessage);
-        // if (!isAuth) {
-        // View v = LayoutInflater.from(getActivity()).inflate(
-        // R.layout.auth_foot_view, null);
-        // TextView t = (TextView) v.findViewById(R.id.txtFoot);
-        // t.setText("您不是认证成员只能看到部分数据，赶快去认证吧！");
-        // mListView.addFooterView(v);
-        // }
+        if (!isAuth) {
+            View footerView = LayoutInflater.from(getActivity()).inflate(
+                    R.layout.auth_foot_view, null, false);
+            TextView t = (TextView) footerView.findViewById(R.id.txtFoot);
+            t.setText("亲，您还未通过认证，暂时只能看到3条圈子成长，赶快找人帮你认证吧。");
+            mListView.addFooterView(footerView);
+
+        }
         setListener();
         visivlePromptCount();
     }
@@ -180,11 +179,9 @@ public class GrowthFragMent extends Fragment implements OnClickListener,
                 }
                 listData = growthList.getGrowths();
                 if (listData.size() == 0) {
-                    noGrowth.setVisibility(View.VISIBLE);
                     return;
                 }
                 adapter.setData(listData);
-                noGrowth.setVisibility(View.GONE);
                 if (growthList.getServerCount() > 19) {
                     mPullDownView.setFooterVisible(true);
                 } else {
@@ -224,7 +221,7 @@ public class GrowthFragMent extends Fragment implements OnClickListener,
     public void onMore() {
         if (listData.size() > 0) {
             if (listData.get(0).isUpLoading()) {
-                mPullDownView.RefreshComplete();
+                mPullDownView.notifyDidMore();
                 return;
             }
         }
@@ -238,7 +235,6 @@ public class GrowthFragMent extends Fragment implements OnClickListener,
     public void addLoacalGrowth(Growth g) {
         listData.add(0, g);
         adapter.setData(listData);
-        noGrowth.setVisibility(View.GONE);
         mListView.setSelection(0);
 
     }

@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import net.tsz.afinal.FinalBitmap;
 import net.tsz.afinal.bitmap.core.BitmapDisplayConfig;
 import net.tsz.afinal.bitmap.display.Displayer;
 import android.annotation.SuppressLint;
@@ -38,7 +37,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.changlianxi.applation.CLXApplication;
 import com.changlianxi.data.Circle;
 import com.changlianxi.data.CircleMember;
 import com.changlianxi.data.Global;
@@ -123,7 +121,6 @@ public class SetPublicInfoShowInfoActivity extends BaseActivity implements
     private ImageView iv_sex;
     private LinearLayout warnLayout;
     private Button btnOk;
-    // private FinalBitmap fb;
     private String sex = "";
     private Info inSex = null;
     private ViewStub layPrompt;
@@ -166,7 +163,6 @@ public class SetPublicInfoShowInfoActivity extends BaseActivity implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_info);
-        initFB();
         init();
     }
 
@@ -180,12 +176,6 @@ public class SetPublicInfoShowInfoActivity extends BaseActivity implements
         circleMember = new CircleMember(cid, pid, uid);
         circleMember.getMemberState(DBUtils.getDBsa(1));
         mHandler.sendEmptyMessageDelayed(5, 200);
-    }
-
-    private void initFB() {
-        // fb = CLXApplication.getFb();
-        // fb.configLoadingImage(R.drawable.head_bg);
-        // fb.configLoadfailImage(R.drawable.head_bg);
     }
 
     private void initView() {

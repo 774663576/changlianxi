@@ -71,8 +71,8 @@ public class SetingPublicInfomationActivity extends BaseActivity implements
     private CircleMember circleMember;
     private String circleIDs = "";
     private String personalIDs = "";
-    private TextView text;
     private String type = "";
+    private TextView footViewText;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -93,12 +93,6 @@ public class SetingPublicInfomationActivity extends BaseActivity implements
     }
 
     private void initView() {
-        text = (TextView) findViewById(R.id.text);
-        Circle c = new Circle(cid);
-        c.read(DBUtils.getDBsa(1));
-        if (c.getCreator() == Global.getIntUid()) {
-            text.setText("请选择您在本圈子中公开的个人资料");
-        }
         back = (ImageView) findViewById(R.id.back);
         title = (TextView) findViewById(R.id.titleTxt);
         title.setText("设置我的资料");
@@ -114,8 +108,19 @@ public class SetingPublicInfomationActivity extends BaseActivity implements
             };
         });
         LayoutInflater infla = LayoutInflater.from(this);
-        View footView = infla.inflate(R.layout.footer_view_save, null);
+        View footView = infla.inflate(R.layout.seting_public_info_foot_view,
+                null);
         btnSave = (Button) footView.findViewById(R.id.btn_save);
+        footViewText = (TextView) footView.findViewById(R.id.footViewText);
+        Circle c = new Circle(cid);
+        c.getCircleCreatprById(DBUtils.getDBsa(1));
+        if (c.getCreator() == Global.getIntUid()) {
+            footViewText.setText("以上信息来自于您的个人名片，保存之后您可以随时在个人页面中进行修改");
+        } else {
+            footViewText
+                    .setText("以上信息来自于您的个人名片及朋友们提前给你添加的，保存之后您可以随时在个人页面中进行修改");
+
+        }
         eListView.addFooterView(footView);
         adapter = new Adapter();
         eListView.setAdapter(adapter);
@@ -612,7 +617,7 @@ public class SetingPublicInfomationActivity extends BaseActivity implements
                         cHolder.txtMust.setVisibility(View.VISIBLE);
                     }
                     if ("性别".equals(key)) {
-                        if ("1".equals(value)) {
+                        if ("1".equals(value) || "男".equals(value)) {
                             cHolder.valeu.setText("男");
                         } else {
                             cHolder.valeu.setText("女");
@@ -947,7 +952,8 @@ public class SetingPublicInfomationActivity extends BaseActivity implements
     }
 
     private void confirmDialog() {
-        Dialog dialog = DialogUtil.confirmDialog(this, "确定取消设置吗？", "确定", "取消",
+        Dialog dialog = DialogUtil.confirmDialog(this,
+                "确定放弃当前设置？稍后您可以在个人页面中继续完善您的资料", "确定", "取消",
                 new ConfirmDialog() {
 
                     @Override

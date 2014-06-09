@@ -3,6 +3,8 @@ package com.changlianxi.adapter;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import net.tsz.afinal.FinalBitmap;
+
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -34,10 +36,14 @@ public class MemberAdapter extends BaseAdapter {
     private Context context;
     private boolean isAuth = true;
     private List<CircleMember> circleMembers;
+    private FinalBitmap fb;
 
     public MemberAdapter(Context context, List<CircleMember> circleMembers) {
         this.circleMembers = circleMembers;
         this.context = context;
+        fb = FinalBitmap.create(context);
+        fb.configLoadingImage(R.drawable.head_bg);
+        fb.configLoadfailImage(R.drawable.head_bg);
     }
 
     @Override
@@ -121,8 +127,8 @@ public class MemberAdapter extends BaseAdapter {
 
         } else {
             holder.img.setVisibility(View.VISIBLE);
-            // fb.display(holder.img, path);
-            FinalBitmapLoadTool.display(path, holder.img, R.drawable.head_bg);
+             fb.display(holder.img, path);
+//            FinalBitmapLoadTool.display(path, holder.img, R.drawable.head_bg);
 
         }
         holder.btnWarn.setOnClickListener(new BtnWranClick(position));

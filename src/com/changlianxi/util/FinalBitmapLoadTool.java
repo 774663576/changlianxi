@@ -44,4 +44,8 @@ public class FinalBitmapLoadTool {
         fb.pauseWork(false);
 
     }
+
+    public static void clear() {
+        fb.clearMemoryCache();
+    }
 }

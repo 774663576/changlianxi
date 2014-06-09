@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import net.tsz.afinal.FinalBitmap;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -22,12 +20,13 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.changlianxi.applation.CLXApplication;
 import com.changlianxi.data.Circle;
 import com.changlianxi.data.CircleList;
 import com.changlianxi.data.EditData;
@@ -44,8 +43,6 @@ import com.changlianxi.util.UserInfoUtils;
 import com.changlianxi.util.Utils;
 import com.changlianxi.view.CircularImage;
 import com.changlianxi.view.ScrollViewWithListView;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
  * 同步个人资料选择圈子界面
@@ -69,6 +66,7 @@ public class SyncchronousInformationActivity extends BaseActivity implements
     private ImageView back;
     private String headicon;
     private TextView title;
+    private CheckBox checkAll;
 
     // private FinalBitmap fb;
 
@@ -93,7 +91,7 @@ public class SyncchronousInformationActivity extends BaseActivity implements
         title = (TextView) findViewById(R.id.titleTxt);
         firstListView = (ListView) findViewById(R.id.list_first);
         secondlListView = (ScrollViewWithListView) findViewById(R.id.list_second);
-        // checkBox = (CheckBox) findViewById(R.id.check_all);
+        checkAll = (CheckBox) findViewById(R.id.check_all);
         back = (ImageView) findViewById(R.id.back);
         button = (Button) findViewById(R.id.btn_save);
         setListener();
@@ -106,16 +104,16 @@ public class SyncchronousInformationActivity extends BaseActivity implements
         secondlListView.setOnItemClickListener(this);
         back.setOnClickListener(this);
         button.setOnClickListener(this);
-        // checkBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-        // @Override
-        // public void onCheckedChanged(CompoundButton buttonView,
-        // boolean isChecked) {
-        // for (int i = 0; i < circles.size(); i++) {
-        // circles.get(i).setNew(isChecked);
-        // }
-        // cAdapter.notifyDataSetChanged();
-        // }
-        // });
+        checkAll.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView,
+                    boolean isChecked) {
+                for (int i = 0; i < circles.size(); i++) {
+                    circles.get(i).setNew(isChecked);
+                }
+                cAdapter.notifyDataSetChanged();
+            }
+        });
         setValue();
     }
 

@@ -7,10 +7,10 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/scale32dip"
+        android:layout_marginBottom="15dip"
         android:layout_marginLeft="@dimen/scale44dip"
         android:layout_marginRight="@dimen/scale32dip"
-        android:layout_marginTop="@dimen/scale41dip" >
+        android:layout_marginTop="15dip" >
 
         <com.changlianxi.view.CircularImage
             android:id="@+id/circle_img"

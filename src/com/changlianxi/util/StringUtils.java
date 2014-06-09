@@ -1,12 +1,25 @@
 package com.changlianxi.util;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
+
 import android.content.Context;
 import android.text.TextUtils;
 
 import com.changlianxi.R;
-import com.changlianxi.applation.CLXApplication;
 
 public class StringUtils {
+    public static String StringFilter(String str) throws PatternSyntaxException {
+        // 只允许字母和数字
+        String regEx = "[^0-9]";
+        // 清除掉所有特殊字符
+        // String regEx = "[ (+]";
+        Pattern p = Pattern.compile(regEx);
+        Matcher m = p.matcher(str);
+        return m.replaceAll("").trim();
+    }
+
     /**
      * 判断给定字符串是否空白串�?br> 空白串是指由空格、制表符、回车符、换行符组成的字符串<br>
      * 若输入字符串为null或空字符串，返回true

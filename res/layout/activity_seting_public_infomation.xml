@@ -16,11 +16,11 @@
         android:layout_height="wrap_content"
         android:background="#fbf6d6"
         android:gravity="center_vertical"
-        android:paddingBottom="@dimen/scale44dip"
+        android:paddingBottom="15dip"
         android:paddingLeft="@dimen/scale52dip"
         android:paddingRight="@dimen/scale58dip"
-        android:paddingTop="@dimen/scale44dip"
-        android:text="请选择您在本圈子中公开的个人资料"
+        android:paddingTop="15dip"
+        android:text="请选择您在本圈子中公开的个人资料："
         android:textColor="#ff7800"
         android:textSize="@dimen/scale32sp" />
 

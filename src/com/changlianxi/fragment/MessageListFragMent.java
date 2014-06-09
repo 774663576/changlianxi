@@ -112,9 +112,6 @@ public class MessageListFragMent extends Fragment implements OnClickListener,
         adapter = new MessageListAdapter(getActivity(), list.getPartners());
         listview.setAdapter(adapter);
         mHander.sendEmptyMessageDelayed(1, 0);
-        if (SharedUtils.getInt("loginType", 0) == 1) {
-            list.setPub("1");
-        }
         getMessageList();
     }
 

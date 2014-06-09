@@ -6,23 +6,9 @@
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/noMessage"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dip"
-        android:gravity="center"
-        android:lineSpacingExtra="4dip"
-        android:padding="5dip"
-        android:text="@string/noGrowth"
-        android:textColor="#c8313131"
-        android:textSize="18sp"
-        android:visibility="gone" />
-
-    <TextView
         android:id="@+id/promptCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/noMessage"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
         android:layout_margin="10dip"

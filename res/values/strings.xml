@@ -23,13 +23,13 @@
     <string name="leave_opinion">请留下您宝贵的意见</string>
     <string name="now_password">当前密码：</string>
     <string name="new_passwrod">新密码：</string>
-    <string name="circle_icon">圈子图标:</string>
+    <string name="circle_icon">圈子图标："</string>
     <string name="circle_icon2">圈子图标</string>
     <string name="circle_describe2">圈子描述</string>
     <string name="circle_name">圈子名称：</string>
     <string name="circle_name2">圈子名称</string>
-    <string name="circle_describe">圈子简介:</string>
-    <string name="circle_member">圈子成员:</string>
+    <string name="circle_describe">圈子简介：</string>
+    <string name="circle_member">圈子成员：</string>
     <string name="save_circle_message">保存圈子信息</string>
     <string name="member">成员</string>
     <string name="growth">成长</string>

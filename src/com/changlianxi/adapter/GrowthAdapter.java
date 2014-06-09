@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.tsz.afinal.FinalBitmap;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -30,7 +29,6 @@ import com.changlianxi.GrowthCommentActivity;
 import com.changlianxi.GrowthCommentActivity.RecordOperation;
 import com.changlianxi.R;
 import com.changlianxi.ShareActivity;
-import com.changlianxi.applation.CLXApplication;
 import com.changlianxi.data.CircleMember;
 import com.changlianxi.data.Global;
 import com.changlianxi.data.Growth;
@@ -54,8 +52,6 @@ import com.changlianxi.util.Utils;
 import com.changlianxi.view.CircularImage;
 import com.changlianxi.view.GrowthImgGridView;
 import com.changlianxi.view.GrowthImgGridView.GetClickPosition;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class GrowthAdapter extends BaseAdapter {
     private List<Growth> listData;

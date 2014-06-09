@@ -6,152 +6,139 @@
     android:background="@drawable/body_bg"
     android:orientation="vertical" >
 
+    <LinearLayout
+        android:id="@+id/title"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/scale110dip"
+        android:background="@drawable/back_trans6"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:paddingLeft="@dimen/scale30dip"
+            android:paddingRight="@dimen/scale29dip"
+            android:src="@drawable/icon_return" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_marginRight="@dimen/scale28dip"
+            android:src="@drawable/top_line" />
+
+        <TextView
+            android:id="@+id/titleName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="绑定手机号"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/scale40sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/linearLayout1"
+        android:layout_alignParentLeft="true"
+        android:paddingLeft="@dimen/scale44dip"
+        android:paddingRight="@dimen/scale44dip"
+        android:shadowColor="#ffffff"
+        android:shadowDx="0.6"
+        android:shadowDy="0.6"
+        android:shadowRadius="0.5"
+        android:text="这是您第一次登录常联系，为了方便朋友们找到您，请绑定您的手机号码"
+        android:textColor="#5F6761"
+        android:textSize="@dimen/scale40sp" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="@dimen/scale34dip"
+        android:layout_marginRight="@dimen/scale34dip"
+        android:layout_marginTop="@dimen/scale52dip"
+        android:orientation="vertical" >
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.2dp"
+            android:layout_marginLeft="6dip"
+            android:layout_marginRight="6dip"
+            android:background="#ffe0e0e0" />
+
         <LinearLayout
-            android:id="@+id/title"
-            android:layout_width="fill_parent"
-            android:layout_height="@dimen/scale110dip"
-            android:background="@drawable/back_trans6"
+            android:id="@+id/linear1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/scale129dip"
+            android:background="@drawable/input"
             android:gravity="center_vertical"
             android:orientation="horizontal" >
 
-            <ImageView
-                android:id="@+id/back"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:paddingLeft="@dimen/scale30dip"
-                android:paddingRight="@dimen/scale29dip"
-                android:src="@drawable/icon_return" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:layout_marginRight="@dimen/scale28dip"
-                android:src="@drawable/top_line" />
-
             <TextView
-                android:id="@+id/titleName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:background="@null"
+                android:paddingLeft="@dimen/scale44dip"
+                android:paddingRight="17dip"
+                android:text="@string/mobile_prefix"
+                android:textColor="#000000"
+                android:textSize="@dimen/scale46sp" >
+            </TextView>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/scale20dip"
+                android:paddingTop="@dimen/scale20dip"
+                android:src="@drawable/top_line" />
+
+            <com.changlianxi.view.SearchEditText
+                android:id="@+id/num"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:hint="输入手机号"
+                android:inputType="number"
+                android:maxLength="13"
+                android:paddingLeft="17dip"
                 android:singleLine="true"
-                android:text="@string/mobile_num_verify"
-                android:textColor="#FFFFFF"
-                android:textSize="@dimen/scale40sp" />
+                android:textColor="#000000"
+                android:textColorHint="#B8B8B8"
+                android:textSize="@dimen/scale46sp" >
+            </com.changlianxi.view.SearchEditText>
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dip"
-            android:layout_above="@+id/textView3"
-            android:paddingLeft="@dimen/scale44dip"
-            android:shadowColor="#ffffff"
-            android:shadowDx="0.6"
-            android:shadowDy="0.6"
-            android:shadowRadius="0.5"
-            android:text="@string/hello_honey"
-            android:textColor="#5F6761"
-            android:textSize="@dimen/scale40sp" />
+        <Button
+            android:id="@+id/yanzheng"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/scale129dip"
+            android:layout_marginLeft="-1dip"
+            android:layout_marginRight="-1dip"
+            android:background="@drawable/bor_radius_bottom"
+            android:text="开始绑定"
+            android:textColor="@color/white"
+            android:textSize="@dimen/scale50sp" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/tiaoguo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/linearLayout1"
-            android:layout_alignParentLeft="true"
-            android:paddingLeft="@dimen/scale44dip"
+            android:layout_gravity="right"
+            android:layout_marginTop="20dip"
             android:paddingRight="@dimen/scale44dip"
             android:shadowColor="#ffffff"
             android:shadowDx="0.6"
             android:shadowDy="0.6"
             android:shadowRadius="0.5"
-            android:text="@string/welcome"
+            android:text="稍后再绑定"
             android:textColor="#5F6761"
             android:textSize="@dimen/scale40sp" />
+    </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/linearLayout1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="@dimen/scale34dip"
-            android:layout_marginRight="@dimen/scale34dip"
-            android:layout_marginTop="@dimen/scale52dip"
-            android:orientation="vertical" >
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.2dp"
-                android:layout_marginLeft="6dip"
-                android:layout_marginRight="6dip"
-                android:background="#ffe0e0e0" />
-
-            <LinearLayout
-                android:id="@+id/linear1"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/scale129dip"
-                android:background="@drawable/input"
-                android:gravity="center_vertical"
-                android:orientation="horizontal" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@null"
-                    android:paddingLeft="@dimen/scale44dip"
-                    android:paddingRight="17dip"
-                    android:text="@string/mobile_prefix"
-                    android:textColor="#000000"
-                    android:textSize="@dimen/scale46sp" >
-                </TextView>
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="@dimen/scale20dip"
-                    android:paddingTop="@dimen/scale20dip"
-                    android:src="@drawable/top_line" />
-
-                <com.changlianxi.view.SearchEditText
-                    android:id="@+id/num"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@null"
-                    android:hint="@string/mobile_num"
-                    android:inputType="number"
-                    android:maxLength="13"
-                    android:paddingLeft="17dip"
-                    android:singleLine="true"
-                    android:textColor="#000000"
-                    android:textColorHint="#B8B8B8"
-                    android:textSize="@dimen/scale46sp" >
-                </com.changlianxi.view.SearchEditText>
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/yanzheng"
-                android:layout_width="fill_parent"
-                android:layout_height="@dimen/scale129dip"
-                android:layout_marginLeft="-1dip"
-                android:layout_marginRight="-1dip"
-                android:background="@drawable/bor_radius_bottom"
-                android:text="@string/verify"
-                android:textColor="@color/white"
-                android:textSize="@dimen/scale50sp" />
-
-            <TextView
-                android:id="@+id/tiaoguo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:paddingRight="@dimen/scale44dip"
-                android:shadowColor="#ffffff"
-                android:shadowDx="0.6"
-                android:shadowDy="0.6"
-                android:shadowRadius="0.5"
-                android:text="@string/skip_verify"
-                android:textColor="#5F6761"
-                android:textSize="@dimen/scale40sp" />
-        </LinearLayout>
 </com.changlianxi.view.InputMethodRelativeLayout>

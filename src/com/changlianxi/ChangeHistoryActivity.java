@@ -52,7 +52,6 @@ public class ChangeHistoryActivity extends BaseActivity implements
     private String PATH = "people/imyHistory";
     private int uid;
     private String token = "";
-    private String username = "";
     private int cid;
     private TextView title_name;
     private List<EditData> lists = new ArrayList<EditData>();
@@ -72,11 +71,10 @@ public class ChangeHistoryActivity extends BaseActivity implements
         back.setOnClickListener(this);
         listView.setOnItemClickListener(this);
         listView.setVerticalScrollBarEnabled(true);
-        title_name = (TextView) findViewById(R.id.title_name);
+        title_name = (TextView) findViewById(R.id.titleTxt);
         cid = getIntent().getIntExtra("cid", 0);
         uid = getIntent().getIntExtra("uid", 0);
         headicon = getIntent().getExtras().getString("headicon");
-        username = getIntent().getExtras().getString("username");
         title_name.setText("修改历史");
         token = SharedUtils.getString("token", "");
         map.put("uid", uid);

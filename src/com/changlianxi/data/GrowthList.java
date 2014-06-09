@@ -236,6 +236,7 @@ public class GrowthList extends AbstractData {
             return;
         }
         this.serverCount = another.getGrowths().size();
+
         boolean isNewer = true; // another list is newer than current list
         if (another.endTime <= this.startTime) {
             isNewer = false;

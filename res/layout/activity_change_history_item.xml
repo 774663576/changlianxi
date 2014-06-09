@@ -4,93 +4,82 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="fill_parent"
-        android:layout_height="0.5dip"
-        android:background="#C9C9C9" />
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
 
-        <LinearLayout
-            android:layout_width="fill_parent"
+        <TextView
+            android:id="@+id/history_name"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:paddingTop="@dimen/scale28dip"
+            android:text="王瑞"
+            android:textColor="#b9000000"
+            android:textSize="20sp" />
 
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" >
+        <TextView
+            android:id="@+id/history_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/history_name"
+            android:layout_alignBottom="@+id/history_name"
+            android:layout_alignParentRight="true"
+            android:layout_centerHorizontal="true"
+            android:paddingRight="@dimen/scale39dip"
+            android:text="3分钟前"
+            android:textColor="#7a7a7a"
+            android:textSize="@dimen/sp28" />
+    </RelativeLayout>
 
-                <TextView
-                    android:id="@+id/history_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="@dimen/scale28dip"
-                    android:text="王瑞"
-                    android:textColor="#b9000000"
-                    android:textSize="21sp" />
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dip" >
 
-                <TextView
-                    android:id="@+id/history_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@+id/history_name"
-                    android:layout_alignBottom="@+id/history_name"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerHorizontal="true"
-                    android:paddingRight="@dimen/scale39dip"
-                    android:text="3分钟前"
-                    android:textColor="#7a7a7a"
-                    android:textSize="@dimen/sp28" />
-            </RelativeLayout>
+        <TextView
+            android:id="@+id/history_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dip"
+            android:text="修改工作地址："
+            android:textColor="#575757"
+            android:textSize="@dimen/sp30" />
 
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingBottom="@dimen/scale35dip" >
+        <TextView
+            android:id="@+id/history_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/img"
+            android:layout_toRightOf="@+id/history_type"
+            android:text="啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊"
+            android:textColor="#575757"
+            android:textSize="@dimen/scale26sp" />
 
-                <TextView
-                    android:id="@+id/history_type"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="3dip"
-                    android:text="修改工作地址："
-                    android:textColor="#575757"
-                    android:textSize="@dimen/sp30" />
+        <com.changlianxi.view.CircularImage
+            android:id="@+id/img_ava"
+            android:layout_width="66dip"
+            android:layout_height="66dip"
+            android:layout_marginBottom="@dimen/scale35dip"
+            android:layout_toRightOf="@+id/history_type"
+            android:paddingTop="@dimen/scale13dip"
+            android:visibility="gone" />
 
-                <TextView
-                    android:id="@+id/history_content"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/history_type"
-                    android:layout_marginBottom="@dimen/scale35dip"
-                    android:text="啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊"
-                    android:textColor="#575757"
-                    android:textSize="@dimen/scale26sp" />
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/icon_angle2" />
+    </RelativeLayout>
 
-                <com.changlianxi.view.CircularImage
-                    android:id="@+id/img_ava"
-                    android:layout_width="66dip"
-                    android:layout_height="66dip"
-                    android:layout_below="@+id/history_type"
-                    android:layout_marginBottom="@dimen/scale35dip"
-                    android:paddingTop="@dimen/scale13dip"
-                    android:visibility="gone" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="16dp"
-                    android:src="@drawable/icon_angle2" />
-            </RelativeLayout>
-        </LinearLayout>
-    </LinearLayout>
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="fill_parent"
+        android:layout_height="0.5dip"
+        android:layout_marginTop="15dip"
+        android:background="#C9C9C9" />
 
 </LinearLayout>

@@ -42,8 +42,10 @@ import com.changlianxi.task.GrowthCommentsTask;
 import com.changlianxi.util.DateUtils;
 import com.changlianxi.util.DialogUtil;
 import com.changlianxi.util.FinalBitmapLoadTool;
+import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.SharedUtils;
 import com.changlianxi.util.StringUtils;
+import com.changlianxi.util.UniversalImageLoadTool;
 import com.changlianxi.util.Utils;
 import com.changlianxi.view.CircularImage;
 import com.changlianxi.view.HorizontalListView;
@@ -120,7 +122,7 @@ public class GrowthCommentActivity extends BaseActivity implements
         if ("".equals(avatarImg)) {
             img.setImageResource(R.drawable.head_bg);
         } else {
-            FinalBitmapLoadTool.display(avatarImg, img, R.drawable.head_bg);
+            FinalBitmapLoadTool.display(avatarImg, img, R.drawable.empty_photo);
 
         }
         commentList = growth.getCommentList();
@@ -336,8 +338,9 @@ public class GrowthCommentActivity extends BaseActivity implements
             oneImg.setVisibility(View.VISIBLE);
             gridView.setVisibility(View.GONE);
             // fb.display(oneImg, imgPath);
-            FinalBitmapLoadTool.display(imgPath, oneImg, R.drawable.head_bg);
-
+            // FinalBitmapLoadTool.display(imgPath, oneImg, R.drawable.head_bg);
+            UniversalImageLoadTool.disPlay(imgPath, new RotateImageViewAware(
+                    oneImg, imgPath), R.drawable.empty_photo);
         } else {
             oneImg.setVisibility(View.GONE);
             gridView.setVisibility(View.VISIBLE);
@@ -787,12 +790,13 @@ public class GrowthCommentActivity extends BaseActivity implements
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
-
-            // fb.display(holder.img_headIcon, praiseLists.get(position)
-            // .getAvatar());
-            FinalBitmapLoadTool.display(praiseLists.get(position).getAvatar(),
-                    holder.img_headIcon, R.drawable.head_bg);
-
+            String path = praiseLists.get(position).getAvatar();
+            if ("".equals(path)) {
+                holder.img_headIcon.setImageResource(R.drawable.head_bg);
+            } else {
+                FinalBitmapLoadTool.display(praiseLists.get(position)
+                        .getAvatar(), holder.img_headIcon, R.drawable.head_bg);
+            }
             return convertView;
         }
     }

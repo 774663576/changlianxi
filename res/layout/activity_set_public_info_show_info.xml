@@ -35,7 +35,7 @@
                     android:layout_marginBottom="@dimen/scale30dip"
                     android:layout_marginLeft="@dimen/scale36dip"
                     android:layout_marginTop="@dimen/scale34dip"
-                    android:text="本次更新内容"
+                    android:text="同步内容"
                     android:textColor="#616161"
                     android:textSize="@dimen/sp34" />
 
@@ -60,10 +60,7 @@
                 <RelativeLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="@dimen/scale32dip"
-                    android:paddingLeft="@dimen/scale44dip"
-                    android:paddingRight="@dimen/scale32dip"
-                    android:paddingTop="@dimen/scale41dip" >
+                    android:paddingLeft="@dimen/scale44dip" >
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -74,13 +71,17 @@
                         android:textColor="#535252"
                         android:textSize="@dimen/sp34" />
 
-                    <!-- <CheckBox -->
-                    <!-- android:id="@+id/check_all" -->
-                    <!-- android:layout_width="wrap_content" -->
-                    <!-- android:layout_height="wrap_content" -->
-                    <!-- android:layout_alignParentRight="true" -->
-                    <!-- android:layout_alignParentTop="true" -->
-                    <!-- android:button="@drawable/checkbox2" /> -->
+                    <CheckBox
+                        android:id="@+id/check_all"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:button="@drawable/checkbox2"
+                        android:checked="true"
+                        android:paddingBottom="@dimen/scale32dip"
+                        android:paddingRight="@dimen/scale32dip"
+                        android:paddingTop="@dimen/scale41dip" />
                 </RelativeLayout>
 
                 <TextView
