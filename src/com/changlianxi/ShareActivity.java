@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import net.tsz.afinal.FinalBitmap;
 import net.tsz.afinal.bitmap.core.BitmapDisplayConfig;
 import net.tsz.afinal.bitmap.display.Displayer;
 import android.content.Intent;
@@ -36,7 +35,6 @@ import cn.sharesdk.tencent.qzone.QZone;
 import cn.sharesdk.wechat.friends.Wechat;
 import cn.sharesdk.wechat.moments.WechatMoments;
 
-import com.changlianxi.applation.CLXApplication;
 import com.changlianxi.data.GrowthImage;
 import com.changlianxi.showBigPic.ImagePagerActivity;
 import com.changlianxi.util.BitmapUtils;
@@ -44,8 +42,12 @@ import com.changlianxi.util.Constants;
 import com.changlianxi.util.FileUtils;
 import com.changlianxi.util.FinalBitmapLoadTool;
 import com.changlianxi.util.MD5;
+import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.StringUtils;
+import com.changlianxi.util.UniversalImageLoadTool;
 import com.changlianxi.util.Utils;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
 import com.umeng.analytics.MobclickAgent;
 
 /**
@@ -54,7 +56,7 @@ import com.umeng.analytics.MobclickAgent;
  *
  */
 public class ShareActivity extends BaseActivity implements OnClickListener,
-        PlatformActionListener, OnItemClickListener {
+        PlatformActionListener, OnItemClickListener, ImageLoadingListener {
     private String content = "";
     private String imgLocalPath = "";
     private int from;
@@ -99,24 +101,27 @@ public class ShareActivity extends BaseActivity implements OnClickListener,
     }
 
     private void setImage() {
-        FinalBitmapLoadTool.getFb().configDisplayer(new Displayer() {
-
-            @Override
-            public void loadFailDisplay(View arg0, Bitmap arg1) {
-
-            }
-
-            @Override
-            public void loadCompletedisplay(View arg0, Bitmap bmp,
-                    BitmapDisplayConfig arg2) {
-                iv_get.setImageBitmap(bmp);
-                mBitmap = bmp;
-                createBitmapFile();
-
-            }
-        });
-        FinalBitmapLoadTool.display(imgNetPath, iv_get, R.drawable.empty_photo);
-
+        // FinalBitmapLoadTool.getFb().configDisplayer(new Displayer() {
+        //
+        // @Override
+        // public void loadFailDisplay(View arg0, Bitmap arg1) {
+        //
+        // }
+        //
+        // @Override
+        // public void loadCompletedisplay(View arg0, Bitmap bmp,
+        // BitmapDisplayConfig arg2) {
+        // iv_get.setImageBitmap(bmp);
+        // mBitmap = bmp;
+        // createBitmapFile();
+        //
+        // }
+        // });
+        // FinalBitmapLoadTool.display(imgNetPath, iv_get,
+        // R.drawable.empty_photo);
+        UniversalImageLoadTool.disPlayListener(imgNetPath,
+                new RotateImageViewAware(iv_get, imgNetPath),
+                R.drawable.empty_photo, this);
     }
 
     /**
@@ -483,5 +488,30 @@ public class ShareActivity extends BaseActivity implements OnClickListener,
                 "_500x500");
         setImage();
         createBitmapFile();
+    }
+
+    @Override
+    public void onLoadingCancelled(String arg0, View arg1) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void onLoadingComplete(String arg0, View arg1, Bitmap bmp) {
+        iv_get.setImageBitmap(bmp);
+        mBitmap = bmp;
+        createBitmapFile();
+    }
+
+    @Override
+    public void onLoadingFailed(String arg0, View arg1, FailReason arg2) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void onLoadingStarted(String arg0, View arg1) {
+        // TODO Auto-generated method stub
+
     }
 }

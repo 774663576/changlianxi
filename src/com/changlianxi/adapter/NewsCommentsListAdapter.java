@@ -15,6 +15,8 @@ import android.widget.TextView;
 import com.changlianxi.R;
 import com.changlianxi.modle.NewsComments;
 import com.changlianxi.util.FinalBitmapLoadTool;
+import com.changlianxi.util.RotateImageViewAware;
+import com.changlianxi.util.UniversalImageLoadTool;
 
 public class NewsCommentsListAdapter extends BaseAdapter {
     private Context mContext;
@@ -72,8 +74,12 @@ public class NewsCommentsListAdapter extends BaseAdapter {
         holder.name.setText(listModle.get(position).getName());
         holder.time.setText(listModle.get(position).getTime());
         // fb.display(holder.avatar, listModle.get(position).getAvatar());
-        FinalBitmapLoadTool.display(listModle.get(position).getAvatar(),
-                holder.avatar, R.drawable.head_bg);
+        // FinalBitmapLoadTool.display(listModle.get(position).getAvatar(),
+        // holder.avatar, R.drawable.head_bg);
+
+        UniversalImageLoadTool.disPlay(listModle.get(position).getAvatar(),
+                new RotateImageViewAware(holder.avatar, listModle.get(position)
+                        .getAvatar()), R.drawable.head_bg);
         if (position % 2 == 0) {
             holder.layParent.setBackgroundColor(Color.WHITE);
         } else {

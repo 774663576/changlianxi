@@ -35,8 +35,12 @@ import com.changlianxi.task.PostAsyncTask.PostCallBack;
 import com.changlianxi.util.Constants;
 import com.changlianxi.util.DialogUtil;
 import com.changlianxi.util.FinalBitmapLoadTool;
+import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.SharedUtils;
+import com.changlianxi.util.UniversalImageLoadTool;
 import com.changlianxi.util.Utils;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
 import com.umeng.analytics.MobclickAgent;
 
 /**
@@ -45,7 +49,7 @@ import com.umeng.analytics.MobclickAgent;
  *
  */
 public class ShareOthersActivity extends BaseActivity implements PostCallBack,
-        OnClickListener {
+        OnClickListener, ImageLoadingListener {
     private List<Circle> circles = new ArrayList<Circle>();
     private CircleList circleList = null;
     private String content = "";
@@ -92,9 +96,12 @@ public class ShareOthersActivity extends BaseActivity implements PostCallBack,
         // 添加并且显示
         gridview.setAdapter(saImageItems);
         content = getIntent().getExtras().getString("content");
-        Bitmap mBitmap = FinalBitmapLoadTool.getFb().getBitmapFromDiskCache(
-                gimg, new BitmapDisplayConfig());
-        iv_get.setImageBitmap(mBitmap);
+        // Bitmap mBitmap = FinalBitmapLoadTool.getFb().getBitmapFromDiskCache(
+        // gimg, new BitmapDisplayConfig());
+
+        UniversalImageLoadTool.disPlayListener(gimg, new RotateImageViewAware(
+                iv_get, gimg), R.drawable.empty_photo, this);
+        // iv_get.setImageBitmap(mBitmap);
         tv_get.setText(content);
         gridview.setOnItemClickListener(new OnItemClickListener() {
 
@@ -184,5 +191,29 @@ public class ShareOthersActivity extends BaseActivity implements PostCallBack,
             default:
                 break;
         }
+    }
+
+    @Override
+    public void onLoadingCancelled(String arg0, View arg1) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void onLoadingComplete(String arg0, View arg1, Bitmap mBitmap) {
+        iv_get.setImageBitmap(mBitmap);
+
+    }
+
+    @Override
+    public void onLoadingFailed(String arg0, View arg1, FailReason arg2) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void onLoadingStarted(String arg0, View arg1) {
+        // TODO Auto-generated method stub
+
     }
 }

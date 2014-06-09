@@ -52,14 +52,18 @@ import com.changlianxi.util.BitmapUtils;
 import com.changlianxi.util.Constants;
 import com.changlianxi.util.DateUtils;
 import com.changlianxi.util.FinalBitmapLoadTool;
+import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.SortPersonType;
+import com.changlianxi.util.UniversalImageLoadTool;
 import com.changlianxi.util.UserInfoUtils;
 import com.changlianxi.util.Utils;
 import com.changlianxi.view.CircularImage;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
 
 @SuppressLint("NewApi")
 public class MyCardFragMent extends Fragment implements OnClickListener,
-        OnScrollListener {
+        OnScrollListener, ImageLoadingListener {
     private ExpandableListView listView;
     private ImageView back;
     private RelativeLayout layTop;
@@ -196,34 +200,41 @@ public class MyCardFragMent extends Fragment implements OnClickListener,
             avatar.setImageResource(R.drawable.head_bg);
             return;
         }
-        Bitmap mBitmap = FinalBitmapLoadTool.getFb().getBitmapFromDiskCache(
-                card.getAvatar(), new BitmapDisplayConfig());
-        if (mBitmap != null) {
-            avatar.setImageBitmap(mBitmap);
-            new BoxBlurFilterThread(mBitmap).start();
-        } else {
-            avatar.setImageResource(R.drawable.head_bg);
-        }
+        UniversalImageLoadTool.disPlayListener(card.getAvatar(),
+                new RotateImageViewAware(avatar, card.getAvatar()),
+                R.drawable.head_bg, this);
+        // Bitmap mBitmap = FinalBitmapLoadTool.getFb().getBitmapFromDiskCache(
+        // card.getAvatar(), new BitmapDisplayConfig());
+        // if (mBitmap != null) {
+        // avatar.setImageBitmap(mBitmap);
+        // new BoxBlurFilterThread(mBitmap).start();
+        // } else {
+        // avatar.setImageResource(R.drawable.head_bg);
+        // }
     }
 
     private void loadingAvatar(String avatarURL) {
-        FinalBitmapLoadTool.getFb().configDisplayer(new Displayer() {
-
-            @Override
-            public void loadFailDisplay(View arg0, Bitmap arg1) {
-
-            }
-
-            @Override
-            public void loadCompletedisplay(View arg0, Bitmap mBitmap,
-                    BitmapDisplayConfig arg2) {
-                avatar.setImageBitmap(mBitmap);
-                new BoxBlurFilterThread(mBitmap).start();
-
-            }
-        });
-        // fb.display(avatar, avatarURL);
-        FinalBitmapLoadTool.display(avatarURL, avatar, R.drawable.head_bg);
+        setAvatar();
+        // FinalBitmapLoadTool.getFb().configDisplayer(new Displayer() {
+        //
+        // @Override
+        // public void loadFailDisplay(View arg0, Bitmap arg1) {
+        //
+        // }
+        //
+        // @Override
+        // public void loadCompletedisplay(View arg0, Bitmap mBitmap,
+        // BitmapDisplayConfig arg2) {
+        // avatar.setImageBitmap(mBitmap);
+        // new BoxBlurFilterThread(mBitmap).start();
+        //
+        // }
+        // });
+        // // fb.display(avatar, avatarURL);
+        // // FinalBitmapLoadTool.display(avatarURL, avatar,
+        // R.drawable.head_bg);
+        // UniversalImageLoadTool.disPlay(avatarURL, new RotateImageViewAware(
+        // avatar, avatarURL), R.drawable.head_bg);
     }
 
     /**
@@ -821,6 +832,33 @@ public class MyCardFragMent extends Fragment implements OnClickListener,
                     topsi - Utils.dip2px(getActivity(), 70),
                     txtShow.getRight(), botsi - Utils.dip2px(getActivity(), 70));
         }
+    }
+
+    @Override
+    public void onLoadingCancelled(String arg0, View arg1) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void onLoadingComplete(String arg0, View arg1, Bitmap mBitmap) {
+        if (mBitmap != null) {
+            new BoxBlurFilterThread(mBitmap).start();
+        } else {
+            avatar.setImageResource(R.drawable.head_bg);
+        }
+    }
+
+    @Override
+    public void onLoadingFailed(String arg0, View arg1, FailReason arg2) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void onLoadingStarted(String arg0, View arg1) {
+        // TODO Auto-generated method stub
+
     }
 
 }

@@ -35,8 +35,10 @@ import com.changlianxi.task.PostAsyncTask.PostCallBack;
 import com.changlianxi.util.DateUtils;
 import com.changlianxi.util.DialogUtil;
 import com.changlianxi.util.FinalBitmapLoadTool;
+import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.SharedUtils;
 import com.changlianxi.util.StringUtils;
+import com.changlianxi.util.UniversalImageLoadTool;
 import com.changlianxi.util.Utils;
 import com.changlianxi.view.CircularImage;
 
@@ -196,9 +198,12 @@ public class ChangeHistoryActivity extends BaseActivity implements
             if (lists.get(position).getType() == PersonDetailType.D_AVATAR) {
                 holder.content.setVisibility(View.GONE);
                 holder.avatar.setVisibility(View.VISIBLE);
-                FinalBitmapLoadTool.display(
-                        StringUtils.JoinString(value, "_160x160"),
-                        holder.avatar, R.drawable.head_bg);
+                String path = StringUtils.JoinString(value, "_160x160");
+                // FinalBitmapLoadTool.display(
+                // StringUtils.JoinString(value, "_160x160"),
+                // holder.avatar, R.drawable.head_bg);
+                UniversalImageLoadTool.disPlay(path, new RotateImageViewAware(
+                        holder.avatar, path), R.drawable.head_bg);
             } else {
                 holder.content.setVisibility(View.VISIBLE);
                 holder.avatar.setVisibility(View.GONE);

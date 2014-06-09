@@ -20,7 +20,9 @@ import com.changlianxi.db.DBUtils;
 import com.changlianxi.inteface.OnAvatarClickListener;
 import com.changlianxi.util.DateUtils;
 import com.changlianxi.util.FinalBitmapLoadTool;
+import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.StringUtils;
+import com.changlianxi.util.UniversalImageLoadTool;
 import com.changlianxi.view.CircularImage;
 
 /**
@@ -105,8 +107,10 @@ public class DynamicAllAdapter extends BaseAdapter {
             holderOther.avatar.setImageResource(R.drawable.head_bg);
         } else {
             // fb.display(holderOther.avatar, avatarUrl);
-            FinalBitmapLoadTool.display(avatarUrl, holderOther.avatar,
-                    R.drawable.head_bg);
+            // FinalBitmapLoadTool.display(avatarUrl, holderOther.avatar,
+            // R.drawable.head_bg);
+            UniversalImageLoadTool.disPlay(avatarUrl, new RotateImageViewAware(
+                    holderOther.avatar, avatarUrl), R.drawable.head_bg);
         }
         holderOther.avatar.setOnClickListener(new OnAvatarClickListener(
                 mCotext, cid, m1 == null & m2 == null ? 0 : m1 == null ? m2

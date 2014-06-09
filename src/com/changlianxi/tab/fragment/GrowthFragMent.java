@@ -107,8 +107,8 @@ public class GrowthFragMent extends Fragment implements OnClickListener,
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if (!isOnCreate) {
-            CheckImageLoaderConfiguration
-                    .checkImageLoaderConfiguration(getActivity());
+            // CheckImageLoaderConfiguration
+            // .checkImageLoaderConfiguration(getActivity());
             initView();
         }
         isOnCreate = true;

@@ -41,9 +41,14 @@ import com.changlianxi.util.BroadCast;
 import com.changlianxi.util.Constants;
 import com.changlianxi.util.DialogUtil;
 import com.changlianxi.util.FinalBitmapLoadTool;
+import com.changlianxi.util.RotateImageViewAware;
+import com.changlianxi.util.UniversalImageLoadTool;
 import com.changlianxi.util.Utils;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
 
-public class CircleInfoFragement extends Fragment implements OnClickListener {
+public class CircleInfoFragement extends Fragment implements OnClickListener,
+        ImageLoadingListener {
     private TextView circleName;// 圈子名称
     private TextView titleName;
     private TextView circleDescription;// 圈子描述
@@ -159,13 +164,17 @@ public class CircleInfoFragement extends Fragment implements OnClickListener {
         if ("".equals(img)) {
             circleLogo.setImageResource(R.drawable.pic_bg_no);
         } else {
-            if (FinalBitmapLoadTool.getFb() == null) {
-                return;
-            }
-            logoBmp = FinalBitmapLoadTool.getFb().getBitmapFromDiskCache(img);
-            if (logoBmp != null) {
-                circleLogo.setImageBitmap(logoBmp);
-            }
+            UniversalImageLoadTool.disPlayListener(img,
+                    new RotateImageViewAware(circleLogo, img),
+                    R.drawable.pic_bg_no, this);
+            // if (FinalBitmapLoadTool.getFb() == null) {
+            // return;
+            // }
+            // logoBmp =
+            // FinalBitmapLoadTool.getFb().getBitmapFromDiskCache(img);
+            // if (logoBmp != null) {
+            // circleLogo.setImageBitmap(logoBmp);
+            // }
 
             // FinalBitmapLoadTool.display(img, circleLogo,
             // R.drawable.pic_bg_no);
@@ -463,5 +472,29 @@ public class CircleInfoFragement extends Fragment implements OnClickListener {
         if (mBroadcastReceiver.isOrderedBroadcast()) {
             getActivity().unregisterReceiver(mBroadcastReceiver);
         }
+    }
+
+    @Override
+    public void onLoadingCancelled(String arg0, View arg1) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void onLoadingComplete(String arg0, View arg1, Bitmap logoBmp) {
+        circleLogo.setImageBitmap(logoBmp);
+
+    }
+
+    @Override
+    public void onLoadingFailed(String arg0, View arg1, FailReason arg2) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void onLoadingStarted(String arg0, View arg1) {
+        // TODO Auto-generated method stub
+
     }
 }

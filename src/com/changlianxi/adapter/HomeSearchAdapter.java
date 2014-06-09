@@ -17,7 +17,9 @@ import com.changlianxi.data.Circle;
 import com.changlianxi.data.CircleMember;
 import com.changlianxi.db.DBUtils;
 import com.changlianxi.util.FinalBitmapLoadTool;
+import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.StringUtils;
+import com.changlianxi.util.UniversalImageLoadTool;
 import com.changlianxi.view.CircularImage;
 
 public class HomeSearchAdapter extends BaseAdapter {
@@ -94,7 +96,10 @@ public class HomeSearchAdapter extends BaseAdapter {
         } else {
             holder.img.setVisibility(View.VISIBLE);
             // fb.display(holder.img, path);
-            FinalBitmapLoadTool.display(path, holder.img, R.drawable.head_bg);
+            // FinalBitmapLoadTool.display(path, holder.img,
+            // R.drawable.head_bg);
+            UniversalImageLoadTool.disPlay(path, new RotateImageViewAware(
+                    holder.img, path), R.drawable.head_bg);
         }
         return convertView;
     }

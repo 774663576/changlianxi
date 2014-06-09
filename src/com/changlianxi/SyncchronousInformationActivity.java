@@ -37,8 +37,10 @@ import com.changlianxi.util.BroadCast;
 import com.changlianxi.util.Constants;
 import com.changlianxi.util.DialogUtil;
 import com.changlianxi.util.FinalBitmapLoadTool;
+import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.SharedUtils;
 import com.changlianxi.util.StringUtils;
+import com.changlianxi.util.UniversalImageLoadTool;
 import com.changlianxi.util.UserInfoUtils;
 import com.changlianxi.util.Utils;
 import com.changlianxi.view.CircularImage;
@@ -206,7 +208,10 @@ public class SyncchronousInformationActivity extends BaseActivity implements
                     holder.headImg.setImageResource(R.drawable.head_bg);
                 } else {
                     // fb.display(holder.headImg, detail);
-                    FinalBitmapLoadTool.display(detail, holder.headImg,
+                    // FinalBitmapLoadTool.display(detail, holder.headImg,
+                    // R.drawable.head_bg);
+                    UniversalImageLoadTool.disPlay(detail,
+                            new RotateImageViewAware(holder.headImg, detail),
                             R.drawable.head_bg);
 
                 }
@@ -274,8 +279,11 @@ public class SyncchronousInformationActivity extends BaseActivity implements
                 viewHolder.circleImg.setImageResource(R.drawable.pic_bg_no);
             } else {
                 // fb.display(viewHolder.circleImg, circleLogo);
-                FinalBitmapLoadTool.display(circleLogo, viewHolder.circleImg,
-                        R.drawable.pic_bg_no);
+                // FinalBitmapLoadTool.display(circleLogo, viewHolder.circleImg,
+                // R.drawable.pic_bg_no);
+                UniversalImageLoadTool.disPlay(circleLogo,
+                        new RotateImageViewAware(viewHolder.circleImg,
+                                circleLogo), R.drawable.pic_bg_no);
 
             }
 

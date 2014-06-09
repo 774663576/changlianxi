@@ -28,6 +28,8 @@ import com.changlianxi.util.Constants;
 import com.changlianxi.util.DateUtils;
 import com.changlianxi.util.EmojiParser;
 import com.changlianxi.util.FinalBitmapLoadTool;
+import com.changlianxi.util.RotateImageViewAware;
+import com.changlianxi.util.UniversalImageLoadTool;
 import com.changlianxi.view.CircularImage;
 import com.changlianxi.view.EmojiEditText;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -169,8 +171,11 @@ public class MessageAdapter extends BaseAdapter {
                         content = "file://" + content;
                     }
                     // fb.display(selfHolder.selfImg, content);
-                    FinalBitmapLoadTool.display(content, selfHolder.selfImg,
-                            R.drawable.empty_photo);
+                    // FinalBitmapLoadTool.display(content, selfHolder.selfImg,
+                    // R.drawable.empty_photo);
+                    UniversalImageLoadTool.disPlay(content,
+                            new RotateImageViewAware(selfHolder.selfImg,
+                                    content), R.drawable.empty_photo);
                 }
                 selfHolder.selfLayout.setVisibility(View.VISIBLE);
                 selfHolder.selfContent.setText(EmojiParser
@@ -181,8 +186,11 @@ public class MessageAdapter extends BaseAdapter {
                     // imageLoader.displayImage(selfAvatar,
                     // selfHolder.selfAvatar,
                     // options);
-                    FinalBitmapLoadTool.display(selfAvatar,
-                            selfHolder.selfAvatar, R.drawable.head_bg);
+                    // FinalBitmapLoadTool.display(selfAvatar,
+                    // selfHolder.selfAvatar, R.drawable.head_bg);
+                    UniversalImageLoadTool.disPlay(selfAvatar,
+                            new RotateImageViewAware(selfHolder.selfAvatar,
+                                    selfAvatar), R.drawable.head_bg);
 
                 }
                 selfHolder.selfImg.setOnClickListener(new ImageOnClick(content
@@ -197,8 +205,12 @@ public class MessageAdapter extends BaseAdapter {
                     otherHolder.otherImg.setVisibility(View.VISIBLE);
                     otherHolder.otherContent.setVisibility(View.GONE);
                     // fb.display(otherHolder.otherAvatar, content);
-                    FinalBitmapLoadTool.display(content,
-                            otherHolder.otherAvatar, R.drawable.empty_photo);
+                    // FinalBitmapLoadTool.display(content,
+                    // otherHolder.otherImg, R.drawable.empty_photo);
+
+                    UniversalImageLoadTool.disPlay(content,
+                            new RotateImageViewAware(otherHolder.otherImg,
+                                    content), R.drawable.empty_photo);
                 }
                 otherHolder.otherLayout.setVisibility(View.VISIBLE);
                 otherHolder.otherContent.setText(EmojiParser
@@ -208,11 +220,16 @@ public class MessageAdapter extends BaseAdapter {
                 if (path == null || path.equals("")) {
                     otherHolder.otherAvatar
                             .setImageResource(R.drawable.head_bg);
+
                 } else {
                     // imageLoader.displayImage(path, otherHolder.otherAvatar,
                     // options);
-                    FinalBitmapLoadTool.display(path, otherHolder.otherAvatar,
-                            R.drawable.head_bg);
+                    // FinalBitmapLoadTool.display(path,
+                    // otherHolder.otherAvatar,
+                    // R.drawable.head_bg);
+                    UniversalImageLoadTool.disPlay(path,
+                            new RotateImageViewAware(otherHolder.otherAvatar,
+                                    path), R.drawable.head_bg);
                 }
                 otherHolder.otherAvatar.setOnClickListener(new OnAvatarClick(
                         cid, uid, pid, otherName, otherAvater));

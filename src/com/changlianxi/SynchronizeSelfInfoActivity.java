@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.tsz.afinal.FinalBitmap;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -22,11 +20,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.changlianxi.R;
-import com.changlianxi.applation.CLXApplication;
 import com.changlianxi.data.EditData;
 import com.changlianxi.data.enums.PersonDetailType;
 import com.changlianxi.util.FinalBitmapLoadTool;
+import com.changlianxi.util.RotateImageViewAware;
+import com.changlianxi.util.UniversalImageLoadTool;
 import com.changlianxi.util.Utils;
 import com.changlianxi.view.CircularImage;
 import com.umeng.analytics.MobclickAgent;
@@ -202,8 +200,10 @@ public class SynchronizeSelfInfoActivity extends BaseActivity implements
                 holder.avatr.setVisibility(View.VISIBLE);
                 holder.value.setVisibility(View.GONE);
                 // fb.display(holder.avatr, value);
-                FinalBitmapLoadTool.display(value, holder.avatr,
-                        R.drawable.head_bg);
+                // FinalBitmapLoadTool.display(value, holder.avatr,
+                // R.drawable.head_bg);
+                UniversalImageLoadTool.disPlay(value, new RotateImageViewAware(
+                        holder.avatr, value), R.drawable.head_bg);
 
             } else {
                 holder.avatr.setVisibility(View.GONE);

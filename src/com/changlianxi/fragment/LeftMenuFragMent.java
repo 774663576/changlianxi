@@ -33,7 +33,9 @@ import com.changlianxi.task.BaseAsyncTask.PostCallBack;
 import com.changlianxi.task.MyCardTask;
 import com.changlianxi.util.Constants;
 import com.changlianxi.util.FinalBitmapLoadTool;
+import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.SharedUtils;
+import com.changlianxi.util.UniversalImageLoadTool;
 import com.changlianxi.util.Utils;
 import com.changlianxi.util.WigdtContorl;
 import com.changlianxi.view.CircularImage;
@@ -163,7 +165,10 @@ public class LeftMenuFragMent extends Fragment implements OnItemClickListener {
             return;
         }
         // fb.display(avatar, avatarUrl);
-        FinalBitmapLoadTool.display(avatarUrl, avatar, R.drawable.head_bg);
+        // FinalBitmapLoadTool.display(avatarUrl, avatar, R.drawable.head_bg);
+
+        UniversalImageLoadTool.disPlay(avatarUrl, new RotateImageViewAware(
+                avatar, avatarUrl), R.drawable.head_bg);
     }
 
     private void getMenu() {

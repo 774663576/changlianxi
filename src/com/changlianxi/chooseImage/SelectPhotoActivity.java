@@ -85,7 +85,7 @@ public class SelectPhotoActivity extends FragmentActivity implements
     @Override
     protected void onStart() {
         super.onStart();
-        CheckImageLoaderConfiguration.checkImageLoaderConfiguration(this);
+        // CheckImageLoaderConfiguration.checkImageLoaderConfiguration(this);
     }
 
     @Override

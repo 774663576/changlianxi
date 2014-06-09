@@ -18,8 +18,6 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.provider.ContactsContract;
 import android.text.Editable;
 import android.text.TextWatcher;

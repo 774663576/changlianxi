@@ -21,6 +21,8 @@ import com.changlianxi.inteface.OnAvatarClickListener;
 import com.changlianxi.util.DateUtils;
 import com.changlianxi.util.EmojiParser;
 import com.changlianxi.util.FinalBitmapLoadTool;
+import com.changlianxi.util.RotateImageViewAware;
+import com.changlianxi.util.UniversalImageLoadTool;
 import com.changlianxi.view.EmojiEditText;
 
 public class MessageListAdapter extends BaseAdapter {
@@ -104,8 +106,11 @@ public class MessageListAdapter extends BaseAdapter {
             holder.avatar.setImageResource(R.drawable.head_bg);
         } else {
             // fb.display(holder.avatar, avatar);
-            FinalBitmapLoadTool.display(avatar, holder.avatar,
-                    R.drawable.head_bg);
+            // FinalBitmapLoadTool.display(avatar, holder.avatar,
+            // R.drawable.head_bg);
+
+            UniversalImageLoadTool.disPlay(avatar, new RotateImageViewAware(
+                    holder.avatar, avatar), R.drawable.head_bg);
         }
         if (position % 2 == 0) {
             holder.layParent.setBackgroundColor(Color.WHITE);

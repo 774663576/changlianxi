@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import net.tsz.afinal.FinalBitmap;
-
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -21,7 +20,6 @@ import com.changlianxi.data.Circle;
 import com.changlianxi.data.CircleMember;
 import com.changlianxi.data.enums.CircleMemberState;
 import com.changlianxi.db.DBUtils;
-import com.changlianxi.util.FinalBitmapLoadTool;
 import com.changlianxi.util.StringUtils;
 import com.changlianxi.util.Utils;
 import com.changlianxi.view.CircularImage;

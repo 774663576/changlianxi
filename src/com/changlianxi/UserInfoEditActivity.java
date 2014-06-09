@@ -65,9 +65,13 @@ import com.changlianxi.util.Constants;
 import com.changlianxi.util.DateUtils;
 import com.changlianxi.util.DialogUtil;
 import com.changlianxi.util.FinalBitmapLoadTool;
+import com.changlianxi.util.RotateImageViewAware;
+import com.changlianxi.util.UniversalImageLoadTool;
 import com.changlianxi.util.UserInfoUtils;
 import com.changlianxi.util.Utils;
 import com.changlianxi.view.CircularImage;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
 import com.umeng.analytics.MobclickAgent;
 
 /**
@@ -77,7 +81,7 @@ import com.umeng.analytics.MobclickAgent;
  * 
  */
 public class UserInfoEditActivity extends BaseActivity implements
-        OnClickListener {
+        OnClickListener, ImageLoadingListener {
     private List<Info> basicList = new ArrayList<Info>();// 存放基本信息数据
     private List<Info> contactList = new ArrayList<Info>();// 存放联系方式数据
     private List<Info> socialList = new ArrayList<Info>();// 存放社交账号数据
@@ -309,15 +313,18 @@ public class UserInfoEditActivity extends BaseActivity implements
             new BoxBlurFilterThread(avatarBitmap).start();
             return;
         }
-        Bitmap mBitmap = FinalBitmapLoadTool.getFb().getBitmapFromDiskCache(
-                avatarURL, new BitmapDisplayConfig());
-        if (mBitmap != null) {
-            avatar.setImageBitmap(mBitmap);
-            new BoxBlurFilterThread(mBitmap).start();
-        } else {
-            avatar.setImageResource(R.drawable.head_bg);
-
-        }
+        UniversalImageLoadTool.disPlayListener(avatarURL,
+                new RotateImageViewAware(avatar, avatarURL),
+                R.drawable.head_bg, this);
+        // Bitmap mBitmap = FinalBitmapLoadTool.getFb().getBitmapFromDiskCache(
+        // avatarURL, new BitmapDisplayConfig());
+        // if (mBitmap != null) {
+        // avatar.setImageBitmap(mBitmap);
+        // new BoxBlurFilterThread(mBitmap).start();
+        // } else {
+        // avatar.setImageResource(R.drawable.head_bg);
+        //
+        // }
     }
 
     @SuppressLint("NewApi")
@@ -1663,10 +1670,37 @@ public class UserInfoEditActivity extends BaseActivity implements
                 avatarBitmap = bitmap;
                 avatar.setImageBitmap(bitmap);
                 new BoxBlurFilterThread(bitmap).start();
-                new BoxBlurFilterThread(bitmap).start();
 
             }
         }
+
+    }
+
+    @Override
+    public void onLoadingCancelled(String arg0, View arg1) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void onLoadingComplete(String arg0, View arg1, Bitmap mBitmap) {
+        if (mBitmap != null) {
+            new BoxBlurFilterThread(mBitmap).start();
+        } else {
+            avatar.setImageResource(R.drawable.head_bg);
+
+        }
+    }
+
+    @Override
+    public void onLoadingFailed(String arg0, View arg1, FailReason arg2) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void onLoadingStarted(String arg0, View arg1) {
+        // TODO Auto-generated method stub
 
     }
 }

@@ -40,7 +40,9 @@ import com.changlianxi.util.Constants;
 import com.changlianxi.util.DateUtils;
 import com.changlianxi.util.DialogUtil;
 import com.changlianxi.util.FinalBitmapLoadTool;
+import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.SortPersonType;
+import com.changlianxi.util.UniversalImageLoadTool;
 import com.changlianxi.util.UserInfoUtils;
 import com.changlianxi.util.Utils;
 import com.changlianxi.view.CircularImage;
@@ -551,9 +553,12 @@ public class SetingPublicInfomationActivity extends BaseActivity implements
                 case TYPE_1:
                     avatarHolder.key.setText(key + ":");
                     // fb.display(avatarHolder.avatar, value);
-                    FinalBitmapLoadTool.display(value, avatarHolder.avatar,
-                            R.drawable.head_bg);
-
+                    // FinalBitmapLoadTool.display(value, avatarHolder.avatar,
+                    // R.drawable.head_bg);
+                    UniversalImageLoadTool
+                            .disPlay(value, new RotateImageViewAware(
+                                    avatarHolder.avatar, value),
+                                    R.drawable.head_bg);
                     avatarHolder.mySwitch
                             .setOnSwitchListener(new OnSwitchListener() {
 

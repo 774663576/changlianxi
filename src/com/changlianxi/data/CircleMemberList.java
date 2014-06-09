@@ -342,7 +342,7 @@ public class CircleMemberList extends AbstractData {
                 break;
             }
 
-            startTime = cml.getEndTime() / 1000 + 1;
+            startTime = cml.getEndTime() / 1000 ;
         }
     }
 

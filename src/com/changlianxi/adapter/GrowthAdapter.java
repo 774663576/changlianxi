@@ -179,8 +179,10 @@ public class GrowthAdapter extends BaseAdapter {
         } else {
             // fb.display(holder.avatar, path);
             // imageLoader.displayImage(path, holder.avatar, option);
-            FinalBitmapLoadTool
-                    .display(path, holder.avatar, R.drawable.head_bg);
+            // FinalBitmapLoadTool
+            // .display(path, holder.avatar, R.drawable.head_bg);
+            UniversalImageLoadTool.disPlay(path, new RotateImageViewAware(
+                    holder.avatar, path), R.drawable.head_bg);
 
         }
         holder.name.setText(name);

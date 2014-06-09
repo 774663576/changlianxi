@@ -8,6 +8,7 @@ import android.app.Application;
 import android.app.NotificationManager;
 
 import com.baidu.frontia.FrontiaApplication;
+import com.changlianxi.chooseImage.CheckImageLoaderConfiguration;
 import com.changlianxi.util.FinalBitmapLoadTool;
 
 public class CLXApplication extends Application {
@@ -35,6 +36,8 @@ public class CLXApplication extends Application {
         // Logger.setOutPut(false);// 不在控制台输出
         // CrashHandler catchHandler = CrashHandler.getInstance();
         // catchHandler.init(this);
+        CheckImageLoaderConfiguration.checkImageLoaderConfiguration(this);
+
     }
 
     // 添加Activity到容器中

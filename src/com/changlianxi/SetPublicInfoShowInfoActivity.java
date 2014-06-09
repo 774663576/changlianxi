@@ -56,11 +56,15 @@ import com.changlianxi.util.Constants;
 import com.changlianxi.util.DateUtils;
 import com.changlianxi.util.DialogUtil;
 import com.changlianxi.util.FinalBitmapLoadTool;
+import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.SaveContactsToPhone;
 import com.changlianxi.util.SortPersonType;
+import com.changlianxi.util.UniversalImageLoadTool;
 import com.changlianxi.util.UserInfoUtils;
 import com.changlianxi.util.Utils;
 import com.changlianxi.view.CircularImage;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
 import com.umeng.analytics.MobclickAgent;
 
 /**
@@ -70,7 +74,7 @@ import com.umeng.analytics.MobclickAgent;
  */
 @TargetApi(16)
 public class SetPublicInfoShowInfoActivity extends BaseActivity implements
-        OnClickListener, OnScrollListener {
+        OnClickListener, OnScrollListener, ImageLoadingListener {
     private ExpandableListView list;
     private String iconPath = "";
     private int pid;// 用户pid
@@ -296,33 +300,40 @@ public class SetPublicInfoShowInfoActivity extends BaseActivity implements
     }
 
     private void setAvatar() {
-        Bitmap mBitmap = FinalBitmapLoadTool.getFb().getBitmapFromDiskCache(
-                iconPath, new BitmapDisplayConfig());
-        if (mBitmap != null) {
-            avatar.setImageBitmap(mBitmap);
-            new BoxBlurFilterThread(mBitmap).start();
-        } else {
-            avatar.setImageResource(R.drawable.head_bg);
-        }
+        UniversalImageLoadTool.disPlayListener(iconPath,
+                new RotateImageViewAware(avatar, iconPath), R.drawable.head_bg,
+                this);
+        //
+        // Bitmap mBitmap = FinalBitmapLoadTool.getFb().getBitmapFromDiskCache(
+        // iconPath, new BitmapDisplayConfig());
+        // if (mBitmap != null) {
+        // avatar.setImageBitmap(mBitmap);
+        // new BoxBlurFilterThread(mBitmap).start();
+        // } else {
+        // avatar.setImageResource(R.drawable.head_bg);
+        // }
     }
 
     private void loadingAvatar() {
-        FinalBitmapLoadTool.getFb().configDisplayer(new Displayer() {
-
-            @Override
-            public void loadFailDisplay(View arg0, Bitmap arg1) {
-
-            }
-
-            @Override
-            public void loadCompletedisplay(View arg0, Bitmap mBitmap,
-                    BitmapDisplayConfig arg2) {
-                avatar.setImageBitmap(mBitmap);
-                new BoxBlurFilterThread(mBitmap).start();
-            }
-        });
-        // fb.display(avatar, iconPath);
-        FinalBitmapLoadTool.display(iconPath, avatar, R.drawable.head_bg);
+        setAvatar();
+        // FinalBitmapLoadTool.getFb().configDisplayer(new Displayer() {
+        //
+        // @Override
+        // public void loadFailDisplay(View arg0, Bitmap arg1) {
+        //
+        // }
+        //
+        // @Override
+        // public void loadCompletedisplay(View arg0, Bitmap mBitmap,
+        // BitmapDisplayConfig arg2) {
+        // avatar.setImageBitmap(mBitmap);
+        // new BoxBlurFilterThread(mBitmap).start();
+        // }
+        // });
+        // // fb.display(avatar, iconPath);
+        // // FinalBitmapLoadTool.display(iconPath, avatar, R.drawable.head_bg);
+        // UniversalImageLoadTool.disPlay(iconPath, new RotateImageViewAware(
+        // avatar, iconPath), R.drawable.head_bg);
 
     }
 
@@ -1328,5 +1339,32 @@ public class SetPublicInfoShowInfoActivity extends BaseActivity implements
             selMes.layout(selMes.getLeft(), topsi - Utils.dip2px(this, 70),
                     selMes.getRight(), botsi - Utils.dip2px(this, 70));
         }
+    }
+
+    @Override
+    public void onLoadingCancelled(String arg0, View arg1) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void onLoadingComplete(String arg0, View arg1, Bitmap mBitmap) {
+        if (mBitmap != null) {
+            new BoxBlurFilterThread(mBitmap).start();
+        } else {
+            avatar.setImageResource(R.drawable.head_bg);
+        }
+    }
+
+    @Override
+    public void onLoadingFailed(String arg0, View arg1, FailReason arg2) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void onLoadingStarted(String arg0, View arg1) {
+        // TODO Auto-generated method stub
+
     }
 }

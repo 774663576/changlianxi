@@ -29,7 +29,9 @@ import com.changlianxi.task.BaseAsyncTask.PostCallBack;
 import com.changlianxi.util.DateUtils;
 import com.changlianxi.util.DialogUtil;
 import com.changlianxi.util.FinalBitmapLoadTool;
+import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.StringUtils;
+import com.changlianxi.util.UniversalImageLoadTool;
 import com.changlianxi.util.Utils;
 import com.changlianxi.view.CircularImage;
 
@@ -166,8 +168,11 @@ public class DynamicAdoutMeAdapter extends BaseAdapter {
                             .setImageResource(R.drawable.head_bg);
                 } else {
                     // fb.display(holderInvite.avatarInvite, avatarUrl);
-                    FinalBitmapLoadTool.display(avatarUrl,
-                            holderInvite.avatarInvite, R.drawable.head_bg);
+                    // FinalBitmapLoadTool.display(avatarUrl,
+                    // holderInvite.avatarInvite, R.drawable.head_bg);
+                    UniversalImageLoadTool.disPlay(avatarUrl,
+                            new RotateImageViewAware(holderInvite.avatarInvite,
+                                    avatarUrl), R.drawable.head_bg);
                 }
                 holderInvite.btnAgreeInvite.setOnClickListener(new BtnClick(
                         listModle.get(position), position, m1, m2));
@@ -193,7 +198,10 @@ public class DynamicAdoutMeAdapter extends BaseAdapter {
                     holder.avatar.setImageResource(R.drawable.head_bg);
                 } else {
                     // fb.display(holder.avatar, avatarUrl);
-                    FinalBitmapLoadTool.display(avatarUrl, holder.avatar,
+                    // FinalBitmapLoadTool.display(avatarUrl, holder.avatar,
+                    // R.drawable.head_bg);
+                    UniversalImageLoadTool.disPlay(avatarUrl,
+                            new RotateImageViewAware(holder.avatar, avatarUrl),
                             R.drawable.head_bg);
                 }
                 holder.avatar.setOnClickListener(new OnAvatarClickListener(

@@ -44,8 +44,10 @@ import com.changlianxi.util.Constants;
 import com.changlianxi.util.DateUtils;
 import com.changlianxi.util.DialogUtil;
 import com.changlianxi.util.FinalBitmapLoadTool;
+import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.SharedUtils;
 import com.changlianxi.util.StringUtils;
+import com.changlianxi.util.UniversalImageLoadTool;
 import com.changlianxi.util.Utils;
 import com.changlianxi.view.CircularImage;
 import com.changlianxi.view.HorizontalListView;
@@ -315,7 +317,9 @@ public class CommentsListItemActivity extends BaseActivity implements
             img.setImageResource(R.drawable.head_bg);
         } else {
             // fb.display(img, avatarImg);
-            FinalBitmapLoadTool.display(avatarImg, img, R.drawable.head_bg);
+            // FinalBitmapLoadTool.display(avatarImg, img, R.drawable.head_bg);
+            UniversalImageLoadTool.disPlay(avatarImg, new RotateImageViewAware(
+                    img, avatarImg), R.drawable.head_bg);
         }
         initImg(growth);
 
@@ -364,7 +368,9 @@ public class CommentsListItemActivity extends BaseActivity implements
             oneImg.setVisibility(View.VISIBLE);
             gridView.setVisibility(View.GONE);
             // fb.display(oneImg, imgPath);
-            FinalBitmapLoadTool.display(imgPath, oneImg, R.drawable.head_bg);
+            // FinalBitmapLoadTool.display(imgPath, oneImg, R.drawable.head_bg);
+            UniversalImageLoadTool.disPlay(imgPath, new RotateImageViewAware(
+                    oneImg, imgPath), R.drawable.head_bg);
 
         } else {
             oneImg.setVisibility(View.GONE);
@@ -479,8 +485,10 @@ public class CommentsListItemActivity extends BaseActivity implements
                 holder.img.setImageResource(R.drawable.head_bg);
             } else {
                 // fb.display(holder.img, path);
-                FinalBitmapLoadTool.display(path, holder.img,
-                        R.drawable.head_bg);
+                // FinalBitmapLoadTool.display(path, holder.img,
+                // R.drawable.head_bg);
+                UniversalImageLoadTool.disPlay(path, new RotateImageViewAware(
+                        holder.img, path), R.drawable.head_bg);
 
             }
             holder.img.setOnClickListener(new OnAvatarClick(cid, uid, pid,
@@ -809,8 +817,11 @@ public class CommentsListItemActivity extends BaseActivity implements
 
             // fb.display(holder.img_headIcon, praiseLists.get(position)
             // .getAvatar());
-            FinalBitmapLoadTool.display(praiseLists.get(position).getAvatar(),
-                    holder.img_headIcon, R.drawable.head_bg);
+            // FinalBitmapLoadTool.display(praiseLists.get(position).getAvatar(),
+            // holder.img_headIcon, R.drawable.head_bg);
+            UniversalImageLoadTool.disPlay(praiseLists.get(position)
+                    .getAvatar(), new RotateImageViewAware(holder.img,
+                    praiseLists.get(position).getAvatar()), R.drawable.head_bg);
 
             return convertView;
         }

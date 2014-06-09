@@ -4,6 +4,8 @@ import android.graphics.Bitmap;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
+import com.nostra13.universalimageloader.core.assist.SimpleImageLoadingListener;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 import com.nostra13.universalimageloader.core.imageaware.ImageAware;
 
@@ -32,6 +34,17 @@ public class UniversalImageLoadTool {
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .displayer(new SimpleBitmapDisplayer()).build();
         imageLoader.displayImage(uri, imageAware, options);
+    }
+
+    public static void disPlayListener(String uri, ImageAware imageAware,
+            int default_pic, ImageLoadingListener listener) {
+        DisplayImageOptions options = new DisplayImageOptions.Builder()
+                .showImageOnLoading(default_pic)
+                .showImageForEmptyUri(default_pic).showImageOnFail(default_pic)
+                .cacheInMemory(true).cacheOnDisc(true)
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .displayer(new SimpleBitmapDisplayer()).build();
+        imageLoader.displayImage(uri, imageAware, options, listener);
     }
 
     public static void clear() {

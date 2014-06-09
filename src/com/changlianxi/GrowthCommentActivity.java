@@ -122,8 +122,10 @@ public class GrowthCommentActivity extends BaseActivity implements
         if ("".equals(avatarImg)) {
             img.setImageResource(R.drawable.head_bg);
         } else {
-            FinalBitmapLoadTool.display(avatarImg, img, R.drawable.empty_photo);
-
+            // FinalBitmapLoadTool.display(avatarImg, img,
+            // R.drawable.empty_photo);
+            UniversalImageLoadTool.disPlay(avatarImg, new RotateImageViewAware(
+                    img, avatarImg), R.drawable.head_bg);
         }
         commentList = growth.getCommentList();
         filldata(0);
@@ -453,8 +455,10 @@ public class GrowthCommentActivity extends BaseActivity implements
                 holder.img.setImageResource(R.drawable.head_bg);
             } else {
                 // fb.display(holder.img, path);
-                FinalBitmapLoadTool.display(path, holder.img,
-                        R.drawable.head_bg);
+                // FinalBitmapLoadTool.display(path, holder.img,
+                // R.drawable.head_bg);
+                UniversalImageLoadTool.disPlay(path, new RotateImageViewAware(
+                        holder.img, path), R.drawable.head_bg);
 
             }
             holder.img.setOnClickListener(new OnAvatarClick(cid, uid, pid,
@@ -794,8 +798,12 @@ public class GrowthCommentActivity extends BaseActivity implements
             if ("".equals(path)) {
                 holder.img_headIcon.setImageResource(R.drawable.head_bg);
             } else {
-                FinalBitmapLoadTool.display(praiseLists.get(position)
-                        .getAvatar(), holder.img_headIcon, R.drawable.head_bg);
+                // FinalBitmapLoadTool.display(praiseLists.get(position)
+                // .getAvatar(), holder.img_headIcon, R.drawable.head_bg);
+                UniversalImageLoadTool.disPlay(praiseLists.get(position)
+                        .getAvatar(), new RotateImageViewAware(
+                        holder.img_headIcon, praiseLists.get(position)
+                                .getAvatar()), R.drawable.head_bg);
             }
             return convertView;
         }

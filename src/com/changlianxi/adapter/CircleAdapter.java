@@ -15,7 +15,9 @@ import com.changlianxi.R;
 import com.changlianxi.applation.CLXApplication;
 import com.changlianxi.data.Circle;
 import com.changlianxi.util.FinalBitmapLoadTool;
+import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.StringUtils;
+import com.changlianxi.util.UniversalImageLoadTool;
 import com.changlianxi.view.CircularImage;
 
 /**
@@ -92,9 +94,11 @@ public class CircleAdapter extends BaseAdapter {
             holder.circleImg.setVisibility(View.GONE);
         } else {
             // fb.display(holder.circleImg, circleLogo);
-            FinalBitmapLoadTool.display(circleLogo, holder.circleImg,
+            // FinalBitmapLoadTool.display(circleLogo, holder.circleImg,
+            // R.drawable.pic_bg_no);
+            UniversalImageLoadTool.disPlay(circleLogo,
+                    new RotateImageViewAware(holder.circleImg, circleLogo),
                     R.drawable.pic_bg_no);
-
         }
         boolean isnew = circleLists.get(position).isNew();
         if (isnew) {
