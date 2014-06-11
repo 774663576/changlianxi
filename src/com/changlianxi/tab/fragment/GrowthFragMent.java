@@ -28,7 +28,6 @@ import android.widget.TextView;
 import com.changlianxi.CommentsListActivity;
 import com.changlianxi.R;
 import com.changlianxi.adapter.GrowthAdapter;
-import com.changlianxi.chooseImage.CheckImageLoaderConfiguration;
 import com.changlianxi.data.AbstractData.Status;
 import com.changlianxi.data.Circle;
 import com.changlianxi.data.Growth;
@@ -61,6 +60,7 @@ public class GrowthFragMent extends Fragment implements OnClickListener,
     private int cid = 0;
     private View rootView;// 缓存Fragment view
     private boolean isOnCreate = false;
+    private View footerView;
     private Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -71,6 +71,9 @@ public class GrowthFragMent extends Fragment implements OnClickListener,
                         }
                     }
                     adapter.setData(listData);
+                    if (footerView != null && listData.size() >= 3) {
+                        footerView.setVisibility(View.VISIBLE);
+                    }
                     break;
                 default:
                     break;
@@ -125,11 +128,12 @@ public class GrowthFragMent extends Fragment implements OnClickListener,
         mListView.setSelector(new ColorDrawable(Color.TRANSPARENT));
         promptCount = (TextView) getView().findViewById(R.id.promptCount);
         if (!isAuth) {
-            View footerView = LayoutInflater.from(getActivity()).inflate(
+            footerView = LayoutInflater.from(getActivity()).inflate(
                     R.layout.auth_foot_view, null, false);
             TextView t = (TextView) footerView.findViewById(R.id.txtFoot);
             t.setText("亲，您还未通过认证，暂时只能看到3条圈子成长，赶快找人帮你认证吧。");
             mListView.addFooterView(footerView);
+            footerView.setVisibility(View.GONE);
 
         }
         setListener();
@@ -191,6 +195,9 @@ public class GrowthFragMent extends Fragment implements OnClickListener,
                             mPullDownView.setFooterVisible(true);
                         }
                     }
+                }
+                if (footerView != null && listData.size() >= 3) {
+                    footerView.setVisibility(View.VISIBLE);
                 }
             }
 

@@ -60,7 +60,7 @@ public class GetCommentsForMeTask extends AsyncTask<String, Integer, String> {
         map.put("cid", cid);
         map.put("token", Global.getUserToken());
         map.put("start", startTime);
-        map.put("end", endTime);
+        // map.put("end", endTime);
         String result = HttpUrlHelper.postData(map, "/growth/icommentsForMe");
         try {
             JSONObject jsonobject = new JSONObject(result);

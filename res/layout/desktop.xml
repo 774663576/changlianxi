@@ -33,6 +33,7 @@
         android:layout_width="fill_parent"
         android:layout_height="1000dip"
         android:layout_marginTop="60dip"
+        android:cacheColorHint="@color/transparent"
         android:divider="#404040"
         android:dividerHeight="0.2dip"
         android:listSelector="@color/left_menu_blue" >

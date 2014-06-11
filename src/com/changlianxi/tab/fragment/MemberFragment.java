@@ -156,7 +156,7 @@ public class MemberFragment extends Fragment implements
         mPullDownView = (PullDownView) getView().findViewById(
                 R.id.PullDownlistView);
         listView = mPullDownView.getListView();
-        mPullDownView.removeFooterView();
+        // mPullDownView.removeFoterView();
         listView.setCacheColorHint(0);
         listView.setVerticalScrollBarEnabled(false);
         listView.setDivider(getActivity().getResources().getDrawable(
@@ -298,7 +298,14 @@ public class MemberFragment extends Fragment implements
     }
 
     private void addFooterView() {
-
+        if (adapter == null) {
+            adapter = new MemberAdapter(getActivity(), lists);
+            adapter.setAuth(isAuth);
+            listView.setAdapter(adapter);
+        } else {
+            adapter.setAuth(isAuth);
+            adapter.setData(lists);
+        }
         if (!isAuth) {
             if (member.getState().equals(CircleMemberState.STATUS_INVITING)) {
                 footViewText.setText("您还未加入本圈子，暂时只能看到20个圈子成员，想看完整列表请尽快加入！");
@@ -325,14 +332,7 @@ public class MemberFragment extends Fragment implements
                 addCircleMemberCountFooter();
             }
         }
-        if (adapter == null) {
-            adapter = new MemberAdapter(getActivity(), lists);
-            adapter.setAuth(isAuth);
-            listView.setAdapter(adapter);
-        } else {
-            adapter.setAuth(isAuth);
-            adapter.setData(lists);
-        }
+
     }
 
     private void addCircleMemberCountFooter() {
@@ -599,8 +599,7 @@ public class MemberFragment extends Fragment implements
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (mBroadcastReceiver.isOrderedBroadcast()) {
-            getActivity().unregisterReceiver(mBroadcastReceiver);
-        }
+        getActivity().unregisterReceiver(mBroadcastReceiver);
+
     }
 }

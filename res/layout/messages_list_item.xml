@@ -62,6 +62,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/scale19dip"
             android:background="@null"
+            android:enabled="false"
             android:focusable="false"
             android:singleLine="true"
             android:text="43454343543643543"

@@ -282,7 +282,7 @@ public class ReleaseGrowthActivity extends MapActivity implements
                             modle.getPath_absolute());
                     imgs.add(img);
                 }
-                growth = new Growth(cid, 0, Global.getIntUid(), contentStr,
+                growth = new Growth(cid, 0, Global.getIntUid    (), contentStr,
                         location.getText().toString(), happenedTime,
                         DateUtils.timestampConvertToDate(
                                 System.currentTimeMillis() / 1000 + "",

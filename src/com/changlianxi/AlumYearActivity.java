@@ -247,6 +247,9 @@ public class AlumYearActivity extends BaseActivity implements OnClickListener,
         if (album.size() == 0) {
             return;
         }
+        if (firstVisibleItem == album.size()) {
+            return;
+        }
         title.setText(DateUtils.getYear(album.get(firstVisibleItem)
                 .getAlbumDate(), "yyyy"));
     }

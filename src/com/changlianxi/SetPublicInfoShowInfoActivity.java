@@ -6,8 +6,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import net.tsz.afinal.bitmap.core.BitmapDisplayConfig;
-import net.tsz.afinal.bitmap.display.Displayer;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Dialog;
@@ -55,7 +53,6 @@ import com.changlianxi.util.BroadCast;
 import com.changlianxi.util.Constants;
 import com.changlianxi.util.DateUtils;
 import com.changlianxi.util.DialogUtil;
-import com.changlianxi.util.FinalBitmapLoadTool;
 import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.SaveContactsToPhone;
 import com.changlianxi.util.SortPersonType;
@@ -156,6 +153,12 @@ public class SetPublicInfoShowInfoActivity extends BaseActivity implements
                     break;
                 case 5:
                     initView();
+                    break;
+                case 2:
+                    txtnews.setText(cellPhone);
+                    break;
+                case 3:
+                    name.setText(username);
                     break;
                 default:
                     break;
@@ -275,13 +278,8 @@ public class SetPublicInfoShowInfoActivity extends BaseActivity implements
     }
 
     private void setValue() {
-        if (!"".equals(cellPhone)) {
-            txtnews.setText(cellPhone);
-        }
-        name.setText(username);
         authState(circleMember.getState());
         filldata();
-        setAvatar();
     }
 
     private void authState(CircleMemberState state) {
@@ -303,38 +301,6 @@ public class SetPublicInfoShowInfoActivity extends BaseActivity implements
         UniversalImageLoadTool.disPlayListener(iconPath,
                 new RotateImageViewAware(avatar, iconPath), R.drawable.head_bg,
                 this);
-        //
-        // Bitmap mBitmap = FinalBitmapLoadTool.getFb().getBitmapFromDiskCache(
-        // iconPath, new BitmapDisplayConfig());
-        // if (mBitmap != null) {
-        // avatar.setImageBitmap(mBitmap);
-        // new BoxBlurFilterThread(mBitmap).start();
-        // } else {
-        // avatar.setImageResource(R.drawable.head_bg);
-        // }
-    }
-
-    private void loadingAvatar() {
-        setAvatar();
-        // FinalBitmapLoadTool.getFb().configDisplayer(new Displayer() {
-        //
-        // @Override
-        // public void loadFailDisplay(View arg0, Bitmap arg1) {
-        //
-        // }
-        //
-        // @Override
-        // public void loadCompletedisplay(View arg0, Bitmap mBitmap,
-        // BitmapDisplayConfig arg2) {
-        // avatar.setImageBitmap(mBitmap);
-        // new BoxBlurFilterThread(mBitmap).start();
-        // }
-        // });
-        // // fb.display(avatar, iconPath);
-        // // FinalBitmapLoadTool.display(iconPath, avatar, R.drawable.head_bg);
-        // UniversalImageLoadTool.disPlay(iconPath, new RotateImageViewAware(
-        // avatar, iconPath), R.drawable.head_bg);
-
     }
 
     private void setBackGroubdOfDrable(Drawable darble) {
@@ -532,8 +498,16 @@ public class SetPublicInfoShowInfoActivity extends BaseActivity implements
         }
         if (key.equals(PersonDetailType.D_AVATAR)) {
             iconPath = value;
-            loadingAvatar();
+            setAvatar();
             return;
+        }
+        if (key.equals(PersonDetailType.D_CELLPHONE)) {
+            cellPhone = value;
+            mHandler.sendEmptyMessage(2);
+        }
+        if (key.equals(PersonDetailType.D_NAME)) {
+            username = value;
+            mHandler.sendEmptyMessage(3);
         }
         if (key.equals(PersonDetailType.D_JOBTITLE)) {
             title = value;
@@ -1296,8 +1270,6 @@ public class SetPublicInfoShowInfoActivity extends BaseActivity implements
             Bitmap avatarBitmap = data.getExtras().getParcelable("avatar");
             if (avatarBitmap != null) {
                 avatar.setImageBitmap(avatarBitmap);
-                // setBackGroubdOfDrable(BitmapUtils
-                // .convertBimapToDrawable(avatarBitmap));
                 new BoxBlurFilterThread(avatarBitmap).start();
 
             }

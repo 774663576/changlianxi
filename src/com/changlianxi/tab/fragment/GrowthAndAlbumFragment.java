@@ -33,9 +33,9 @@ import com.changlianxi.data.Global;
 import com.changlianxi.db.DBUtils;
 import com.changlianxi.popwindow.GrowthFragmentSelectPicPopwindow;
 import com.changlianxi.popwindow.GrowthFragmentSelectPicPopwindow.SelectPic;
+import com.changlianxi.util.BroadCast;
 import com.changlianxi.util.Constants;
 import com.changlianxi.util.FileUtils;
-import com.changlianxi.util.Utils;
 
 public class GrowthAndAlbumFragment extends Fragment implements OnClickListener {
     private ImageView btnRelease;// 发布成长按钮
@@ -164,8 +164,7 @@ public class GrowthAndAlbumFragment extends Fragment implements OnClickListener 
                 index = 1;
                 break;
             case R.id.back:
-                getActivity().finish();
-                Utils.rightOut(getActivity());
+                BroadCast.sendBroadCast(getActivity(), Constants.CHANGE_TAB);
                 break;
             case R.id.rightImg:
                 selectPic(v);

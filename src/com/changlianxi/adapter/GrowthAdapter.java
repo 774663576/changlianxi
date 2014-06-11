@@ -44,7 +44,6 @@ import com.changlianxi.task.BaseAsyncTask.PostCallBack;
 import com.changlianxi.task.UpLoadNewGrowthTask;
 import com.changlianxi.util.Constants;
 import com.changlianxi.util.DateUtils;
-import com.changlianxi.util.FinalBitmapLoadTool;
 import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.StringUtils;
 import com.changlianxi.util.UniversalImageLoadTool;
@@ -151,9 +150,6 @@ public class GrowthAdapter extends BaseAdapter {
             } else {
                 imgPath = "file://" + imgPath;
             }
-            // fb.display(holder.img, imgPath);
-            // FinalBitmapLoadTool.display(imgPath, holder.img,
-            // R.drawable.empty_photo);
             UniversalImageLoadTool.disPlay(imgPath, new RotateImageViewAware(
                     holder.img, imgPath), R.drawable.empty_photo);
             holder.img.setVisibility(View.VISIBLE);
@@ -177,10 +173,6 @@ public class GrowthAdapter extends BaseAdapter {
         if (path == null || path.equals("")) {
             holder.avatar.setImageResource(R.drawable.head_bg);
         } else {
-            // fb.display(holder.avatar, path);
-            // imageLoader.displayImage(path, holder.avatar, option);
-            // FinalBitmapLoadTool
-            // .display(path, holder.avatar, R.drawable.head_bg);
             UniversalImageLoadTool.disPlay(path, new RotateImageViewAware(
                     holder.avatar, path), R.drawable.head_bg);
 

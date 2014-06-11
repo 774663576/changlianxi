@@ -27,7 +27,6 @@ import com.changlianxi.showBigPic.ImagePagerActivity;
 import com.changlianxi.util.Constants;
 import com.changlianxi.util.DateUtils;
 import com.changlianxi.util.EmojiParser;
-import com.changlianxi.util.FinalBitmapLoadTool;
 import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.UniversalImageLoadTool;
 import com.changlianxi.view.CircularImage;
@@ -170,9 +169,6 @@ public class MessageAdapter extends BaseAdapter {
                     if (!content.startsWith("http")) {
                         content = "file://" + content;
                     }
-                    // fb.display(selfHolder.selfImg, content);
-                    // FinalBitmapLoadTool.display(content, selfHolder.selfImg,
-                    // R.drawable.empty_photo);
                     UniversalImageLoadTool.disPlay(content,
                             new RotateImageViewAware(selfHolder.selfImg,
                                     content), R.drawable.empty_photo);
@@ -183,11 +179,6 @@ public class MessageAdapter extends BaseAdapter {
                 if (selfAvatar == null || selfAvatar.equals("")) {
                     selfHolder.selfAvatar.setImageResource(R.drawable.head_bg);
                 } else {
-                    // imageLoader.displayImage(selfAvatar,
-                    // selfHolder.selfAvatar,
-                    // options);
-                    // FinalBitmapLoadTool.display(selfAvatar,
-                    // selfHolder.selfAvatar, R.drawable.head_bg);
                     UniversalImageLoadTool.disPlay(selfAvatar,
                             new RotateImageViewAware(selfHolder.selfAvatar,
                                     selfAvatar), R.drawable.head_bg);
@@ -204,9 +195,6 @@ public class MessageAdapter extends BaseAdapter {
                 } else if (type == ChatType.TYPE_IMAGE) {
                     otherHolder.otherImg.setVisibility(View.VISIBLE);
                     otherHolder.otherContent.setVisibility(View.GONE);
-                    // fb.display(otherHolder.otherAvatar, content);
-                    // FinalBitmapLoadTool.display(content,
-                    // otherHolder.otherImg, R.drawable.empty_photo);
 
                     UniversalImageLoadTool.disPlay(content,
                             new RotateImageViewAware(otherHolder.otherImg,
@@ -222,11 +210,6 @@ public class MessageAdapter extends BaseAdapter {
                             .setImageResource(R.drawable.head_bg);
 
                 } else {
-                    // imageLoader.displayImage(path, otherHolder.otherAvatar,
-                    // options);
-                    // FinalBitmapLoadTool.display(path,
-                    // otherHolder.otherAvatar,
-                    // R.drawable.head_bg);
                     UniversalImageLoadTool.disPlay(path,
                             new RotateImageViewAware(otherHolder.otherAvatar,
                                     path), R.drawable.head_bg);

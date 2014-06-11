@@ -2,7 +2,6 @@ package com.changlianxi.adapter;
 
 import java.util.List;
 
-import net.tsz.afinal.FinalBitmap;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,9 +9,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import com.changlianxi.R;
-import com.changlianxi.applation.CLXApplication;
 import com.changlianxi.data.GrowthAlbumImages;
-import com.changlianxi.util.FinalBitmapLoadTool;
 import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.StringUtils;
 import com.changlianxi.util.UniversalImageLoadTool;
@@ -22,14 +19,9 @@ public class GorwthAlbumImageAdapter extends BaseAdapter {
     private Context mContext;
     private List<GrowthAlbumImages> pics;
 
-    // private FinalBitmap fb;
-
     public GorwthAlbumImageAdapter(Context context, List<GrowthAlbumImages> pics) {
         this.mContext = context;
         this.pics = pics;
-        // fb = CLXApplication.getFb();
-        // fb.configLoadfailImage(R.drawable.empty_photo);
-        // fb.configLoadingImage(R.drawable.empty_photo);
     }
 
     @Override
@@ -61,9 +53,6 @@ public class GorwthAlbumImageAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         path = StringUtils.JoinString(path, "_200x200");
-        // fb.display(holder.img, StringUtils.JoinString(path, "_200x200"));
-        // FinalBitmapLoadTool.display(StringUtils.JoinString(path, "_200x200"),
-        // holder.img, R.drawable.empty_photo);
         UniversalImageLoadTool.disPlay(path, new RotateImageViewAware(
                 holder.img, path), R.drawable.empty_photo);
         return convertView;

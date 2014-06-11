@@ -175,11 +175,8 @@ public class SelectContactsActivity extends BaseActivity implements
                     modle.setNum(number);
                     modle.setSort_key(sortKey.replace(" ", ""));
                     modle.setPhotoid(photoId);
-                    // modle.setKey_pinyin_fir(PinYinUtils.getFirstPinYin(name)
-                    // .replace(" ", ""));
                     modle.setContactid((long) contactId);
                     listModle.add(modle);
-
                 }
                 adapter.setData(listModle);
                 new Thread() {

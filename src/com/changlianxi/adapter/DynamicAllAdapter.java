@@ -2,7 +2,6 @@ package com.changlianxi.adapter;
 
 import java.util.List;
 
-import net.tsz.afinal.FinalBitmap;
 import android.content.Context;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -13,13 +12,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.changlianxi.R;
-import com.changlianxi.applation.CLXApplication;
 import com.changlianxi.data.CircleDynamic;
 import com.changlianxi.data.CircleMember;
 import com.changlianxi.db.DBUtils;
 import com.changlianxi.inteface.OnAvatarClickListener;
 import com.changlianxi.util.DateUtils;
-import com.changlianxi.util.FinalBitmapLoadTool;
 import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.StringUtils;
 import com.changlianxi.util.UniversalImageLoadTool;
@@ -35,14 +32,9 @@ public class DynamicAllAdapter extends BaseAdapter {
     private Context mCotext;
     private List<CircleDynamic> listModle;
 
-    // private FinalBitmap fb;
-
     public DynamicAllAdapter(Context context, List<CircleDynamic> listModle) {
         this.mCotext = context;
         this.listModle = listModle;
-        // fb = CLXApplication.getFb();
-        // fb.configLoadfailImage(R.drawable.head_bg);
-        // fb.configLoadingImage(R.drawable.head_bg);
     }
 
     @Override
@@ -106,9 +98,6 @@ public class DynamicAllAdapter extends BaseAdapter {
         if (avatarUrl == null || avatarUrl.equals("")) {
             holderOther.avatar.setImageResource(R.drawable.head_bg);
         } else {
-            // fb.display(holderOther.avatar, avatarUrl);
-            // FinalBitmapLoadTool.display(avatarUrl, holderOther.avatar,
-            // R.drawable.head_bg);
             UniversalImageLoadTool.disPlay(avatarUrl, new RotateImageViewAware(
                     holderOther.avatar, avatarUrl), R.drawable.head_bg);
         }

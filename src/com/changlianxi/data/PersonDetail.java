@@ -200,11 +200,9 @@ public class PersonDetail extends AbstractData implements Serializable {
         if (this.status == Status.UPDATE) {
             db.update(dbName, cv, "id=? and cid=?", new String[] { id + "",
                     cid + "" });
-            System.out.println("value::::::::::::::update" + value);
 
             return;
         }
-        System.out.println("value::::::::::::::insert" + value);
 
         db.insert(dbName, null, cv);
     }

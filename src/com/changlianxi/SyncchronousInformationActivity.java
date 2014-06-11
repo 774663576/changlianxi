@@ -36,7 +36,6 @@ import com.changlianxi.task.PostAsyncTask.PostCallBack;
 import com.changlianxi.util.BroadCast;
 import com.changlianxi.util.Constants;
 import com.changlianxi.util.DialogUtil;
-import com.changlianxi.util.FinalBitmapLoadTool;
 import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.SharedUtils;
 import com.changlianxi.util.StringUtils;
@@ -70,8 +69,6 @@ public class SyncchronousInformationActivity extends BaseActivity implements
     private TextView title;
     private CheckBox checkAll;
 
-    // private FinalBitmap fb;
-
     @SuppressWarnings("unchecked")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,9 +79,6 @@ public class SyncchronousInformationActivity extends BaseActivity implements
         token = SharedUtils.getString("token", "");
         lists = (List<EditData>) getIntent().getExtras().getSerializable(
                 "change");
-        // fb = CLXApplication.getFb();
-        // fb.configLoadfailImage(R.drawable.head_bg);
-        // fb.configLoadingImage(R.drawable.head_bg);
         initView();
 
     }
@@ -187,6 +181,7 @@ public class SyncchronousInformationActivity extends BaseActivity implements
             String typeString = UserInfoUtils.convertToChines2(lists
                     .get(position).getType().toString());
             String detail = lists.get(position).getDetail();
+            String oprition = lists.get(position).getOperation();
             if (convertView == null) {
                 holder = new ViewHolderTop();
                 convertView = inflater.inflate(R.layout.first_list_item, null);
@@ -207,9 +202,6 @@ public class SyncchronousInformationActivity extends BaseActivity implements
                         || !detail.startsWith("http")) {
                     holder.headImg.setImageResource(R.drawable.head_bg);
                 } else {
-                    // fb.display(holder.headImg, detail);
-                    // FinalBitmapLoadTool.display(detail, holder.headImg,
-                    // R.drawable.head_bg);
                     UniversalImageLoadTool.disPlay(detail,
                             new RotateImageViewAware(holder.headImg, detail),
                             R.drawable.head_bg);
@@ -225,7 +217,7 @@ public class SyncchronousInformationActivity extends BaseActivity implements
                     holder.detail.setText("女");
                 }
             }
-            holder.type.setText(typeString);
+            holder.type.setText(oprition);
 
             return convertView;
         }
@@ -278,9 +270,6 @@ public class SyncchronousInformationActivity extends BaseActivity implements
                     || !circleLogo.startsWith("http")) {
                 viewHolder.circleImg.setImageResource(R.drawable.pic_bg_no);
             } else {
-                // fb.display(viewHolder.circleImg, circleLogo);
-                // FinalBitmapLoadTool.display(circleLogo, viewHolder.circleImg,
-                // R.drawable.pic_bg_no);
                 UniversalImageLoadTool.disPlay(circleLogo,
                         new RotateImageViewAware(viewHolder.circleImg,
                                 circleLogo), R.drawable.pic_bg_no);

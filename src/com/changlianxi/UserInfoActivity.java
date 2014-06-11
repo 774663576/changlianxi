@@ -6,8 +6,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import net.tsz.afinal.bitmap.core.BitmapDisplayConfig;
-import net.tsz.afinal.bitmap.display.Displayer;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Dialog;
@@ -55,7 +53,6 @@ import com.changlianxi.util.BroadCast;
 import com.changlianxi.util.Constants;
 import com.changlianxi.util.DateUtils;
 import com.changlianxi.util.DialogUtil;
-import com.changlianxi.util.FinalBitmapLoadTool;
 import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.SaveContactsToPhone;
 import com.changlianxi.util.SortPersonType;
@@ -309,35 +306,6 @@ public class UserInfoActivity extends BaseActivity implements OnClickListener,
         UniversalImageLoadTool.disPlayListener(iconPath,
                 new RotateImageViewAware(avatar, iconPath), R.drawable.head_bg,
                 this);
-        // Bitmap mBitmap = FinalBitmapLoadTool.getFb().getBitmapFromDiskCache(
-        // iconPath, new BitmapDisplayConfig());
-        // if (mBitmap != null) {
-        // avatar.setImageBitmap(mBitmap);
-        // new BoxBlurFilterThread(mBitmap).start();
-        // } else {
-        // avatar.setImageResource(R.drawable.head_bg);
-        // loadingAvatar();
-        // }
-    }
-
-    private void loadingAvatar() {
-        // FinalBitmapLoadTool.getFb().configDisplayer(new Displayer() {
-        // @Override
-        // public void loadFailDisplay(View arg0, Bitmap arg1) {
-        //
-        // }
-        //
-        // @Override
-        // public void loadCompletedisplay(View arg0, Bitmap mBitmap,
-        // BitmapDisplayConfig arg2) {
-        // avatar.setImageBitmap(mBitmap);
-        // new BoxBlurFilterThread(mBitmap).start();
-        // }
-        // });
-        // // FinalBitmapLoadTool.display(iconPath, avatar, R.drawable.head_bg);
-        // UniversalImageLoadTool.disPlay(iconPath, new RotateImageViewAware(
-        // avatar, iconPath), R.drawable.head_bg);
-
     }
 
     private void setBackGroubdOfDrable(Drawable darble) {
@@ -456,6 +424,10 @@ public class UserInfoActivity extends BaseActivity implements OnClickListener,
                             detail.getEnd());
                 }
                 notifyAdapter();
+                if (inSex == null) {
+                    iv_sex.setVisibility(View.GONE);
+
+                }
             }
 
             @Override

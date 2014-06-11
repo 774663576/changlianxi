@@ -36,7 +36,6 @@ import com.changlianxi.slidingmenu.lib.app.SlidingActivity;
 import com.changlianxi.task.BaseAsyncTask.PostCallBack;
 import com.changlianxi.task.MessageListTask;
 import com.changlianxi.util.DialogUtil;
-import com.changlianxi.util.SharedUtils;
 import com.changlianxi.util.Utils;
 
 @SuppressLint("NewApi")

@@ -2,7 +2,6 @@ package com.changlianxi.adapter;
 
 import java.util.List;
 
-import net.tsz.afinal.FinalBitmap;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,11 +11,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.changlianxi.R;
-import com.changlianxi.applation.CLXApplication;
 import com.changlianxi.data.Circle;
 import com.changlianxi.data.CircleMember;
 import com.changlianxi.db.DBUtils;
-import com.changlianxi.util.FinalBitmapLoadTool;
 import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.StringUtils;
 import com.changlianxi.util.UniversalImageLoadTool;
@@ -26,12 +23,7 @@ public class HomeSearchAdapter extends BaseAdapter {
     private Context context;
     private List<CircleMember> circleMembers;
 
-    // private FinalBitmap fb;
-
     public HomeSearchAdapter(Context context, List<CircleMember> circleMembers) {
-        // fb = CLXApplication.getFb();
-        // fb.configLoadingImage(R.drawable.head_bg);
-        // fb.configLoadfailImage(R.drawable.head_bg);
         this.circleMembers = circleMembers;
         this.context = context;
 
@@ -95,9 +87,6 @@ public class HomeSearchAdapter extends BaseAdapter {
 
         } else {
             holder.img.setVisibility(View.VISIBLE);
-            // fb.display(holder.img, path);
-            // FinalBitmapLoadTool.display(path, holder.img,
-            // R.drawable.head_bg);
             UniversalImageLoadTool.disPlay(path, new RotateImageViewAware(
                     holder.img, path), R.drawable.head_bg);
         }

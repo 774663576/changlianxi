@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.changlianxi"
     android:versionCode="1"
-    android:versionName="1.1.0607" >
+    android:versionName="1.1.0610" >
 
     <uses-sdk
         android:minSdkVersion="8"
@@ -119,13 +119,13 @@
         <!-- PorfpiwrTOFPGLgTbMBV57C0 -->
         <!-- 在百度开发者中心查询应用的API Key -->
         <!-- 线上 -->
-        <!-- <meta-data -->
-        <!-- android:name="api_key" -->
-        <!-- android:value="PorfpiwrTOFPGLgTbMBV57C0" /> -->
-
         <meta-data
             android:name="api_key"
-            android:value="QdCuL0S0CEP8TgTPrHb3FYmt" />
+            android:value="PorfpiwrTOFPGLgTbMBV57C0" />
+
+        <!-- <meta-data -->
+        <!-- android:name="api_key" -->
+        <!-- android:value="QdCuL0S0CEP8TgTPrHb3FYmt" /> -->
 
         <service android:name=".service.UpdateService" >
             <intent-filter>
@@ -502,7 +502,10 @@
         </activity>
         <activity
             android:name=".PublicMessageActivity"
-            android:label="@string/title_activity_public_message" >
+            android:configChanges="keyboardHidden|orientation"
+            android:label="@string/title_activity_public_message"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" >
         </activity>
     </application>
 

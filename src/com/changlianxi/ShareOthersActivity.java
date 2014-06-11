@@ -6,8 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import net.tsz.afinal.bitmap.core.BitmapDisplayConfig;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -19,7 +17,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,11 +31,11 @@ import com.changlianxi.task.PostAsyncTask;
 import com.changlianxi.task.PostAsyncTask.PostCallBack;
 import com.changlianxi.util.Constants;
 import com.changlianxi.util.DialogUtil;
-import com.changlianxi.util.FinalBitmapLoadTool;
 import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.SharedUtils;
 import com.changlianxi.util.UniversalImageLoadTool;
 import com.changlianxi.util.Utils;
+import com.changlianxi.view.GrowthImgGridView;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
 import com.umeng.analytics.MobclickAgent;
@@ -60,7 +57,7 @@ public class ShareOthersActivity extends BaseActivity implements PostCallBack,
     private ImageView iv_back;
     private String PATH = "/growth/ishare";
     private String gimg;
-    private GridView gridview;
+    private GrowthImgGridView gridview;
     private TextView title;
 
     @Override
@@ -69,10 +66,10 @@ public class ShareOthersActivity extends BaseActivity implements PostCallBack,
         setContentView(R.layout.activity_share_others);
         from = getIntent().getExtras().getInt("from");
         gid = getIntent().getExtras().getInt("gid");
-        gridview = (GridView) findViewById(R.id.gridview);
+        gridview = (GrowthImgGridView) findViewById(R.id.gridview);
         gridview.setCacheColorHint(0);
         iv_back = (ImageView) findViewById(R.id.back);
-        iv_back.setOnClickListener(this);
+        iv_back.setOnClickListener(this);   
         tv_get = (TextView) findViewById(R.id.text_word);
         iv_get = (ImageView) findViewById(R.id.img);
         iv_get.setOnClickListener(this);
@@ -96,12 +93,9 @@ public class ShareOthersActivity extends BaseActivity implements PostCallBack,
         // 添加并且显示
         gridview.setAdapter(saImageItems);
         content = getIntent().getExtras().getString("content");
-        // Bitmap mBitmap = FinalBitmapLoadTool.getFb().getBitmapFromDiskCache(
-        // gimg, new BitmapDisplayConfig());
 
         UniversalImageLoadTool.disPlayListener(gimg, new RotateImageViewAware(
                 iv_get, gimg), R.drawable.empty_photo, this);
-        // iv_get.setImageBitmap(mBitmap);
         tv_get.setText(content);
         gridview.setOnItemClickListener(new OnItemClickListener() {
 

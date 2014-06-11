@@ -41,7 +41,6 @@ import com.changlianxi.task.BaseAsyncTask.PostCallBack;
 import com.changlianxi.task.GrowthCommentsTask;
 import com.changlianxi.util.DateUtils;
 import com.changlianxi.util.DialogUtil;
-import com.changlianxi.util.FinalBitmapLoadTool;
 import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.SharedUtils;
 import com.changlianxi.util.StringUtils;
@@ -339,8 +338,6 @@ public class GrowthCommentActivity extends BaseActivity implements
 
             oneImg.setVisibility(View.VISIBLE);
             gridView.setVisibility(View.GONE);
-            // fb.display(oneImg, imgPath);
-            // FinalBitmapLoadTool.display(imgPath, oneImg, R.drawable.head_bg);
             UniversalImageLoadTool.disPlay(imgPath, new RotateImageViewAware(
                     oneImg, imgPath), R.drawable.empty_photo);
         } else {

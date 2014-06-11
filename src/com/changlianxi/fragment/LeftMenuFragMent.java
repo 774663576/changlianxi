@@ -32,7 +32,6 @@ import com.changlianxi.showBigPic.AvatarImagePagerActivity;
 import com.changlianxi.task.BaseAsyncTask.PostCallBack;
 import com.changlianxi.task.MyCardTask;
 import com.changlianxi.util.Constants;
-import com.changlianxi.util.FinalBitmapLoadTool;
 import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.SharedUtils;
 import com.changlianxi.util.UniversalImageLoadTool;
@@ -164,9 +163,6 @@ public class LeftMenuFragMent extends Fragment implements OnItemClickListener {
             avatar.setImageResource(R.drawable.head_bg);
             return;
         }
-        // fb.display(avatar, avatarUrl);
-        // FinalBitmapLoadTool.display(avatarUrl, avatar, R.drawable.head_bg);
-
         UniversalImageLoadTool.disPlay(avatarUrl, new RotateImageViewAware(
                 avatar, avatarUrl), R.drawable.head_bg);
     }

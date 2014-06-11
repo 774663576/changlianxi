@@ -1,6 +1,9 @@
 package com.changlianxi.tab.fragment;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
@@ -52,6 +55,7 @@ public class MainTabActivity extends FragmentActivity implements
         CLXApplication.addActivity(this);
         getActivityData();
         initView();
+        registerBoradcastReceiver();
     }
 
     private void getActivityData() {
@@ -150,8 +154,10 @@ public class MainTabActivity extends FragmentActivity implements
         CircleMember c = new CircleMember(cid, 0, Global.getIntUid());
         c.getMemberState(DBUtils.getDBsa(1));
         if (c.getState().equals(CircleMemberState.STATUS_INVITING)) {
-            mTabHost.setCurrentTab(0);
-            Utils.showToast("亲，加入圈子以后才能看到这些精彩内容哦！", Toast.LENGTH_SHORT);
+            if (mTabHost.getCurrentTab() != 0) {
+                mTabHost.setCurrentTab(0);
+                Utils.showToast("亲，加入圈子以后才能看到这些精彩内容哦！", Toast.LENGTH_SHORT);
+            }
             return;
         }
         View v = mTabHost.getCurrentTabView();
@@ -184,4 +190,29 @@ public class MainTabActivity extends FragmentActivity implements
         }
         return super.onKeyDown(keyCode, event);
     }
+
+    /**
+    * 注册该广播
+    */
+    public void registerBoradcastReceiver() {
+        IntentFilter myIntentFilter = new IntentFilter();
+        myIntentFilter.addAction(Constants.CHANGE_TAB);
+
+        // 注册广播
+        registerReceiver(mBroadcastReceiver, myIntentFilter);
+    }
+
+    /**
+     * 定义广播
+     */
+    private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action.equals(Constants.CHANGE_TAB)) {
+                mTabHost.setCurrentTab(0);
+            }
+        }
+    };
+
 }

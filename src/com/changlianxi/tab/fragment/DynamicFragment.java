@@ -20,6 +20,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.changlianxi.R;
+import com.changlianxi.util.BroadCast;
+import com.changlianxi.util.Constants;
 import com.changlianxi.util.Utils;
 import com.changlianxi.view.HackyViewPager;
 
@@ -173,8 +175,7 @@ public class DynamicFragment extends Fragment implements OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.back:
-                getActivity().finish();
-                Utils.rightOut(getActivity());
+                BroadCast.sendBroadCast(getActivity(), Constants.CHANGE_TAB);
                 break;
             case R.id.btnAboutMe:
                 mPager.setCurrentItem(0);

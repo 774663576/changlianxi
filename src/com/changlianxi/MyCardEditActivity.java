@@ -12,8 +12,6 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
-import net.tsz.afinal.bitmap.core.BitmapDisplayConfig;
-
 import org.json.JSONArray;
 
 import android.annotation.SuppressLint;
@@ -47,7 +45,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.changlianxi.UserInfoActivity.BoxBlurFilterThread;
 import com.changlianxi.data.CircleList;
 import com.changlianxi.data.Global;
 import com.changlianxi.data.MyCard;
@@ -67,7 +64,6 @@ import com.changlianxi.util.BroadCast;
 import com.changlianxi.util.Constants;
 import com.changlianxi.util.DateUtils;
 import com.changlianxi.util.DialogUtil;
-import com.changlianxi.util.FinalBitmapLoadTool;
 import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.UniversalImageLoadTool;
 import com.changlianxi.util.UserInfoUtils;
@@ -316,16 +312,6 @@ public class MyCardEditActivity extends BaseActivity implements
         UniversalImageLoadTool.disPlayListener(avatarURL,
                 new RotateImageViewAware(avatar, avatarURL),
                 R.drawable.head_bg, this);
-        // Bitmap mBitmap = FinalBitmapLoadTool.getFb().getBitmapFromDiskCache(
-        // avatarURL, new BitmapDisplayConfig());
-        // if (mBitmap != null) {
-        // avatar.setImageBitmap(mBitmap);
-        // //
-        // setBackGroubdOfDrable(BitmapUtils.convertBimapToDrawable(mBitmap));
-        // new BoxBlurFilterThread(mBitmap).start();
-        // } else {
-        // avatar.setImageResource(R.drawable.head_bg);
-        // }
     }
 
     class BoxBlurFilterThread extends Thread {

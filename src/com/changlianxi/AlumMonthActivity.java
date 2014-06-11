@@ -275,6 +275,9 @@ public class AlumMonthActivity extends BaseActivity implements OnClickListener,
         if (album.size() == 0 || firstVisibleItem == album.size()) {
             return;
         }
+        if (firstVisibleItem == album.size()) {
+            return;
+        }
         title.setText(DateUtils.getMonth(album.get(firstVisibleItem)
                 .getAlbumDate(), "MM月dd日"));
 

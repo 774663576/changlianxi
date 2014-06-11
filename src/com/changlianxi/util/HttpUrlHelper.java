@@ -48,11 +48,11 @@ public class HttpUrlHelper {
     public static final String strUrl = "http://i.changlianxi.com/";// 服务器地址
     public static final int CONNECTION_TIMEOUT = 10 * 1000;
     public static final int SO_TIMEOUT = 10 * 1000;
-    public static final String DEFAULT_HOST = "http://i.changlianxi.com/"; // http://i.changlianxi.com/
+    public static final String DEFAULT_HOST = "http://i.changlianxi.com/"; // http://pi.changlianxi.com/
 
     /**
      * get 提交方式
-     * 
+    //     * 
      * @param url
      *            URL 链接
      * @return

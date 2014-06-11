@@ -611,9 +611,6 @@ public class CircleMember extends AbstractData implements Serializable {
                         value == null ? "" : value);
                 detail.setEnd(end);
                 detail.setStart(start);
-                System.out.println("value::::::::::::::read" + type + "      "
-                        + value);
-
                 details.add(detail);
                 cursor.moveToNext();
             }
@@ -1822,8 +1819,6 @@ public class CircleMember extends AbstractData implements Serializable {
             for (int i = 0; i < cursor.getCount(); i++) {
                 String value = cursor.getString(cursor.getColumnIndex("value"));
                 String type = cursor.getString(cursor.getColumnIndex("type"));
-                System.out.println("value::::::::::::::" + type + "       "
-                        + value);
                 cursor.moveToNext();
             }
         }

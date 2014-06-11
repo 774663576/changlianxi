@@ -39,7 +39,6 @@ import com.changlianxi.util.BroadCast;
 import com.changlianxi.util.Constants;
 import com.changlianxi.util.DateUtils;
 import com.changlianxi.util.DialogUtil;
-import com.changlianxi.util.FinalBitmapLoadTool;
 import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.SortPersonType;
 import com.changlianxi.util.UniversalImageLoadTool;
@@ -552,9 +551,6 @@ public class SetingPublicInfomationActivity extends BaseActivity implements
             switch (viewType) {
                 case TYPE_1:
                     avatarHolder.key.setText(key + ":");
-                    // fb.display(avatarHolder.avatar, value);
-                    // FinalBitmapLoadTool.display(value, avatarHolder.avatar,
-                    // R.drawable.head_bg);
                     UniversalImageLoadTool
                             .disPlay(value, new RotateImageViewAware(
                                     avatarHolder.avatar, value),
@@ -918,24 +914,16 @@ public class SetingPublicInfomationActivity extends BaseActivity implements
         int cid = this.cid;
         int pid = circleMember.getPid();
         int uid = circleMember.getUid();
-        String userName = circleMember.getName();
-        String iconImg = circleMember.getAvatar();
-        String cellPhone = circleMember.getCellphone();
+
         if ("createCircle".equals(type)) {
             pid = card.getPid();
             uid = Global.getIntUid();
-            userName = card.getName();
-            iconImg = card.getAvatar();
-            cellPhone = card.getCellphone();
         }
         Intent it = new Intent();
         it.setClass(this, SetPublicInfoShowInfoActivity.class);
         it.putExtra("cid", cid);
         it.putExtra("pid", pid);
         it.putExtra("uid", uid);
-        it.putExtra("username", userName);
-        it.putExtra("iconImg", iconImg);
-        it.putExtra("cellPhone", cellPhone);
         startActivity(it);
         finish();
         Utils.leftOutRightIn(this);

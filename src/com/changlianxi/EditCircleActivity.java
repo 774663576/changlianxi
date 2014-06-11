@@ -104,8 +104,7 @@ public class EditCircleActivity extends BaseActivity implements OnClickListener 
         } else {
             circleLogo.setImageResource(R.drawable.pic_bg_no);
         }
-        // FinalBitmapLoadTool.display(logo, circleLogo,
-        // R.drawable.empty_photo);
+
     }
 
     private void findViewByID() {

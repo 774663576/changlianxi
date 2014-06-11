@@ -34,7 +34,6 @@ import com.changlianxi.task.PostAsyncTask;
 import com.changlianxi.task.PostAsyncTask.PostCallBack;
 import com.changlianxi.util.DateUtils;
 import com.changlianxi.util.DialogUtil;
-import com.changlianxi.util.FinalBitmapLoadTool;
 import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.SharedUtils;
 import com.changlianxi.util.StringUtils;
@@ -199,9 +198,6 @@ public class ChangeHistoryActivity extends BaseActivity implements
                 holder.content.setVisibility(View.GONE);
                 holder.avatar.setVisibility(View.VISIBLE);
                 String path = StringUtils.JoinString(value, "_160x160");
-                // FinalBitmapLoadTool.display(
-                // StringUtils.JoinString(value, "_160x160"),
-                // holder.avatar, R.drawable.head_bg);
                 UniversalImageLoadTool.disPlay(path, new RotateImageViewAware(
                         holder.avatar, path), R.drawable.head_bg);
             } else {
@@ -226,6 +222,7 @@ public class ChangeHistoryActivity extends BaseActivity implements
         int id = lists.get(arg2).getId();
         cHistory.setType(type);
         cHistory.setDetail(detail);
+        cHistory.setOperation(lists.get(arg2).getOperation());
         cHistory.setId(id);
         lists2.add(cHistory);
         Intent intent = new Intent();

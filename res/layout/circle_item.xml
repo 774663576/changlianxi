@@ -39,16 +39,15 @@
 
     <TextView
         android:id="@+id/circleName"
-        android:layout_width="fill_parent"
+        android:layout_width="95dip"
         android:layout_height="wrap_content"
         android:layout_below="@+id/circleLogo"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/scale20dip"
         android:gravity="center"
         android:lineSpacingExtra="4dip"
-        android:maxLines="2"
+        android:text="的撒发送到发送到阿什顿发"
         android:paddingBottom="@dimen/scale30dip"
-        android:text="aaaaaa"
         android:textColor="#cc000000"
         android:textSize="13sp" />
 

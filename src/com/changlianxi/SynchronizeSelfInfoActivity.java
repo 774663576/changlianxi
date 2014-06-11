@@ -22,7 +22,6 @@ import android.widget.Toast;
 
 import com.changlianxi.data.EditData;
 import com.changlianxi.data.enums.PersonDetailType;
-import com.changlianxi.util.FinalBitmapLoadTool;
 import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.UniversalImageLoadTool;
 import com.changlianxi.util.Utils;
@@ -47,8 +46,6 @@ public class SynchronizeSelfInfoActivity extends BaseActivity implements
     private TextView title;
     private List<EditData> selectLists = new ArrayList<EditData>();
 
-    // private FinalBitmap fb;
-
     @SuppressWarnings("unchecked")
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,9 +59,6 @@ public class SynchronizeSelfInfoActivity extends BaseActivity implements
         setChooseFlag(true);
         adapter = new MyAdapter();
         initView();
-        // fb = CLXApplication.getFb();
-        // fb.configLoadfailImage(R.drawable.head_bg);
-        // fb.configLoadingImage(R.drawable.head_bg);
     }
 
     private void initView() {
@@ -199,9 +193,6 @@ public class SynchronizeSelfInfoActivity extends BaseActivity implements
                     .equals(PersonDetailType.D_AVATAR)) {
                 holder.avatr.setVisibility(View.VISIBLE);
                 holder.value.setVisibility(View.GONE);
-                // fb.display(holder.avatr, value);
-                // FinalBitmapLoadTool.display(value, holder.avatr,
-                // R.drawable.head_bg);
                 UniversalImageLoadTool.disPlay(value, new RotateImageViewAware(
                         holder.avatr, value), R.drawable.head_bg);
 

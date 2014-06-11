@@ -9,56 +9,69 @@
         android:layout_width="fill_parent"
         layout="@layout/title_bar" />
 
-    <TextView
-        android:id="@+id/text_word"
-        android:layout_width="fill_parent"
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/scale50dip"
-        android:layout_marginRight="@dimen/scale50dip"
-        android:layout_marginTop="@dimen/scale39dip"
-        android:ellipsize="end"
-        android:gravity="center"
-        android:maxLines="2"
-        android:textColor="#666666"
-        android:textSize="17sp" />
+        android:scrollbars="none" >
 
-    <ImageView
-        android:id="@+id/img"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/scale39dip"
-        android:adjustViewBounds="true"
-        android:maxHeight="200dip"
-        android:maxWidth="200dip"
-        android:src="@drawable/login_wrap_bg" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="@dimen/scale87dip"
-        android:layout_marginTop="@dimen/scale39dip"
-        android:background="#F6F6F6"
-        android:gravity="center"
-        android:text="@string/share_to"
-        android:textColor="#666666"
-        android:textSize="@dimen/sp32" />
+            <TextView
+                android:id="@+id/text_word"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/scale50dip"
+                android:layout_marginRight="@dimen/scale50dip"
+                android:layout_marginTop="@dimen/scale39dip"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="2"
+                android:textColor="#666666"
+                android:textSize="17sp" />
 
-    <ImageView
-        android:layout_width="fill_parent"
-        android:layout_height="1dip"
-        android:background="#CACACA" />
+            <ImageView
+                android:id="@+id/img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/scale39dip"
+                android:adjustViewBounds="true"
+                android:maxHeight="200dip"
+                android:maxWidth="200dip"
+                android:src="@drawable/login_wrap_bg" />
 
-    <GridView
-        android:id="@+id/gridview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/scale39dip"
-        android:horizontalSpacing="10dp"
-        android:listSelector="#00000000"
-        android:numColumns="3"
-        android:scrollbars="none"
-        android:verticalSpacing="10dp" >
-    </GridView>
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/scale87dip"
+                android:layout_marginTop="@dimen/scale39dip"
+                android:background="#F6F6F6"
+                android:gravity="center"
+                android:text="@string/share_to"
+                android:textColor="#666666"
+                android:textSize="@dimen/sp32" />
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:background="#CACACA" />
+
+            <com.changlianxi.view.GrowthImgGridView
+                android:id="@+id/gridview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/scale39dip"
+                android:horizontalSpacing="10dp"
+                android:listSelector="#00000000"
+                android:numColumns="3"
+                android:scrollbars="none"
+                android:verticalSpacing="10dp" >
+            </com.changlianxi.view.GrowthImgGridView>
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

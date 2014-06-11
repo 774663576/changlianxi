@@ -42,7 +42,6 @@ import com.changlianxi.util.BaiDuPushUtils;
 import com.changlianxi.util.Constants;
 import com.changlianxi.util.DialogUtil;
 import com.changlianxi.util.ErrorCodeUtil;
-import com.changlianxi.util.FinalBitmapLoadTool;
 import com.changlianxi.util.MyPushMessageReceiver;
 import com.changlianxi.util.SharedUtils;
 import com.changlianxi.util.Utils;
@@ -252,7 +251,6 @@ public class MainActivity extends SlidingActivity implements
             toggle();
             return;
         }
-        FinalBitmapLoadTool.clear();
         SharedUtils.setInt("loginType", 2);
         unregisterReceiver(mBroadcastReceiver);
         CLXApplication.exit(true);

@@ -2,7 +2,6 @@ package com.changlianxi.adapter;
 
 import java.util.List;
 
-import net.tsz.afinal.FinalBitmap;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,9 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.changlianxi.R;
-import com.changlianxi.applation.CLXApplication;
 import com.changlianxi.data.Circle;
-import com.changlianxi.util.FinalBitmapLoadTool;
 import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.StringUtils;
 import com.changlianxi.util.UniversalImageLoadTool;
@@ -30,14 +27,9 @@ public class CircleAdapter extends BaseAdapter {
     private List<Circle> circleLists;
     private Context mcontext;
 
-    private FinalBitmap fb;
-
     public CircleAdapter(Context context, List<Circle> listModle) {
         this.circleLists = listModle;
         this.mcontext = context;
-        // fb = CLXApplication.getFb();
-        // fb.configLoadfailImage(R.drawable.pic_bg_no);
-        // fb.configLoadingImage(R.drawable.pic_bg_no);
     }
 
     @Override
@@ -93,9 +85,6 @@ public class CircleAdapter extends BaseAdapter {
             holder.circleBg.setImageResource(R.drawable.pic_bg_no);
             holder.circleImg.setVisibility(View.GONE);
         } else {
-            // fb.display(holder.circleImg, circleLogo);
-            // FinalBitmapLoadTool.display(circleLogo, holder.circleImg,
-            // R.drawable.pic_bg_no);
             UniversalImageLoadTool.disPlay(circleLogo,
                     new RotateImageViewAware(holder.circleImg, circleLogo),
                     R.drawable.pic_bg_no);

@@ -12,8 +12,6 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
-import net.tsz.afinal.bitmap.core.BitmapDisplayConfig;
-
 import org.json.JSONArray;
 
 import android.annotation.SuppressLint;
@@ -64,7 +62,6 @@ import com.changlianxi.util.BitmapUtils;
 import com.changlianxi.util.Constants;
 import com.changlianxi.util.DateUtils;
 import com.changlianxi.util.DialogUtil;
-import com.changlianxi.util.FinalBitmapLoadTool;
 import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.UniversalImageLoadTool;
 import com.changlianxi.util.UserInfoUtils;
@@ -114,7 +111,6 @@ public class UserInfoEditActivity extends BaseActivity implements
     private String selectPicPath = "";
     private Bitmap avatarBitmap = null;
     private String specialKey[] = { "姓名", "性別", "生日", "单位" };
-    // private FinalBitmap fb;
     private Handler mHandler = new Handler() {
         @SuppressLint("NewApi")
         public void handleMessage(android.os.Message msg) {
@@ -148,7 +144,6 @@ public class UserInfoEditActivity extends BaseActivity implements
     }
 
     private void init() {
-        initFB();
         avatarURL = getIntent().getStringExtra("avatar");
         initView();
         circleMember = (CircleMember) getIntent().getSerializableExtra(
@@ -157,12 +152,6 @@ public class UserInfoEditActivity extends BaseActivity implements
         setListener();
         setAvatar();
         filldata();
-    }
-
-    private void initFB() {
-        // fb = CLXApplication.getFb();
-        // fb.configLoadingImage(R.drawable.head_bg);
-        // fb.configLoadfailImage(R.drawable.head_bg);
     }
 
     @SuppressWarnings("unchecked")
@@ -316,15 +305,6 @@ public class UserInfoEditActivity extends BaseActivity implements
         UniversalImageLoadTool.disPlayListener(avatarURL,
                 new RotateImageViewAware(avatar, avatarURL),
                 R.drawable.head_bg, this);
-        // Bitmap mBitmap = FinalBitmapLoadTool.getFb().getBitmapFromDiskCache(
-        // avatarURL, new BitmapDisplayConfig());
-        // if (mBitmap != null) {
-        // avatar.setImageBitmap(mBitmap);
-        // new BoxBlurFilterThread(mBitmap).start();
-        // } else {
-        // avatar.setImageResource(R.drawable.head_bg);
-        //
-        // }
     }
 
     @SuppressLint("NewApi")

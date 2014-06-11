@@ -40,7 +40,6 @@ import com.changlianxi.task.CircleIdetailTask;
 import com.changlianxi.util.BroadCast;
 import com.changlianxi.util.Constants;
 import com.changlianxi.util.DialogUtil;
-import com.changlianxi.util.FinalBitmapLoadTool;
 import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.UniversalImageLoadTool;
 import com.changlianxi.util.Utils;
@@ -167,17 +166,6 @@ public class CircleInfoFragement extends Fragment implements OnClickListener,
             UniversalImageLoadTool.disPlayListener(img,
                     new RotateImageViewAware(circleLogo, img),
                     R.drawable.pic_bg_no, this);
-            // if (FinalBitmapLoadTool.getFb() == null) {
-            // return;
-            // }
-            // logoBmp =
-            // FinalBitmapLoadTool.getFb().getBitmapFromDiskCache(img);
-            // if (logoBmp != null) {
-            // circleLogo.setImageBitmap(logoBmp);
-            // }
-
-            // FinalBitmapLoadTool.display(img, circleLogo,
-            // R.drawable.pic_bg_no);
         }
     }
 
@@ -414,9 +402,7 @@ public class CircleInfoFragement extends Fragment implements OnClickListener,
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.back:
-                getActivity().finish();
-                Utils.rightOut(getActivity());
-
+                BroadCast.sendBroadCast(getActivity(), Constants.CHANGE_TAB);
                 break;
             case R.id.rightImg:
                 showDialog(v);
@@ -481,9 +467,9 @@ public class CircleInfoFragement extends Fragment implements OnClickListener,
     }
 
     @Override
-    public void onLoadingComplete(String arg0, View arg1, Bitmap logoBmp) {
+    public void onLoadingComplete(String arg0, View arg1, Bitmap bmp) {
         circleLogo.setImageBitmap(logoBmp);
-
+        logoBmp = bmp;
     }
 
     @Override

@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.changlianxi.R;
 import com.changlianxi.modle.NewsComments;
-import com.changlianxi.util.FinalBitmapLoadTool;
 import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.UniversalImageLoadTool;
 
@@ -22,14 +21,9 @@ public class NewsCommentsListAdapter extends BaseAdapter {
     private Context mContext;
     private List<NewsComments> listModle;
 
-    // private FinalBitmap fb;
-
     public NewsCommentsListAdapter(Context context, List<NewsComments> modle) {
         this.mContext = context;
         this.listModle = modle;
-        // fb = CLXApplication.getFb();
-        // fb.configLoadfailImage(R.drawable.head_bg);
-        // fb.configLoadingImage(R.drawable.head_bg);
     }
 
     @Override
@@ -73,10 +67,6 @@ public class NewsCommentsListAdapter extends BaseAdapter {
         holder.content.setText(listModle.get(position).getContent());
         holder.name.setText(listModle.get(position).getName());
         holder.time.setText(listModle.get(position).getTime());
-        // fb.display(holder.avatar, listModle.get(position).getAvatar());
-        // FinalBitmapLoadTool.display(listModle.get(position).getAvatar(),
-        // holder.avatar, R.drawable.head_bg);
-
         UniversalImageLoadTool.disPlay(listModle.get(position).getAvatar(),
                 new RotateImageViewAware(holder.avatar, listModle.get(position)
                         .getAvatar()), R.drawable.head_bg);

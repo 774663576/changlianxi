@@ -77,7 +77,7 @@ public class UpDateNewVersionTask extends AsyncTask<String, Integer, String> {
             this.callBack.getNewVersion(rt, "", "");
             return;
         }
-        if (version.equals(serverVersion)) {
+        if (serverVersion.compareTo(version) <= 0) {
             if (flag) {
                 Utils.showToast("您现在用的已经是最新版，最最新版值得您期待！", Toast.LENGTH_SHORT);
             }

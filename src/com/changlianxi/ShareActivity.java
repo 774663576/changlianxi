@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import net.tsz.afinal.bitmap.core.BitmapDisplayConfig;
-import net.tsz.afinal.bitmap.display.Displayer;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -40,12 +38,12 @@ import com.changlianxi.showBigPic.ImagePagerActivity;
 import com.changlianxi.util.BitmapUtils;
 import com.changlianxi.util.Constants;
 import com.changlianxi.util.FileUtils;
-import com.changlianxi.util.FinalBitmapLoadTool;
 import com.changlianxi.util.MD5;
 import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.StringUtils;
 import com.changlianxi.util.UniversalImageLoadTool;
 import com.changlianxi.util.Utils;
+import com.changlianxi.view.GrowthImgGridView;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
 import com.umeng.analytics.MobclickAgent;
@@ -65,7 +63,7 @@ public class ShareActivity extends BaseActivity implements OnClickListener,
     private TextView tv_get;// 获取的文字
     private ImageView iv_get;// 获取的图片
     private List<GrowthImage> gimg = new ArrayList<GrowthImage>(); // 获取的成长信息
-    private GridView gridView;
+    private GrowthImgGridView gridView;
     private List<GridModle> lists = new ArrayList<GridModle>();
     private MyAdapter adapter;
     private TextView title;
@@ -101,24 +99,6 @@ public class ShareActivity extends BaseActivity implements OnClickListener,
     }
 
     private void setImage() {
-        // FinalBitmapLoadTool.getFb().configDisplayer(new Displayer() {
-        //
-        // @Override
-        // public void loadFailDisplay(View arg0, Bitmap arg1) {
-        //
-        // }
-        //
-        // @Override
-        // public void loadCompletedisplay(View arg0, Bitmap bmp,
-        // BitmapDisplayConfig arg2) {
-        // iv_get.setImageBitmap(bmp);
-        // mBitmap = bmp;
-        // createBitmapFile();
-        //
-        // }
-        // });
-        // FinalBitmapLoadTool.display(imgNetPath, iv_get,
-        // R.drawable.empty_photo);
         UniversalImageLoadTool.disPlayListener(imgNetPath,
                 new RotateImageViewAware(iv_get, imgNetPath),
                 R.drawable.empty_photo, this);
@@ -152,7 +132,7 @@ public class ShareActivity extends BaseActivity implements OnClickListener,
     }
 
     private void findViewByID() {
-        gridView = (GridView) findViewById(R.id.gridView1);
+        gridView = (GrowthImgGridView) findViewById(R.id.gridView1);
         iv_back = (ImageView) findViewById(R.id.back);
         iv_back.setOnClickListener(this);
         tv_get = (TextView) findViewById(R.id.text_word);
@@ -505,13 +485,11 @@ public class ShareActivity extends BaseActivity implements OnClickListener,
 
     @Override
     public void onLoadingFailed(String arg0, View arg1, FailReason arg2) {
-        // TODO Auto-generated method stub
 
     }
 
     @Override
     public void onLoadingStarted(String arg0, View arg1) {
-        // TODO Auto-generated method stub
 
     }
 }

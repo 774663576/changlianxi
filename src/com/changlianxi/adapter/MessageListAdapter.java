@@ -20,7 +20,6 @@ import com.changlianxi.db.DBUtils;
 import com.changlianxi.inteface.OnAvatarClickListener;
 import com.changlianxi.util.DateUtils;
 import com.changlianxi.util.EmojiParser;
-import com.changlianxi.util.FinalBitmapLoadTool;
 import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.UniversalImageLoadTool;
 import com.changlianxi.view.EmojiEditText;
@@ -105,10 +104,6 @@ public class MessageListAdapter extends BaseAdapter {
         if (!avatar.startsWith("http")) {
             holder.avatar.setImageResource(R.drawable.head_bg);
         } else {
-            // fb.display(holder.avatar, avatar);
-            // FinalBitmapLoadTool.display(avatar, holder.avatar,
-            // R.drawable.head_bg);
-
             UniversalImageLoadTool.disPlay(avatar, new RotateImageViewAware(
                     holder.avatar, avatar), R.drawable.head_bg);
         }

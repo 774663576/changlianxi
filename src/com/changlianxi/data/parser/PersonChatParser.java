@@ -17,7 +17,6 @@ public class PersonChatParser implements IParser {
         if (jsonObj == null) {
             return Result.defContentErrorResult();
         }
-        System.out.println("json::::::::::::::" + jsonObj);
         int cid = (Integer) params.get("cid");
         int uid = (Integer) params.get("uid");
         int partner = (Integer) params.get("ruid");
