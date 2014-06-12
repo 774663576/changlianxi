@@ -141,17 +141,19 @@ public class GrowthFragMent extends Fragment implements OnClickListener,
     }
 
     private void setListener() {
+        adapter = new GrowthAdapter(getActivity(), listData);
+        mListView.setAdapter(adapter);
         mPullDownView.setOnPullDownListener(this);
         mPullDownView.notifyDidMore();
         mListView.setOnItemClickListener(this);
         promptCount.setOnClickListener(this);
         mListView.setOnScrollListener(this);
+        mPullDownView.setShowFooter();
+        mPullDownView.setFooterVisible(false);
         setValue();
     }
 
     private void setValue() {
-        adapter = new GrowthAdapter(getActivity(), listData);
-        mListView.setAdapter(adapter);
         dialog = DialogUtil.getWaitDialog(getActivity(), "请稍候");
         dialog.show();
         growthList = new GrowthList(cid);

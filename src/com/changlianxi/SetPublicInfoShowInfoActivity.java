@@ -22,7 +22,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.ViewStub;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.BaseExpandableListAdapter;
@@ -124,7 +123,6 @@ public class SetPublicInfoShowInfoActivity extends BaseActivity implements
     private Button btnOk;
     private String sex = "";
     private Info inSex = null;
-    private ViewStub layPrompt;
     private int itemposiotion = -1;
     private RelativeLayout selMes;
     private int topsi = 0;
@@ -197,9 +195,6 @@ public class SetPublicInfoShowInfoActivity extends BaseActivity implements
         authState = (TextView) findViewById(R.id.authState);
         iv_sex = (ImageView) findViewById(R.id.img_sex);
         initFooterView();
-        if (circleMember.getState() == CircleMemberState.STATUS_INVITING) {
-            initLayPrompt();
-        }
         inithead();
         setOnClickListener();
     }
@@ -248,13 +243,7 @@ public class SetPublicInfoShowInfoActivity extends BaseActivity implements
         } else {
             history.setVisibility(View.VISIBLE);
         }
-    }
-
-    private void initLayPrompt() {
-        layPrompt = (ViewStub) findViewById(R.id.lay_prompt);
-        layPrompt.inflate();
-        btnOk = (Button) findViewById(R.id.btnOk);
-        btnOk.setOnClickListener(this);
+        authState(circleMember.getState());
 
     }
 
@@ -278,18 +267,18 @@ public class SetPublicInfoShowInfoActivity extends BaseActivity implements
     }
 
     private void setValue() {
-        authState(circleMember.getState());
         filldata();
     }
 
     private void authState(CircleMemberState state) {
-        if (state.equals(CircleMemberState.STATUS_VERIFIED)) {
+        if (state.equals(CircleMemberState.STATUS_VERIFIED.name())) {
             authState.setText("已认证");
             authState.setBackgroundResource(R.drawable.auth);
-        } else if (state.equals(CircleMemberState.STATUS_ENTER_AND_VERIFYING)) {
+        } else if (state.equals(CircleMemberState.STATUS_ENTER_AND_VERIFYING
+                .name())) {
             authState.setText("未认证");
             authState.setBackgroundResource(R.drawable.btn_aaaaaa);
-        } else if (state.equals(CircleMemberState.STATUS_INVITING)) {
+        } else if (state.equals(CircleMemberState.STATUS_INVITING.name())) {
             authState.setText("未加入");
             authState.setBackgroundResource(R.drawable.btn_aaaaaa);
         } else {
@@ -1339,4 +1328,5 @@ public class SetPublicInfoShowInfoActivity extends BaseActivity implements
         // TODO Auto-generated method stub
 
     }
+
 }

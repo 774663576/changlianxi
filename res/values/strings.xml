@@ -81,7 +81,7 @@
     <string name="send">发送</string>
     <string name="private_message">私信</string>
     <string name="no_private_message">还没有人给您发送私信消息，赶紧找您的圈中好友私聊吧。</string>
-    <string name="no_dynamic">您不是认证成员，不能查看所有动态。</string>
+    <string name="no_dynamic">亲，成为认证成员后才能查看所有动态</string>
     <string name="in_circle">下面的个人信息资料包括您的个人名片以及邀请人在本圈子中给您预设的信息,请选择您打算在本圈子中公开的信息：</string>
     <string name="creat_success">恭喜您，账号创建成功!</string>
     <string name="input_name">输入您的姓名</string>
@@ -117,7 +117,7 @@
     <string name="start_time">开始时间</string>
     <string name="end_time">结束时间</string>
     <string name="to">至</string>
-    <string name="remind_him">提醒TA</string>
+    <string name="remind_him">邀请TA</string>
     <string name="join_circle">加入圈子</string>
     <string name="ignore_invitation">忽略邀请</string>
     <string name="basic_information">基本信息</string>

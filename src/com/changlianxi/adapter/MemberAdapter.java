@@ -82,7 +82,8 @@ public class MemberAdapter extends BaseAdapter {
             holder.info = (TextView) convertView.findViewById(R.id.userinfo);
             holder.name = (TextView) convertView.findViewById(R.id.username);
             holder.alpha = (TextView) convertView.findViewById(R.id.alpha);
-            holder.news = (TextView) convertView.findViewById(R.id.userdt);
+            holder.news = (TextView) convertView
+                    .findViewById(R.id.userCellphone);
             holder.changeBg = (RelativeLayout) convertView
                     .findViewById(R.id.changebg);
             holder.authState = (TextView) convertView
@@ -125,8 +126,9 @@ public class MemberAdapter extends BaseAdapter {
 
         } else {
             holder.img.setVisibility(View.VISIBLE);
-             fb.display(holder.img, path);
-//            FinalBitmapLoadTool.display(path, holder.img, R.drawable.head_bg);
+            fb.display(holder.img, path);
+            // FinalBitmapLoadTool.display(path, holder.img,
+            // R.drawable.head_bg);
 
         }
         holder.btnWarn.setOnClickListener(new BtnWranClick(position));

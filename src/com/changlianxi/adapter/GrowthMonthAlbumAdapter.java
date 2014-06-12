@@ -94,10 +94,6 @@ public class GrowthMonthAlbumAdapter extends BaseAdapter {
                 });
         String str = DateUtils.getMonth(album.get(position).getAlbumDate(),
                 "MM月dd日");
-        if (str.startsWith("0")) {
-            str = str.substring(1);
-        }
-
         holder.date.setText(str);
         holder.total.setText("大家已经上传" + album.get(position).getAlbumTotal()
                 + "张照片>");

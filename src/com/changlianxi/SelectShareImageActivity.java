@@ -17,6 +17,7 @@ import com.changlianxi.data.GrowthImage;
 import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.StringUtils;
 import com.changlianxi.util.UniversalImageLoadTool;
+import com.umeng.analytics.MobclickAgent;
 
 public class SelectShareImageActivity extends BaseActivity implements
         OnItemClickListener {
@@ -36,6 +37,18 @@ public class SelectShareImageActivity extends BaseActivity implements
             gridView.setNumColumns(2);
         }
         gridView.setAdapter(new MyAdapter());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart(getClass().getName());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd(getClass().getName());
     }
 
     class MyAdapter extends BaseAdapter {

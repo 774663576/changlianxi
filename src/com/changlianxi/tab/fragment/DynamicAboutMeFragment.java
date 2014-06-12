@@ -113,6 +113,7 @@ public class DynamicAboutMeFragment extends Fragment implements
     private void initView() {
         mPullDownView = (PullDownView) getView().findViewById(
                 R.id.PullDownlistView);
+        mPullDownView.addFooterView();
         adapter = new DynamicAdoutMeAdapter(getActivity(), dynamics);
         mListView = mPullDownView.getListView();
         mListView.setSelector(new ColorDrawable(Color.TRANSPARENT));

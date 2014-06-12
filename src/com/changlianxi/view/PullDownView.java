@@ -184,8 +184,13 @@ public class PullDownView extends LinearLayout implements OnScrollOverListener {
             public void onMore() {
             }
         };
-        mListView.addFooterView(mFooterView);
+        // mListView.addFooterView(mFooterView);
         // mListView.setAdapter(mListView.getAdapter());
+
+    }
+
+    public void addFooterView() {
+        mListView.addFooterView(mFooterView);
 
     }
 

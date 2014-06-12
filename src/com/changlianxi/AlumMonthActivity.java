@@ -39,6 +39,7 @@ import com.changlianxi.util.DialogUtil;
 import com.changlianxi.util.Utils;
 import com.changlianxi.view.PullDownViewGrowth;
 import com.changlianxi.view.PullDownViewGrowth.OnPullDownListener;
+import com.umeng.analytics.MobclickAgent;
 
 public class AlumMonthActivity extends BaseActivity implements OnClickListener,
         OnPullDownListener, OnScrollListener {
@@ -172,6 +173,18 @@ public class AlumMonthActivity extends BaseActivity implements OnClickListener,
     };
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart(getClass().getName());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd(getClass().getName());
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.back:
@@ -226,6 +239,10 @@ public class AlumMonthActivity extends BaseActivity implements OnClickListener,
 
     @Override
     public void onRefresh() {
+        if (album.size() == 0) {
+            mPullDownView.RefreshComplete();
+            return;
+        }
         String month = DateUtils.getYear(album.get(0).getAlbumDate(), "MM");
         if ("".equals(month)) {
             month = "0";
@@ -272,14 +289,6 @@ public class AlumMonthActivity extends BaseActivity implements OnClickListener,
     public void onScroll(AbsListView view, int firstVisibleItem,
             int visibleItemCount, int totalItemCount) {
         mPullDownView.setFirstItemIndex(firstVisibleItem);
-        if (album.size() == 0 || firstVisibleItem == album.size()) {
-            return;
-        }
-        if (firstVisibleItem == album.size()) {
-            return;
-        }
-        title.setText(DateUtils.getMonth(album.get(firstVisibleItem)
-                .getAlbumDate(), "MM月dd日"));
 
     }
 

@@ -36,6 +36,7 @@ import com.changlianxi.util.DialogUtil;
 import com.changlianxi.util.Utils;
 import com.changlianxi.view.PullDownViewGrowth;
 import com.changlianxi.view.PullDownViewGrowth.OnPullDownListener;
+import com.umeng.analytics.MobclickAgent;
 
 public class AlumYearActivity extends BaseActivity implements OnClickListener,
         OnPullDownListener, OnScrollListener {
@@ -164,6 +165,18 @@ public class AlumYearActivity extends BaseActivity implements OnClickListener,
     };
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart(getClass().getName());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd(getClass().getName());
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.back:
@@ -244,14 +257,7 @@ public class AlumYearActivity extends BaseActivity implements OnClickListener,
     public void onScroll(AbsListView view, int firstVisibleItem,
             int visibleItemCount, int totalItemCount) {
         mPullDownView.setFirstItemIndex(firstVisibleItem);
-        if (album.size() == 0) {
-            return;
-        }
-        if (firstVisibleItem == album.size()) {
-            return;
-        }
-        title.setText(DateUtils.getYear(album.get(firstVisibleItem)
-                .getAlbumDate(), "yyyy"));
+
     }
 
     @Override

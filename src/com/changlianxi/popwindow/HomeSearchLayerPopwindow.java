@@ -178,12 +178,13 @@ public class HomeSearchLayerPopwindow implements OnItemClickListener,
         Intent it = new Intent();
         it.setClass(mContext, UserInfoActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putSerializable("member", searchListModles.get(position));
+        CircleMember member = searchListModles.get(position);
+        member.getMemberState(DBUtils.getDBsa(1));
+        bundle.putSerializable("member", member);
         it.putExtras(bundle);
         mContext.startActivity(it);
         ((Activity) mContext).overridePendingTransition(R.anim.in_from_right,
                 R.anim.out_to_left);
-        dismiss();
     }
 
     @Override

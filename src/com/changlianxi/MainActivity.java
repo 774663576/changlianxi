@@ -45,6 +45,7 @@ import com.changlianxi.util.ErrorCodeUtil;
 import com.changlianxi.util.MyPushMessageReceiver;
 import com.changlianxi.util.SharedUtils;
 import com.changlianxi.util.Utils;
+import com.umeng.analytics.MobclickAgent;
 
 public class MainActivity extends SlidingActivity implements
         ChangeFragMentListener, SetLeftMenuPrompt, PushOnBind,
@@ -261,6 +262,18 @@ public class MainActivity extends SlidingActivity implements
     protected void onDestroy() {
         SharedUtils.setInt("loginType", 2);
         super.onDestroy();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart(getClass().getName());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd(getClass().getName());
     }
 
     /**

@@ -254,6 +254,7 @@ public class CommentsListItemActivity extends BaseActivity implements
         pra_layoutLayout = (LinearLayout) findViewById(R.id.praise_layout);
         title = (TextView) findViewById(R.id.titleTxt);
         mPullDownView = (PullDownView) findViewById(R.id.pullListView);
+        mPullDownView.addFooterView();
         mPullDownView.notifyDidMore();
         mPullDownView.setHideHeader();
         mPullDownView.setFooterViewFont(15, "获取更多评论");
@@ -294,6 +295,9 @@ public class CommentsListItemActivity extends BaseActivity implements
         if (!"".equals(address)) {
             addressTextView.setText(DateUtils.getGrowthShowTime(growth
                     .getHappened()) + "于" + address);
+        } else {
+            addressTextView.setText(DateUtils.getGrowthShowTime(growth
+                    .getHappened()));
         }
         int praiseCount = growth.getPraiseCnt();
         setPraiseCount(praiseCount);

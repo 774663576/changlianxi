@@ -70,7 +70,6 @@ public class CircleAdapter extends BaseAdapter {
                     .findViewById(R.id.circleName);
             holder.circleBg = (ImageView) convertView
                     .findViewById(R.id.circleBg);
-
             holder.prompt = (TextView) convertView.findViewById(R.id.txtPrompt);
             convertView.setTag(holder);
         } else {
@@ -79,11 +78,11 @@ public class CircleAdapter extends BaseAdapter {
         holder.circleImg.setVisibility(View.VISIBLE);
         if (circleLogo.equals("addroot")) {
             holder.circleBg.setImageResource(R.drawable.pic_add);
-            holder.circleImg.setVisibility(View.GONE);
+            holder.circleImg.setVisibility(View.INVISIBLE);
         } else if (circleLogo == null || circleLogo.equals("")
                 || !circleLogo.startsWith("http")) {
             holder.circleBg.setImageResource(R.drawable.pic_bg_no);
-            holder.circleImg.setVisibility(View.GONE);
+            holder.circleImg.setVisibility(View.INVISIBLE);
         } else {
             UniversalImageLoadTool.disPlay(circleLogo,
                     new RotateImageViewAware(holder.circleImg, circleLogo),
@@ -98,10 +97,7 @@ public class CircleAdapter extends BaseAdapter {
             int newGrothCommentCount = circleLists.get(position)
                     .getNewGrowthCommentCnt();
             int newDynamicCount = circleLists.get(position).getNewDynamicCnt();
-            int newMyDetailEditCnt = circleLists.get(position)
-                    .getNewMyDetailEditCnt();
-            int count = newDynamicCount + newGrothCommentCount + newGrothCount
-                    + newMyDetailEditCnt;
+            int count = newDynamicCount + newGrothCommentCount + newGrothCount;
             if (count > 0) {
                 holder.prompt.setVisibility(View.VISIBLE);
                 holder.prompt.setText(count + "");

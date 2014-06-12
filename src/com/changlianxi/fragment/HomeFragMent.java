@@ -17,8 +17,10 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.view.animation.AnimationUtils;
@@ -29,6 +31,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.changlianxi.AddCircleMemberActivity;
@@ -150,7 +153,6 @@ public class HomeFragMent extends Fragment implements OnClickListener,
         if (g.getNewPersonChatNum() > 0) {
             setPromptVisible(View.VISIBLE);
         }
-
     }
 
     private void setListener() {
@@ -158,6 +160,14 @@ public class HomeFragMent extends Fragment implements OnClickListener,
         mMenu.setOnClickListener(this);
         search.setOnClickListener(this);
         gView.setOnItemClickListener(this);
+        gView.setOnTouchListener(new OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return MotionEvent.ACTION_MOVE == event.getAction() ? true
+                        : false;
+            }
+        });
         setValue();
 
     }

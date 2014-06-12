@@ -747,6 +747,7 @@ public class UserInfoEditActivity extends BaseActivity implements
                 if (!DateUtils.compareDate(date, endTime)) {
                     Utils.showToast("亲，结束时间早于开始时间，爱因斯坦也做不到的。",
                             Toast.LENGTH_SHORT);
+                    return;
                 }
             }
             if (editType == 2) {

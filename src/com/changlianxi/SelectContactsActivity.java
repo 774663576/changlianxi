@@ -511,11 +511,12 @@ public class SelectContactsActivity extends BaseActivity implements
                 failCount += 1;
                 continue;
             }
-            successCount += 1;
             if ("".equals(member.getInviteCode())) {
                 existCount += 1;
             }
         }
+        successCount = contactsList.size() - failCount - existCount;
+
         String str = "添加完毕\n添加" + contactsList.size() + "人";
         if (successCount > 0) {
             str += ",成功" + successCount + "人";

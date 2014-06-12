@@ -3,7 +3,6 @@ package com.changlianxi.tab.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -26,9 +25,8 @@ import com.changlianxi.data.Global;
 import com.changlianxi.data.enums.CircleMemberState;
 import com.changlianxi.data.enums.RetError;
 import com.changlianxi.db.DBUtils;
-import com.changlianxi.task.CircleDynamicTask;
 import com.changlianxi.task.BaseAsyncTask.PostCallBack;
-import com.changlianxi.util.DialogUtil;
+import com.changlianxi.task.CircleDynamicTask;
 import com.changlianxi.view.PullDownView;
 import com.changlianxi.view.PullDownView.OnPullDownListener;
 
@@ -116,6 +114,7 @@ public class DynamicAllFragment extends Fragment implements OnPullDownListener {
         txt = (TextView) getView().findViewById(R.id.noDynamic);
         mPullDownView = (PullDownView) getView().findViewById(
                 R.id.PullDownlistView);
+        mPullDownView.addFooterView();
         adapter = new DynamicAllAdapter(getActivity(), dynamics);
         mListView = mPullDownView.getListView();
         mListView.setSelector(new ColorDrawable(Color.TRANSPARENT));

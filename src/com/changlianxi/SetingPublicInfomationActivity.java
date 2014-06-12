@@ -47,6 +47,7 @@ import com.changlianxi.util.Utils;
 import com.changlianxi.view.CircularImage;
 import com.changlianxi.view.MySlipSwitch;
 import com.changlianxi.view.MySlipSwitch.OnSwitchListener;
+import com.umeng.analytics.MobclickAgent;
 
 public class SetingPublicInfomationActivity extends BaseActivity implements
         OnClickListener {
@@ -767,11 +768,8 @@ public class SetingPublicInfomationActivity extends BaseActivity implements
                 ChildModle c = basic.get(i);
                 c.setFalg(flag);
                 if (!flag) {
-                    if (i - 1 >= 0
-                            && (c.getKey().equals(PersonDetailType.D_NAME))) {
-                        if (basic.get(i - 1).getKey().equals(c.getKey())) {
-                            c.setFalg(true);
-                        }
+                    if (i == 0 && (c.getKey().equals(PersonDetailType.D_NAME))) {
+                        c.setFalg(true);
                     }
                 } else {
                     if (i - 1 >= 0
@@ -969,5 +967,17 @@ public class SetingPublicInfomationActivity extends BaseActivity implements
             confirmDialog();
         }
         return false;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart(getClass().getName());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd(getClass().getName());
     }
 }

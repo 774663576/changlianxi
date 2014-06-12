@@ -40,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dip"
-            android:layout_marginTop="9dip"
+            android:layout_marginTop="15dip"
             android:layout_toRightOf="@+id/userimg_layout"
             android:gravity="center_vertical" >
 
@@ -72,21 +72,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/layName"
+            android:layout_toLeftOf="@+id/btnWarn"
             android:layout_toRightOf="@+id/userimg_layout"
             android:singleLine="true"
-            android:text="优米科技设计总监优米科技设计总监优米科技设计总监"
             android:textColor="@color/a3"
             android:textSize="@dimen/scale24sp" />
 
         <TextView
-            android:id="@+id/userdt"
+            android:id="@+id/userCellphone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/userinfo"
             android:layout_marginBottom="5dip"
             android:layout_toRightOf="@+id/userimg_layout"
             android:singleLine="true"
-            android:text="在欧美大厦9分钟前"
             android:textColor="@color/a3"
             android:textSize="@dimen/scale24sp" />
 

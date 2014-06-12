@@ -107,7 +107,9 @@ public class GrowthYearAlbumAdapter extends BaseAdapter {
         if (str.startsWith("0")) {
             str = str.substring(1);
         }
-        holder.date.setText(album.get(position).getAlbumName());
+        holder.date.setText(album.get(position).getAlbumName()
+                .replace("-", "年")
+                + "月");
         holder.btnAllYear.setOnClickListener(new BtnOnClick("".equals(str) ? 0
                 : Integer.valueOf(str), Integer.valueOf(strYear)));
         holder.date.setOnClickListener(new BtnOnClick("".equals(str) ? 0

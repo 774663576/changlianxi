@@ -40,6 +40,7 @@ import com.changlianxi.util.StringUtils;
 import com.changlianxi.util.UniversalImageLoadTool;
 import com.changlianxi.util.Utils;
 import com.changlianxi.view.CircularImage;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * 圈子成员资料历史修改记录界面
@@ -249,4 +250,15 @@ public class ChangeHistoryActivity extends BaseActivity implements
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart(getClass().getName());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd(getClass().getName());
+    }
 }

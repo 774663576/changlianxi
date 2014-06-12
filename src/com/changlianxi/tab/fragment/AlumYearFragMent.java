@@ -126,6 +126,8 @@ public class AlumYearFragMent extends Fragment implements OnPullDownListener {
     private void initView() {
         mPullDownView = (PullDownView) getView().findViewById(
                 R.id.albumListView);
+        mPullDownView.addFooterView();
+
         // mPullDownView.hideLastUpdateTime();
         listview = mPullDownView.getListView();
         adapter = new GrowthAlbumAdapter(getActivity(), album, growthList, cid);

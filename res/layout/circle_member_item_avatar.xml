@@ -7,10 +7,10 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/scale17dip"
+        android:layout_marginBottom="12dip"
         android:layout_marginLeft="@dimen/scale32dip"
         android:layout_marginRight="@dimen/scale24dip"
-        android:layout_marginTop="@dimen/scale17dip"
+        android:layout_marginTop="12dip"
         android:gravity="center" >
 
         <ImageView

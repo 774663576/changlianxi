@@ -199,7 +199,6 @@ public class SearchLayerPopwindow implements OnItemClickListener,
         mContext.startActivity(it);
         ((Activity) mContext).overridePendingTransition(R.anim.in_from_right,
                 R.anim.out_to_left);
-        dismiss();
 
     }
 

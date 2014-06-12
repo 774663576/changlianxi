@@ -1,54 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="100dip"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical" >
 
-    <RelativeLayout
-        android:id="@+id/circleLogo"
+    <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true" >
+        android:layout_height="150dip"
+        android:orientation="vertical" >
 
-        <ImageView
-            android:id="@+id/circleBg"
-            android:layout_width="93dip"
-            android:layout_height="93dip"
-            android:layout_centerInParent="true"
-            android:contentDescription="@null"
-            android:src="@drawable/home_image_bg" />
+        <RelativeLayout
+            android:id="@+id/circleLogo"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
 
-        <com.changlianxi.view.CircularImage
-            android:id="@+id/circleImg"
-            android:layout_width="80dip"
-            android:layout_height="80dip"
-            android:layout_centerInParent="true" />
+            <ImageView
+                android:id="@+id/circleBg"
+                android:layout_width="93dip"
+                android:layout_height="93dip"
+                android:layout_centerInParent="true"
+                android:contentDescription="@null"
+                android:src="@drawable/home_image_bg" />
+
+            <com.changlianxi.view.CircularImage
+                android:id="@+id/circleImg"
+                android:layout_width="80dip"
+                android:layout_height="80dip"
+                android:layout_centerInParent="true" />
+
+            <TextView
+                android:id="@+id/txtPrompt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignRight="@+id/circleBg"
+                android:background="@drawable/updates"
+                android:gravity="center"
+                android:text="new"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                android:visibility="visible" />
+        </RelativeLayout>
 
         <TextView
-            android:id="@+id/txtPrompt"
-            android:layout_width="wrap_content"
+            android:id="@+id/circleName"
+            android:layout_width="90dip"
             android:layout_height="wrap_content"
-            android:layout_alignRight="@+id/circleBg"
-            android:background="@drawable/updates"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="6dip"
             android:gravity="center"
-            android:text="new"
-            android:textColor="@color/white"
-            android:textSize="13sp"
-            android:visibility="visible" />
-    </RelativeLayout>
+            android:text="阿斯顿发送到发送到啊的事"
+            android:textColor="#cc000000"
+            android:textSize="14sp" />
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/circleName"
-        android:layout_width="95dip"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/circleLogo"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/scale20dip"
-        android:gravity="center"
-        android:lineSpacingExtra="4dip"
-        android:text="的撒发送到发送到阿什顿发"
-        android:paddingBottom="@dimen/scale30dip"
-        android:textColor="#cc000000"
-        android:textSize="13sp" />
-
-</RelativeLayout>
+</LinearLayout>

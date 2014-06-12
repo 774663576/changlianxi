@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/f6"
     android:orientation="vertical" >
 
     <include
+        android:id="@+id/title"
         android:layout_width="fill_parent"
-        layout="@layout/title_bar" />
+        layout="@layout/layout_title_bar" />
 
     <ScrollView
         android:id="@+id/scroll"
         android:layout_width="fill_parent"
-        android:layout_height="0dip"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/buttom"
+        android:layout_below="@+id/title"
         android:scrollbars="none" >
 
         <LinearLayout
@@ -50,6 +52,7 @@
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:gravity="bottom"
+                            android:text="李根"
                             android:textColor="#333333"
                             android:textSize="@dimen/scale42sp" />
 
@@ -57,7 +60,9 @@
                             android:id="@+id/time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="13dip"
                             android:gravity="bottom"
+                            android:text="04-19 15:29"
                             android:textColor="#8e8e8e"
                             android:textSize="@dimen/scale20sp" />
                     </LinearLayout>
@@ -94,6 +99,7 @@
                         android:id="@+id/text_address"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="3dip"
                         android:gravity="left"
                         android:textColor="#787676"
                         android:textSize="13sp" />
@@ -267,6 +273,7 @@
     </ScrollView>
 
     <LinearLayout
+        android:id="@+id/buttom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -307,4 +314,4 @@
             android:textSize="@dimen/scale32sp" />
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

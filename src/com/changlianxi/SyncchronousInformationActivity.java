@@ -44,6 +44,7 @@ import com.changlianxi.util.UserInfoUtils;
 import com.changlianxi.util.Utils;
 import com.changlianxi.view.CircularImage;
 import com.changlianxi.view.ScrollViewWithListView;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * 同步个人资料选择圈子界面
@@ -335,6 +336,7 @@ public class SyncchronousInformationActivity extends BaseActivity implements
                                             .sendBroadCast(
                                                     SyncchronousInformationActivity.this,
                                                     Constants.REFUSH_MYCARD);
+
                                 }
                                 exit();
                             }
@@ -361,5 +363,17 @@ public class SyncchronousInformationActivity extends BaseActivity implements
             circles.get(arg2).setNew(true);
         }
         cAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart(getClass().getName());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd(getClass().getName());
     }
 }

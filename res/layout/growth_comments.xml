@@ -60,6 +60,7 @@
                             android:id="@+id/time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="13dip"
                             android:gravity="bottom"
                             android:text="04-19 15:29"
                             android:textColor="#8e8e8e"
@@ -98,6 +99,7 @@
                         android:id="@+id/text_address"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="3dip"
                         android:gravity="left"
                         android:textColor="#787676"
                         android:textSize="13sp" />

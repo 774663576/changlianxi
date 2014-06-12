@@ -61,6 +61,7 @@ public class VerifyActivity extends BaseActivity implements OnClickListener,
         tiaoguoTextView.setOnClickListener(this);
         if (type.equals("laterbind")) {
             tiaoguoTextView.setVisibility(View.GONE);
+            textView3.setText("绑定您的手机号码，方便朋友们找到您");
         }
         iv_back = (ImageView) findViewById(R.id.back);
         iv_back.setOnClickListener(this);

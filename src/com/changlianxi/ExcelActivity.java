@@ -39,8 +39,9 @@ public class ExcelActivity extends BaseActivity {
         titleTxt = (TextView) findViewById(R.id.titleTxt);
         titleTxt.setText("Excel电子表格导入说明");
         wb = (WebView) findViewById(R.id.webView1);
-        wb.loadUrl("http://i.changlianxi.com/pages/import_excel_address_book");// 测试
-        // wb.loadUrl("http://www.changlianxi.com/pages/import_excel_address_book");//线上
+        // wb.loadUrl("http://i.changlianxi.com/pages/import_excel_address_book");//
+        // 测试
+        wb.loadUrl("http://www.changlianxi.com/pages/import_excel_address_book");// 线上
 
     }
 

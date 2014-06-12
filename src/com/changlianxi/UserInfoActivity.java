@@ -209,11 +209,11 @@ public class UserInfoActivity extends BaseActivity implements OnClickListener,
         if (circleMember.getState() == CircleMemberState.STATUS_INVITING) {
             // initLayPrompt();
         }
-        if (circleMember.getState() != CircleMemberState.STATUS_VERIFIED) {
+        if (!circleMember.getState().equals(CircleMemberState.STATUS_VERIFIED)) {
             sendMessage.setVisibility(View.GONE);
             line4.setVisibility(View.GONE);
         }
-        if (circleMember.getState() == CircleMemberState.STATUS_INVITING
+        if (circleMember.getState().equals(CircleMemberState.STATUS_INVITING)
                 && uid == Global.getIntUid()) {
             btnEdit.setVisibility(View.GONE);
             footView.setVisibility(View.GONE);

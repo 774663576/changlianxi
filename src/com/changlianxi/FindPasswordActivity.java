@@ -25,7 +25,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.changlianxi.applation.CLXApplication;
 import com.changlianxi.inteface.PasswordEditTextWatcher;
 import com.changlianxi.task.PostAsyncTask;
 import com.changlianxi.task.PostAsyncTask.PostCallBack;
@@ -391,6 +390,7 @@ public class FindPasswordActivity extends BaseActivity implements
     private void SetPassword(String result) {
         try {
             JSONObject object = new JSONObject(result);
+            System.out.println("resut;:::::::::::::" + result);
             int rt = object.getInt("rt");
             if (rt == 1) {
                 // String token = object.getString("token");
@@ -401,6 +401,7 @@ public class FindPasswordActivity extends BaseActivity implements
                 // Intent intent = new Intent();
                 // intent.setClass(this, LoginActivity.class);
                 // startActivity(intent);
+                Utils.showToast("√‹¬Î…Ë÷√≥…π¶£°", Toast.LENGTH_SHORT);
                 finish();
                 // Utils.rightOut(this);
             } else {

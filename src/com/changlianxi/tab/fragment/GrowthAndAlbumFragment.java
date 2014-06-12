@@ -23,6 +23,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.changlianxi.R;
 import com.changlianxi.ReleaseGrowthActivity;
@@ -36,6 +37,7 @@ import com.changlianxi.popwindow.GrowthFragmentSelectPicPopwindow.SelectPic;
 import com.changlianxi.util.BroadCast;
 import com.changlianxi.util.Constants;
 import com.changlianxi.util.FileUtils;
+import com.changlianxi.util.Utils;
 
 public class GrowthAndAlbumFragment extends Fragment implements OnClickListener {
     private ImageView btnRelease;// 发布成长按钮
@@ -145,6 +147,11 @@ public class GrowthAndAlbumFragment extends Fragment implements OnClickListener 
                 index = 0;
                 break;
             case R.id.btnAlbum:
+                if (!isAuth) {
+                    Utils.showToast("亲，成为认证成员后才能查看相册", Toast.LENGTH_SHORT);
+                    return;
+
+                }
                 tabLayout.setBackgroundResource(R.drawable.tab_bg_growth);
                 btnGrowth.setTextColor(Color.WHITE);
                 btnAlum.setTextColor(R.color.blue);
@@ -213,6 +220,10 @@ public class GrowthAndAlbumFragment extends Fragment implements OnClickListener 
         List<PhotoInfo> list = new ArrayList<PhotoInfo>();
         if (requestCode == Constants.REQUEST_CODE_GETIMAGE_BYCAMERA) {
             if ("".equals(releaseImgPath)) {
+                return;
+            }
+            File fle = new File(releaseImgPath);
+            if (!fle.exists()) {
                 return;
             }
             PhotoInfo m = new PhotoInfo();

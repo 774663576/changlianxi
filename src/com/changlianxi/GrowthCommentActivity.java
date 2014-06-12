@@ -121,8 +121,6 @@ public class GrowthCommentActivity extends BaseActivity implements
         if ("".equals(avatarImg)) {
             img.setImageResource(R.drawable.head_bg);
         } else {
-            // FinalBitmapLoadTool.display(avatarImg, img,
-            // R.drawable.empty_photo);
             UniversalImageLoadTool.disPlay(avatarImg, new RotateImageViewAware(
                     img, avatarImg), R.drawable.head_bg);
         }
@@ -240,6 +238,7 @@ public class GrowthCommentActivity extends BaseActivity implements
         pra_layoutLayout = (LinearLayout) findViewById(R.id.praise_layout);
         title = (TextView) findViewById(R.id.titleTxt);
         mPullDownView = (PullDownView) findViewById(R.id.pullListView);
+        mPullDownView.addFooterView();
         mPullDownView.notifyDidMore();
         mPullDownView.setHideHeader();
         mPullDownView.setFooterViewFont(15, "获取更多评论");

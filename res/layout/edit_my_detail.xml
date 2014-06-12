@@ -7,11 +7,11 @@
     <TextView
         android:layout_width="0dip"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="30dip"
+        android:layout_marginLeft="20dip"
         android:layout_weight="1"
         android:paddingBottom="15dip"
         android:paddingTop="15dip"
-        android:text="有人修改了您的资料"
+        android:text="有人修改了您的资料,快去查看吧"
         android:textColor="#ff7800"
         android:textSize="@dimen/scale32sp" />
 
@@ -19,12 +19,14 @@
         android:id="@+id/btnLook"
         android:layout_width="@dimen/scale129dip"
         android:layout_height="33dip"
-        android:layout_marginRight="@dimen/scale49dip"
-        android:background="@drawable/btn_warn"
+        android:layout_marginRight="15dip"
+        android:background="@drawable/my_detail_edit_btn"
         android:focusable="false"
         android:gravity="center"
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip"
         android:text="查看"
-        android:textColor="#33c7cb"
+        android:textColor="#fff8de"
         android:textSize="@dimen/scale30sp" />
 
 </LinearLayout>

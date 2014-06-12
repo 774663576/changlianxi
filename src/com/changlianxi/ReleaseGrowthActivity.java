@@ -270,7 +270,8 @@ public class ReleaseGrowthActivity extends MapActivity implements
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnUpload:
-                String contentStr = content.getText().toString();
+                String contentStr = content.getText().toString()
+                        .replace(" ", "");
                 if (listBmp.size() == 1 && contentStr.length() == 0) {
                     Utils.showToast("图没有，字没有，空气是不能发送的哦", Toast.LENGTH_SHORT);
                     return;
@@ -282,7 +283,7 @@ public class ReleaseGrowthActivity extends MapActivity implements
                             modle.getPath_absolute());
                     imgs.add(img);
                 }
-                growth = new Growth(cid, 0, Global.getIntUid    (), contentStr,
+                growth = new Growth(cid, 0, Global.getIntUid(), contentStr,
                         location.getText().toString(), happenedTime,
                         DateUtils.timestampConvertToDate(
                                 System.currentTimeMillis() / 1000 + "",
@@ -399,6 +400,10 @@ public class ReleaseGrowthActivity extends MapActivity implements
             if (resultCode != RESULT_OK) {
                 return;
             }
+            if (pop == null) {
+                Utils.showToast("图片获取失败，请重新获取", Toast.LENGTH_SHORT);
+                return;
+            }
             String fileName = pop.getTakePhotoPath();
             PhotoInfo modle = new PhotoInfo();
             // modle.setPath(fileName);
@@ -439,7 +444,9 @@ public class ReleaseGrowthActivity extends MapActivity implements
                 holder = (ViewHolder) convertView.getTag();
             }
             if (position == listBmp.size() - 1) {
-                holder.img.setImageResource(R.drawable.add_pic);
+                UniversalImageLoadTool.disPlay("file://" + "",
+                        new RotateImageViewAware(holder.img, ""),
+                        R.drawable.add_pic);
             } else {
                 String path = listBmp.get(position).getPath_absolute();
                 UniversalImageLoadTool.disPlay("file://" + path,

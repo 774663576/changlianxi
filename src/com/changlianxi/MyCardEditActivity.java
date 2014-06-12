@@ -146,7 +146,6 @@ public class MyCardEditActivity extends BaseActivity implements
     }
 
     private void init() {
-        initFB();
         avatarURL = getIntent().getStringExtra("avatar");
         initView();
         circleMember = (MyCard) getIntent()
@@ -154,12 +153,6 @@ public class MyCardEditActivity extends BaseActivity implements
         setListener();
         setAvatar();
         filldata();
-    }
-
-    private void initFB() {
-        // fb = CLXApplication.getFb();
-        // fb.configLoadingImage(R.drawable.head_bg);
-        // fb.configLoadfailImage(R.drawable.head_bg);
     }
 
     @SuppressWarnings("unchecked")
@@ -748,6 +741,7 @@ public class MyCardEditActivity extends BaseActivity implements
                 if (!DateUtils.compareDate(date, endTime)) {
                     Utils.showToast("亲，结束时间早于开始时间，爱因斯坦也做不到的。",
                             Toast.LENGTH_SHORT);
+                    return;
                 }
             }
             if (editType == 2) {

@@ -156,7 +156,6 @@ public class MemberFragment extends Fragment implements
         mPullDownView = (PullDownView) getView().findViewById(
                 R.id.PullDownlistView);
         listView = mPullDownView.getListView();
-        // mPullDownView.removeFoterView();
         listView.setCacheColorHint(0);
         listView.setVerticalScrollBarEnabled(false);
         listView.setDivider(getActivity().getResources().getDrawable(
