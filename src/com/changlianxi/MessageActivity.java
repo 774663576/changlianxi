@@ -52,6 +52,7 @@ import com.changlianxi.db.DBUtils;
 import com.changlianxi.inteface.PushMessages;
 import com.changlianxi.inteface.SendMessageAndChatCallBack;
 import com.changlianxi.popwindow.SelectPicPopwindow;
+import com.changlianxi.popwindow.SelectPicPopwindow.CameraPath;
 import com.changlianxi.task.BaseAsyncTask;
 import com.changlianxi.task.BaseAsyncTask.PostCallBack;
 import com.changlianxi.task.PersonChatListTast;
@@ -76,7 +77,8 @@ import com.umeng.analytics.MobclickAgent;
  * 
  */
 public class MessageActivity extends BaseActivity implements OnClickListener,
-        OnItemClickListener, PushMessages, SendMessageAndChatCallBack {
+        OnItemClickListener, PushMessages, SendMessageAndChatCallBack,
+        CameraPath {
     private Button btnSend;// 发送按钮
     private EditText editContent;// 内容输入框
     private MyListView listview;
@@ -120,6 +122,7 @@ public class MessageActivity extends BaseActivity implements OnClickListener,
     private List<PersonChat> lists = new ArrayList<PersonChat>();
     private LayoutInflater inflater;
     private boolean isfresh = false;
+    private String picPath = "";
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -468,6 +471,7 @@ public class MessageActivity extends BaseActivity implements OnClickListener,
             case R.id.layoutImg:
                 pop = new SelectPicPopwindow(this, v);
                 pop.show();
+                pop.setCallBack(this);
                 layAdd.setVisibility(View.GONE);
                 imgAdd.setImageResource(R.drawable.icon_add_chat);
                 break;
@@ -547,7 +551,6 @@ public class MessageActivity extends BaseActivity implements OnClickListener,
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        String path = "";
         if (resultCode != RESULT_OK) {
             return;
         }
@@ -555,14 +558,20 @@ public class MessageActivity extends BaseActivity implements OnClickListener,
             if (data == null) {
                 return;
             }
-            path = BitmapUtils.getPickPic(this, data);
+            picPath = BitmapUtils.getPickPic(this, data);
+            refushAdapter(picPath, ChatType.TYPE_IMAGE);
+            upLoadPic(picPath);
         }
-        // 拍摄图片
+
         else if (requestCode == Constants.REQUEST_CODE_GETIMAGE_BYCAMERA) {
-            path = pop.getTakePhotoPath();
+            if (picPath == null || "".equals(picPath)) {
+                Utils.showToast("照片获取失败，请从新获取", Toast.LENGTH_SHORT);
+                return;
+            }
+            refushAdapter(picPath, ChatType.TYPE_IMAGE);
+            upLoadPic(picPath);
         }
-        refushAdapter(path, ChatType.TYPE_IMAGE);
-        upLoadPic(path);
+
     }
 
     /**
@@ -639,6 +648,11 @@ public class MessageActivity extends BaseActivity implements OnClickListener,
             msg.obj = ErrorCodeUtil.convertToChines(ret.name());
             mHandler.sendMessage(msg);
         }
+    }
+
+    @Override
+    public void getCameraPath(String path) {
+        picPath = path;
     }
 
 }

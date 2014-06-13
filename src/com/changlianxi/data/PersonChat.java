@@ -259,7 +259,7 @@ public class PersonChat extends AbstractChat {
 
         Result ret = ApiRequest.uploadFileWithToken(PersonChat.SEND_IMAGE_API,
                 params, file, "image", parser);
-        file.delete();
+        // file.delete();
         if (ret.getStatus() == RetStatus.SUCC) {
             this.update(ret.getData());
             return RetError.NONE;

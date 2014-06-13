@@ -197,7 +197,7 @@ public class MyCardFragMent extends Fragment implements OnClickListener,
             return;
         }
         UniversalImageLoadTool.disPlayListener(card.getAvatar(),
-                new RotateImageViewAware(avatar, card.getAvatar()),
+                avatar, 
                 R.drawable.head_bg, this);
     }
 

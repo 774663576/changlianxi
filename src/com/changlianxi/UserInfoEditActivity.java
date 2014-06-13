@@ -54,6 +54,7 @@ import com.changlianxi.data.enums.RetError;
 import com.changlianxi.inteface.ConfirmDialog;
 import com.changlianxi.modle.Info;
 import com.changlianxi.popwindow.SelectPicPopwindow;
+import com.changlianxi.popwindow.SelectPicPopwindow.CameraPath;
 import com.changlianxi.popwindow.UserInfoEditSelectTypePopwindow;
 import com.changlianxi.popwindow.UserInfoEditSelectTypePopwindow.OnSelectKey;
 import com.changlianxi.task.BaseAsyncTask;
@@ -62,7 +63,6 @@ import com.changlianxi.util.BitmapUtils;
 import com.changlianxi.util.Constants;
 import com.changlianxi.util.DateUtils;
 import com.changlianxi.util.DialogUtil;
-import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.UniversalImageLoadTool;
 import com.changlianxi.util.UserInfoUtils;
 import com.changlianxi.util.Utils;
@@ -78,7 +78,7 @@ import com.umeng.analytics.MobclickAgent;
  * 
  */
 public class UserInfoEditActivity extends BaseActivity implements
-        OnClickListener, ImageLoadingListener {
+        OnClickListener, ImageLoadingListener, CameraPath {
     private List<Info> basicList = new ArrayList<Info>();// 存放基本信息数据
     private List<Info> contactList = new ArrayList<Info>();// 存放联系方式数据
     private List<Info> socialList = new ArrayList<Info>();// 存放社交账号数据
@@ -302,8 +302,7 @@ public class UserInfoEditActivity extends BaseActivity implements
             new BoxBlurFilterThread(avatarBitmap).start();
             return;
         }
-        UniversalImageLoadTool.disPlayListener(avatarURL,
-                new RotateImageViewAware(avatar, avatarURL),
+        UniversalImageLoadTool.disPlayListener(avatarURL, avatar,
                 R.drawable.head_bg, this);
     }
 
@@ -1526,6 +1525,7 @@ public class UserInfoEditActivity extends BaseActivity implements
                                 if (result != RetError.NONE) {
                                     return;
                                 }
+
                                 updateSucceed();
 
                             }
@@ -1541,6 +1541,7 @@ public class UserInfoEditActivity extends BaseActivity implements
             case R.id.avatarLay:
                 pop = new SelectPicPopwindow(this, v);
                 pop.show();
+                pop.setCallBack(this);
                 break;
             default:
                 break;
@@ -1635,10 +1636,8 @@ public class UserInfoEditActivity extends BaseActivity implements
             if (resultCode != RESULT_OK) {
                 return;
             }
-            String fileName = pop.getTakePhotoPath();
-            selectPicPath = fileName;
             selectPicPath = BitmapUtils.startPhotoZoom(this,
-                    Uri.fromFile(new File(fileName)));
+                    Uri.fromFile(new File(selectPicPath)));
         } else if (requestCode == Constants.REQUEST_CODE_GETIMAGE_DROP
                 && data != null) {
             Bundle extras = data.getExtras();
@@ -1646,7 +1645,6 @@ public class UserInfoEditActivity extends BaseActivity implements
                 Bitmap photo = extras.getParcelable("data");
                 bitmap = photo;
             }
-            // upLoadAvatar(bitmap);
             if (bitmap != null) {
                 avatarBitmap = bitmap;
                 avatar.setImageBitmap(bitmap);
@@ -1659,7 +1657,6 @@ public class UserInfoEditActivity extends BaseActivity implements
 
     @Override
     public void onLoadingCancelled(String arg0, View arg1) {
-        // TODO Auto-generated method stub
 
     }
 
@@ -1675,13 +1672,16 @@ public class UserInfoEditActivity extends BaseActivity implements
 
     @Override
     public void onLoadingFailed(String arg0, View arg1, FailReason arg2) {
-        // TODO Auto-generated method stub
 
     }
 
     @Override
     public void onLoadingStarted(String arg0, View arg1) {
-        // TODO Auto-generated method stub
 
+    }
+
+    @Override
+    public void getCameraPath(String path) {
+        selectPicPath = path;
     }
 }

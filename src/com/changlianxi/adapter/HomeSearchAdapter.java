@@ -87,8 +87,8 @@ public class HomeSearchAdapter extends BaseAdapter {
 
         } else {
             holder.img.setVisibility(View.VISIBLE);
-            UniversalImageLoadTool.disPlay(path, new RotateImageViewAware(
-                    holder.img, path), R.drawable.head_bg);
+            UniversalImageLoadTool.disPlay(path, 
+                    holder.img,  R.drawable.head_bg);
         }
         return convertView;
     }

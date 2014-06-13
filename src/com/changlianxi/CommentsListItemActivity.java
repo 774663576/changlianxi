@@ -316,8 +316,8 @@ public class CommentsListItemActivity extends BaseActivity implements
         if ("".equals(avatarImg)) {
             img.setImageResource(R.drawable.head_bg);
         } else {
-            UniversalImageLoadTool.disPlay(avatarImg, new RotateImageViewAware(
-                    img, avatarImg), R.drawable.head_bg);
+            UniversalImageLoadTool.disPlay(avatarImg, 
+                    img, R.drawable.head_bg);
         }
         initImg(growth);
 
@@ -365,8 +365,8 @@ public class CommentsListItemActivity extends BaseActivity implements
 
             oneImg.setVisibility(View.VISIBLE);
             gridView.setVisibility(View.GONE);
-            UniversalImageLoadTool.disPlay(imgPath, new RotateImageViewAware(
-                    oneImg, imgPath), R.drawable.empty_photo);
+            UniversalImageLoadTool.disPlay(imgPath, 
+                    oneImg,  R.drawable.empty_photo);
 
         } else {
             oneImg.setVisibility(View.GONE);
@@ -483,8 +483,8 @@ public class CommentsListItemActivity extends BaseActivity implements
                 // fb.display(holder.img, path);
                 // FinalBitmapLoadTool.display(path, holder.img,
                 // R.drawable.head_bg);
-                UniversalImageLoadTool.disPlay(path, new RotateImageViewAware(
-                        holder.img, path), R.drawable.head_bg);
+                UniversalImageLoadTool.disPlay(path, 
+                        holder.img, R.drawable.head_bg);
 
             }
             holder.img.setOnClickListener(new OnAvatarClick(cid, uid, pid,
@@ -812,8 +812,8 @@ public class CommentsListItemActivity extends BaseActivity implements
             }
 
             UniversalImageLoadTool.disPlay(praiseLists.get(position)
-                    .getAvatar(), new RotateImageViewAware(holder.img,
-                    praiseLists.get(position).getAvatar()), R.drawable.head_bg);
+                    .getAvatar(), holder.img,
+                   R.drawable.head_bg);
 
             return convertView;
         }

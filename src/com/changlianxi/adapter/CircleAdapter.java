@@ -85,7 +85,7 @@ public class CircleAdapter extends BaseAdapter {
             holder.circleImg.setVisibility(View.INVISIBLE);
         } else {
             UniversalImageLoadTool.disPlay(circleLogo,
-                    new RotateImageViewAware(holder.circleImg, circleLogo),
+                 holder.circleImg,
                     R.drawable.pic_bg_no);
         }
         boolean isnew = circleLists.get(position).isNew();

@@ -13,7 +13,6 @@ import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -260,7 +259,7 @@ public class CircleMember extends AbstractData implements Serializable {
         return location;
     }
 
-    public void setLocation(String location) {   
+    public void setLocation(String location) {
         this.location = location;
     }
 
@@ -605,6 +604,9 @@ public class CircleMember extends AbstractData implements Serializable {
                 String value = cursor.getString(cursor.getColumnIndex("value"));
                 String start = cursor.getString(cursor.getColumnIndex("start"));
                 String end = cursor.getString(cursor.getColumnIndex("end"));
+                System.out.println("key:::::::::::::" + type + "       "
+                        + value + "     " + id + "     " + cid + "       "
+                        + pid + "       " + uid);
                 this.pid = pid;
                 PersonDetail detail = new PersonDetail(id, cid, pid, uid,
                         PersonDetailType.convertToType(type),
@@ -1200,8 +1202,8 @@ public class CircleMember extends AbstractData implements Serializable {
                 if (retPropid > 0) {
                     try {
                         JSONObject jobj = (JSONObject) changedDetails.opt(i);
-                        int id = jobj.getInt("id");
-                        PersonDetail pd = new PersonDetail(id, cid);
+                        int oldid = jobj.getInt("id");
+                        PersonDetail pd = new PersonDetail(retPropid, cid);
                         pd.setType(PersonDetailType.convertToType(jobj
                                 .getString("t")));
                         pd.setPid(pid);
@@ -1221,7 +1223,11 @@ public class CircleMember extends AbstractData implements Serializable {
                             pd.setStatus(Status.NEW);
                             pd.setId(retPropid);
                         } else if ("edit".equals(op)) {
-                            pd.setStatus(Status.UPDATE);
+                            // pd.setStatus(Status.UPDATE);
+                            pd.setStatus(Status.NEW);
+                            PersonDetail oldpd = new PersonDetail(oldid, cid);
+                            oldpd.setStatus(Status.DEL);
+                            targetPds.add(oldpd);
                         } else if ("del".equals(op)) {
                             pd.setStatus(Status.DEL);
                         }
@@ -1361,7 +1367,6 @@ public class CircleMember extends AbstractData implements Serializable {
         params.put("cid", another.cid);
         params.put("pid", another.pid);
         params.put("person", changedDetails.toString());
-
         Result ret = ApiRequest.uploadFileWithToken(CircleMember.EDIT_API,
                 params, file, "avatar", parser);
         if (ret.getStatus() == RetStatus.SUCC) {

@@ -55,6 +55,7 @@ import com.changlianxi.db.DBUtils;
 import com.changlianxi.inteface.ConfirmDialog;
 import com.changlianxi.modle.Info;
 import com.changlianxi.popwindow.SelectPicPopwindow;
+import com.changlianxi.popwindow.SelectPicPopwindow.CameraPath;
 import com.changlianxi.popwindow.UserInfoEditSelectTypePopwindow;
 import com.changlianxi.popwindow.UserInfoEditSelectTypePopwindow.OnSelectKey;
 import com.changlianxi.task.BaseAsyncTask;
@@ -64,7 +65,6 @@ import com.changlianxi.util.BroadCast;
 import com.changlianxi.util.Constants;
 import com.changlianxi.util.DateUtils;
 import com.changlianxi.util.DialogUtil;
-import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.UniversalImageLoadTool;
 import com.changlianxi.util.UserInfoUtils;
 import com.changlianxi.util.Utils;
@@ -80,7 +80,7 @@ import com.umeng.analytics.MobclickAgent;
  * 
  */
 public class MyCardEditActivity extends BaseActivity implements
-        OnClickListener, ImageLoadingListener {
+        OnClickListener, ImageLoadingListener, CameraPath {
     private List<Info> basicList = new ArrayList<Info>();// 存放基本信息数据
     private List<Info> contactList = new ArrayList<Info>();// 存放联系方式数据
     private List<Info> socialList = new ArrayList<Info>();// 存放社交账号数据
@@ -109,9 +109,8 @@ public class MyCardEditActivity extends BaseActivity implements
     private final int TYPE_1 = 1;
     private final int TYPE_2 = 2;
     private SelectPicPopwindow pop;
-    private String selectPicPath = "";
     private String specialKey[] = { "姓名", "性別", "生日", "单位" };
-    // private FinalBitmap fb;
+    private String selectAvatarPath = "";
     private Handler mHandler = new Handler() {
         @SuppressLint("NewApi")
         public void handleMessage(android.os.Message msg) {
@@ -302,8 +301,7 @@ public class MyCardEditActivity extends BaseActivity implements
             avatar.setImageResource(R.drawable.head_bg);
             return;
         }
-        UniversalImageLoadTool.disPlayListener(avatarURL,
-                new RotateImageViewAware(avatar, avatarURL),
+        UniversalImageLoadTool.disPlayListener(avatarURL, avatar,
                 R.drawable.head_bg, this);
     }
 
@@ -1509,7 +1507,7 @@ public class MyCardEditActivity extends BaseActivity implements
                 dialog = DialogUtil.getWaitDialog(this, "请稍候");
                 dialog.show();
                 UpLoadMyCardIdetailTask loadCircleMemberIdetailTask = new UpLoadMyCardIdetailTask(
-                        selectPicPath);
+                        selectAvatarPath);
                 loadCircleMemberIdetailTask
                         .setTaskCallBack(new BaseAsyncTask.PostCallBack<RetError>() {
                             @Override
@@ -1520,7 +1518,7 @@ public class MyCardEditActivity extends BaseActivity implements
                                 BroadCast.sendBroadCast(
                                         MyCardEditActivity.this,
                                         Constants.REFUSH_MYCARD);
-                                if (!"".equals(selectPicPath)) {
+                                if (!"".equals(selectAvatarPath)) {
                                     Intent intent = new Intent(
                                             Constants.REFUSH_MYCARD_FRMO_NET);
                                     intent.putExtra("isFefushMycardFragment",
@@ -1542,6 +1540,7 @@ public class MyCardEditActivity extends BaseActivity implements
             case R.id.avatarLay:
                 pop = new SelectPicPopwindow(this, v);
                 pop.show();
+                pop.setCallBack(this);
                 break;
             default:
                 break;
@@ -1602,7 +1601,7 @@ public class MyCardEditActivity extends BaseActivity implements
             BuildJson();
             JSONArray changeJson = circleMember
                     .getChangedDetails(newCircleMember);
-            if (changeJson.length() > 0 || !"".equals(selectPicPath)) {
+            if (changeJson.length() > 0 || !"".equals(selectAvatarPath)) {
                 confirmDialog();
             } else {
                 finishAc();
@@ -1617,17 +1616,16 @@ public class MyCardEditActivity extends BaseActivity implements
         Bitmap bitmap = null;
         if (requestCode == Constants.REQUEST_CODE_GETIMAGE_BYSDCARD
                 && resultCode == RESULT_OK && data != null) {
-            selectPicPath = BitmapUtils.startPhotoZoom(this, data.getData());
+            selectAvatarPath = BitmapUtils.startPhotoZoom(this, data.getData());
 
         }// 拍摄图片
         else if (requestCode == Constants.REQUEST_CODE_GETIMAGE_BYCAMERA) {
             if (resultCode != RESULT_OK) {
                 return;
             }
-            String fileName = pop.getTakePhotoPath();
-            selectPicPath = fileName;
-            selectPicPath = BitmapUtils.startPhotoZoom(this,
-                    Uri.fromFile(new File(fileName)));
+
+            selectAvatarPath = BitmapUtils.startPhotoZoom(this,
+                    Uri.fromFile(new File(selectAvatarPath)));
         } else if (requestCode == Constants.REQUEST_CODE_GETIMAGE_DROP
                 && data != null) {
             Bundle extras = data.getExtras();
@@ -1635,13 +1633,9 @@ public class MyCardEditActivity extends BaseActivity implements
                 Bitmap photo = extras.getParcelable("data");
                 bitmap = photo;
             }
-            // upLoadAvatar(bitmap);
             if (bitmap != null) {
                 avatar.setImageBitmap(bitmap);
                 new BoxBlurFilterThread(bitmap).start();
-                // layTop.setBackground(BitmapUtils.convertBimapToDrawable(bitmap));
-                // setBackGroubdOfDrable(BitmapUtils
-                // .convertBimapToDrawable(bitmap));
                 new BoxBlurFilterThread(bitmap).start();
 
             }
@@ -1651,7 +1645,6 @@ public class MyCardEditActivity extends BaseActivity implements
 
     @Override
     public void onLoadingCancelled(String arg0, View arg1) {
-        // TODO Auto-generated method stub
 
     }
 
@@ -1674,5 +1667,10 @@ public class MyCardEditActivity extends BaseActivity implements
     public void onLoadingStarted(String arg0, View arg1) {
         // TODO Auto-generated method stub
 
+    }
+
+    @Override
+    public void getCameraPath(String path) {
+        selectAvatarPath = path;
     }
 }

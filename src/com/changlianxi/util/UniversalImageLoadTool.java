@@ -46,7 +46,7 @@ public class UniversalImageLoadTool {
         imageLoader.displayImage(uri, img, options);
     }
 
-    public static void disPlayListener(String uri, ImageAware imageAware,
+    public static void disPlayListener(String uri, ImageView imageAware,
             int default_pic, ImageLoadingListener listener) {
         DisplayImageOptions options = new DisplayImageOptions.Builder()
                 .showImageOnLoading(default_pic)

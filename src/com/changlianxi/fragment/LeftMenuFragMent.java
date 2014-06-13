@@ -169,8 +169,7 @@ public class LeftMenuFragMent extends Fragment implements OnItemClickListener {
             avatar.setImageResource(R.drawable.head_bg);
             return;
         }
-        UniversalImageLoadTool.disPlay(avatarUrl, new RotateImageViewAware(
-                avatar, avatarUrl), R.drawable.head_bg);
+        UniversalImageLoadTool.disPlay(avatarUrl, avatar, R.drawable.head_bg);
     }
 
     private void getMenu() {

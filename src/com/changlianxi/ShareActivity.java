@@ -99,8 +99,7 @@ public class ShareActivity extends BaseActivity implements OnClickListener,
     }
 
     private void setImage() {
-        UniversalImageLoadTool.disPlayListener(imgNetPath,
-                new RotateImageViewAware(iv_get, imgNetPath),
+        UniversalImageLoadTool.disPlayListener(imgNetPath, iv_get,
                 R.drawable.empty_photo, this);
     }
 

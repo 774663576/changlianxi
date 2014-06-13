@@ -13,8 +13,10 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
@@ -31,7 +33,6 @@ import com.changlianxi.task.PostAsyncTask;
 import com.changlianxi.task.PostAsyncTask.PostCallBack;
 import com.changlianxi.util.Constants;
 import com.changlianxi.util.DialogUtil;
-import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.SharedUtils;
 import com.changlianxi.util.UniversalImageLoadTool;
 import com.changlianxi.util.Utils;
@@ -69,7 +70,7 @@ public class ShareOthersActivity extends BaseActivity implements PostCallBack,
         gridview = (GrowthImgGridView) findViewById(R.id.gridview);
         gridview.setCacheColorHint(0);
         iv_back = (ImageView) findViewById(R.id.back);
-        iv_back.setOnClickListener(this);   
+        iv_back.setOnClickListener(this);
         tv_get = (TextView) findViewById(R.id.text_word);
         iv_get = (ImageView) findViewById(R.id.img);
         iv_get.setOnClickListener(this);
@@ -94,8 +95,8 @@ public class ShareOthersActivity extends BaseActivity implements PostCallBack,
         gridview.setAdapter(saImageItems);
         content = getIntent().getExtras().getString("content");
 
-        UniversalImageLoadTool.disPlayListener(gimg, new RotateImageViewAware(
-                iv_get, gimg), R.drawable.empty_photo, this);
+        UniversalImageLoadTool.disPlayListener(gimg, iv_get,
+                R.drawable.empty_photo, this);
         tv_get.setText(content);
         gridview.setOnItemClickListener(new OnItemClickListener() {
 
@@ -189,7 +190,6 @@ public class ShareOthersActivity extends BaseActivity implements PostCallBack,
 
     @Override
     public void onLoadingCancelled(String arg0, View arg1) {
-        // TODO Auto-generated method stub
 
     }
 
@@ -201,13 +201,11 @@ public class ShareOthersActivity extends BaseActivity implements PostCallBack,
 
     @Override
     public void onLoadingFailed(String arg0, View arg1, FailReason arg2) {
-        // TODO Auto-generated method stub
 
     }
 
     @Override
     public void onLoadingStarted(String arg0, View arg1) {
-        // TODO Auto-generated method stub
 
     }
 }

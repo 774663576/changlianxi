@@ -292,9 +292,8 @@ public class SetPublicInfoShowInfoActivity extends BaseActivity implements
             avatar.setImageResource(R.drawable.head_bg);
             return;
         }
-        UniversalImageLoadTool.disPlayListener(iconPath,
-                new RotateImageViewAware(avatar, iconPath), R.drawable.head_bg,
-                this);
+        UniversalImageLoadTool.disPlayListener(iconPath, avatar,
+                R.drawable.head_bg, this);
     }
 
     private void setBackGroubdOfDrable(Drawable darble) {

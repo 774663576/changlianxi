@@ -31,7 +31,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.changlianxi.AddCircleMemberActivity;
@@ -306,6 +305,7 @@ public class HomeFragMent extends Fragment implements OnClickListener,
     }
 
     private void filldata(boolean refushNet, boolean refushANotify) {
+        System.out.println("hoime::::::::::::::::::::");
         circleListTask = new CircleListTask(refushNet, refushANotify);
         circleListTask.setTaskCallBack(new PostCallBack<RetError>() {
             @Override

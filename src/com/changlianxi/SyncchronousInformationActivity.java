@@ -205,7 +205,7 @@ public class SyncchronousInformationActivity extends BaseActivity implements
                     holder.headImg.setImageResource(R.drawable.head_bg);
                 } else {
                     UniversalImageLoadTool.disPlay(detail,
-                            new RotateImageViewAware(holder.headImg, detail),
+                          holder.headImg,
                             R.drawable.head_bg);
 
                 }
@@ -273,8 +273,8 @@ public class SyncchronousInformationActivity extends BaseActivity implements
                 viewHolder.circleImg.setImageResource(R.drawable.pic_bg_no);
             } else {
                 UniversalImageLoadTool.disPlay(circleLogo,
-                        new RotateImageViewAware(viewHolder.circleImg,
-                                circleLogo), R.drawable.pic_bg_no);
+                     viewHolder.circleImg,
+                               R.drawable.pic_bg_no);
 
             }
 

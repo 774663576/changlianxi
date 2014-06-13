@@ -39,7 +39,6 @@ import com.changlianxi.util.BroadCast;
 import com.changlianxi.util.Constants;
 import com.changlianxi.util.DateUtils;
 import com.changlianxi.util.DialogUtil;
-import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.SortPersonType;
 import com.changlianxi.util.UniversalImageLoadTool;
 import com.changlianxi.util.UserInfoUtils;
@@ -259,7 +258,9 @@ public class SetingPublicInfomationActivity extends BaseActivity implements
                 }
                 if (c.getKey().equals(type)
                         && (type == PersonDetailType.D_NAME
-                                || type == PersonDetailType.D_BIRTHDAY || type == PersonDetailType.D_GENDAR)) {
+                                || type == PersonDetailType.D_BIRTHDAY
+                                || type == PersonDetailType.D_GENDAR
+                                || type == PersonDetailType.D_JOBTITLE || type == PersonDetailType.D_EMPLOYER)) {
                     cmodle.setFalg(false);
                     break;
                 }
@@ -552,10 +553,8 @@ public class SetingPublicInfomationActivity extends BaseActivity implements
             switch (viewType) {
                 case TYPE_1:
                     avatarHolder.key.setText(key + ":");
-                    UniversalImageLoadTool
-                            .disPlay(value, new RotateImageViewAware(
-                                    avatarHolder.avatar, value),
-                                    R.drawable.head_bg);
+                    UniversalImageLoadTool.disPlay(value, avatarHolder.avatar,
+                            R.drawable.head_bg);
                     avatarHolder.mySwitch
                             .setOnSwitchListener(new OnSwitchListener() {
 
@@ -634,7 +633,9 @@ public class SetingPublicInfomationActivity extends BaseActivity implements
                                     child.get(groupPosition).get(childPosition)
                                             .setFalg(isSwitchOn);
                                     if ("姓名".equals(key) || "性别".equals(key)
-                                            || "生日".equals(key)) {
+                                            || "生日".equals(key)
+                                            || "单位".equals(key)
+                                            || "职位".equals(key)) {
                                         cannotChooseDouble(
                                                 key,
                                                 isSwitchOn,
@@ -794,8 +795,10 @@ public class SetingPublicInfomationActivity extends BaseActivity implements
                     if (i - 1 >= 0
                             && (c.getKey() == PersonDetailType.D_NAME
                                     || c.getKey() == PersonDetailType.D_AVATAR
-                                    || c.getKey() == PersonDetailType.D_BIRTHDAY || c
-                                    .getKey() == PersonDetailType.D_GENDAR)) {
+                                    || c.getKey() == PersonDetailType.D_BIRTHDAY
+                                    || c.getKey() == PersonDetailType.D_GENDAR
+                                    || c.getKey() == PersonDetailType.D_EMPLOYER || c
+                                    .getKey() == PersonDetailType.D_JOBTITLE)) {
                         if (basic.get(i - 1).getKey() == c.getKey()) {
                             c.setFalg(false);
                         }

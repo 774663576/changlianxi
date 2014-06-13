@@ -20,6 +20,7 @@ import com.changlianxi.data.Circle;
 import com.changlianxi.data.enums.RetError;
 import com.changlianxi.inteface.ConfirmDialog;
 import com.changlianxi.popwindow.SelectPicPopwindow;
+import com.changlianxi.popwindow.SelectPicPopwindow.CameraPath;
 import com.changlianxi.task.BaseAsyncTask;
 import com.changlianxi.task.UpdateCircleIdetailTask;
 import com.changlianxi.util.BitmapUtils;
@@ -36,7 +37,8 @@ import com.umeng.analytics.MobclickAgent;
  * @author teeker_bin
  * 
  */
-public class EditCircleActivity extends BaseActivity implements OnClickListener {
+public class EditCircleActivity extends BaseActivity implements
+        OnClickListener, CameraPath {
     private Button btnSave;
     private EditText circleName;// 圈子名称
     private TextView titleName;
@@ -51,6 +53,7 @@ public class EditCircleActivity extends BaseActivity implements OnClickListener 
     private Circle circle;
     private boolean isCamera = false;
     private Bitmap logoBmp;
+    private String selectPicPath = "";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -175,6 +178,7 @@ public class EditCircleActivity extends BaseActivity implements OnClickListener 
                 Utils.hideSoftInput(this);
                 pop = new SelectPicPopwindow(this, v);
                 pop.show();
+                pop.setCallBack(this);
                 break;
             case R.id.back:
                 if (!compare()) {
@@ -241,7 +245,7 @@ public class EditCircleActivity extends BaseActivity implements OnClickListener 
             if (pop == null) {
                 return;
             }
-            logoPath = pop.getTakePhotoPath();
+            logoPath = selectPicPath;
             upLoadPath = BitmapUtils.startPhotoZoom(this,
                     Uri.fromFile(new File(logoPath)));
             isCamera = true;
@@ -272,5 +276,10 @@ public class EditCircleActivity extends BaseActivity implements OnClickListener 
             exit();
         }
         return false;
+    }
+
+    @Override
+    public void getCameraPath(String path) {
+        selectPicPath = path;
     }
 }

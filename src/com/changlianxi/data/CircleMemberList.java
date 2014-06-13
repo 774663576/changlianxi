@@ -272,7 +272,6 @@ public class CircleMemberList extends AbstractData {
         if (!(data instanceof CircleMemberList)) {
             return;
         }
-
         CircleMemberList another = (CircleMemberList) data;
         if (another.members.size() == 0) {
             return;
@@ -342,7 +341,7 @@ public class CircleMemberList extends AbstractData {
                 break;
             }
 
-            startTime = cml.getEndTime() / 1000 ;
+            startTime = cml.getEndTime() / 1000;
         }
     }
 

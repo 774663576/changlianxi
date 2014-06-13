@@ -161,8 +161,8 @@ public class DynamicAdoutMeAdapter extends BaseAdapter {
                             .setImageResource(R.drawable.head_bg);
                 } else {
                     UniversalImageLoadTool.disPlay(avatarUrl,
-                            new RotateImageViewAware(holderInvite.avatarInvite,
-                                    avatarUrl), R.drawable.head_bg);
+                         holderInvite.avatarInvite,
+                                   R.drawable.head_bg);
                 }
                 holderInvite.btnAgreeInvite.setOnClickListener(new BtnClick(
                         listModle.get(position), position, m1, m2));
@@ -188,7 +188,7 @@ public class DynamicAdoutMeAdapter extends BaseAdapter {
                     holder.avatar.setImageResource(R.drawable.head_bg);
                 } else {
                     UniversalImageLoadTool.disPlay(avatarUrl,
-                            new RotateImageViewAware(holder.avatar, avatarUrl),
+                       holder.avatar, 
                             R.drawable.head_bg);
                 }
                 holder.avatar.setOnClickListener(new OnAvatarClickListener(

@@ -121,8 +121,8 @@ public class GrowthCommentActivity extends BaseActivity implements
         if ("".equals(avatarImg)) {
             avatar.setImageResource(R.drawable.head_bg);
         } else {
-            UniversalImageLoadTool.disPlay(avatarImg, new RotateImageViewAware(
-                    avatar, avatarImg), R.drawable.head_bg);
+            UniversalImageLoadTool.disPlay(avatarImg, 
+                    avatar, R.drawable.head_bg);
         }
         commentList = growth.getCommentList();
         filldata(0);
@@ -337,8 +337,8 @@ public class GrowthCommentActivity extends BaseActivity implements
 
             oneImg.setVisibility(View.VISIBLE);
             gridView.setVisibility(View.GONE);
-            UniversalImageLoadTool.disPlay(imgPath, new RotateImageViewAware(
-                    oneImg, imgPath), R.drawable.empty_photo);
+            UniversalImageLoadTool.disPlay(imgPath,
+                    oneImg, R.drawable.empty_photo);
         } else {
             oneImg.setVisibility(View.GONE);
             gridView.setVisibility(View.VISIBLE);
@@ -450,8 +450,8 @@ public class GrowthCommentActivity extends BaseActivity implements
             if (path == null || path.equals("")) {
                 holder.img.setImageResource(R.drawable.head_bg);
             } else {
-                UniversalImageLoadTool.disPlay(path, new RotateImageViewAware(
-                        holder.img, path), R.drawable.head_bg);
+                UniversalImageLoadTool.disPlay(path, 
+                        holder.img,  R.drawable.head_bg);
 
             }
             holder.img.setOnClickListener(new OnAvatarClick(cid, uid, pid,
@@ -792,9 +792,8 @@ public class GrowthCommentActivity extends BaseActivity implements
                 holder.img_headIcon.setImageResource(R.drawable.head_bg);
             } else {
                 UniversalImageLoadTool.disPlay(praiseLists.get(position)
-                        .getAvatar(), new RotateImageViewAware(
-                        holder.img_headIcon, praiseLists.get(position)
-                                .getAvatar()), R.drawable.head_bg);
+                        .getAvatar(),
+                        holder.img_headIcon,  R.drawable.head_bg);
                 holder.img_headIcon.setOnClickListener(new OnAvatarClick(cid,
                         praiseLists.get(position).getUid(), praiseLists.get(
                                 position).getPid(), praiseLists.get(position)

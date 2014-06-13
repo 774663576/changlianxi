@@ -68,8 +68,7 @@ public class NewsCommentsListAdapter extends BaseAdapter {
         holder.name.setText(listModle.get(position).getName());
         holder.time.setText(listModle.get(position).getTime());
         UniversalImageLoadTool.disPlay(listModle.get(position).getAvatar(),
-                new RotateImageViewAware(holder.avatar, listModle.get(position)
-                        .getAvatar()), R.drawable.head_bg);
+                holder.avatar, R.drawable.head_bg);
         if (position % 2 == 0) {
             holder.layParent.setBackgroundColor(Color.WHITE);
         } else {

@@ -170,8 +170,8 @@ public class MessageAdapter extends BaseAdapter {
                         content = "file://" + content;
                     }
                     UniversalImageLoadTool.disPlay(content,
-                            new RotateImageViewAware(selfHolder.selfImg,
-                                    content), R.drawable.empty_photo);
+                          selfHolder.selfImg,
+                                  R.drawable.empty_photo);
                 }
                 selfHolder.selfLayout.setVisibility(View.VISIBLE);
                 selfHolder.selfContent.setText(EmojiParser
@@ -180,8 +180,8 @@ public class MessageAdapter extends BaseAdapter {
                     selfHolder.selfAvatar.setImageResource(R.drawable.head_bg);
                 } else {
                     UniversalImageLoadTool.disPlay(selfAvatar,
-                            new RotateImageViewAware(selfHolder.selfAvatar,
-                                    selfAvatar), R.drawable.head_bg);
+                          selfHolder.selfAvatar,
+                                     R.drawable.head_bg);
 
                 }
                 selfHolder.selfImg.setOnClickListener(new ImageOnClick(content
@@ -197,8 +197,8 @@ public class MessageAdapter extends BaseAdapter {
                     otherHolder.otherContent.setVisibility(View.GONE);
 
                     UniversalImageLoadTool.disPlay(content,
-                            new RotateImageViewAware(otherHolder.otherImg,
-                                    content), R.drawable.empty_photo);
+                          otherHolder.otherImg,
+                                    R.drawable.empty_photo);
                 }
                 otherHolder.otherLayout.setVisibility(View.VISIBLE);
                 otherHolder.otherContent.setText(EmojiParser
@@ -211,8 +211,8 @@ public class MessageAdapter extends BaseAdapter {
 
                 } else {
                     UniversalImageLoadTool.disPlay(path,
-                            new RotateImageViewAware(otherHolder.otherAvatar,
-                                    path), R.drawable.head_bg);
+                         otherHolder.otherAvatar,
+                                   R.drawable.head_bg);
                 }
                 otherHolder.otherAvatar.setOnClickListener(new OnAvatarClick(
                         cid, uid, pid, otherName, otherAvater));

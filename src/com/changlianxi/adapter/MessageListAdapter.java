@@ -104,8 +104,8 @@ public class MessageListAdapter extends BaseAdapter {
         if (!avatar.startsWith("http")) {
             holder.avatar.setImageResource(R.drawable.head_bg);
         } else {
-            UniversalImageLoadTool.disPlay(avatar, new RotateImageViewAware(
-                    holder.avatar, avatar), R.drawable.head_bg);
+            UniversalImageLoadTool.disPlay(avatar, 
+                    holder.avatar,  R.drawable.head_bg);
         }
         if (position % 2 == 0) {
             holder.layParent.setBackgroundColor(Color.WHITE);

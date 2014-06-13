@@ -456,6 +456,7 @@ public class MemberFragment extends Fragment implements
                 break;
             case R.id.btnOk:
                 acceptInvitation();
+                v.setEnabled(false);
                 break;
             case R.id.btnCancle:
                 confirmDialog();

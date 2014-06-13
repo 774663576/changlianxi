@@ -67,8 +67,7 @@ public class NoExistPersonInfoActivity extends BaseActivity implements
     }
 
     private void setAvatar() {
-        UniversalImageLoadTool.disPlayListener(avatarUrl,
-                new RotateImageViewAware(avatar, avatarUrl),
+        UniversalImageLoadTool.disPlayListener(avatarUrl, avatar,
                 R.drawable.head_bg, this);
 
     }

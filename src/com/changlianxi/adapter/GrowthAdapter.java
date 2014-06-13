@@ -150,8 +150,8 @@ public class GrowthAdapter extends BaseAdapter {
             } else {
                 imgPath = "file://" + imgPath;
             }
-            UniversalImageLoadTool.disPlay(imgPath, new RotateImageViewAware(
-                    holder.img, imgPath), R.drawable.empty_photo);
+            UniversalImageLoadTool.disPlay(imgPath,
+                    holder.img, R.drawable.empty_photo);
             holder.img.setVisibility(View.VISIBLE);
             holder.img.setOnClickListener(new ImgOnClick(growth.getImages()
                     .get(0).getImg(), position));
@@ -173,8 +173,8 @@ public class GrowthAdapter extends BaseAdapter {
         if (path == null || path.equals("")) {
             holder.avatar.setImageResource(R.drawable.head_bg);
         } else {
-            UniversalImageLoadTool.disPlay(path, new RotateImageViewAware(
-                    holder.avatar, path), R.drawable.head_bg);
+            UniversalImageLoadTool.disPlay(path, 
+                    holder.avatar,  R.drawable.head_bg);
 
         }
         holder.name.setText(name);

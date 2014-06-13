@@ -193,8 +193,8 @@ public class SynchronizeSelfInfoActivity extends BaseActivity implements
                     .equals(PersonDetailType.D_AVATAR)) {
                 holder.avatr.setVisibility(View.VISIBLE);
                 holder.value.setVisibility(View.GONE);
-                UniversalImageLoadTool.disPlay(value, new RotateImageViewAware(
-                        holder.avatr, value), R.drawable.head_bg);
+                UniversalImageLoadTool.disPlay(value, 
+                        holder.avatr,  R.drawable.head_bg);
 
             } else {
                 holder.avatr.setVisibility(View.GONE);

@@ -98,8 +98,8 @@ public class DynamicAllAdapter extends BaseAdapter {
         if (avatarUrl == null || avatarUrl.equals("")) {
             holderOther.avatar.setImageResource(R.drawable.head_bg);
         } else {
-            UniversalImageLoadTool.disPlay(avatarUrl, new RotateImageViewAware(
-                    holderOther.avatar, avatarUrl), R.drawable.head_bg);
+            UniversalImageLoadTool.disPlay(avatarUrl, 
+                    holderOther.avatar, R.drawable.head_bg);
         }
         holderOther.avatar.setOnClickListener(new OnAvatarClickListener(
                 mCotext, cid, m1 == null & m2 == null ? 0 : m1 == null ? m2

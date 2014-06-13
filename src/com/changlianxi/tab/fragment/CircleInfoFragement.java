@@ -40,7 +40,6 @@ import com.changlianxi.task.CircleIdetailTask;
 import com.changlianxi.util.BroadCast;
 import com.changlianxi.util.Constants;
 import com.changlianxi.util.DialogUtil;
-import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.UniversalImageLoadTool;
 import com.changlianxi.util.Utils;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -163,8 +162,7 @@ public class CircleInfoFragement extends Fragment implements OnClickListener,
         if ("".equals(img)) {
             circleLogo.setImageResource(R.drawable.pic_bg_no);
         } else {
-            UniversalImageLoadTool.disPlayListener(img,
-                    new RotateImageViewAware(circleLogo, img),
+            UniversalImageLoadTool.disPlayListener(img, circleLogo,
                     R.drawable.pic_bg_no, this);
         }
     }

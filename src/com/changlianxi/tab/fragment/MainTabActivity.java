@@ -215,4 +215,10 @@ public class MainTabActivity extends FragmentActivity implements
         }
     };
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(mBroadcastReceiver);
+
+    }
 }

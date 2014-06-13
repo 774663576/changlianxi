@@ -53,8 +53,8 @@ public class GorwthAlbumImageAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         path = StringUtils.JoinString(path, "_200x200");
-        UniversalImageLoadTool.disPlay(path, new RotateImageViewAware(
-                holder.img, path), R.drawable.empty_photo);
+        UniversalImageLoadTool.disPlay(path, 
+                holder.img,  R.drawable.empty_photo);
         return convertView;
     }
 

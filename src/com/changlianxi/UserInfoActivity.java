@@ -53,7 +53,6 @@ import com.changlianxi.util.BroadCast;
 import com.changlianxi.util.Constants;
 import com.changlianxi.util.DateUtils;
 import com.changlianxi.util.DialogUtil;
-import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.SaveContactsToPhone;
 import com.changlianxi.util.SortPersonType;
 import com.changlianxi.util.UniversalImageLoadTool;
@@ -303,9 +302,8 @@ public class UserInfoActivity extends BaseActivity implements OnClickListener,
     }
 
     private void setAvatar() {
-        UniversalImageLoadTool.disPlayListener(iconPath,
-                new RotateImageViewAware(avatar, iconPath), R.drawable.head_bg,
-                this);
+        UniversalImageLoadTool.disPlayListener(iconPath, avatar,
+                R.drawable.head_bg, this);
     }
 
     private void setBackGroubdOfDrable(Drawable darble) {
@@ -618,7 +616,6 @@ public class UserInfoActivity extends BaseActivity implements OnClickListener,
             info.setKey(typekey);
             info.setTitleKey(UserInfoUtils.infoTitleKey[4]);
             showAddressList.add(info);
-
         } else if (Arrays.toString(UserInfoUtils.eduStr).contains(key.name())) {
             typekey = UserInfoUtils.convertToChines(key.name());
             info.setKey(typekey);
@@ -1262,6 +1259,7 @@ public class UserInfoActivity extends BaseActivity implements OnClickListener,
                 new BoxBlurFilterThread(editAvatarBitmap).start();
             }
             filldata();
+            BroadCast.sendBroadCast(this, Constants.REFRESH_CIRCLE_USER_LIST);
         }
     }
 
@@ -1294,7 +1292,6 @@ public class UserInfoActivity extends BaseActivity implements OnClickListener,
                     selMes.getRight(),
                     botsi - Utils.dip2px(this, itemposiotion - top));
         } else {
-
             avatar.setVisibility(View.INVISIBLE);
             iv_headbg.setVisibility(View.INVISIBLE);
             selMes.layout(selMes.getLeft(), topsi - Utils.dip2px(this, 70),
@@ -1305,7 +1302,7 @@ public class UserInfoActivity extends BaseActivity implements OnClickListener,
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        BroadCast.sendBroadCast(this, Constants.REFRESH_CIRCLE_USER_LIST);
+        // BroadCast.sendBroadCast(this, Constants.REFRESH_CIRCLE_USER_LIST);
     }
 
     @Override
