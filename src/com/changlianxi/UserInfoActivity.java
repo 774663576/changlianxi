@@ -1280,6 +1280,7 @@ public class UserInfoActivity extends BaseActivity implements OnClickListener,
         }
         final int alp = ((itemposiotion - top) * 255 / 70);
         if (0 <= alp && alp <= 255) {
+
             avatar.setVisibility(View.VISIBLE);
             avatar.setAlpha(255 - alp);
             iv_headbg.setVisibility(View.VISIBLE);

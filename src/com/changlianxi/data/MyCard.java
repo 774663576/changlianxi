@@ -220,7 +220,7 @@ public class MyCard extends CircleMember {
      * 
      * @return
      */
-    public RetError refresh(boolean notify) {
+    public synchronized RetError refresh(boolean notify) {
         IParser parser = new MyCardDetailParser();
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("notify", notify ? "1" : "0");

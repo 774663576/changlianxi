@@ -1,8 +1,6 @@
 package com.changlianxi.task;
 
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -36,6 +34,7 @@ public class PostAsyncTask extends AsyncTask<String, Integer, String> {
         }
 
         String result = HttpUrlHelper.postData(map, url);
+        System.out.println("resutl::::::::::::::::" + result);
         return result;
     }
 

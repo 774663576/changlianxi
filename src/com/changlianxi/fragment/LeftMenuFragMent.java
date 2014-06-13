@@ -23,6 +23,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.changlianxi.MyCardEditActivity;
 import com.changlianxi.R;
 import com.changlianxi.data.Global;
 import com.changlianxi.data.MyCard;
@@ -31,6 +32,7 @@ import com.changlianxi.db.DBUtils;
 import com.changlianxi.showBigPic.AvatarImagePagerActivity;
 import com.changlianxi.task.BaseAsyncTask.PostCallBack;
 import com.changlianxi.task.MyCardTask;
+import com.changlianxi.util.BroadCast;
 import com.changlianxi.util.Constants;
 import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.SharedUtils;
@@ -121,7 +123,7 @@ public class LeftMenuFragMent extends Fragment implements OnItemClickListener {
         getMenu();
         adapter = new MyAdapter();
         listview.setAdapter(adapter);
-        getMyCard();
+        getMyCard(false);
         getPrompt();
     }
 
@@ -133,12 +135,16 @@ public class LeftMenuFragMent extends Fragment implements OnItemClickListener {
         }
     }
 
-    public void getMyCard() {
+    public void getMyCard(final boolean isFefushMycardFragment) {
         MyCardTask task = new MyCardTask();
         task.setTaskCallBack(new PostCallBack<RetError>() {
             @Override
             public void taskFinish(RetError result) {
                 setAvatar(myCard.getAvatar());
+                if (isFefushMycardFragment) {
+                    BroadCast.sendBroadCast(getActivity(),
+                            Constants.REFUSH_MYCARD);
+                }
             }
 
             @Override

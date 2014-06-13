@@ -33,8 +33,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/checkBox1"
             android:layout_toRightOf="@+id/circle_img"
             android:paddingLeft="@dimen/scale19dip"
+            android:singleLine="true"
             android:text="圈子名称"
             android:textColor="#535252"
             android:textSize="@dimen/sp34" />

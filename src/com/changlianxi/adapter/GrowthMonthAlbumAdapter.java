@@ -128,7 +128,7 @@ public class GrowthMonthAlbumAdapter extends BaseAdapter {
             if (name.contains(m.getName())) {
                 continue;
             }
-            if (index >= 3) {
+            if (index > 2) {
                 break;
             }
             name += m.getName() + " ";

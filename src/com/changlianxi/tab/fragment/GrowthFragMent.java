@@ -22,6 +22,7 @@ import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -47,6 +48,7 @@ public class GrowthFragMent extends Fragment implements OnClickListener,
     private PullDownViewGrowth mPullDownView;
     private GrowthAdapter adapter;
     private TextView promptCount;
+    private LinearLayout layPrompt;
     private GrowthListTask growthListTask;
     private ListView mListView;
     private List<Growth> listData = new ArrayList<Growth>();
@@ -121,6 +123,7 @@ public class GrowthFragMent extends Fragment implements OnClickListener,
      * 初始化控件
      */
     private void initView() {
+        layPrompt = (LinearLayout) getView().findViewById(R.id.prompt);
         mPullDownView = (PullDownViewGrowth) getView().findViewById(
                 R.id.PullDownlistView);
         mListView = mPullDownView.getListView();
@@ -146,7 +149,7 @@ public class GrowthFragMent extends Fragment implements OnClickListener,
         mPullDownView.setOnPullDownListener(this);
         mPullDownView.notifyDidMore();
         mListView.setOnItemClickListener(this);
-        promptCount.setOnClickListener(this);
+        layPrompt.setOnClickListener(this);
         mListView.setOnScrollListener(this);
         mPullDownView.setShowFooter();
         mPullDownView.setFooterVisible(false);
@@ -164,7 +167,7 @@ public class GrowthFragMent extends Fragment implements OnClickListener,
 
     private void visivlePromptCount() {
         if (newCommentCount > 0) {
-            promptCount.setVisibility(View.VISIBLE);
+            layPrompt.setVisibility(View.VISIBLE);
             promptCount.setText(newCommentCount + "条回复消息");
         }
     }
@@ -256,7 +259,7 @@ public class GrowthFragMent extends Fragment implements OnClickListener,
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.promptCount:
+            case R.id.prompt:
                 removoCirclePromptCount();
                 Intent it = new Intent();
                 it.setClass(getActivity(), CommentsListActivity.class);
@@ -264,7 +267,7 @@ public class GrowthFragMent extends Fragment implements OnClickListener,
                 startActivity(it);
                 getActivity().overridePendingTransition(R.anim.in_from_right,
                         R.anim.out_to_left);
-                promptCount.setVisibility(View.GONE);
+                layPrompt.setVisibility(View.GONE);
 
                 break;
             case R.id.back:

@@ -1516,15 +1516,17 @@ public class MyCardEditActivity extends BaseActivity implements
                             public void taskFinish(RetError result) {
                                 if (dialog != null) dialog.dismiss();
                                 if (result != RetError.NONE) {
-                                    return;
                                 }
                                 BroadCast.sendBroadCast(
                                         MyCardEditActivity.this,
-                                        Constants.REFRESH_MYCARD_AVATAR);
+                                        Constants.REFUSH_MYCARD);
                                 if (!"".equals(selectPicPath)) {
+                                    Intent intent = new Intent(
+                                            Constants.REFUSH_MYCARD_FRMO_NET);
+                                    intent.putExtra("isFefushMycardFragment",
+                                            false);
                                     BroadCast.sendBroadCast(
-                                            MyCardEditActivity.this,
-                                            Constants.REFUSH_MYCARD);
+                                            MyCardEditActivity.this, intent);
                                 }
                                 updateSucceed();
                             }

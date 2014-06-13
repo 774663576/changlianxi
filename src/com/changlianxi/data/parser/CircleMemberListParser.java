@@ -77,7 +77,7 @@ public class CircleMemberListParser implements IParser {
                 end = tmp;
             }
             if (start == 0 || tmp < start) {
-                tmp = start;
+                start = tmp;
             }
             JSONArray jsonDetails = obj.getJSONArray("details");
             // member properties
@@ -114,11 +114,12 @@ public class CircleMemberListParser implements IParser {
         cml.setTotal(total);
         cml.setStartTime(start);
         cml.setEndTime(end);
-        if (total < members.size()) {
-            cml.setLastReqTime(end);
-        } else {
-            cml.setLastReqTime(requestTime);
-        }
+        cml.setLastReqTime(end);
+//        if (total > members.size()) {
+//            cml.setLastReqTime(end);
+//        } else {
+//            cml.setLastReqTime(requestTime);
+//        }
         Result ret = new Result();
         ret.setData(cml);
 

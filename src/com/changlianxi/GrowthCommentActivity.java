@@ -71,7 +71,7 @@ public class GrowthCommentActivity extends BaseActivity implements
     private TextView name;// 显示發佈人姓名
     private TextView content;// 显示记录内容
     private TextView time;// 显示记录发布时间
-    private CircularImage img;// 发布人头像
+    private CircularImage avatar;// 发布人头像
     private TextView comment;// 评论数量
     private TextView addressTextView;// 成长发布地址
     private String address = "";
@@ -119,10 +119,10 @@ public class GrowthCommentActivity extends BaseActivity implements
         avatarImg = m.getAvatar();
         name.setText(m.getName());
         if ("".equals(avatarImg)) {
-            img.setImageResource(R.drawable.head_bg);
+            avatar.setImageResource(R.drawable.head_bg);
         } else {
             UniversalImageLoadTool.disPlay(avatarImg, new RotateImageViewAware(
-                    img, avatarImg), R.drawable.head_bg);
+                    avatar, avatarImg), R.drawable.head_bg);
         }
         commentList = growth.getCommentList();
         filldata(0);
@@ -230,7 +230,7 @@ public class GrowthCommentActivity extends BaseActivity implements
         comment = (TextView) findViewById(R.id.comment);
         name = (TextView) findViewById(R.id.name);
         time = (TextView) findViewById(R.id.time);
-        img = (CircularImage) findViewById(R.id.img);
+        avatar = (CircularImage) findViewById(R.id.img);
         time.setText(DateUtils.publishedTime(growth.getPublished()));
         content.setText(StringUtils.ToDBC(growth.getContent()));
         scorll = (ScrollView) findViewById(R.id.scroll);
@@ -268,7 +268,7 @@ public class GrowthCommentActivity extends BaseActivity implements
         hlistView.setOnItemClickListener(this);
         gridView.setOnItemClickListener(this);
         oneImg.setOnClickListener(this);
-        img.setOnClickListener(this);
+        avatar.setOnClickListener(this);
         mPullDownView.setOnPullDownListener(this);
         layShare.setOnClickListener(this);
         mPullDownView.setFooterVisible(false);
@@ -450,9 +450,6 @@ public class GrowthCommentActivity extends BaseActivity implements
             if (path == null || path.equals("")) {
                 holder.img.setImageResource(R.drawable.head_bg);
             } else {
-                // fb.display(holder.img, path);
-                // FinalBitmapLoadTool.display(path, holder.img,
-                // R.drawable.head_bg);
                 UniversalImageLoadTool.disPlay(path, new RotateImageViewAware(
                         holder.img, path), R.drawable.head_bg);
 
@@ -493,9 +490,9 @@ public class GrowthCommentActivity extends BaseActivity implements
 
         @Override
         public void onClick(View v) {
-            // Utils.intentUserDetailActivity(GrowthCommentActivity.this, cid,
-            // uid, pid, name, avatarImg);
-            // Utils.leftOutRightIn(GrowthCommentActivity.this);
+            Utils.intentUserDetailActivity(GrowthCommentActivity.this, cid,
+                    uid, pid, name, avatarImg);
+            Utils.leftOutRightIn(GrowthCommentActivity.this);
         }
     }
 
@@ -547,8 +544,8 @@ public class GrowthCommentActivity extends BaseActivity implements
                 Utils.imageBrowerGrowth(this, 1, imgUrl, growth);
                 break;
             case R.id.img:
-                // Utils.intentUserDetailActivity(this, cid, uid, pid,
-                // publisherName, avatarImg);
+                Utils.intentUserDetailActivity(this, cid, uid, pid, "",
+                        avatarImg);
                 Utils.leftOutRightIn(this);
                 break;
             case R.id.layShare:
@@ -794,12 +791,15 @@ public class GrowthCommentActivity extends BaseActivity implements
             if ("".equals(path)) {
                 holder.img_headIcon.setImageResource(R.drawable.head_bg);
             } else {
-                // FinalBitmapLoadTool.display(praiseLists.get(position)
-                // .getAvatar(), holder.img_headIcon, R.drawable.head_bg);
                 UniversalImageLoadTool.disPlay(praiseLists.get(position)
                         .getAvatar(), new RotateImageViewAware(
                         holder.img_headIcon, praiseLists.get(position)
                                 .getAvatar()), R.drawable.head_bg);
+                holder.img_headIcon.setOnClickListener(new OnAvatarClick(cid,
+                        praiseLists.get(position).getUid(), praiseLists.get(
+                                position).getPid(), praiseLists.get(position)
+                                .getName(), praiseLists.get(position)
+                                .getAvatar()));
             }
             return convertView;
         }

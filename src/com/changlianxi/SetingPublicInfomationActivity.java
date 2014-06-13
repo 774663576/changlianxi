@@ -317,7 +317,7 @@ public class SetingPublicInfomationActivity extends BaseActivity implements
 
     class GroupModle {
         String title = "";
-        boolean falg = false;
+        boolean falg = true;
 
         public String getTitle() {
             return title;
@@ -693,6 +693,16 @@ public class SetingPublicInfomationActivity extends BaseActivity implements
             }
             gHolder.offOrOn.setOnClickListener(new GroupOffOrOnClick(
                     groupPosition));
+            if (group.get(groupPosition).falg) {
+                gHolder.offOrOn.setText("取消全部");
+                gHolder.offOrOn.setTextColor(getResources().getColor(
+                        R.color.setingpublic80));
+            } else {
+                gHolder.offOrOn.setText("选择全部");
+                gHolder.offOrOn.setTextColor(getResources().getColor(
+                        R.color.setingpublic14));
+
+            }
             gHolder.titleKey.setText(group.get(groupPosition).getTitle());
             return convertView;
         }
@@ -739,21 +749,30 @@ public class SetingPublicInfomationActivity extends BaseActivity implements
 
         @Override
         public void onClick(View v) {
-            TextView text = (TextView) v;
-            String str = text.getText().toString();
-            if ("选择全部".equals(str)) {
-                text.setText("取消全部");
-                // group.get(groupPosition).setFalg(false);
-                text.setTextColor(getResources().getColor(
-                        R.color.setingpublic80));
-                setOffOrOn(true, groupPosition);
 
-            } else {
-                text.setText("选择全部");
-                // group.get(groupPosition).setFalg(true);
-                text.setTextColor(getResources().getColor(
-                        R.color.setingpublic14));
+            // TextView text = (TextView) v;
+            // String str = text.getText().toString();
+            // if ("选择全部".equals(str)) {
+            // text.setText("取消全部");
+            // // group.get(groupPosition).setFalg(false);
+            // text.setTextColor(getResources().getColor(
+            // R.color.setingpublic80));
+            // setOffOrOn(true, groupPosition);
+            //
+            // } else {
+            // text.setText("选择全部");
+            // // group.get(groupPosition).setFalg(true);
+            // text.setTextColor(getResources().getColor(
+            // R.color.setingpublic14));
+            // setOffOrOn(false, groupPosition);
+            //
+            // }
+            if (group.get(groupPosition).isFalg()) {
+                group.get(groupPosition).setFalg(false);
                 setOffOrOn(false, groupPosition);
+            } else {
+                group.get(groupPosition).setFalg(true);
+                setOffOrOn(true, groupPosition);
 
             }
             adapter.notifyDataSetChanged();

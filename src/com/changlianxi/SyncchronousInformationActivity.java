@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -332,10 +333,14 @@ public class SyncchronousInformationActivity extends BaseActivity implements
                             if (rt == 1) {
                                 Utils.showToast("同步成功！", Toast.LENGTH_SHORT);
                                 if (cids.toString().contains("-1")) {
+                                    Intent intent = new Intent(
+                                            Constants.REFUSH_MYCARD_FRMO_NET);
+                                    intent.putExtra("isFefushMycardFragment",
+                                            true);
                                     BroadCast
                                             .sendBroadCast(
                                                     SyncchronousInformationActivity.this,
-                                                    Constants.REFUSH_MYCARD);
+                                                    intent);
 
                                 }
                                 exit();

@@ -83,7 +83,6 @@ public class MyCardFragMent extends Fragment implements OnClickListener,
     private final int TYPE_4 = 4;
     private Adapter adapter;
     private View footView;
-    private boolean isRefush = false;
 
     private int itemposiotion = -1;
     private TextView txtShow;
@@ -202,16 +201,12 @@ public class MyCardFragMent extends Fragment implements OnClickListener,
                 R.drawable.head_bg, this);
     }
 
-    private void loadingAvatar(String avatarURL) {
-        setAvatar();
-    }
-
     /**
      * 注册该广播
      */
     public void registerBoradcastReceiver() {
         IntentFilter myIntentFilter = new IntentFilter();
-        myIntentFilter.addAction(Constants.REFRESH_MYCARD_AVATAR);
+        myIntentFilter.addAction(Constants.REFUSH_MYCARD);
         // 注册广播
         getActivity().registerReceiver(mBroadcastReceiver, myIntentFilter);
     }
@@ -223,10 +218,8 @@ public class MyCardFragMent extends Fragment implements OnClickListener,
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-            if (action.equals(Constants.REFRESH_MYCARD_AVATAR)) {// 更新我的名片头像i
-                isRefush = true;
+            if (action.equals(Constants.REFUSH_MYCARD)) {// 更新我的名片头像i
                 getMyCard();
-
             }
         }
     };
@@ -236,11 +229,7 @@ public class MyCardFragMent extends Fragment implements OnClickListener,
         task.setTaskCallBack(new PostCallBack<RetError>() {
             @Override
             public void taskFinish(RetError result) {
-                if (!isRefush) {
-                    setAvatar();
-                } else {
-                    loadingAvatar(card.getAvatar());
-                }
+                setAvatar();
                 List<PersonDetail> details = card.getDetails();
                 clearData();
                 // 数据分类

@@ -109,7 +109,9 @@ public class MemberAdapter extends BaseAdapter {
         String name = StringUtils.cutEight(circleMembers.get(position)
                 .getName());
         holder.name.setText(name);
-        holder.lastName.setText(name.substring(name.length() - 1));
+        if (!name.equals("")) {
+            holder.lastName.setText(name.substring(name.length() - 1));
+        }
         if (isAuth) {
             holder.news.setText(circleMembers.get(position).getCellphone());
             authState(holder, state);
@@ -127,11 +129,20 @@ public class MemberAdapter extends BaseAdapter {
         } else {
             holder.img.setVisibility(View.VISIBLE);
             fb.display(holder.img, path);
-            // FinalBitmapLoadTool.display(path, holder.img,
-            // R.drawable.head_bg);
 
         }
         holder.btnWarn.setOnClickListener(new BtnWranClick(position));
+        if (holder.btnWarn.getVisibility() == View.VISIBLE) {
+            if (holder.info.getPaddingRight() == 0) {
+                holder.info.setPadding(0, 0,
+                        holder.info.getPaddingRight() + 10, 0);
+            }
+        } else {
+            if (holder.info.getPaddingRight() == 0) {
+                holder.info.setPadding(0, 0,
+                        holder.info.getPaddingRight() + 30, 0);
+            }
+        }
         return convertView;
     }
 

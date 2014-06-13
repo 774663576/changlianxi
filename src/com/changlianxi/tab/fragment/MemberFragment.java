@@ -1,6 +1,5 @@
 package com.changlianxi.tab.fragment;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -247,7 +246,7 @@ public class MemberFragment extends Fragment implements
     /**
      * 注册该广播
      */
-    public void registerBoradcastReceiver() {
+    private void registerBoradcastReceiver() {
         IntentFilter myIntentFilter = new IntentFilter();
         myIntentFilter.addAction(Constants.REFRESH_CIRCLE_USER_LIST);
         myIntentFilter.addAction(Constants.UPDECIRNAME);
@@ -523,9 +522,9 @@ public class MemberFragment extends Fragment implements
         Intent it = new Intent();
         it.setClass(getActivity(), UserInfoActivity.class);
         Bundle bundle = new Bundle();
-        if (member.getState().equals(CircleMemberState.STATUS_INVITING)) {
-            bundle.putSerializable("listMemers", (Serializable) lists);
-        }
+        // if (member.getState().equals(CircleMemberState.STATUS_INVITING)) {
+        // bundle.putSerializable("listMemers", (Serializable) lists);
+        // }
         bundle.putSerializable("member", member);
         it.putExtras(bundle);
         startActivity(it);
@@ -539,7 +538,14 @@ public class MemberFragment extends Fragment implements
         int uid = 0;
         uid = lists.get(position).getUid();
         if (!isAuth && uid != Global.getIntUid()) {
-            Utils.showToast("亲，加入圈子以后才能看到精彩内容哦！", Toast.LENGTH_SHORT);
+            CircleMember member = new CircleMember(cid, 0, Global.getIntUid());
+            member.getMemberState(DBUtils.getDBsa(1));
+            if (member.getState().equals(CircleMemberState.STATUS_INVITING)) {
+                Utils.showToast("亲，加入圈子以后才能看到这些精彩内容哦！", Toast.LENGTH_SHORT);
+            } else {
+                Utils.showToast("非认证成员暂时看不到其他人的详细信息，快去找朋友帮您认证吧",
+                        Toast.LENGTH_SHORT);
+            }
             return;
         }
         intentUserInfoActivity(lists.get(position));
@@ -572,7 +578,7 @@ public class MemberFragment extends Fragment implements
      * @param s
      * @return
      */
-    public int findIndexer(String s) {
+    private int findIndexer(String s) {
         int position = 0;
         for (int i = 0; i < lists.size(); i++) {
             String sortkey = lists.get(i).getSortkey();

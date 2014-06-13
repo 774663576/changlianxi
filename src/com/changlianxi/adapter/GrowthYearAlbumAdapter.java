@@ -147,7 +147,7 @@ public class GrowthYearAlbumAdapter extends BaseAdapter {
             if (name.contains(m.getName())) {
                 continue;
             }
-            if (index >= 3) {
+            if (index > 2) {
                 break;
             }
             name += m.getName() + " ";
@@ -158,8 +158,6 @@ public class GrowthYearAlbumAdapter extends BaseAdapter {
         if (index > 1) {
             str = "贡献者：" + name + "等"
                     + album.get(position).getAlbumContributors() + "人";
-            // str=StringUtils.getAlbumContributors(index,
-            // album.get(position).getAlbumContributors(), name);
         } else {
             str = "贡献者：" + name + +album.get(position).getAlbumContributors()
                     + "人";

@@ -794,6 +794,7 @@ public class BitmapUtils {
             int height = bitmap.getHeight();
             m.setRotate(degree); // 旋转angle度
             bitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height, m, true);// 从新生成图片
+            
         }
         return bitmap;
     }

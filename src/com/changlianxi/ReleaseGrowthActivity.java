@@ -1,5 +1,6 @@
 package com.changlianxi;
 
+import java.io.File;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -56,6 +57,7 @@ import com.changlianxi.data.GrowthImage;
 import com.changlianxi.data.enums.RetError;
 import com.changlianxi.inteface.ConfirmDialog;
 import com.changlianxi.popwindow.SelectPicPopwindow;
+import com.changlianxi.popwindow.SelectPicPopwindow.CameraPath;
 import com.changlianxi.showBigPic.ReleaseGrowthImagePagerActivity;
 import com.changlianxi.showBigPic.ReleaseGrowthImagePagerActivity.DelPic;
 import com.changlianxi.task.BaseAsyncTask.PostCallBack;
@@ -76,7 +78,7 @@ import com.umeng.analytics.MobclickAgent;
  */
 // key 771eee919e7e1179a1c249b38367c0d3
 public class ReleaseGrowthActivity extends MapActivity implements
-        OnClickListener, OnItemClickListener, DelPic {
+        OnClickListener, OnItemClickListener, DelPic, CameraPath {
     private EditText time;
     private EditText location;// 地点输入框
     private EditText content;// 内容输入框
@@ -103,6 +105,7 @@ public class ReleaseGrowthActivity extends MapActivity implements
     private String picAddress = "";
     private String happenedTime = "";
     private int currentYear = 0;
+    private String cameraPath = "";
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
@@ -400,14 +403,13 @@ public class ReleaseGrowthActivity extends MapActivity implements
             if (resultCode != RESULT_OK) {
                 return;
             }
-            if (pop == null) {
+            File file = new File(cameraPath);
+            if (!file.exists()) {
                 Utils.showToast("图片获取失败，请重新获取", Toast.LENGTH_SHORT);
                 return;
             }
-            String fileName = pop.getTakePhotoPath();
             PhotoInfo modle = new PhotoInfo();
-            // modle.setPath(fileName);
-            modle.setPath_absolute(fileName);
+            modle.setPath_absolute(cameraPath);
             listBmp.add(listBmp.size() - 1, modle);
         }
         adapter.notifyDataSetChanged();
@@ -485,6 +487,7 @@ public class ReleaseGrowthActivity extends MapActivity implements
             Utils.hideSoftInput(this);
             pop = new SelectPicPopwindow(this, arg1, cid, listBmp.size() - 1);
             pop.show();
+            pop.setCallBack(this);
             return;
         }
         List<String> imgUrl = new ArrayList<String>();
@@ -580,5 +583,10 @@ public class ReleaseGrowthActivity extends MapActivity implements
 
         }
 
+    }
+
+    @Override
+    public void getCameraPath(String path) {
+        cameraPath = path;
     }
 }

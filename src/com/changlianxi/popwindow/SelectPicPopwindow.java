@@ -37,6 +37,15 @@ public class SelectPicPopwindow implements OnClickListener {
     private View view;
     private String fileName = "";
     private int imageNum = -1;
+    private CameraPath callBack;
+
+    public void setCallBack(CameraPath callBack) {
+        this.callBack = callBack;
+    }
+
+    public interface CameraPath {
+        void getCameraPath(String path);
+    }
 
     public SelectPicPopwindow(Context mContext, View v, int cid, int imageNum) {
         this(mContext, v);
@@ -123,6 +132,9 @@ public class SelectPicPopwindow implements OnClickListener {
             case R.id.btn_take_photo:
                 String name = FileUtils.getFileName() + ".jpg";
                 fileName = FileUtils.getCameraPath() + File.separator + name;
+                if (callBack != null) {
+                    callBack.getCameraPath(fileName);
+                }
                 intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 // 下面这句指定调用相机拍照后的照片存储的路径
                 intent.putExtra(MediaStore.EXTRA_OUTPUT,

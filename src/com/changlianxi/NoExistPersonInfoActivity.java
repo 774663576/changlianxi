@@ -1,11 +1,9 @@
 package com.changlianxi;
 
-import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.tsz.afinal.FinalBitmap;
 import net.tsz.afinal.bitmap.core.BitmapDisplayConfig;
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -21,14 +19,16 @@ import android.widget.TextView;
 import com.changlianxi.showBigPic.AvatarImagePagerActivity;
 import com.changlianxi.util.BitmapUtils;
 import com.changlianxi.util.Constants;
-import com.changlianxi.util.FileUtils;
+import com.changlianxi.util.RotateImageViewAware;
+import com.changlianxi.util.UniversalImageLoadTool;
 import com.changlianxi.view.CircularImage;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
 
 public class NoExistPersonInfoActivity extends BaseActivity implements
-        OnClickListener {
+        OnClickListener, ImageLoadingListener {
     private ImageView back;
     private TextView txtName;
-    private FinalBitmap fb;
     private RelativeLayout layTop;
     private CircularImage avatar;
     private String name = "";
@@ -52,7 +52,6 @@ public class NoExistPersonInfoActivity extends BaseActivity implements
         txtName = (TextView) findViewById(R.id.name);
         avatar = (CircularImage) findViewById(R.id.avatar);
         layTop = (RelativeLayout) findViewById(R.id.top);
-        initFB();
         setListener();
         setValue();
     }
@@ -67,24 +66,11 @@ public class NoExistPersonInfoActivity extends BaseActivity implements
         setAvatar();
     }
 
-    private void initFB() {
-        fb = FinalBitmap.create(this);
-        fb.configMemoryCacheSize(3 * 1024 * 1024).configBitmapLoadThreadSize(3);
-        fb.configDiskCachePath(FileUtils.getRootDir() + File.separator + "CLX"
-                + File.separator + "img");
-        fb.configLoadingImage(R.drawable.head_bg);
-        fb.configLoadfailImage(R.drawable.head_bg);
-    }
-
     private void setAvatar() {
-        Bitmap mBitmap = fb.getBitmapFromDiskCache(avatarUrl,
-                new BitmapDisplayConfig());
-        if (mBitmap != null) {
-            avatar.setImageBitmap(mBitmap);
-            setBackGroubdOfDrable(BitmapUtils.convertBimapToDrawable(mBitmap));
-        } else {
-            avatar.setImageResource(R.drawable.head_bg);
-        }
+        UniversalImageLoadTool.disPlayListener(avatarUrl,
+                new RotateImageViewAware(avatar, avatarUrl),
+                R.drawable.head_bg, this);
+
     }
 
     @SuppressLint("NewApi")
@@ -118,5 +104,33 @@ public class NoExistPersonInfoActivity extends BaseActivity implements
             default:
                 break;
         }
+    }
+
+    @Override
+    public void onLoadingCancelled(String arg0, View arg1) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void onLoadingComplete(String arg0, View arg1, Bitmap mBitmap) {
+        if (mBitmap != null) {
+            avatar.setImageBitmap(mBitmap);
+            setBackGroubdOfDrable(BitmapUtils.convertBimapToDrawable(mBitmap));
+        } else {
+            avatar.setImageResource(R.drawable.head_bg);
+        }
+    }
+
+    @Override
+    public void onLoadingFailed(String arg0, View arg1, FailReason arg2) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void onLoadingStarted(String arg0, View arg1) {
+        // TODO Auto-generated method stub
+
     }
 }

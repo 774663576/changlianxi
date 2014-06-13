@@ -138,7 +138,7 @@ public class GrowthAlbumAdapter extends BaseAdapter {
             }
             name += m.getName() + " ";
             index++;
-            if (index > 3) {
+            if (index > 2) {
                 break;
             }
         }

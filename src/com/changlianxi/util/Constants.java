@@ -19,7 +19,6 @@ public class Constants {
     public static final String REFRESH_CIRCLE_LIST = "com.changlianxi.refreshCircleList";// 更新圈子列表
     public static final String REFRESH_CIRCLES_PROMPT_COUNT = "com.changlianxi.refreshCirclePromptCount";// 更新圈子提示数量
     public static final String REFRESH_CIRCLE_USER_LIST = "com.changlianxi.refreshCircleUserList";// 更新圈子成员列表
-    public static final String REFRESH_MYCARD_AVATAR = "com.changlianxi.refreshMyCardAvatar";// 更新我的名片头像
     public static final String LEFT_MENU_MESSAGE_PROMPT = "com.changlianxi.leftMenuMessagePrompt";// 左侧菜单我的私信提示
     public static final String LEFT_MENU_MY_CARD_PROMPT = "com.changlianxi.leftMenuMyCardPrompt";// 左侧菜单我的名片提示
     public static final String CIRCLE_MEMBERS_INVITE_WARN = "com.changlianxi.circleMemaberInviteWarn";// 成员邀请
@@ -32,8 +31,8 @@ public class Constants {
     public static final String ALBUM_GROWTH_CONTENT = "com.changlianxi.albumGrowthContent";// 相册详细信息
     public static final String REFUSH_ALBUM = "com.changlianxi.refushAlbum";// 刷新相册
     public static final String FINISH_MONTH_ALBUM = "com.changlianxi.finishMothAlbum";// 销毁按月浏览界面
-    public static final String FINISH_DAY_ALBUM = "com.changlianxi.finishMothAlbum";// 销毁按天浏览界面
-    public static final String ADD_LOCAL_GROWTH = "com.changlianxi.finishMothAlbum";// 显示本地成长
+    public static final String FINISH_DAY_ALBUM = "com.changlianxi.finishDayAlbum";// 销毁按天浏览界面
+    public static final String ADD_LOCAL_GROWTH = "com.changlianxi.addLocalGrowth";// 显示本地成长
     public static final String REFUSH_GROWTH_PRAISE_COUNT = "com.changlianxi.refushGorwthPraiseCount";// 刷新成长点赞数量
     public static final String GROWTH_UPLOADING_FAIL = "com.changlianxi.growthUploadingFail";// 成长发布失败
     public static final String GROWTH_UPLOADING_SUCCESS = "com.changlianxi.growthUploadingSuccess";// 成长发布成功
@@ -41,6 +40,7 @@ public class Constants {
     public static final String CHANGE_GROWTHFRAGMENTANDALBUMFRAGMENT = "com.changlianxi.changeGrowthAndAlbum";// 切换成长和相册界面
     public static final String REMOVE_CIRCLE_PROMPT_COUNT = "com.changlianxi.removeCirclePromptCount";// 清除圈子提示数量
     public static final String REFUSH_MYCARD = "com.changlianxi.refushMycard";// 刷新个人名片
+    public static final String REFUSH_MYCARD_FRMO_NET = "com.changlianxi.refushMycardFromNet";// 从网络后去最新个人名片数据
     public static final String REFUSH_USER_INFO = "com.changlianxi.refushUserInfo";// 刷新成员资料
 
     /***************************************************/

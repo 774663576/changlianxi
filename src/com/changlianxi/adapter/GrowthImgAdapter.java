@@ -59,16 +59,14 @@ public class GrowthImgAdapter extends BaseAdapter {
         }
         holder.img.setTag(path);
         if (!path.startsWith("http")) {
-            UniversalImageLoadTool.disPlay("file://" + path,
-                    new RotateImageViewAware(holder.img, path),
+            UniversalImageLoadTool.disPlay("file://" + path, holder.img,
                     R.drawable.empty_photo);
         } else {
             path = StringUtils.JoinString(path, "_200x200");
-            // fb.display(holder.img, path);
-            // FinalBitmapLoadTool.display(path, holder.img,
-            // R.drawable.empty_photo);
-            UniversalImageLoadTool.disPlay(path, new RotateImageViewAware(
-                    holder.img, path), R.drawable.empty_photo);
+            // UniversalImageLoadTool.disPlay(path, new RotateImageViewAware(
+            // holder.img, path), R.drawable.empty_photo);
+            UniversalImageLoadTool.disPlay(path, holder.img,
+                    R.drawable.empty_photo);
         }
         return convertView;
     }

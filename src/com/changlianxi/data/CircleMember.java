@@ -260,7 +260,7 @@ public class CircleMember extends AbstractData implements Serializable {
         return location;
     }
 
-    public void setLocation(String location) {
+    public void setLocation(String location) {   
         this.location = location;
     }
 
@@ -916,10 +916,13 @@ public class CircleMember extends AbstractData implements Serializable {
 
     protected void syncBasicAndDetail(boolean forward) {
         Map<PersonDetailType, PersonDetail> type2Details = new HashMap<PersonDetailType, PersonDetail>();
-        for (PersonDetail pd : this.details) {
-            type2Details.put(pd.getType(), pd);
-        }
+        // for (PersonDetail pd : this.details) {
+        // type2Details.put(pd.getType(), pd);
+        // }
+        for (int i = 0; i < details.size(); i++) {
+            type2Details.put(details.get(i).getType(), details.get(i));
 
+        }
         if (forward) {
             // basic => detail
             PersonDetailType type = PersonDetailType.D_NAME;

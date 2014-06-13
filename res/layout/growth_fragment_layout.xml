@@ -5,27 +5,44 @@
     android:background="@color/f6"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/promptCount"
+    <LinearLayout
+        android:id="@+id/prompt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_gravity="center"
         android:layout_margin="10dip"
         android:background="@drawable/news_bg"
-        android:paddingBottom="8dip"
-        android:paddingLeft="30dip"
-        android:paddingRight="30dip"
-        android:paddingTop="8dip"
-        android:textColor="@color/white"
-        android:textSize="@dimen/scale26sp"
-        android:visibility="gone" />
+        android:gravity="center"
+        android:paddingBottom="13dip"
+        android:paddingLeft="17dip"
+        android:paddingRight="17dip"
+        android:paddingTop="11dip"
+        android:visibility="gone" >
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/growth_comments_prompts" />
+
+        <TextView
+            android:id="@+id/promptCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="11dip"
+            android:layout_marginTop="3dip"
+            android:drawablePadding="13dip"
+            android:drawableRight="@drawable/growth_right_angle"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+    </LinearLayout>
 
     <com.changlianxi.view.PullDownViewGrowth
         android:id="@+id/PullDownlistView"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@+id/promptCount"
+        android:layout_below="@+id/prompt"
         android:cacheColorHint="@android:color/transparent" >
     </com.changlianxi.view.PullDownViewGrowth>
 

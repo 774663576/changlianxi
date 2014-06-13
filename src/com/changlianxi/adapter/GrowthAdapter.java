@@ -301,6 +301,13 @@ public class GrowthAdapter extends BaseAdapter {
         @Override
         public void getPosition(int position) {
             if (position < 0) {
+                CircleMember c = new CircleMember(listData.get(position)
+                        .getCid(), 0, Global.getIntUid());
+                if (!c.isAuth(DBUtils.getDBsa(1))) {
+                    Utils.showToast("啊哦，您还不是认证成员，快去找圈中朋友帮您认证:)",
+                            Toast.LENGTH_SHORT);
+                    return;
+                }
                 intentGrowthCommentActivity(poi);
 
             }
@@ -348,6 +355,12 @@ public class GrowthAdapter extends BaseAdapter {
             }
             if (isUpLoading(listData.get(position))) {
                 Utils.showToast("成长正在发布，暂时不能操作", Toast.LENGTH_SHORT);
+                return;
+            }
+            CircleMember c = new CircleMember(listData.get(position).getCid(),
+                    0, Global.getIntUid());
+            if (!c.isAuth(DBUtils.getDBsa(1))) {
+                Utils.showToast("啊哦，您还不是认证成员，快去找圈中朋友帮您认证:)", Toast.LENGTH_SHORT);
                 return;
             }
             switch (v.getId()) {
@@ -416,13 +429,13 @@ public class GrowthAdapter extends BaseAdapter {
     }
 
     private void intentGrowthCommentActivity(int position) {
-        CircleMember c = new CircleMember(listData.get(position).getCid(), 0,
-                Global.getIntUid());
-        if (!c.isAuth(DBUtils.getDBsa(1))) {
-            Utils.showToast("非认证成员暂时看不到其他人发布的成长详细信息，快去找圈中朋友帮您认证:)",
-                    Toast.LENGTH_SHORT);
-            return;
-        }
+        // CircleMember c = new CircleMember(listData.get(position).getCid(), 0,
+        // Global.getIntUid());
+        // if (!c.isAuth(DBUtils.getDBsa(1))) {
+        // Utils.showToast("非认证成员暂时看不到其他人发布的成长详细信息，快去找圈中朋友帮您认证:)",
+        // Toast.LENGTH_SHORT);
+        // return;
+        // }
         Growth modle = listData.get(position);
         Intent intent = new Intent(mContext, GrowthCommentActivity.class);
         Bundle bundle = new Bundle();
@@ -481,6 +494,12 @@ public class GrowthAdapter extends BaseAdapter {
                 Utils.showToast("成长正在发布，暂时不能操作", Toast.LENGTH_SHORT);
                 return;
             }
+            CircleMember c = new CircleMember(growth.getCid(), 0,
+                    Global.getIntUid());
+            if (!c.isAuth(DBUtils.getDBsa(1))) {
+                Utils.showToast("啊哦，您还不是认证成员，快去找圈中朋友帮您认证:)", Toast.LENGTH_SHORT);
+                return;
+            }
             PraiseAndCancle(growth, text, img);
         }
     }
@@ -501,12 +520,6 @@ public class GrowthAdapter extends BaseAdapter {
             final ImageView imgPraise) {
         if (!Utils.isNetworkAvailable()) {
             Utils.showToast("杯具，网络不通，快检查下。", Toast.LENGTH_SHORT);
-            return;
-        }
-        CircleMember c = new CircleMember(growth.getCid(), 0,
-                Global.getIntUid());
-        if (!c.isAuth(DBUtils.getDBsa(1))) {
-            Utils.showToast("啊哦，您还不是认证成员，快去找圈中朋友帮您认证:)", Toast.LENGTH_SHORT);
             return;
         }
         if (growth.isPraising()) {

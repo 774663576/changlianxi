@@ -197,6 +197,7 @@ public class SetPublicInfoShowInfoActivity extends BaseActivity implements
         initFooterView();
         inithead();
         setOnClickListener();
+        setAvatar();
     }
 
     private void inithead() {
@@ -271,14 +272,14 @@ public class SetPublicInfoShowInfoActivity extends BaseActivity implements
     }
 
     private void authState(CircleMemberState state) {
-        if (state.equals(CircleMemberState.STATUS_VERIFIED.name())) {
+        authState.setVisibility(View.VISIBLE);
+        if (state.equals(CircleMemberState.STATUS_VERIFIED)) {
             authState.setText("已认证");
             authState.setBackgroundResource(R.drawable.auth);
-        } else if (state.equals(CircleMemberState.STATUS_ENTER_AND_VERIFYING
-                .name())) {
+        } else if (state.equals(CircleMemberState.STATUS_ENTER_AND_VERIFYING)) {
             authState.setText("未认证");
             authState.setBackgroundResource(R.drawable.btn_aaaaaa);
-        } else if (state.equals(CircleMemberState.STATUS_INVITING.name())) {
+        } else if (state.equals(CircleMemberState.STATUS_INVITING)) {
             authState.setText("未加入");
             authState.setBackgroundResource(R.drawable.btn_aaaaaa);
         } else {
@@ -287,6 +288,10 @@ public class SetPublicInfoShowInfoActivity extends BaseActivity implements
     }
 
     private void setAvatar() {
+        if (iconPath == null || "".equals(iconPath)) {
+            avatar.setImageResource(R.drawable.head_bg);
+            return;
+        }
         UniversalImageLoadTool.disPlayListener(iconPath,
                 new RotateImageViewAware(avatar, iconPath), R.drawable.head_bg,
                 this);
@@ -1218,16 +1223,10 @@ public class SetPublicInfoShowInfoActivity extends BaseActivity implements
                 startActivity(intent);
                 Utils.leftOutRightIn(this);
                 break;
-            case R.id.btnOk:
-                // Circle circle = new Circle(cid);
-                // circle.getCircleName(DBUtils.getDBsa(1));
-                // String circleName = circle.getName();
-                // String content = Utils.getWarnContent(circleMembers,
-                // username,
-                // circleName, circleMember.getInviteCode());
-                // Utils.sendSMS(this, content, circleMember.getCellphone());
-                break;
             case R.id.avatar:
+                if (iconPath == null) {
+                    iconPath = "";
+                }
                 List<String> imgUrl = new ArrayList<String>();
                 imgUrl.add(iconPath.replace("_160x160", ""));
                 intent = new Intent(this, AvatarImagePagerActivity.class);

@@ -128,6 +128,7 @@ public class AddOneMemberActivity extends BaseActivity implements
                     Utils.showToast("地球上貌似没有这种格式的手机号码:p", Toast.LENGTH_SHORT);
                     return;
                 }
+                inviteMemberList.clear();
                 CircleMember m = new CircleMember(cid);
                 m.setName(name);
                 m.setCellphone(mobile);

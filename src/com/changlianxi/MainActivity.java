@@ -282,7 +282,7 @@ public class MainActivity extends SlidingActivity implements
     public void registerBoradcastReceiver() {
         IntentFilter myIntentFilter = new IntentFilter();
         myIntentFilter.addAction(Constants.LEFT_MENU_MESSAGE_PROMPT);
-        myIntentFilter.addAction(Constants.REFUSH_MYCARD);
+        myIntentFilter.addAction(Constants.REFUSH_MYCARD_FRMO_NET);
 
         // ×¢²á¹ã²¥
         registerReceiver(mBroadcastReceiver, myIntentFilter);
@@ -298,8 +298,10 @@ public class MainActivity extends SlidingActivity implements
             if (action.equals(Constants.LEFT_MENU_MESSAGE_PROMPT)) {
                 menuFragMent.setMenuPrompt(2, true);
                 homeFragMent.setPromptVisible(View.VISIBLE);
-            } else if (action.equals(Constants.REFUSH_MYCARD)) {
-                menuFragMent.getMyCard();
+            } else if (action.equals(Constants.REFUSH_MYCARD_FRMO_NET)) {
+                boolean isFefushMycardFragment = intent.getBooleanExtra(
+                        "isFefushMycardFragment", false);
+                menuFragMent.getMyCard(isFefushMycardFragment);
             }
         }
     };
