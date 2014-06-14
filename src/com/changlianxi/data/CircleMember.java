@@ -604,9 +604,6 @@ public class CircleMember extends AbstractData implements Serializable {
                 String value = cursor.getString(cursor.getColumnIndex("value"));
                 String start = cursor.getString(cursor.getColumnIndex("start"));
                 String end = cursor.getString(cursor.getColumnIndex("end"));
-                System.out.println("key:::::::::::::" + type + "       "
-                        + value + "     " + id + "     " + cid + "       "
-                        + pid + "       " + uid);
                 this.pid = pid;
                 PersonDetail detail = new PersonDetail(id, cid, pid, uid,
                         PersonDetailType.convertToType(type),
@@ -663,35 +660,26 @@ public class CircleMember extends AbstractData implements Serializable {
 
     }
 
-    // public void readDetails(SQLiteDatabase db) {
-    // List<PersonDetail> mDetials = new ArrayList<PersonDetail>();
-    // if (detailIds == null || "".equals(detailIds)
-    // || "null".equals(detailIds)) {
-    // detailIds = "";
-    // } else {
-    // String[] ids = this.detailIds.split(",");
-    // if (ids.length > 0) {
-    // for (String pdid : ids) {
-    // if (!"".equals(pdid) && Integer.parseInt(pdid) > 0) {
-    // PersonDetail detail = new PersonDetail(
-    // Integer.parseInt(pdid), cid);
-    // detail.read(db);
-    // mDetials.add(detail);
-    // }
-    // }
-    // }
-    // }
-    // this.setDetails(mDetials);
-    // this.syncBasicAndDetail(true);
-    //
-    // }
-
     @Override
     public void write(SQLiteDatabase db) {
+
         String dbName = Const.CIRCLE_MEMBER_TABLE_NAME;
         if (this.status == Status.OLD) {
             return;
         }
+
+        String conditionsKey = "cid=? and pid=?";
+        String[] conditionsValue = { this.cid + "", this.pid + "" };
+        if (pid == 0) {
+            conditionsKey = "cid=? and uid=?";
+            conditionsValue = new String[] { this.cid + "", this.uid + "" };
+        }
+
+        if (this.status == Status.DEL) {
+            db.delete(dbName, conditionsKey, conditionsValue);
+            return;
+        }
+
         ContentValues cv = new ContentValues();
         cv.put("cid", cid);
         cv.put("uid", uid);
@@ -714,9 +702,12 @@ public class CircleMember extends AbstractData implements Serializable {
         cv.put("sortkey", sortkey);
         cv.put("privacySettings", privacySettings);
         cv.put("register", register);
-        db.delete(dbName, "cid=? and pid=? and uid=?", new String[] { cid + "",
-                pid + "", uid + "" });
-        db.insert(dbName, null, cv);
+        if (this.status == Status.NEW) {
+            db.insert(dbName, null, cv);
+        } else if (this.status == Status.UPDATE) {
+            db.update(dbName, cv, conditionsKey, conditionsValue);
+        }
+        this.status = Status.OLD;
         writeDetails(db);
 
     }
@@ -729,9 +720,8 @@ public class CircleMember extends AbstractData implements Serializable {
             db.delete(Const.PERSON_DETAIL_TABLE_NAME1, "cid=?",
                     new String[] { 0 + "" });
         } else {
-            db.delete(Const.PERSON_DETAIL_TABLE_NAME1,
-                    "cid=? and pid=? and uid=?", new String[] { cid + "",
-                            pid + "", uid + "" });
+            db.delete(Const.PERSON_DETAIL_TABLE_NAME1, "cid=? and pid=? ",
+                    new String[] { cid + "", pid + "" });
         }
         for (PersonDetail pd : details) {
             pd.write(db);
@@ -918,9 +908,6 @@ public class CircleMember extends AbstractData implements Serializable {
 
     protected void syncBasicAndDetail(boolean forward) {
         Map<PersonDetailType, PersonDetail> type2Details = new HashMap<PersonDetailType, PersonDetail>();
-        // for (PersonDetail pd : this.details) {
-        // type2Details.put(pd.getType(), pd);
-        // }
         for (int i = 0; i < details.size(); i++) {
             type2Details.put(details.get(i).getType(), details.get(i));
 
@@ -1243,117 +1230,6 @@ public class CircleMember extends AbstractData implements Serializable {
         }
     }
 
-    // protected void updateForEditInfo(CircleMember another,
-    // JSONArray changedDetails, List<Object> ret) {
-    // if (changedDetails.length() > 0
-    // && changedDetails.length() == ret.size()) {
-    //
-    // List<PersonDetail> targetPds = new ArrayList<PersonDetail>();
-    // for (int i = 0; i < changedDetails.length(); i++) {
-    // Object o = ret.get(i);
-    // int retPropid;
-    // if (o instanceof Integer) {
-    // retPropid = (Integer) ret.get(i);
-    // } else {
-    // retPropid = Integer.parseInt((String) ret.get(i));
-    // }
-    // if (retPropid > 0) {
-    // try {
-    // JSONObject jobj = (JSONObject) changedDetails.opt(i);
-    // int oldPropId = jobj.getInt("id");
-    // PersonDetail pd = new PersonDetail(retPropid, cid);
-    //
-    // pd.setType(PersonDetailType.convertToType(jobj
-    // .getString("t")));
-    // pd.setValue(jobj.getString("v"));
-    // if (jobj.has("start")) {
-    // pd.setStart(jobj.getString("start"));
-    // }
-    // if (jobj.has("end")) {
-    // pd.setEnd(jobj.getString("end"));
-    // }
-    // if (jobj.has("remark")) {
-    // pd.setRemark(jobj.getString("remark"));
-    // }
-    //
-    // String op = jobj.getString("op");
-    // if ("new".equals(op)) {
-    // pd.setStatus(Status.NEW);
-    // } else if ("edit".equals(op)) {
-    // pd.setStatus(Status.NEW);
-    // if (oldPropId > 0) {
-    // PersonDetail oldPd = new PersonDetail(
-    // oldPropId, cid);
-    // oldPd.setStatus(Status.DEL);
-    // targetPds.add(oldPd);
-    // }
-    // } else if ("del".equals(op)) {
-    // pd.setStatus(Status.DEL);
-    // }
-    // targetPds.add(pd);
-    // } catch (JSONException e) {
-    // }
-    // }
-    // }
-    // System.out.println("targetPdstargetPds::" + changedDetails);
-    // List<PersonDetail> oldDetails = another.getDetails();
-    // for (int i = 0, len = targetPds.size(); i < len; i++) {
-    // PersonDetail detail = targetPds.get(i);
-    // int id1 = detail.getId();
-    // boolean oldTag = false;
-    // for (int j = 0; j < oldDetails.size(); j++) {
-    // int id2 = oldDetails.get(j).getId();
-    // if (id1 == id2) {
-    // if (detail.getStatus() == Status.DEL) {
-    // oldDetails.remove(j);
-    // } else {
-    // oldDetails.set(j, detail);
-    // }
-    // oldTag = true;
-    // break;
-    // }
-    // }
-    // if (!oldTag && detail.getStatus() == Status.NEW) {
-    // oldDetails.add(detail);
-    // }
-    // }
-    //
-    // if (this.updateDetails(another)) {
-    // // this.syncBasicAndDetail(false);
-    // this.status = Status.UPDATE;
-    // }
-    // } else {
-    // // size not equal???
-    // }
-    // }
-
-    /**
-     * upload edit info to server, and update local data while upload success
-     * 
-     * @param another
-     * @return
-     */
-    // public RetError uploadAfterEdit(CircleMember another) {
-    // JSONArray changedDetails = getChangedDetails(another);
-    // if (changedDetails.length() == 0) {
-    // return RetError.NONE;
-    // }
-    //
-    // IParser parser = new ArrayParser("details");
-    // Map<String, Object> params = new HashMap<String, Object>();
-    // params.put("cid", another.cid);
-    // params.put("pid", another.pid);
-    // params.put("person", changedDetails.toString());
-    // Result ret = ApiRequest.requestWithToken(CircleMember.EDIT_API, params,
-    // parser);
-    // if (ret.getStatus() == RetStatus.SUCC) {
-    // ArrayResult aret = (ArrayResult) ret;
-    // updateForEditInfo(another, changedDetails, aret.getArrs());
-    // return RetError.NONE;
-    // } else {
-    // return ret.getErr();
-    // }
-    // }
     public RetError uploadAfterEdit(CircleMember another, String avatarUrl) {
         JSONArray changedDetails = getChangedDetails(another);
         if (changedDetails.length() == 0 && "".equals(avatarUrl)) {
