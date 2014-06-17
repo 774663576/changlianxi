@@ -5,12 +5,10 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Dialog;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.baidu.frontia.api.FrontiaPushMessageReceiver;
@@ -20,7 +18,6 @@ import com.changlianxi.applation.CLXApplication;
 import com.changlianxi.data.Circle;
 import com.changlianxi.data.CircleMember;
 import com.changlianxi.data.PersonChat;
-import com.changlianxi.inteface.ConfirmDialog;
 import com.changlianxi.inteface.PushMessages;
 import com.changlianxi.inteface.PushOnBind;
 

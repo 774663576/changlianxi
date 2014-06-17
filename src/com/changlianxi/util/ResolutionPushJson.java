@@ -32,13 +32,11 @@ public class ResolutionPushJson {
 
     public static void resolutionJson(String jsonStr) {
         String alert = "";
-        String time = "";
         String uid = "";
         int cid = 0;
         try {
             JSONObject json = new JSONObject(jsonStr);
             String type = json.getString("t");
-            time = json.getString("m");
             uid = json.getString("uid");
             if (type.equals(QUIT_TYPE)) {// 强制退出
                 alert = json.getString("alert");

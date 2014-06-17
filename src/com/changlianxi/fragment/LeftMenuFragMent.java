@@ -23,7 +23,6 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.changlianxi.MyCardEditActivity;
 import com.changlianxi.R;
 import com.changlianxi.data.Global;
 import com.changlianxi.data.MyCard;
@@ -34,7 +33,6 @@ import com.changlianxi.task.BaseAsyncTask.PostCallBack;
 import com.changlianxi.task.MyCardTask;
 import com.changlianxi.util.BroadCast;
 import com.changlianxi.util.Constants;
-import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.SharedUtils;
 import com.changlianxi.util.UniversalImageLoadTool;
 import com.changlianxi.util.Utils;

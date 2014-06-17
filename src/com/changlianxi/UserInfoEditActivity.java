@@ -63,6 +63,7 @@ import com.changlianxi.util.BitmapUtils;
 import com.changlianxi.util.Constants;
 import com.changlianxi.util.DateUtils;
 import com.changlianxi.util.DialogUtil;
+import com.changlianxi.util.FileUtils;
 import com.changlianxi.util.UniversalImageLoadTool;
 import com.changlianxi.util.UserInfoUtils;
 import com.changlianxi.util.Utils;
@@ -1649,6 +1650,15 @@ public class UserInfoEditActivity extends BaseActivity implements
                 avatarBitmap = bitmap;
                 avatar.setImageBitmap(bitmap);
                 new BoxBlurFilterThread(bitmap).start();
+                File file = new File(selectPicPath);
+                if (file.exists()) {
+                    return;
+                }
+                String name = FileUtils.getFileName() + ".jpg";
+                String fileName = FileUtils.getCameraPath() + File.separator
+                        + name;
+                BitmapUtils.saveFile(bitmap, fileName);
+                selectPicPath = fileName;
 
             }
         }

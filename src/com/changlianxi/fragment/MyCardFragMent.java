@@ -49,7 +49,6 @@ import com.changlianxi.task.ReadMyCardTask;
 import com.changlianxi.util.BitmapUtils;
 import com.changlianxi.util.Constants;
 import com.changlianxi.util.DateUtils;
-import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.SortPersonType;
 import com.changlianxi.util.UniversalImageLoadTool;
 import com.changlianxi.util.UserInfoUtils;
@@ -196,8 +195,7 @@ public class MyCardFragMent extends Fragment implements OnClickListener,
             avatar.setImageResource(R.drawable.head_bg);
             return;
         }
-        UniversalImageLoadTool.disPlayListener(card.getAvatar(),
-                avatar, 
+        UniversalImageLoadTool.disPlayListener(card.getAvatar(), avatar,
                 R.drawable.head_bg, this);
     }
 

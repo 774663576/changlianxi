@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.changlianxi"
     android:versionCode="1"
-    android:versionName="1.1" >
+    android:versionName="1.1.1" >
 
     <uses-sdk
         android:minSdkVersion="8"
@@ -506,6 +506,10 @@
             android:label="@string/title_activity_public_message"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" >
+        </activity>
+        <activity
+            android:name=".UserInfoActivity1"
+            android:label="@string/title_activity_user_info_activity1" >
         </activity>
     </application>
 

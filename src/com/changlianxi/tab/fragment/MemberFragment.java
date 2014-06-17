@@ -386,9 +386,10 @@ public class MemberFragment extends Fragment implements
                 vsLayInvite.setVisibility(View.GONE);
                 newMemberCount = 1;// 把newMemberCount设为大于0的数
                 getCircleMembers(newMemberCount, newMyDetailEditCount);
-                BroadCast.sendBroadCast(getActivity(),
-                        Constants.REFRESH_CIRCLE_LIST);
-                Intent intent = new Intent();
+                Intent intent = new Intent(Constants.ACCEPT_CIRCLE_INVITATE);
+                intent.putExtra("cid", cid);
+                BroadCast.sendBroadCast(getActivity(), intent);
+                intent = new Intent();
                 intent.setClass(getActivity(),
                         SetingPublicInfomationActivity.class);
                 intent.putExtra("cid", cid);

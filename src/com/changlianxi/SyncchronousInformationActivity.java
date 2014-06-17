@@ -37,7 +37,6 @@ import com.changlianxi.task.PostAsyncTask.PostCallBack;
 import com.changlianxi.util.BroadCast;
 import com.changlianxi.util.Constants;
 import com.changlianxi.util.DialogUtil;
-import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.SharedUtils;
 import com.changlianxi.util.StringUtils;
 import com.changlianxi.util.UniversalImageLoadTool;
@@ -204,8 +203,7 @@ public class SyncchronousInformationActivity extends BaseActivity implements
                         || !detail.startsWith("http")) {
                     holder.headImg.setImageResource(R.drawable.head_bg);
                 } else {
-                    UniversalImageLoadTool.disPlay(detail,
-                          holder.headImg,
+                    UniversalImageLoadTool.disPlay(detail, holder.headImg,
                             R.drawable.head_bg);
 
                 }
@@ -273,8 +271,7 @@ public class SyncchronousInformationActivity extends BaseActivity implements
                 viewHolder.circleImg.setImageResource(R.drawable.pic_bg_no);
             } else {
                 UniversalImageLoadTool.disPlay(circleLogo,
-                     viewHolder.circleImg,
-                               R.drawable.pic_bg_no);
+                        viewHolder.circleImg, R.drawable.pic_bg_no);
 
             }
 
@@ -322,7 +319,6 @@ public class SyncchronousInformationActivity extends BaseActivity implements
                 map.put("cids", cids);
                 PostAsyncTask task = new PostAsyncTask(this, map, PATH);
                 task.setTaskCallBack(new PostCallBack() {
-
                     @Override
                     public void taskFinish(String result) {
                         dialog.dismiss();
@@ -341,7 +337,6 @@ public class SyncchronousInformationActivity extends BaseActivity implements
                                             .sendBroadCast(
                                                     SyncchronousInformationActivity.this,
                                                     intent);
-
                                 }
                                 exit();
                             }

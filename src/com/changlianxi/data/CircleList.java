@@ -12,6 +12,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.changlianxi.data.enums.CircleMemberState;
 import com.changlianxi.data.enums.RetError;
 import com.changlianxi.data.enums.RetStatus;
 import com.changlianxi.data.parser.CircleListParser;
@@ -286,6 +287,25 @@ public class CircleList extends AbstractData {
         Cursor cursor = db.query(Const.CIRCLE_TABLE_NAME,
                 new String[] { "id" }, null, null, null, null, null);
         count = cursor.getCount();
+        cursor.close();
+        return count;
+    }
+
+    public int getAvailableCircleCount(SQLiteDatabase db, int currentID) {
+        int count = 0;
+        Cursor cursor = db.query(Const.CIRCLE_TABLE_NAME, new String[] { "id",
+                "isNew" }, null, null, null, null, null);
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            for (int i = 0; i < cursor.getCount(); i++) {
+                int isNew = cursor.getInt(cursor.getColumnIndex("isNew"));
+                int id = cursor.getInt(cursor.getColumnIndex("id"));
+                if (isNew < 1 && currentID != id) {
+                    count++;
+                }
+                cursor.moveToNext();
+            }
+        }
         cursor.close();
         return count;
     }

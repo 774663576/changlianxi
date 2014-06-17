@@ -27,6 +27,7 @@ import com.changlianxi.util.BitmapUtils;
 import com.changlianxi.util.BroadCast;
 import com.changlianxi.util.Constants;
 import com.changlianxi.util.DialogUtil;
+import com.changlianxi.util.FileUtils;
 import com.changlianxi.util.StringUtils;
 import com.changlianxi.util.Utils;
 import com.umeng.analytics.MobclickAgent;
@@ -262,6 +263,15 @@ public class EditCircleActivity extends BaseActivity implements
                 Bitmap photo = extras.getParcelable("data");
                 circleLogo.setImageBitmap(photo);
                 logoBmp = photo;
+                File file = new File(upLoadPath);
+                if (file.exists()) {
+                    return;
+                }
+                String name = FileUtils.getFileName() + ".jpg";
+                String fileName = FileUtils.getCameraPath() + File.separator
+                        + name;
+                BitmapUtils.saveFile(photo, fileName);
+                upLoadPath = fileName;
             }
         }
     }

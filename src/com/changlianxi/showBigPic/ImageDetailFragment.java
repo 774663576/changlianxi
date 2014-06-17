@@ -1,7 +1,5 @@
 package com.changlianxi.showBigPic;
 
-import uk.co.senab.photoview.PhotoViewAttacher;
-import uk.co.senab.photoview.PhotoViewAttacher.OnPhotoTapListener;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,6 +13,8 @@ import android.widget.Toast;
 import com.changlianxi.R;
 import com.changlianxi.applation.CLXApplication;
 import com.changlianxi.util.Utils;
+import com.changlianxi.view.photoview.PhotoView;
+import com.changlianxi.view.photoview.PhotoViewAttacher.OnPhotoTapListener;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -33,8 +33,9 @@ public class ImageDetailFragment extends Fragment {
     private ImageLoader imageLoader;
     private DisplayImageOptions options;
     private ProgressBar progressBar;
-    private PhotoViewAttacher mAttacher;
+    // private PhotoViewAttacher mAttacher;
     private OnBack callBack;
+    private PhotoView photoView;
 
     public static ImageDetailFragment newInstance(String imageUrl) {
         final ImageDetailFragment f = new ImageDetailFragment();
@@ -65,12 +66,25 @@ public class ImageDetailFragment extends Fragment {
             Bundle savedInstanceState) {
         final View v = inflater.inflate(R.layout.image_detail_fragment,
                 container, false);
-        mImageView = (ImageView) v.findViewById(R.id.image);
-        mAttacher = new PhotoViewAttacher(mImageView);
-        mAttacher.setOnPhotoTapListener(new OnPhotoTapListener() {
+        // mImageView = (ImageView) v.findViewById(R.id.image);
+        photoView = (PhotoView) v.findViewById(R.id.image);
+        // mAttacher = new PhotoViewAttacher(mImageView);
+        // mAttacher.setOnPhotoTapListener(new OnPhotoTapListener() {
+        //
+        // @Override
+        // public void onPhotoTap(View arg0, float arg1, float arg2) {
+        // if (callBack != null) {
+        // callBack.onBackClick();
+        // } else {
+        // getActivity().finish();
+        //
+        // }
+        // }
+        // });
+        photoView.setOnPhotoTapListener(new OnPhotoTapListener() {
 
             @Override
-            public void onPhotoTap(View arg0, float arg1, float arg2) {
+            public void onPhotoTap(View view, float x, float y) {
                 if (callBack != null) {
                     callBack.onBackClick();
                 } else {
@@ -89,7 +103,7 @@ public class ImageDetailFragment extends Fragment {
         if (!mImageUrl.startsWith("http")) {
             mImageUrl = "file://" + mImageUrl;
         }
-        imageLoader.displayImage(mImageUrl, mImageView,
+        imageLoader.displayImage(mImageUrl, photoView,
                 new SimpleImageLoadingListener() {
                     @Override
                     public void onLoadingStarted(String imageUri, View view) {
@@ -125,7 +139,8 @@ public class ImageDetailFragment extends Fragment {
                     public void onLoadingComplete(String imageUri, View view,
                             Bitmap loadedImage) {
                         progressBar.setVisibility(View.GONE);
-                        mAttacher.update();
+                        // photoView.
+                        // mAttacher.update();
                     }
                 });
 

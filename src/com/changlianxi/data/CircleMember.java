@@ -1677,6 +1677,7 @@ public class CircleMember extends AbstractData implements Serializable {
         params.put("cid", cid);
         params.put("circleIds", circleIds);
         params.put("personalIds", personalIds);
+        params.put("debug", "1");
         Result ret = ApiRequest.requestWithToken(CircleMember.INITMYDETAIL_API,
                 params, parser);
         if (ret.getStatus() == RetStatus.SUCC) {

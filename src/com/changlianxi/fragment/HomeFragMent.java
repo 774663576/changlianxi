@@ -78,6 +78,7 @@ public class HomeFragMent extends Fragment implements OnClickListener,
     private Button btnOk;
     private Button btnCancle;
     private OpenMyCardFragment callBack;
+    private boolean isMoveing = false;
     private Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -165,6 +166,17 @@ public class HomeFragMent extends Fragment implements OnClickListener,
             public boolean onTouch(View v, MotionEvent event) {
                 return MotionEvent.ACTION_MOVE == event.getAction() ? true
                         : false;
+                // switch (event.getAction()) {
+                // case MotionEvent.ACTION_UP:
+                // isMoveing = false;
+                // break;
+                // case MotionEvent.ACTION_MOVE:
+                // isMoveing = true;
+                // return true;
+                // default:
+                // break;
+                // }
+                // return false;
             }
         });
         setValue();
@@ -228,7 +240,7 @@ public class HomeFragMent extends Fragment implements OnClickListener,
         myIntentFilter.addAction(Constants.REFRESH_CIRCLES_PROMPT_COUNT);
         myIntentFilter.addAction(Constants.KICKOUT_CIRCLE);
         myIntentFilter.addAction(Constants.REMOVE_CIRCLE_PROMPT_COUNT);
-
+        myIntentFilter.addAction(Constants.ACCEPT_CIRCLE_INVITATE);
         // 注册广播
         getActivity().registerReceiver(mBroadcastReceiver, myIntentFilter);
     }
@@ -249,13 +261,16 @@ public class HomeFragMent extends Fragment implements OnClickListener,
                 int cid = intent.getIntExtra("cid", 0);
                 String type = intent.getStringExtra("type");
                 refushCirclePrompt(cid, type);
-            } else if (action.equals(Constants.KICKOUT_CIRCLE)) { // 更新圈子提示数量
+            } else if (action.equals(Constants.KICKOUT_CIRCLE)) { // 踢出圈子
                 int cid = intent.getIntExtra("cid", 0);
                 kickOutCircle(cid);
-            } else if (action.equals(Constants.REMOVE_CIRCLE_PROMPT_COUNT)) { // 更新圈子提示数量
+            } else if (action.equals(Constants.REMOVE_CIRCLE_PROMPT_COUNT)) { // 减少圈子提示数量
                 int cid = intent.getIntExtra("cid", 0);
                 String type = intent.getStringExtra("type");
                 removeCirclePrompt(cid, type);
+            } else if (action.equals(Constants.ACCEPT_CIRCLE_INVITATE)) { // 接受圈子邀请
+                int cid = intent.getIntExtra("cid", 0);
+                acceptCircleInvitation(cid);
             }
         }
     };
@@ -279,7 +294,6 @@ public class HomeFragMent extends Fragment implements OnClickListener,
             }
         }
         adapter.notifyDataSetChanged();
-
     }
 
     /**
@@ -305,7 +319,6 @@ public class HomeFragMent extends Fragment implements OnClickListener,
     }
 
     private void filldata(boolean refushNet, boolean refushANotify) {
-        System.out.println("hoime::::::::::::::::::::");
         circleListTask = new CircleListTask(refushNet, refushANotify);
         circleListTask.setTaskCallBack(new PostCallBack<RetError>() {
             @Override
@@ -370,6 +383,16 @@ public class HomeFragMent extends Fragment implements OnClickListener,
         adapter.setData(circleslists);
     }
 
+    private void acceptCircleInvitation(int cid) {
+        for (Circle c : circleslists) {
+            if (c.getId() == cid) {
+                c.setNew(false);
+                break;
+            }
+        }
+        adapter.notifyDataSetChanged();
+    }
+
     /**
      * 被踢出圈子
      * @param cid
@@ -391,6 +414,9 @@ public class HomeFragMent extends Fragment implements OnClickListener,
     @Override
     public void onItemClick(AdapterView<?> arg0, View arg1, int position,
             long arg3) {
+        if (isMoveing) {
+            return;
+        }
         if (position == circleslists.size() - 1) {
             Intent intent = new Intent();
             intent.setClass(getActivity(), AddCircleMemberActivity.class);

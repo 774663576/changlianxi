@@ -77,7 +77,6 @@ public class ApiRequest {
         String result = HttpUrlHelper.upLoadPic(HttpUrlHelper.DEFAULT_HOST,
                 url, params, file, pkey);
         Logger.out("ApiRequest.request", "[result] " + result, Level.DEBUG);
-
         return parse(parser, result, params);
     }
 

@@ -255,31 +255,35 @@ public class BitmapUtils {
      * @param bmp
      * @param filename
      */
-    // public static void createImgToFile(Bitmap bmp, String filename) {
-    // FileOutputStream b = null;
-    // try {
-    // b = new FileOutputStream(filename);
-    // bmp.compress(Bitmap.CompressFormat.PNG, 100, b);// 把数据写入文件
-    // } catch (FileNotFoundException e) {
-    // Logger.error(BitmapUtils.class, e);
-    // e.printStackTrace();
-    // } finally {
-    // try {
-    // b.flush();
-    // b.close();
-    // } catch (IOException e) {
-    // Logger.error(BitmapUtils.class, e);
-    // e.printStackTrace();
-    // }
-    // }
-    // }
-    public static void saveFile(Bitmap bm, String fileName) throws IOException {
+    public static void createImgToFile(Bitmap bmp, String filename) {
+        FileOutputStream b = null;
+        try {
+            b = new FileOutputStream(filename);
+            bmp.compress(Bitmap.CompressFormat.PNG, 100, b);// 把数据写入文件
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                b.flush();
+                b.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void saveFile(Bitmap bm, String fileName) {
         File myCaptureFile = new File(fileName);
-        BufferedOutputStream bos = new BufferedOutputStream(
-                new FileOutputStream(myCaptureFile));
-        bm.compress(Bitmap.CompressFormat.PNG, 100, bos);
-        bos.flush();
-        bos.close();
+        BufferedOutputStream bos;
+        try {
+            bos = new BufferedOutputStream(new FileOutputStream(myCaptureFile));
+            bm.compress(Bitmap.CompressFormat.PNG, 100, bos);
+            bos.flush();
+            bos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     /**
@@ -794,7 +798,7 @@ public class BitmapUtils {
             int height = bitmap.getHeight();
             m.setRotate(degree); // 旋转angle度
             bitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height, m, true);// 从新生成图片
-            
+
         }
         return bitmap;
     }

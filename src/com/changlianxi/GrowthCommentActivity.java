@@ -41,7 +41,6 @@ import com.changlianxi.task.BaseAsyncTask.PostCallBack;
 import com.changlianxi.task.GrowthCommentsTask;
 import com.changlianxi.util.DateUtils;
 import com.changlianxi.util.DialogUtil;
-import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.SharedUtils;
 import com.changlianxi.util.StringUtils;
 import com.changlianxi.util.UniversalImageLoadTool;
@@ -100,6 +99,7 @@ public class GrowthCommentActivity extends BaseActivity implements
     private LinearLayout layPraise;
     private LinearLayout layShare;
     private TextView praise;// 点赞的数量
+    private int replyId = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -121,8 +121,8 @@ public class GrowthCommentActivity extends BaseActivity implements
         if ("".equals(avatarImg)) {
             avatar.setImageResource(R.drawable.head_bg);
         } else {
-            UniversalImageLoadTool.disPlay(avatarImg, 
-                    avatar, R.drawable.head_bg);
+            UniversalImageLoadTool.disPlay(avatarImg, avatar,
+                    R.drawable.head_bg);
         }
         commentList = growth.getCommentList();
         filldata(0);
@@ -272,6 +272,18 @@ public class GrowthCommentActivity extends BaseActivity implements
         mPullDownView.setOnPullDownListener(this);
         layShare.setOnClickListener(this);
         mPullDownView.setFooterVisible(false);
+        listview.setOnItemClickListener(new OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1,
+                    int position, long arg3) {
+                replyId = Global.getIntUid();
+                int uid = comments.get(position - 1).getUid();
+                CircleMember m = getNameAndAvatar(cid, uid);
+                edtContent.setHint("回复" + m.getName() + ":");
+                Utils.popUp(GrowthCommentActivity.this);
+            }
+        });
 
     }
 
@@ -337,8 +349,8 @@ public class GrowthCommentActivity extends BaseActivity implements
 
             oneImg.setVisibility(View.VISIBLE);
             gridView.setVisibility(View.GONE);
-            UniversalImageLoadTool.disPlay(imgPath,
-                    oneImg, R.drawable.empty_photo);
+            UniversalImageLoadTool.disPlay(imgPath, oneImg,
+                    R.drawable.empty_photo);
         } else {
             oneImg.setVisibility(View.GONE);
             gridView.setVisibility(View.VISIBLE);
@@ -428,9 +440,15 @@ public class GrowthCommentActivity extends BaseActivity implements
         public View getView(int position, View convertView, ViewGroup parent) {
             ViewHolder holder = null;
             int uid = comments.get(position).getUid();
+            int replyID = comments.get(position).getReplyid();
             CircleMember m = getNameAndAvatar(cid, uid);
             String name = m.getName();
             String avatar = m.getAvatar();
+            String replyName = "";
+            if (replyID != 0) {
+                CircleMember replyMember = getNameAndAvatar(cid, replyID);
+                replyName = replyMember.getName();
+            }
             int pid = m.getPid();
             if (convertView == null) {
                 holder = new ViewHolder();
@@ -445,13 +463,17 @@ public class GrowthCommentActivity extends BaseActivity implements
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
-            holder.name.setText(name);
+            if (replyName.equals("")) {
+                holder.name.setText(name);
+            } else {
+                holder.name.setText(name + " 回复 " + replyName);
+            }
             String path = avatar;
             if (path == null || path.equals("")) {
                 holder.img.setImageResource(R.drawable.head_bg);
             } else {
-                UniversalImageLoadTool.disPlay(path, 
-                        holder.img,  R.drawable.head_bg);
+                UniversalImageLoadTool.disPlay(path, holder.img,
+                        R.drawable.head_bg);
 
             }
             holder.img.setOnClickListener(new OnAvatarClick(cid, uid, pid,
@@ -507,7 +529,6 @@ public class GrowthCommentActivity extends BaseActivity implements
                 Utils.rightOut(this);
                 break;
             case R.id.btPublish:
-
                 String str = edtContent.getText().toString();
                 if (str.length() == 0) {
                     Utils.showToast("请输入评论内容", Toast.LENGTH_SHORT);
@@ -573,6 +594,7 @@ public class GrowthCommentActivity extends BaseActivity implements
         pd.show();
         final GrowthComment growthComment = new GrowthComment(cid, gid, 0, uid,
                 str);
+        growthComment.setReplyid(replyId);
         BaseAsyncTask<Void, Void, RetError> asyncTask = new BaseAsyncTask<Void, Void, RetError>() {
 
             @Override
@@ -595,6 +617,7 @@ public class GrowthCommentActivity extends BaseActivity implements
                 if (result != RetError.NONE) {
                     return;
                 }
+                comments.add(0, growthComment);
                 setGrowthCommentCount(growth.getCommentCnt());
                 edtContent.setText("");
                 if (callBack != null) {
@@ -602,6 +625,8 @@ public class GrowthCommentActivity extends BaseActivity implements
                 }
                 Utils.setListViewHeightBasedOnChildren(listview);
                 scorll.scrollTo(0, 0);
+                replyId = 0;
+                edtContent.setHint("");
             }
 
             @Override
@@ -792,8 +817,7 @@ public class GrowthCommentActivity extends BaseActivity implements
                 holder.img_headIcon.setImageResource(R.drawable.head_bg);
             } else {
                 UniversalImageLoadTool.disPlay(praiseLists.get(position)
-                        .getAvatar(),
-                        holder.img_headIcon,  R.drawable.head_bg);
+                        .getAvatar(), holder.img_headIcon, R.drawable.head_bg);
                 holder.img_headIcon.setOnClickListener(new OnAvatarClick(cid,
                         praiseLists.get(position).getUid(), praiseLists.get(
                                 position).getPid(), praiseLists.get(position)

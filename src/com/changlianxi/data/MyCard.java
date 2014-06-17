@@ -14,6 +14,7 @@ import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.widget.Toast;
 
 import com.changlianxi.data.enums.PersonDetailType;
 import com.changlianxi.data.enums.RetError;
@@ -34,6 +35,7 @@ import com.changlianxi.db.Const;
 import com.changlianxi.db.DBUtils;
 import com.changlianxi.util.BitmapUtils;
 import com.changlianxi.util.StringUtils;
+import com.changlianxi.util.Utils;
 
 /**
  * My card, whose cid=0,
@@ -282,8 +284,7 @@ public class MyCard extends CircleMember {
         if (changedDetails.length() == 0 && "".equals(avatarUrl)) {
             return RetError.NONE;
         }
-        File file = null;
-        file = new File(avatarUrl);
+        File file = new File(avatarUrl);
         String[] keys = { "details", "amendments" };
         IParser parser = new MoreArrayParser(keys);
         Map<String, Object> params = new HashMap<String, Object>();

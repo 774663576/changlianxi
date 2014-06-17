@@ -108,6 +108,7 @@ public class MemberAdapter extends BaseAdapter {
         }
         String name = StringUtils.cutEight(circleMembers.get(position)
                 .getName());
+        // String name = circleMembers.get(position).getName();
         holder.name.setText(name);
         if (!name.equals("")) {
             holder.lastName.setText(name.substring(name.length() - 1));

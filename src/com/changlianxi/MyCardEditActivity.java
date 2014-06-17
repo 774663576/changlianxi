@@ -65,6 +65,7 @@ import com.changlianxi.util.BroadCast;
 import com.changlianxi.util.Constants;
 import com.changlianxi.util.DateUtils;
 import com.changlianxi.util.DialogUtil;
+import com.changlianxi.util.FileUtils;
 import com.changlianxi.util.UniversalImageLoadTool;
 import com.changlianxi.util.UserInfoUtils;
 import com.changlianxi.util.Utils;
@@ -1582,7 +1583,7 @@ public class MyCardEditActivity extends BaseActivity implements
     // TODO 修改成功
     private void updateSucceed() {
         CircleList cir = new CircleList(null);
-        int count = cir.getCircleCount(DBUtils.getDBsa(1));
+        int count = cir.getAvailableCircleCount(DBUtils.getDBsa(1), -1);
         if (circleMember.getEditData().size() > 0 && count > 0) {
             synchronizeConfirmDialog();
         } else {
@@ -1636,7 +1637,15 @@ public class MyCardEditActivity extends BaseActivity implements
             if (bitmap != null) {
                 avatar.setImageBitmap(bitmap);
                 new BoxBlurFilterThread(bitmap).start();
-                new BoxBlurFilterThread(bitmap).start();
+                File file = new File(selectAvatarPath);
+                if (file.exists()) {
+                    return;
+                }
+                String name = FileUtils.getFileName() + ".jpg";
+                String fileName = FileUtils.getCameraPath() + File.separator
+                        + name;
+                BitmapUtils.saveFile(bitmap, fileName);
+                selectAvatarPath = fileName;
 
             }
         }

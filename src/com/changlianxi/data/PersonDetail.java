@@ -202,9 +202,6 @@ public class PersonDetail extends AbstractData implements Serializable {
                     cid + "" });
             return;
         }
-        System.out.println("key:::::::::::::writeINsert" + type + "       "
-                + value + id + "     " + cid + "       " + pid + "       "
-                + uid);
         db.insert(dbName, null, cv);
     }
 

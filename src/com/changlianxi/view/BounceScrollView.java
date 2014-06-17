@@ -1,5 +1,8 @@
 package com.changlianxi.view;
 
+import com.changlianxi.util.Utils;
+
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Rect;
 import android.util.AttributeSet;
@@ -46,6 +49,13 @@ public class BounceScrollView extends ScrollView {
         return super.dispatchTouchEvent(ev);
     }
 
+    private int getLocationY(View v) {
+        int[] location = new int[2];
+        v.getLocationOnScreen(location);
+        int y = location[1];
+        return y;
+    }
+
     /***
      * 触摸事件
      * 
@@ -57,6 +67,14 @@ public class BounceScrollView extends ScrollView {
             case MotionEvent.ACTION_DOWN:
                 break;
             case MotionEvent.ACTION_UP:
+                // int Y = Utils.px2dip(getContext(), getLocationY(inner));
+                // int scY = Utils.px2dip(getContext(), getScrollY());
+                // System.out.println("top:::::::::::" + Y + isNeedMove() +
+                // "    "
+                // + scY);
+                // if (!isNeedMove() && (Y > 25 && Y < 72)) {
+                // scrollTo(0, Utils.px2dip(getContext(), 52));
+                // }
                 // 手指松开.
                 if (isNeedAnimation()) {
                     animation();

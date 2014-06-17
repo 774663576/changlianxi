@@ -120,7 +120,6 @@ public class ThreeLoginActivity extends BaseActivity implements Callback,
     @Override
     public void onComplete(Platform plat, int action,
             HashMap<String, Object> res) {
-        System.out.println("resutl::::::::::::::::==");
 
         if (loginType == 1) {
             loginForRenRen(res);
