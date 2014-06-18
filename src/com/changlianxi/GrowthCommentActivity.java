@@ -213,7 +213,7 @@ public class GrowthCommentActivity extends BaseActivity implements
         MobclickAgent.onPageStart(getClass().getName());
     }
 
-    @Override 
+    @Override
     protected void onPause() {
         super.onPause();
         MobclickAgent.onPageEnd(getClass().getName());
@@ -285,7 +285,7 @@ public class GrowthCommentActivity extends BaseActivity implements
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1,
                     int position, long arg3) {
-                replyId = Global.getIntUid();
+                replyId = comments.get(position - 1).getUid();
                 int uid = comments.get(position - 1).getUid();
                 CircleMember m = getNameAndAvatar(cid, uid);
                 edtContent.setHint("»Ø¸´" + m.getName() + ":");
@@ -449,6 +449,7 @@ public class GrowthCommentActivity extends BaseActivity implements
             ViewHolder holder = null;
             int uid = comments.get(position).getUid();
             int replyID = comments.get(position).getReplyid();
+            System.out.println("id;:::::::::::" + uid + "     " + replyID);
             CircleMember m = getNameAndAvatar(cid, uid);
             String name = m.getName();
             String avatar = m.getAvatar();
@@ -716,7 +717,7 @@ public class GrowthCommentActivity extends BaseActivity implements
             @Override
             public void taskFinish(RetError result) {
                 growth.setPraising(false);
-                if (result != RetError.NONE) { 
+                if (result != RetError.NONE) {
                     return;
                 }
                 int praiseCount = growth.getPraiseCnt();

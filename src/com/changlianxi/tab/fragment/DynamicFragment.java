@@ -22,7 +22,6 @@ import android.widget.TextView;
 import com.changlianxi.R;
 import com.changlianxi.util.BroadCast;
 import com.changlianxi.util.Constants;
-import com.changlianxi.util.Utils;
 import com.changlianxi.view.HackyViewPager;
 
 public class DynamicFragment extends Fragment implements OnClickListener {

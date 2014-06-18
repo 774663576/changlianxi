@@ -19,7 +19,7 @@ public class DBUtils {
      * @param flagType
      * @return
      */
-    public synchronized static SQLiteDatabase getDBsa(int flagType) {
+    public static SQLiteDatabase getDBsa(int flagType) {
         if (dbase == null) {
             dbase = DataBaseHelper.getInstance();
         }

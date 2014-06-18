@@ -75,7 +75,6 @@ public class FindPasswordActivity extends BaseActivity implements
     private String messageString = "";// 验证短信的内容
     private TextView title;
     private TextView tv_second;// 界面4倒计时
-    private LinearLayout layBg;
     private LinearLayout layButtom;
     private InputMethodRelativeLayout parent;
     private int page = 0;
@@ -118,8 +117,6 @@ public class FindPasswordActivity extends BaseActivity implements
         btback.setOnClickListener(this);
         title = (TextView) findViewById(R.id.titleTxt);
         title.setText("找回密码");
-        layBg = (LinearLayout) findViewById(R.id.bg);
-        layBg.setBackgroundResource(R.drawable.back_trans6);
         initFind1View();
         initFind2View();
         initFind3View();

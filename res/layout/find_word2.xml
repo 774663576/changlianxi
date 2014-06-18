@@ -88,7 +88,7 @@
 
             <Button
                 android:id="@+id/bt_get_code"
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="@dimen/scale97dip"
                 android:layout_marginRight="5dip"
                 android:layout_weight="1"
@@ -99,9 +99,10 @@
 
             <Button
                 android:id="@+id/bt_sendmessage"
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="@dimen/scale97dip"
                 android:layout_marginLeft="5dip"
+                android:singleLine="true"
                 android:layout_weight="1"
                 android:background="@drawable/btn_tran51"
                 android:text="@string/send_verify_message"

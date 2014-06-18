@@ -463,12 +463,21 @@ public class BitmapUtils {
      * @return
      */
     public static String getPickPic(Activity context, Intent data) {
+        if (data == null) {
+            return "";
+        }
         // SelectPicModle modle = new SelectPicModle();
         Uri thisUri = data.getData();// 获得图片的uri
+        if (thisUri == null) {
+            return "";
+        }
         // 这里开始的第二部分，获取图片的路径：
         String[] proj = { MediaStore.Images.Media.DATA };
         @SuppressWarnings("deprecation")
         Cursor cursor = context.managedQuery(thisUri, proj, null, null, null);
+        if (cursor == null) {
+            return "";
+        }
         // 按我个人理解 这个是获得用户选择的图片的索引值
         int column_index = cursor
                 .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);

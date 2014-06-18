@@ -74,7 +74,6 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,
     private String type = "";// 1 验证码处理 2 设置密码处理3 重新获取验证码处理
     private TextView title;
     private TextView tv_second;
-    private LinearLayout layBg;
     private ImageView back;
     private String txtNum = ""; // 手机号码
     private String txtNumShow = ""; // 手机号码显示格式
@@ -146,8 +145,6 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,
         initReg4View();
         title = (TextView) findViewById(R.id.titleTxt);
         title.setText("注册新用户");
-        layBg = (LinearLayout) findViewById(R.id.bg);
-        layBg.setBackgroundResource(R.drawable.back_trans6);
         back = (ImageView) findViewById(R.id.back);
         back.setOnClickListener(this);
         parent = (InputMethodRelativeLayout) findViewById(R.id.Layparent);
