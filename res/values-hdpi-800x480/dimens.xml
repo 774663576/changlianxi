@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="scale125dip">29dip</dimen>
+    <dimen name="scale106dip">20dip</dimen>
+    <dimen name="scale129dip">53dip</dimen>
+    <dimen name="editpassword">46dip</dimen>
+
+</resources>

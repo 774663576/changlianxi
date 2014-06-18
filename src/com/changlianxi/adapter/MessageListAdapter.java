@@ -20,7 +20,6 @@ import com.changlianxi.db.DBUtils;
 import com.changlianxi.inteface.OnAvatarClickListener;
 import com.changlianxi.util.DateUtils;
 import com.changlianxi.util.EmojiParser;
-import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.UniversalImageLoadTool;
 import com.changlianxi.view.EmojiEditText;
 
@@ -104,8 +103,8 @@ public class MessageListAdapter extends BaseAdapter {
         if (!avatar.startsWith("http")) {
             holder.avatar.setImageResource(R.drawable.head_bg);
         } else {
-            UniversalImageLoadTool.disPlay(avatar, 
-                    holder.avatar,  R.drawable.head_bg);
+            UniversalImageLoadTool.disPlay(avatar, holder.avatar,
+                    R.drawable.head_bg);
         }
         if (position % 2 == 0) {
             holder.layParent.setBackgroundColor(Color.WHITE);

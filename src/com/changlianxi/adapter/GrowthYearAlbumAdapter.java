@@ -19,6 +19,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.changlianxi.AlumMonthActivity;
 import com.changlianxi.R;
 import com.changlianxi.data.CircleMember;
@@ -28,7 +29,6 @@ import com.changlianxi.db.DBUtils;
 import com.changlianxi.showBigPic.AlbumImagePagerActivity;
 import com.changlianxi.util.Constants;
 import com.changlianxi.util.DateUtils;
-import com.changlianxi.util.StringUtils;
 import com.changlianxi.view.GrowthImgGridView;
 
 public class GrowthYearAlbumAdapter extends BaseAdapter {

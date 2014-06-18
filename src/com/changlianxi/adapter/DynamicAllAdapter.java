@@ -17,7 +17,6 @@ import com.changlianxi.data.CircleMember;
 import com.changlianxi.db.DBUtils;
 import com.changlianxi.inteface.OnAvatarClickListener;
 import com.changlianxi.util.DateUtils;
-import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.StringUtils;
 import com.changlianxi.util.UniversalImageLoadTool;
 import com.changlianxi.view.CircularImage;
@@ -98,8 +97,8 @@ public class DynamicAllAdapter extends BaseAdapter {
         if (avatarUrl == null || avatarUrl.equals("")) {
             holderOther.avatar.setImageResource(R.drawable.head_bg);
         } else {
-            UniversalImageLoadTool.disPlay(avatarUrl, 
-                    holderOther.avatar, R.drawable.head_bg);
+            UniversalImageLoadTool.disPlay(avatarUrl, holderOther.avatar,
+                    R.drawable.head_bg);
         }
         holderOther.avatar.setOnClickListener(new OnAvatarClickListener(
                 mCotext, cid, m1 == null & m2 == null ? 0 : m1 == null ? m2

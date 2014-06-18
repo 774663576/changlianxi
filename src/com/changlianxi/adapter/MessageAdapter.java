@@ -27,7 +27,6 @@ import com.changlianxi.showBigPic.ImagePagerActivity;
 import com.changlianxi.util.Constants;
 import com.changlianxi.util.DateUtils;
 import com.changlianxi.util.EmojiParser;
-import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.UniversalImageLoadTool;
 import com.changlianxi.view.CircularImage;
 import com.changlianxi.view.EmojiEditText;
@@ -169,9 +168,8 @@ public class MessageAdapter extends BaseAdapter {
                     if (!content.startsWith("http")) {
                         content = "file://" + content;
                     }
-                    UniversalImageLoadTool.disPlay(content,
-                          selfHolder.selfImg,
-                                  R.drawable.empty_photo);
+                    UniversalImageLoadTool.disPlay(content, selfHolder.selfImg,
+                            R.drawable.empty_photo);
                 }
                 selfHolder.selfLayout.setVisibility(View.VISIBLE);
                 selfHolder.selfContent.setText(EmojiParser
@@ -180,8 +178,7 @@ public class MessageAdapter extends BaseAdapter {
                     selfHolder.selfAvatar.setImageResource(R.drawable.head_bg);
                 } else {
                     UniversalImageLoadTool.disPlay(selfAvatar,
-                          selfHolder.selfAvatar,
-                                     R.drawable.head_bg);
+                            selfHolder.selfAvatar, R.drawable.head_bg);
 
                 }
                 selfHolder.selfImg.setOnClickListener(new ImageOnClick(content
@@ -197,8 +194,7 @@ public class MessageAdapter extends BaseAdapter {
                     otherHolder.otherContent.setVisibility(View.GONE);
 
                     UniversalImageLoadTool.disPlay(content,
-                          otherHolder.otherImg,
-                                    R.drawable.empty_photo);
+                            otherHolder.otherImg, R.drawable.empty_photo);
                 }
                 otherHolder.otherLayout.setVisibility(View.VISIBLE);
                 otherHolder.otherContent.setText(EmojiParser
@@ -211,8 +207,7 @@ public class MessageAdapter extends BaseAdapter {
 
                 } else {
                     UniversalImageLoadTool.disPlay(path,
-                         otherHolder.otherAvatar,
-                                   R.drawable.head_bg);
+                            otherHolder.otherAvatar, R.drawable.head_bg);
                 }
                 otherHolder.otherAvatar.setOnClickListener(new OnAvatarClick(
                         cid, uid, pid, otherName, otherAvater));

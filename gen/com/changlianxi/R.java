@@ -439,6 +439,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int dip48=0x7f07001a;
         public static final int dip50=0x7f070010;
         public static final int dip83=0x7f070014;
+        public static final int editpassword=0x7f070073;
         public static final int menu=0x7f070000;
         public static final int scale106dip=0x7f070063;
         public static final int scale107dip=0x7f070055;

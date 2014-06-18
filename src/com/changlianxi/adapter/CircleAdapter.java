@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.changlianxi.R;
 import com.changlianxi.data.Circle;
-import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.StringUtils;
 import com.changlianxi.util.UniversalImageLoadTool;
 import com.changlianxi.view.CircularImage;
@@ -84,8 +83,7 @@ public class CircleAdapter extends BaseAdapter {
             holder.circleBg.setImageResource(R.drawable.pic_bg_no);
             holder.circleImg.setVisibility(View.INVISIBLE);
         } else {
-            UniversalImageLoadTool.disPlay(circleLogo,
-                 holder.circleImg,
+            UniversalImageLoadTool.disPlay(circleLogo, holder.circleImg,
                     R.drawable.pic_bg_no);
         }
         boolean isnew = circleLists.get(position).isNew();

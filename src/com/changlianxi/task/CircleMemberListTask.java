@@ -9,10 +9,13 @@ public class CircleMemberListTask extends
     private CircleMemberList circleMemberList;
     private int newMemberCount = 0;
     private int newMyDetailEditCount = 0;
+    private boolean refushNet;
 
-    public CircleMemberListTask(int newMemberCount, int newMyDetailEditCount) {
+    public CircleMemberListTask(int newMemberCount, int newMyDetailEditCount,
+            boolean refushNet) {
         this.newMemberCount = newMemberCount;
         this.newMyDetailEditCount = newMyDetailEditCount;
+        this.refushNet = refushNet;
     }
 
     @Override
@@ -23,14 +26,17 @@ public class CircleMemberListTask extends
         circleMemberList = params[0];
         circleMemberList.read(DBUtils.getDBsa(1));
         callBack.readDBFinish();
-        // if (circleMemberList.getMembers().size() != 0
-        // && newMemberCount + newMyDetailEditCount == 0) {
-        // return RetError.NONE;
-        // }
+        if (!refushNet) {
+            return RetError.NONE;
+        }
+        if (circleMemberList.getMembers().size() != 0
+                && newMemberCount + newMyDetailEditCount == 0) {
+            return RetError.NONE;
+        }
         if (!isNet) {
             return RetError.NETWORK_ERROR;
         }
-        circleMemberList.refresh(circleMemberList.getLastReqTime()/1000);
+        circleMemberList.refresh(circleMemberList.getLastReqTime() / 1000);
         circleMemberList.write(DBUtils.getDBsa(2));
         return RetError.NONE;
     }

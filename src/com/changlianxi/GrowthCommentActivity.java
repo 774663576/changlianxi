@@ -105,6 +105,15 @@ public class GrowthCommentActivity extends BaseActivity implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.growth_comments);
+        getData();
+        initView();
+        setAvatar();
+        commentList = growth.getCommentList();
+        filldata(0);
+
+    }
+
+    private void getData() {
         Bundle bundle = getIntent().getExtras();
         growth = (Growth) bundle.getSerializable("growth");
         from = getIntent().getStringExtra("from");
@@ -113,7 +122,9 @@ public class GrowthCommentActivity extends BaseActivity implements
         gid = growth.getId();
         uid = growth.getPublisher();
         address = growth.getLocation();
-        initView();
+    }
+
+    private void setAvatar() {
         CircleMember m = getNameAndAvatar(cid, uid);
         pid = m.getPid();
         avatarImg = m.getAvatar();
@@ -124,9 +135,6 @@ public class GrowthCommentActivity extends BaseActivity implements
             UniversalImageLoadTool.disPlay(avatarImg, avatar,
                     R.drawable.head_bg);
         }
-        commentList = growth.getCommentList();
-        filldata(0);
-
     }
 
     private CircleMember getNameAndAvatar(int cid, int uid) {
@@ -205,7 +213,7 @@ public class GrowthCommentActivity extends BaseActivity implements
         MobclickAgent.onPageStart(getClass().getName());
     }
 
-    @Override
+    @Override 
     protected void onPause() {
         super.onPause();
         MobclickAgent.onPageEnd(getClass().getName());
@@ -529,7 +537,7 @@ public class GrowthCommentActivity extends BaseActivity implements
                 Utils.rightOut(this);
                 break;
             case R.id.btPublish:
-                String str = edtContent.getText().toString();
+                String str = edtContent.getText().toString().replace(" ", "");
                 if (str.length() == 0) {
                     Utils.showToast("«Î ‰»Î∆¿¬€ƒ⁄»›", Toast.LENGTH_SHORT);
                     return;
@@ -708,7 +716,7 @@ public class GrowthCommentActivity extends BaseActivity implements
             @Override
             public void taskFinish(RetError result) {
                 growth.setPraising(false);
-                if (result != RetError.NONE) {
+                if (result != RetError.NONE) { 
                     return;
                 }
                 int praiseCount = growth.getPraiseCnt();
