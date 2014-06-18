@@ -208,7 +208,9 @@ public class UserInfoActivity extends BaseActivity implements OnClickListener,
         if (circleMember.getState() == CircleMemberState.STATUS_INVITING) {
             // initLayPrompt();
         }
-        if (!circleMember.getState().equals(CircleMemberState.STATUS_VERIFIED)) {
+        if (!circleMember.getState().equals(CircleMemberState.STATUS_VERIFIED)
+                && !circleMember.getState().equals(
+                        CircleMemberState.STATUS_KICKOFFING)) {
             sendMessage.setVisibility(View.GONE);
             line4.setVisibility(View.GONE);
         }
@@ -287,7 +289,8 @@ public class UserInfoActivity extends BaseActivity implements OnClickListener,
 
     private void authState(CircleMemberState state) {
         authState.setVisibility(View.VISIBLE);
-        if (state.equals(CircleMemberState.STATUS_VERIFIED)) {
+        if (state.equals(CircleMemberState.STATUS_VERIFIED)
+                || state.equals(CircleMemberState.STATUS_KICKOFFING)) {
             authState.setText("已认证");
             authState.setBackgroundResource(R.drawable.auth);
         } else if (state.equals(CircleMemberState.STATUS_ENTER_AND_VERIFYING)) {
