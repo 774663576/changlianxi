@@ -294,7 +294,7 @@ public class CommentsListItemActivity extends BaseActivity implements
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1,
                     int position, long arg3) {
-                replyId = Global.getIntUid();
+                replyId = comments.get(position - 1).getUid();
                 int uid = comments.get(position - 1).getUid();
                 CircleMember m = getNameAndAvatar(cid, uid);
                 edtContent.setHint("回复" + m.getName() + ":");
@@ -639,7 +639,7 @@ public class CommentsListItemActivity extends BaseActivity implements
                 if (result != RetError.NONE) {
                     return;
                 }
-                comments.add(0, growthComment);
+                // comments.add(0, growthComment);
                 setGrowthCommentCount(growth.getCommentCnt());
                 edtContent.setText("");
                 Utils.setListViewHeightBasedOnChildren(listview);

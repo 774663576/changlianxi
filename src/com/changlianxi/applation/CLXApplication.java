@@ -9,6 +9,7 @@ import android.app.NotificationManager;
 
 import com.baidu.frontia.FrontiaApplication;
 import com.changlianxi.chooseImage.CheckImageLoaderConfiguration;
+import com.changlianxi.util.Logger;
 
 public class CLXApplication extends Application {
     private static CLXApplication instance;
@@ -32,7 +33,7 @@ public class CLXApplication extends Application {
         CheckImageLoaderConfiguration.checkImageLoaderConfiguration(this);
         // Logger.setWriteFile(false); // 设置日志是写文件还是使用标准输出
         // Logger.setLogLevel(Level.DEBUG); // 日志级别
-        // Logger.setOutPut(false);// 不在控制台输出
+        Logger.setOutPut(false);// 不在控制台输出
         // CrashHandler catchHandler = CrashHandler.getInstance();
         // catchHandler.init(this);
     }

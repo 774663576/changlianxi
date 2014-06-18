@@ -289,6 +289,7 @@ public class GrowthCommentActivity extends BaseActivity implements
                 int uid = comments.get(position - 1).getUid();
                 CircleMember m = getNameAndAvatar(cid, uid);
                 edtContent.setHint("»Ø¸´" + m.getName() + ":");
+                edtContent.requestFocus();
                 Utils.popUp(GrowthCommentActivity.this);
             }
         });
@@ -625,7 +626,7 @@ public class GrowthCommentActivity extends BaseActivity implements
                 if (result != RetError.NONE) {
                     return;
                 }
-                comments.add(0, growthComment);
+                // comments.add(0, growthComment);
                 setGrowthCommentCount(growth.getCommentCnt());
                 edtContent.setText("");
                 if (callBack != null) {
