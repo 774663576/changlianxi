@@ -240,7 +240,7 @@ public class MemberFragment extends Fragment implements
         progressDialog.show();
         circleMemberList = new CircleMemberList(cid);
         registerBoradcastReceiver();
-        getCircleMembers(newMemberCount, newMyDetailEditCount);
+        getCircleMembers(newMemberCount, newMyDetailEditCount, true);
     }
 
     /**
@@ -263,7 +263,7 @@ public class MemberFragment extends Fragment implements
             String action = intent.getAction();
             if (action.equals(Constants.REFRESH_CIRCLE_USER_LIST)) {// 更新成员列表列表
                 newMemberCount = 1;// 把newMemberCount设为大于0的数
-                getCircleMembers(newMemberCount, newMyDetailEditCount);
+                getCircleMembers(newMemberCount, newMyDetailEditCount, true);
             } else if (action.equals(Constants.UPDECIRNAME)) {// 更新标题
                 String circleName = intent.getStringExtra("circleName");
                 title.setText(circleName);
@@ -323,6 +323,7 @@ public class MemberFragment extends Fragment implements
                 for (int i = lists.size() - 1; i >= 20; i--) {
                     lists.remove(i);
                 }
+                adapter.setData(lists);
             }
         } else {
             btadd.setVisibility(View.VISIBLE);
@@ -343,8 +344,10 @@ public class MemberFragment extends Fragment implements
 
     }
 
-    private void getCircleMembers(int newMemberCount, int newMyDetailEditCount) {
-        task = new CircleMemberListTask(newMemberCount, newMyDetailEditCount);
+    private void getCircleMembers(int newMemberCount, int newMyDetailEditCount,
+            boolean refushNet) {
+        task = new CircleMemberListTask(newMemberCount, newMyDetailEditCount,
+                refushNet);
         task.setTaskCallBack(new BaseAsyncTask.PostCallBack<RetError>() {
             @Override
             public void taskFinish(RetError result) {
@@ -385,7 +388,7 @@ public class MemberFragment extends Fragment implements
                 }
                 vsLayInvite.setVisibility(View.GONE);
                 newMemberCount = 1;// 把newMemberCount设为大于0的数
-                getCircleMembers(newMemberCount, newMyDetailEditCount);
+                getCircleMembers(newMemberCount, newMyDetailEditCount, false);
                 Intent intent = new Intent(Constants.ACCEPT_CIRCLE_INVITATE);
                 intent.putExtra("cid", cid);
                 BroadCast.sendBroadCast(getActivity(), intent);
@@ -595,7 +598,7 @@ public class MemberFragment extends Fragment implements
     @Override
     public void onRefresh() {
         newMemberCount = 1;
-        getCircleMembers(newMemberCount, newMyDetailEditCount);
+        getCircleMembers(newMemberCount, newMyDetailEditCount, true);
     }
 
     @Override

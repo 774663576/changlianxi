@@ -10,7 +10,6 @@ import android.widget.BaseAdapter;
 
 import com.changlianxi.R;
 import com.changlianxi.data.GrowthImage;
-import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.StringUtils;
 import com.changlianxi.util.UniversalImageLoadTool;
 import com.changlianxi.view.MyImageView;
@@ -19,14 +18,9 @@ public class GrowthImgAdapter extends BaseAdapter {
     private Context mContext;
     private List<GrowthImage> listData;
 
-    // private FinalBitmap fb;
-
     public GrowthImgAdapter(Context context, List<GrowthImage> data) {
         this.mContext = context;
         this.listData = data;
-        // fb = FinalBitmap.create(context);
-        // fb.configLoadingImage(R.drawable.empty_photo);
-        // fb.configLoadfailImage(R.drawable.empty_photo);
     }
 
     @Override

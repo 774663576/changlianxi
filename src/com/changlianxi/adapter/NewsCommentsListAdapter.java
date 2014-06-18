@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.changlianxi.R;
 import com.changlianxi.modle.NewsComments;
-import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.UniversalImageLoadTool;
 
 public class NewsCommentsListAdapter extends BaseAdapter {

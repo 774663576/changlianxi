@@ -23,7 +23,6 @@
                 android:id="@+id/imgLogo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/scale125dip"
                 android:src="@drawable/logo" />
 
@@ -61,14 +60,14 @@
                 <com.changlianxi.view.SearchEditText
                     android:id="@+id/edtPassword"
                     android:layout_width="match_parent"
-                    android:layout_height="55dip"
+                    android:layout_height="@dimen/editpassword"
                     android:background="@drawable/input"
                     android:ems="10"
                     android:gravity="center_vertical"
                     android:hint="@string/password"
+                    android:inputType="textPassword"
                     android:paddingLeft="@dimen/scale44dip"
                     android:paddingRight="15dip"
-                    android:password="true"
                     android:singleLine="true"
                     android:textColor="#000000"
                     android:textColorHint="#66000000"
@@ -91,8 +90,6 @@
                 android:id="@+id/findpd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/layInput"
-                android:layout_centerHorizontal="true"
                 android:layout_marginTop="15dip"
                 android:background="@null"
                 android:text="@string/forget_password"

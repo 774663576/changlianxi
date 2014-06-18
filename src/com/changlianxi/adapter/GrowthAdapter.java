@@ -44,7 +44,6 @@ import com.changlianxi.task.BaseAsyncTask.PostCallBack;
 import com.changlianxi.task.UpLoadNewGrowthTask;
 import com.changlianxi.util.Constants;
 import com.changlianxi.util.DateUtils;
-import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.StringUtils;
 import com.changlianxi.util.UniversalImageLoadTool;
 import com.changlianxi.util.Utils;
@@ -150,8 +149,8 @@ public class GrowthAdapter extends BaseAdapter {
             } else {
                 imgPath = "file://" + imgPath;
             }
-            UniversalImageLoadTool.disPlay(imgPath,
-                    holder.img, R.drawable.empty_photo);
+            UniversalImageLoadTool.disPlay(imgPath, holder.img,
+                    R.drawable.empty_photo);
             holder.img.setVisibility(View.VISIBLE);
             holder.img.setOnClickListener(new ImgOnClick(growth.getImages()
                     .get(0).getImg(), position));
@@ -173,8 +172,8 @@ public class GrowthAdapter extends BaseAdapter {
         if (path == null || path.equals("")) {
             holder.avatar.setImageResource(R.drawable.head_bg);
         } else {
-            UniversalImageLoadTool.disPlay(path, 
-                    holder.avatar,  R.drawable.head_bg);
+            UniversalImageLoadTool.disPlay(path, holder.avatar,
+                    R.drawable.head_bg);
 
         }
         holder.name.setText(name);

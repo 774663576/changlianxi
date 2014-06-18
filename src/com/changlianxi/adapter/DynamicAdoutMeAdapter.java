@@ -26,7 +26,6 @@ import com.changlianxi.task.BaseAsyncTask;
 import com.changlianxi.task.BaseAsyncTask.PostCallBack;
 import com.changlianxi.util.DateUtils;
 import com.changlianxi.util.DialogUtil;
-import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.StringUtils;
 import com.changlianxi.util.UniversalImageLoadTool;
 import com.changlianxi.util.Utils;
@@ -161,8 +160,7 @@ public class DynamicAdoutMeAdapter extends BaseAdapter {
                             .setImageResource(R.drawable.head_bg);
                 } else {
                     UniversalImageLoadTool.disPlay(avatarUrl,
-                         holderInvite.avatarInvite,
-                                   R.drawable.head_bg);
+                            holderInvite.avatarInvite, R.drawable.head_bg);
                 }
                 holderInvite.btnAgreeInvite.setOnClickListener(new BtnClick(
                         listModle.get(position), position, m1, m2));
@@ -187,8 +185,7 @@ public class DynamicAdoutMeAdapter extends BaseAdapter {
                 if (avatarUrl.equals("") || avatarUrl == null) {
                     holder.avatar.setImageResource(R.drawable.head_bg);
                 } else {
-                    UniversalImageLoadTool.disPlay(avatarUrl,
-                       holder.avatar, 
+                    UniversalImageLoadTool.disPlay(avatarUrl, holder.avatar,
                             R.drawable.head_bg);
                 }
                 holder.avatar.setOnClickListener(new OnAvatarClickListener(

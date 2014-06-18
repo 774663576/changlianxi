@@ -20,6 +20,7 @@ public class AcceptCircleInvitationTask extends
         member.read(DBUtils.getDBsa(1));
         RetError ret = member.acceptInvitation();
         if (ret == RetError.NONE) {
+            member.write(DBUtils.getDBsa(2));
             Circle c = new Circle(member.getCid());
             c.read(DBUtils.getDBsa(1));
             c.setNew(false);

@@ -42,28 +42,22 @@
                     android:layout_marginLeft="@dimen/scale41dip"
                     android:orientation="vertical" >
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/name"
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical" >
+                        android:gravity="bottom"
+                        android:textColor="#333333"
+                        android:textSize="@dimen/scale42sp" />
 
-                        <TextView
-                            android:id="@+id/name"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="bottom"
-                            android:textColor="#333333"
-                            android:textSize="@dimen/scale42sp" />
-
-                        <TextView
-                            android:id="@+id/time"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="13dip"
-                            android:gravity="bottom"
-                            android:textColor="#8e8e8e"
-                            android:textSize="@dimen/scale20sp" />
-                    </LinearLayout>
+                    <TextView
+                        android:id="@+id/time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="13dip"
+                        android:gravity="bottom"
+                        android:textColor="#8e8e8e"
+                        android:textSize="@dimen/scale20sp" />
 
                     <TextView
                         android:id="@+id/content"
@@ -169,7 +163,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="6dip"
+                        android:layout_marginTop="4dip"
                         android:src="@drawable/icon_review" />
 
                     <TextView

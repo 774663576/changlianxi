@@ -10,7 +10,6 @@ import android.widget.BaseAdapter;
 
 import com.changlianxi.R;
 import com.changlianxi.data.GrowthAlbumImages;
-import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.StringUtils;
 import com.changlianxi.util.UniversalImageLoadTool;
 import com.changlianxi.view.MyImageView;
@@ -53,8 +52,8 @@ public class GorwthAlbumImageAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         path = StringUtils.JoinString(path, "_200x200");
-        UniversalImageLoadTool.disPlay(path, 
-                holder.img,  R.drawable.empty_photo);
+        UniversalImageLoadTool
+                .disPlay(path, holder.img, R.drawable.empty_photo);
         return convertView;
     }
 

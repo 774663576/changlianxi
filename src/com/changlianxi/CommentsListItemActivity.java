@@ -99,6 +99,7 @@ public class CommentsListItemActivity extends BaseActivity implements
     private LinearLayout layPraise;
     private LinearLayout layShare;
     private TextView praise;// 点赞的数量
+    private int replyId = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -288,7 +289,18 @@ public class CommentsListItemActivity extends BaseActivity implements
         mPullDownView.setOnPullDownListener(this);
         layShare.setOnClickListener(this);
         mPullDownView.setFooterVisible(false);
+        listview.setOnItemClickListener(new OnItemClickListener() {
 
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1,
+                    int position, long arg3) {
+                replyId = Global.getIntUid();
+                int uid = comments.get(position - 1).getUid();
+                CircleMember m = getNameAndAvatar(cid, uid);
+                edtContent.setHint("回复" + m.getName() + ":");
+                Utils.popUp(CommentsListItemActivity.this);
+            }
+        });
     }
 
     private void setViewValue() {
@@ -316,8 +328,7 @@ public class CommentsListItemActivity extends BaseActivity implements
         if ("".equals(avatarImg)) {
             img.setImageResource(R.drawable.head_bg);
         } else {
-            UniversalImageLoadTool.disPlay(avatarImg, 
-                    img, R.drawable.head_bg);
+            UniversalImageLoadTool.disPlay(avatarImg, img, R.drawable.head_bg);
         }
         initImg(growth);
 
@@ -365,8 +376,8 @@ public class CommentsListItemActivity extends BaseActivity implements
 
             oneImg.setVisibility(View.VISIBLE);
             gridView.setVisibility(View.GONE);
-            UniversalImageLoadTool.disPlay(imgPath, 
-                    oneImg,  R.drawable.empty_photo);
+            UniversalImageLoadTool.disPlay(imgPath, oneImg,
+                    R.drawable.empty_photo);
 
         } else {
             oneImg.setVisibility(View.GONE);
@@ -483,8 +494,8 @@ public class CommentsListItemActivity extends BaseActivity implements
                 // fb.display(holder.img, path);
                 // FinalBitmapLoadTool.display(path, holder.img,
                 // R.drawable.head_bg);
-                UniversalImageLoadTool.disPlay(path, 
-                        holder.img, R.drawable.head_bg);
+                UniversalImageLoadTool.disPlay(path, holder.img,
+                        R.drawable.head_bg);
 
             }
             holder.img.setOnClickListener(new OnAvatarClick(cid, uid, pid,
@@ -541,7 +552,7 @@ public class CommentsListItemActivity extends BaseActivity implements
                 break;
             case R.id.btPublish:
 
-                String str = edtContent.getText().toString();
+                String str = edtContent.getText().toString().replace(" ", "");
                 if (str.length() == 0) {
                     Utils.showToast("请输入评论内容", Toast.LENGTH_SHORT);
                     return;
@@ -628,10 +639,14 @@ public class CommentsListItemActivity extends BaseActivity implements
                 if (result != RetError.NONE) {
                     return;
                 }
+                comments.add(0, growthComment);
                 setGrowthCommentCount(growth.getCommentCnt());
                 edtContent.setText("");
                 Utils.setListViewHeightBasedOnChildren(listview);
                 scorll.scrollTo(0, 0);
+                replyId = 0;
+                edtContent.setHint("");
+
             }
 
             @Override
@@ -812,8 +827,7 @@ public class CommentsListItemActivity extends BaseActivity implements
             }
 
             UniversalImageLoadTool.disPlay(praiseLists.get(position)
-                    .getAvatar(), holder.img,
-                   R.drawable.head_bg);
+                    .getAvatar(), holder.img, R.drawable.head_bg);
 
             return convertView;
         }

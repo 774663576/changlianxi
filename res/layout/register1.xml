@@ -22,7 +22,7 @@
     <com.changlianxi.view.SearchEditText
         android:id="@+id/num"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/scale129dip"
         android:layout_below="@+id/textView2"
         android:layout_marginLeft="@dimen/scale36dip"
         android:layout_marginRight="@dimen/scale36dip"
@@ -31,7 +31,6 @@
         android:hint="@string/mobile_num"
         android:inputType="number"
         android:maxLength="13"
-        android:padding="17dip"
         android:paddingLeft="@dimen/scale44dip"
         android:paddingRight="15dip"
         android:singleLine="true"
