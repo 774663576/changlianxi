@@ -133,7 +133,7 @@ public class CircleMember extends AbstractData implements Serializable {
     private String employer = "";
     private String jobtitle = "";
     private String lastModTime = "";
-    private String roleId = "";
+    private int roleId = 0;
     private String detailIds = "";
     private String auth = "";
     private String sortkey = "";// 用来排序的关键字
@@ -304,11 +304,11 @@ public class CircleMember extends AbstractData implements Serializable {
         this.lastModTime = lastModTime;
     }
 
-    public String getRoleId() {
+    public int getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(String roleId) {
+    public void setRoleId(int roleId) {
         this.roleId = roleId;
     }
 
@@ -497,7 +497,7 @@ public class CircleMember extends AbstractData implements Serializable {
                     .getColumnIndex("jobtitle"));
             String lastModTime = cursor.getString(cursor
                     .getColumnIndex("lastModTime"));
-            String roleId = cursor.getString(cursor.getColumnIndex("roleId"));
+            int roleId = cursor.getInt(cursor.getColumnIndex("roleId"));
             String state = cursor.getString(cursor.getColumnIndex("state"));
             String detailIds = cursor.getString(cursor
                     .getColumnIndex("detailIds"));
@@ -512,7 +512,7 @@ public class CircleMember extends AbstractData implements Serializable {
                     .getColumnIndex("privacySettings"));
             String register = cursor.getString(cursor
                     .getColumnIndex("register"));
-            
+
             this._id = _id;
             this.uid = uid;
             this.pid = pid;
@@ -610,8 +610,8 @@ public class CircleMember extends AbstractData implements Serializable {
             conditionsValue = new String[] { this.cid + "" };
         }
         cursor = db.query(Const.PERSON_DETAIL_TABLE_NAME1, new String[] {
-                "_id", "id", "cid", "pid", "uid" , "type", "value", "start", "end"},
-                conditionsKey, conditionsValue, null, null, null);
+                "_id", "id", "cid", "pid", "uid", "type", "value", "start",
+                "end" }, conditionsKey, conditionsValue, null, null, null);
 
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
@@ -626,7 +626,7 @@ public class CircleMember extends AbstractData implements Serializable {
                 String start = cursor.getString(cursor.getColumnIndex("start"));
                 String end = cursor.getString(cursor.getColumnIndex("end"));
                 this.pid = pid;
-                
+
                 PersonDetail detail = new PersonDetail(id, cid, pid, uid,
                         PersonDetailType.convertToType(type),
                         value == null ? "" : value);
@@ -1715,16 +1715,16 @@ public class CircleMember extends AbstractData implements Serializable {
                 + cellphone + "','" + location + "',"
                 + Gendar.parseGendar2Int(gendar) + ",'" + avatar + "','"
                 + birthday + "','" + employer + "','" + jobtitle + "','"
-                + lastModTime + "','" + roleId + "','" + state.name() + "','"
+                + lastModTime + "'," + roleId + ",'" + state.name() + "','"
                 + detailIds + "'," + cmid + ",'" + inviteCode + "','" + sortkey
                 + "','" + auth + "','" + pinyinFir + "','" + privacySettings
-                + ",'" + register + "')";
+                + "','" + register + "')";
     }
 
     public static String getDbInsertKeyString() {
         return " (cid, uid, pid, name, cellphone, location, gendar, avatar, birthday,"
-                + " employer, jobtitle, lastModTime, roleId integer, state, detailIds,"
-                + " cmid integer, inviteCode, sortkey, auth, pinyinFir, privacySettings,"
+                + " employer, jobtitle, lastModTime, roleId, state, detailIds,"
+                + " cmid, inviteCode, sortkey, auth, pinyinFir, privacySettings,"
                 + " register) ";
     }
 

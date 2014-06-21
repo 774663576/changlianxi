@@ -46,14 +46,14 @@ public class CircleMemberListParser implements IParser {
             String jobtitle = obj.getString("jobtitle");
             String time = obj.getString("time");
             String location = obj.getString("location");
-            String roleId = obj.getString("role_id");
+            // String roleId = obj.getString("role_id");
             String state = obj.getString("state");
             String auth = obj.getString("auth");
             String privacy = obj.getString("privacy");
             String ic = obj.getString("ic");
             String sortkey = obj.getString("py");
             String pinyinFir = obj.getString("jp");
-            
+
             CircleMember m = new CircleMember(cid, pid, uid);
             m.setName(name);
             m.setCellphone(cellphone);
@@ -61,7 +61,7 @@ public class CircleMemberListParser implements IParser {
             m.setEmployer(employer);
             m.setJobtitle(jobtitle);
             m.setLocation(location);
-            m.setRoleId(roleId);
+            // m.setRoleId(roleId);
             m.setState(CircleMemberState.convert(state));
             m.setPrivacySettings(privacy);
             m.setSortkey(sortkey);
@@ -104,7 +104,7 @@ public class CircleMemberListParser implements IParser {
 
                 properties.add(p);
             }
-            
+
             m.setDetails(properties);
             members.add(m);
         }

@@ -226,8 +226,8 @@ public class CircleMemberList extends AbstractData {
                         .getColumnIndex("jobtitle"));
                 String lastModTime = cursor.getString(cursor
                         .getColumnIndex("lastModTime"));
-                String roleId = cursor.getString(cursor
-                        .getColumnIndex("roleId"));
+//                String roleId = cursor.getString(cursor
+//                        .getColumnIndex("roleId"));
                 String state = cursor.getString(cursor.getColumnIndex("state"));
                 String detailIds = cursor.getString(cursor
                         .getColumnIndex("detailIds"));
@@ -254,7 +254,7 @@ public class CircleMemberList extends AbstractData {
                 member.setEmployer(employer);
                 member.setJobtitle(jobtitle);
                 member.setLastModTime(lastModTime);
-                member.setRoleId(roleId);
+//                member.setRoleId(roleId);
                 member.setState(CircleMemberState.convert(state));
                 member.setDetailIds(detailIds);
                 member.setCmid(cmid);
