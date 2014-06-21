@@ -312,6 +312,14 @@ public class CircleMember extends AbstractData implements Serializable {
         this.register = register;
     }
 
+    public String getDetailIds() {
+        return detailIds;
+    }
+
+    public void setDetailIds(String detailIds) {
+        this.detailIds = detailIds;
+    }
+
     public List<PersonDetail> getDetails() {
         for (int i = details.size() - 1; i >= 0; i--) {
             if (details.get(i).status == Status.DEL) {
