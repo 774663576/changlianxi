@@ -36,8 +36,13 @@ public class CircleMemberListTask extends
         if (!isNet) {
             return RetError.NETWORK_ERROR;
         }
+        long start = System.currentTimeMillis();
         circleMemberList.refresh(circleMemberList.getLastReqTime() / 1000);
+        System.out.println("end::::::::::::::::"
+                + (System.currentTimeMillis() - start));
         circleMemberList.write(DBUtils.getDBsa(2));
+        System.out.println("end::::::::::::::::=="
+                + (System.currentTimeMillis() - start));
         return RetError.NONE;
     }
 

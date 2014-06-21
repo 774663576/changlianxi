@@ -14,7 +14,6 @@ import com.changlianxi.data.enums.CircleMemberState;
 import com.changlianxi.data.enums.PersonDetailType;
 import com.changlianxi.data.request.Result;
 import com.changlianxi.util.DateUtils;
-import com.changlianxi.util.PinYinUtils;
 import com.changlianxi.util.StringUtils;
 
 public class CircleMemberListParser implements IParser {
@@ -54,8 +53,8 @@ public class CircleMemberListParser implements IParser {
             String auth = obj.getString("auth");
             String privacy = obj.getString("privacy");
             String ic = obj.getString("ic");
-            String sortkey = PinYinUtils.getPinYin(name).toUpperCase();
-            String pinyinFir = PinYinUtils.getFirstPinYin(name).toLowerCase();
+            String sortkey = obj.getString("py");
+            String pinyinFir = obj.getString("jp");
             CircleMember m = new CircleMember(cid, pid, uid);
             m.setName(name);
             m.setCellphone(cellphone);
@@ -115,11 +114,11 @@ public class CircleMemberListParser implements IParser {
         cml.setStartTime(start);
         cml.setEndTime(end);
         cml.setLastReqTime(end);
-//        if (total > members.size()) {
-//            cml.setLastReqTime(end);
-//        } else {
-//            cml.setLastReqTime(requestTime);
-//        }
+        // if (total > members.size()) {
+        // cml.setLastReqTime(end);
+        // } else {
+        // cml.setLastReqTime(requestTime);
+        // }
         Result ret = new Result();
         ret.setData(cml);
 

@@ -15,6 +15,7 @@ import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
 
 import com.changlianxi.data.enums.CircleMemberState;
 import com.changlianxi.data.enums.Gendar;
@@ -708,14 +709,10 @@ public class CircleMember extends AbstractData implements Serializable {
             db.update(dbName, cv, conditionsKey, conditionsValue);
         }
         this.status = Status.OLD;
-        writeDetails(db);
-
+        // writeDetails(db);
     }
 
-    public void writeDetails(SQLiteDatabase db) {
-        if (!db.isOpen()) {
-            db = DBUtils.dbase.getReadableDatabase();
-        }
+    public void writeDetails1(SQLiteDatabase db) {
         if (cid == 0) {
             db.delete(Const.PERSON_DETAIL_TABLE_NAME1, "cid=?",
                     new String[] { 0 + "" });
@@ -726,6 +723,27 @@ public class CircleMember extends AbstractData implements Serializable {
         for (PersonDetail pd : details) {
             pd.write(db);
         }
+    }
+
+    public void writeDetails(SQLiteDatabase db) {
+        if (cid == 0) {
+            db.delete(Const.PERSON_DETAIL_TABLE_NAME1, "cid=?",
+                    new String[] { 0 + "" });
+        } else {
+            db.delete(Const.PERSON_DETAIL_TABLE_NAME1, "cid=? and pid=? ",
+                    new String[] { cid + "", pid + "" });
+        }
+        StringBuffer buffer = new StringBuffer();
+        buffer.append("insert into " + Const.PERSON_DETAIL_TABLE_NAME1);
+        buffer.append(" (id,cid,pid,uid,type,value,start,end) values");
+        for (PersonDetail pd : details) {
+            buffer.append("(" + pd.getId() + "," + pd.getCid() + ","
+                    + pd.getPid() + "," + pd.getUid() + ",'"
+                    + pd.getType().name() + "','" + pd.getValue() + "','"
+                    + pd.getStart() + "','" + pd.getEnd() + "'),");
+        }
+        String sql = buffer.toString();
+        db.execSQL(sql.substring(0, sql.length() - 1));
     }
 
     @Override

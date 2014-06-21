@@ -15,7 +15,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import cn.sharesdk.framework.ShareSDK;
 
@@ -48,9 +48,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener,
     private String token = "";
     private Button btFindWd;// 找回密码按钮
     private Dialog dialog;
-    private Button btThreeButton;// 其他方式登录
     private InputMethodRelativeLayout parent;
-    private LinearLayout layButtom;
+    private TextView buttonTxt;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -91,8 +90,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener,
         btReg.setOnClickListener(this);
         btLogin = (Button) findViewById(R.id.btlogin);
         btLogin.setOnClickListener(this);
-        btThreeButton = (Button) findViewById(R.id.qita);
-        btThreeButton.setOnClickListener(this);
+        // btThreeButton = (Button) findViewById(R.id.qita);
+        // btThreeButton.setOnClickListener(this);
         ediNum = (SearchEditText) findViewById(R.id.edtNum);
         ediNum.setInputType(InputType.TYPE_CLASS_NUMBER);
         ediNum.addTextChangedListener(new EditWather(ediNum, this));
@@ -103,7 +102,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener,
                 ediPassword, this, true));
         ediPassword.setOnFocusChangeListener(new OnEditFocusChangeListener(
                 ediPassword, this));
-        layButtom = (LinearLayout) findViewById(R.id.layoutBottom);
+        buttonTxt = (TextView) findViewById(R.id.buttomTxt);
+        // layButtom = (LinearLayout) findViewById(R.id.layoutBottom);
     }
 
     /**
@@ -191,11 +191,11 @@ public class LoginActivity extends BaseActivity implements OnClickListener,
                 startActivity(intent);
                 Utils.leftOutRightIn(this);
                 break;
-            case R.id.qita:
-                intent = new Intent();
-                intent.setClass(this, ThreeLoginActivity.class);
-                startActivity(intent);
-                Utils.leftOutRightIn(this);
+            // case R.id.qita:
+            // intent = new Intent();
+            // intent.setClass(this, ThreeLoginActivity.class);
+            // startActivity(intent);
+            // Utils.leftOutRightIn(this);
             default:
                 break;
         }
@@ -242,10 +242,13 @@ public class LoginActivity extends BaseActivity implements OnClickListener,
     public void onSizeChange(boolean flag, int w, int h) {
         if (flag) {// 键盘弹出时
             parent.setPadding(0, -150, 0, 0);
-            layButtom.setVisibility(View.GONE);
+            // layButtom.setVisibility(View.GONE);
+            buttonTxt.setVisibility(View.GONE);
+
         } else { // 键盘隐藏时
             parent.setPadding(0, 0, 0, 0);
-            layButtom.setVisibility(View.VISIBLE);
+            // layButtom.setVisibility(View.VISIBLE);
+            buttonTxt.setVisibility(View.VISIBLE);
 
         }
     }

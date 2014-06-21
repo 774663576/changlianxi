@@ -18,6 +18,8 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.ContactsContract;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -89,6 +91,41 @@ public class SelectContactsActivity extends BaseActivity implements
     private Dialog dialog;
     private CircleMember member;
     private HorizontalScrollView scrollview;
+    private boolean isRuning = true;
+    Handler mHandler = new Handler() {
+        public void handleMessage(android.os.Message msg) {
+            switch (msg.what) {
+                case 0:
+                    Cursor cursor = (Cursor) msg.obj;
+                    addContact(cursor);
+                    break;
+
+                default:
+                    break;
+            }
+        };
+    };
+
+    private void addContact(Cursor cursor) {
+        String name = cursor.getString(0);
+        String number = cursor.getString(1);
+        number = StringUtils.StringFilter(number);
+        number = StringUtils.cutHead(number, "86");
+        if (!Utils.isPhoneNum(number)) {
+            return;
+        }
+        String sortKey = cursor.getString(2);
+        int contactId = cursor.getInt(3);
+        Long photoId = cursor.getLong(4);
+        ContactModle modle = new ContactModle();
+        modle.setName(name);
+        modle.setNum(number);
+        modle.setSort_key(sortKey.replace(" ", ""));
+        modle.setPhotoid(photoId);
+        modle.setContactid((long) contactId);
+        listModle.add(modle);
+        adapter.notifyDataSetChanged();
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -126,6 +163,14 @@ public class SelectContactsActivity extends BaseActivity implements
         MobclickAgent.onPageEnd(getClass().getName());
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        isRuning = false;
+        System.out.println("aaaaaaaaaaaaaaaaaaa===");
+
+    }
+
     private void init() {
         Uri uri = Uri.parse("content://com.android.contacts/data/phones"); // 联系人的Uri
         // 联系人的Uri
@@ -152,36 +197,40 @@ public class SelectContactsActivity extends BaseActivity implements
          * 查询结束的回调函数
          */
         @Override
-        protected void onQueryComplete(int token, Object cookie, Cursor cursor) {
+        protected void onQueryComplete(int token, Object cookie,
+                final Cursor cursor) {
             if (dialog != null) {
                 dialog.dismiss();
             }
             if (cursor != null && cursor.getCount() > 0) {
                 cursor.moveToFirst();
-                for (int i = 0; i < cursor.getCount(); i++) {
-                    cursor.moveToPosition(i);
-                    String name = cursor.getString(0);
-                    String number = cursor.getString(1);
-                    number = StringUtils.StringFilter(number);
-                    number = StringUtils.cutHead(number, "86");
-                    if (!Utils.isPhoneNum(number)) {
-                        continue;
+                new Thread() {
+                    public void run() {
+                        for (int i = 0; i < cursor.getCount(); i++) {
+                            cursor.moveToPosition(i);
+                            Message msg = mHandler.obtainMessage();
+                            msg.what = 0;
+                            msg.obj = cursor;
+                            mHandler.sendMessage(msg);
+                            try {
+                                sleep(1);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            if (SelectContactsActivity.this.isFinishing()) {
+                                break;
+                            }
+
+                        }
                     }
-                    String sortKey = cursor.getString(2);
-                    int contactId = cursor.getInt(3);
-                    Long photoId = cursor.getLong(4);
-                    ContactModle modle = new ContactModle();
-                    modle.setName(name);
-                    modle.setNum(number);
-                    modle.setSort_key(sortKey.replace(" ", ""));
-                    modle.setPhotoid(photoId);
-                    modle.setContactid((long) contactId);
-                    listModle.add(modle);
-                }
-                adapter.setData(listModle);
+                }.start();
+
                 new Thread() {
                     public void run() {
                         for (ContactModle modle : listModle) {
+                            if (SelectContactsActivity.this.isFinishing()) {
+                                break;
+                            }
                             modle.setKey_pinyin_fir(PinYinUtils.getFirstPinYin(
                                     modle.getName()).replace(" ", ""));
                         }

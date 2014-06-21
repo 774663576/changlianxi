@@ -69,7 +69,7 @@ public class AvatarImageDetailFragment extends Fragment {
             Bundle savedInstanceState) {
         final View v = inflater.inflate(R.layout.image_detail_fragment,
                 container, false);
-        mImageView = (ImageView) v.findViewById(R.id.image);
+        // mImageView = (ImageView) v.findViewById(R.id.image);
         // mAttacher = new PhotoViewAttacher(mImageView);
         // mAttacher.setOnPhotoTapListener(new OnPhotoTapListener() {
         //
@@ -104,7 +104,7 @@ public class AvatarImageDetailFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if ("".equals(mImageUrl)) {
-            mImageView.setImageResource(defaultImg);
+            photoView.setImageResource(defaultImg);
             return;
         }
         if (!mImageUrl.startsWith("http")) {

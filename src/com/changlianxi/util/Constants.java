@@ -33,6 +33,7 @@ public class Constants {
     public static final String REFUSH_MYCARD = "com.changlianxi.refushMycard";// 刷新个人名片
     public static final String REFUSH_MYCARD_FRMO_NET = "com.changlianxi.refushMycardFromNet";// 从网络后去最新个人名片数据
     public static final String ACCEPT_CIRCLE_INVITATE = "com.changlianxi.acceptCircleInvitate";
+    public static final String REFUSH_CIRCLE_MEMBER = "com.changlianxi.fefushCircleMember";
     /***************************************************/
     public static final String USERLIST_TABLE = "userlist";// 成员列表
     public static final int REQUEST_CODE_GETIMAGE_BYSDCARD = 0;// 选择图片

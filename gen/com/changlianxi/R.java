@@ -871,8 +871,9 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int btnext=0x7f0500e1;
         public static final int btnfinish=0x7f050083;
         public static final int btnsave=0x7f05005d;
-        public static final int btregister=0x7f050067;
+        public static final int btregister=0x7f050066;
         public static final int buttom=0x7f05002d;
+        public static final int buttomTxt=0x7f050067;
         public static final int button=0x7f050138;
         public static final int button1=0x7f050048;
         public static final int button2=0x7f050047;
@@ -1064,7 +1065,6 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int pullListView=0x7f05003f;
         public static final int pulldown_footer_loading=0x7f050123;
         public static final int pulldown_footer_text=0x7f050124;
-        public static final int qita=0x7f050066;
         public static final int realtabcontent=0x7f050069;
         public static final int regisGroup=0x7f050073;
         public static final int relativeLayout1=0x7f050070;

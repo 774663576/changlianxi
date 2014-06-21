@@ -180,9 +180,6 @@ public class PersonDetail extends AbstractData implements Serializable {
     @Override
     public void write(SQLiteDatabase db) {
         String dbName = Const.PERSON_DETAIL_TABLE_NAME1;
-        if (!db.isOpen()) {
-            db = DBUtils.dbase.getReadableDatabase();
-        }
         if (this.status == Status.DEL) {
             db.delete(dbName, "id=? and cid=?", new String[] { id + "",
                     cid + "" });

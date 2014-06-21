@@ -63,7 +63,7 @@
     <string name="all">全部</string>
     <string name="accept_invitation">您邀请了3位好友加入常联系圈子，通知他们接受邀请吧！</string>
     <string name="batch_remind">批量提醒</string>
-    <string name="forget_password">忘记密码?</string>
+    <string name="forget_password">忘记密码</string>
     <string name="other_login">其他方式登录</string>
     <string name="regist_new_user">注册新用户</string>
     <string name="photo_album">相册</string>

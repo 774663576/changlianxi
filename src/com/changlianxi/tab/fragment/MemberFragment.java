@@ -108,6 +108,13 @@ public class MemberFragment extends Fragment implements
                     }
                     isAuth();
                     break;
+                case 1:
+                    lists = circleMemberList.getLegalMembers();
+                    if (lists.size() > 0 && progressDialog != null) {
+                        progressDialog.dismiss();
+                    }
+                    isAuth();
+                    break;
                 default:
                     break;
             }
@@ -250,6 +257,8 @@ public class MemberFragment extends Fragment implements
         IntentFilter myIntentFilter = new IntentFilter();
         myIntentFilter.addAction(Constants.REFRESH_CIRCLE_USER_LIST);
         myIntentFilter.addAction(Constants.UPDECIRNAME);
+        myIntentFilter.addAction(Constants.REFUSH_CIRCLE_MEMBER);
+
         // 注册广播
         getActivity().registerReceiver(mBroadcastReceiver, myIntentFilter);
     }
@@ -267,6 +276,8 @@ public class MemberFragment extends Fragment implements
             } else if (action.equals(Constants.UPDECIRNAME)) {// 更新标题
                 String circleName = intent.getStringExtra("circleName");
                 title.setText(circleName);
+            } else if (action.equals(Constants.REFUSH_CIRCLE_MEMBER)) {// 请求成员列表有返回结果时更新界面
+                mHandler.sendEmptyMessage(1);
             }
         }
     };
@@ -320,10 +331,10 @@ public class MemberFragment extends Fragment implements
                     listView.removeFooterView(fotter);
                 }
                 listView.addFooterView(fotter, null, false);
-                for (int i = lists.size() - 1; i >= 20; i--) {
-                    lists.remove(i);
-                }
-                adapter.setData(lists);
+                // for (int i = lists.size() - 1; i >= 20; i--) {
+                // lists.remove(i);
+                // }
+                // adapter.setData(lists);
             }
         } else {
             btadd.setVisibility(View.VISIBLE);
@@ -346,6 +357,7 @@ public class MemberFragment extends Fragment implements
 
     private void getCircleMembers(int newMemberCount, int newMyDetailEditCount,
             boolean refushNet) {
+        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaa");
         task = new CircleMemberListTask(newMemberCount, newMyDetailEditCount,
                 refushNet);
         task.setTaskCallBack(new BaseAsyncTask.PostCallBack<RetError>() {
@@ -358,6 +370,7 @@ public class MemberFragment extends Fragment implements
                 lists = circleMemberList.getLegalMembers();
                 isAuth();
                 setInviteName();
+                // writeDB();
             }
 
             @Override
@@ -365,6 +378,7 @@ public class MemberFragment extends Fragment implements
                 mHandler.sendEmptyMessage(0);
             }
         });
+
         task.executeWithCheckNet(circleMemberList);
     }
 
@@ -604,6 +618,14 @@ public class MemberFragment extends Fragment implements
     @Override
     public void onMore() {
 
+    }
+
+    private void writeDB() {
+        new Thread() {
+            public void run() {
+                circleMemberList.write(DBUtils.getDBsa(2));
+            }
+        }.start();
     }
 
     @Override
