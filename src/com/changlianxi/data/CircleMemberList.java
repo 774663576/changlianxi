@@ -585,7 +585,6 @@ public class CircleMemberList extends AbstractData {
             } else {
                 // new
                 this.members.add(am);
-                this.total++;
             }
         }
 
@@ -593,6 +592,8 @@ public class CircleMemberList extends AbstractData {
         this.startTime = Math.min(this.startTime, another.getStartTime());
         this.endTime = Math.max(this.endTime, another.getEndTime());
         this.lastReqTime = another.lastReqTime;
+        this.total = this.members.size()
+                + (another.getTotal() - another.getMembers().size());
 
         this.status = Status.UPDATE;
     }
