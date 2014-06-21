@@ -27,7 +27,7 @@ public class CircleMemberListParser implements IParser {
 
         int cid = (Integer) params.get("cid");
         int total = jsonObj.getInt("total");
-        int requestTime = jsonObj.getInt("current");
+        // int requestTime = jsonObj.getInt("current");
         JSONArray jsonArr = jsonObj.getJSONArray("members");
         if (jsonArr == null) {
             return Result.defContentErrorResult();
@@ -46,8 +46,6 @@ public class CircleMemberListParser implements IParser {
             String jobtitle = obj.getString("jobtitle");
             String time = obj.getString("time");
             String location = obj.getString("location");
-            // String role = obj.getString("role_id");
-            // int roleId = "".equals(role) ? 0 : Integer.valueOf(role);
             String roleId = obj.getString("role_id");
             String state = obj.getString("state");
             String auth = obj.getString("auth");
@@ -55,6 +53,7 @@ public class CircleMemberListParser implements IParser {
             String ic = obj.getString("ic");
             String sortkey = obj.getString("py");
             String pinyinFir = obj.getString("jp");
+            
             CircleMember m = new CircleMember(cid, pid, uid);
             m.setName(name);
             m.setCellphone(cellphone);
@@ -78,8 +77,9 @@ public class CircleMemberListParser implements IParser {
             if (start == 0 || tmp < start) {
                 start = tmp;
             }
+
+            // detail properties
             JSONArray jsonDetails = obj.getJSONArray("details");
-            // member properties
             List<PersonDetail> properties = new ArrayList<PersonDetail>();
             for (int j = 0; j < jsonDetails.length(); j++) {
                 JSONObject objDetail = (JSONObject) jsonDetails.opt(j);
@@ -104,6 +104,7 @@ public class CircleMemberListParser implements IParser {
 
                 properties.add(p);
             }
+            
             m.setDetails(properties);
             members.add(m);
         }
@@ -113,12 +114,8 @@ public class CircleMemberListParser implements IParser {
         cml.setTotal(total);
         cml.setStartTime(start);
         cml.setEndTime(end);
-        cml.setLastReqTime(end);
-        // if (total > members.size()) {
-        // cml.setLastReqTime(end);
-        // } else {
-        // cml.setLastReqTime(requestTime);
-        // }
+        cml.setLastReqTime(end); // TODO
+
         Result ret = new Result();
         ret.setData(cml);
 

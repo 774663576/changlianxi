@@ -14,6 +14,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.changlianxi.data.enums.CircleMemberState;
 import com.changlianxi.data.enums.Gendar;
+import com.changlianxi.data.enums.RetError;
 import com.changlianxi.data.enums.RetStatus;
 import com.changlianxi.data.parser.CircleMemberListParser;
 import com.changlianxi.data.parser.IParser;
@@ -46,6 +47,9 @@ import com.changlianxi.util.DateUtils;
 @SuppressLint("UseSparseArrays")
 public class CircleMemberList extends AbstractData {
     public final static String LIST_API = "/circles/imembers";
+    public final static int MAX_INSERT_COUNT_FOR_CIRCLE_MEMBER = 500;
+    public final static int MAX_INSERT_COUNT_FOR_PERSONAL_DETAIL = 500;
+
     private int cid = 0;
     private long startTime = 0L; // data start time, in milliseconds
     private long endTime = 0L; // data end time
@@ -195,7 +199,7 @@ public class CircleMemberList extends AbstractData {
         String conditionsKey = "cid=?";
         String[] conditionsValue = { this.cid + "" };
         Cursor cursor = db.query(Const.CIRCLE_MEMBER_TABLE_NAME, new String[] {
-                "uid", "pid", "name", "cellphone", "location", "gendar",
+                "_id", "uid", "pid", "name", "cellphone", "location", "gendar",
                 "avatar", "birthday", "employer", "jobtitle", "lastModTime",
                 "roleId", "state", "detailIds", "cmid", "inviteCode", "auth",
                 "pinyinFir", "sortkey", "privacySettings", "register" },
@@ -203,6 +207,7 @@ public class CircleMemberList extends AbstractData {
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
             for (int i = 0; i < cursor.getCount(); i++) {
+                int _id = cursor.getInt(cursor.getColumnIndex("_id"));
                 int uid = cursor.getInt(cursor.getColumnIndex("uid"));
                 int pid = cursor.getInt(cursor.getColumnIndex("pid"));
                 String name = cursor.getString(cursor.getColumnIndex("name"));
@@ -240,6 +245,7 @@ public class CircleMemberList extends AbstractData {
                         .getColumnIndex("register"));
 
                 CircleMember member = new CircleMember(cid, pid, uid, name);
+                member.set_id(_id);
                 member.setCellphone(cellphone);
                 member.setLocation(location);
                 member.setGendar(Gendar.parseInt2Gendar(gendar));
@@ -353,59 +359,22 @@ public class CircleMemberList extends AbstractData {
         sort();
     }
 
-    private void writeDetail(SQLiteDatabase db, StringBuffer buffer) {
-        String sql = buffer.toString();
-        db.execSQL(sql.substring(0, sql.length() - 1));
-    }
-
-    @Override
-    public void write(SQLiteDatabase db) {
-        db.beginTransaction();
+    /**
+     * write circle member 1by1
+     * 
+     * @param db
+     * @deprecated too slow for more data
+     */
+    public void writeOneByOne(SQLiteDatabase db) {
         try {
             if (this.status != Status.OLD) {
+                db.beginTransaction(); // TODO
+
                 // write one by one
-                int i = 0;
-                StringBuffer buffer = new StringBuffer();
-                buffer.append("insert into " + Const.PERSON_DETAIL_TABLE_NAME1);
-                buffer.append(" (id,cid,pid,uid,type,value,start,end) values");
-                StringBuffer delBuffer = new StringBuffer();
-                delBuffer
-                        .append("delete from "
-                                + Const.PERSON_DETAIL_TABLE_NAME1
-                                + " where cid=" + cid);
                 for (CircleMember m : members) {
-                    if (!m.getStatus().equals(Status.NEW)) {
-                        continue;
-                    }
                     m.write(db);
-                    // m.writeDetails(db);
-                    delBuffer.append(" or pid=" + m.getPid());
-                    for (PersonDetail pd : m.getDetails()) {
-                        buffer.append("(" + pd.getId() + "," + pd.getCid()
-                                + "," + pd.getPid() + "," + pd.getUid() + ",'"
-                                + pd.getType().name() + "','" + pd.getValue()
-                                + "','" + pd.getStart() + "','" + pd.getEnd()
-                                + "'),");
-                        i++;
-                        if (i > 490) {
-                            db.execSQL(delBuffer.toString());
-                            delBuffer.setLength(0);
-                            delBuffer.append("delete from "
-                                    + Const.PERSON_DETAIL_TABLE_NAME1
-                                    + " where cid=" + cid);
-                            writeDetail(db, buffer);
-                            i = 0;
-                            buffer.setLength(0);
-                            buffer.append("insert into "
-                                    + Const.PERSON_DETAIL_TABLE_NAME1);
-                            buffer.append(" (id,cid,pid,uid,type,value,start,end) values");
-                        }
-                    }
                 }
-                if (i <= 490) {
-                    db.execSQL(delBuffer.toString());
-                    writeDetail(db, buffer);
-                }
+
                 // write last request time
                 ContentValues cv = new ContentValues();
                 cv.put("time", lastReqTime);
@@ -420,9 +389,172 @@ public class CircleMemberList extends AbstractData {
                     db.insert(Const.TIME_RECORD_TABLE_NAME, null, cv);
                 }
 
-                this.status = Status.OLD;
                 db.setTransactionSuccessful();
+                this.status = Status.OLD;
             }
+        } catch (Exception e) { // TODO
+            e.printStackTrace();
+        } finally {
+            db.endTransaction();
+        }
+    }
+
+    @Override
+    public void write(SQLiteDatabase db) {
+        if (this.status == Status.OLD) {
+            return;
+        }
+
+        List<CircleMember> newMembers = new ArrayList<CircleMember>();
+        List<CircleMember> delMembers = new ArrayList<CircleMember>();
+        for (CircleMember m : members) {
+            if (m.status == Status.OLD) {
+                continue;
+            }
+            if (m.status == Status.DEL) {
+                delMembers.add(m);
+                continue;
+            }
+            if (m.status == Status.UPDATE) {
+                delMembers.add(m);
+            }
+            newMembers.add(m);
+        }
+
+        try {
+            db.beginTransaction();
+            StringBuffer sqlBuffer = new StringBuffer();
+
+            // basic info: delete delMembers
+            sqlBuffer.append("delete from " + Const.CIRCLE_MEMBER_TABLE_NAME
+                    + " where _id in (");
+            int cnt = 0;
+            for (CircleMember dm : delMembers) {
+                if (cnt > 0) {
+                    sqlBuffer.append(",");
+                }
+                if (dm.get_id() == 0) {
+                    continue;
+                }
+                sqlBuffer.append(dm.get_id());
+                cnt++;
+            }
+            if (cnt > 0) {
+                sqlBuffer.append(")");
+                db.execSQL(sqlBuffer.toString());
+            }
+            for (CircleMember m : delMembers) {
+                m.setStatus(Status.OLD);
+            }
+
+            // basic info: insert newMembers
+            sqlBuffer = new StringBuffer();
+            sqlBuffer.append("insert into " + Const.CIRCLE_MEMBER_TABLE_NAME
+                    + CircleMember.getDbInsertKeyString() + " values ");
+            cnt = 0;
+            for (CircleMember nm : newMembers) {
+                if (cnt > 0) {
+                    sqlBuffer.append(",");
+                }
+                sqlBuffer.append(nm.toDbInsertString());
+
+                cnt++;
+                if (cnt >= MAX_INSERT_COUNT_FOR_CIRCLE_MEMBER) {
+                    db.execSQL(sqlBuffer.toString());
+
+                    cnt = 0;
+                    sqlBuffer = new StringBuffer();
+                    sqlBuffer.append("insert into "
+                            + Const.CIRCLE_MEMBER_TABLE_NAME
+                            + CircleMember.getDbInsertKeyString() + " values ");
+                }
+            }
+            if (cnt > 0) {
+                db.execSQL(sqlBuffer.toString());
+            }
+            for (CircleMember m : newMembers) {
+                m.setStatus(Status.OLD);
+            }
+
+            // detail info: delete del members' details
+            sqlBuffer.append("delete from " + Const.PERSON_DETAIL_TABLE_NAME1
+                    + " where _id in (");
+            cnt = 0;
+            for (CircleMember dm : delMembers) {
+                for (PersonDetail pd : dm.getDetails()) {
+                    if (cnt > 0) {
+                        sqlBuffer.append(",");
+                    }
+                    if (dm.get_id() == 0) {
+                        continue;
+                    }
+                    sqlBuffer.append(pd.get_id());
+                    cnt++;
+                }
+            }
+            if (cnt > 0) {
+                sqlBuffer.append(")");
+                db.execSQL(sqlBuffer.toString());
+            }
+            for (CircleMember dm : delMembers) {
+                for (PersonDetail pd : dm.getDetails()) {
+                    pd.setStatus(Status.OLD);
+                }
+            }
+
+            // detail info: insert new members' details
+            sqlBuffer = new StringBuffer();
+            sqlBuffer.append("insert into " + Const.PERSON_DETAIL_TABLE_NAME1
+                    + PersonDetail.getDbInsertKeyString() + " values ");
+            cnt = 0;
+            for (CircleMember nm : newMembers) {
+                for (PersonDetail pd : nm.getDetails()) {
+                    if (cnt > 0) {
+                        sqlBuffer.append(",");
+                    }
+                    sqlBuffer.append(pd.toDbInsertString());
+
+                    cnt++;
+                    if (cnt >= MAX_INSERT_COUNT_FOR_PERSONAL_DETAIL) {
+                        db.execSQL(sqlBuffer.toString());
+
+                        cnt = 0;
+                        sqlBuffer = new StringBuffer();
+                        sqlBuffer.append("insert into "
+                                + Const.PERSON_DETAIL_TABLE_NAME1
+                                + PersonDetail.getDbInsertKeyString()
+                                + " values ");
+                    }
+                }
+            }
+            if (cnt > 0) {
+                db.execSQL(sqlBuffer.toString());
+            }
+            for (CircleMember nm : newMembers) {
+                for (PersonDetail pd : nm.getDetails()) {
+                    pd.setStatus(Status.OLD);
+                }
+            }
+
+
+            // reset status
+            this.status = Status.OLD;
+
+            // write last request time
+            ContentValues cv = new ContentValues();
+            cv.put("time", lastReqTime);
+            int affected = db.update(Const.TIME_RECORD_TABLE_NAME, cv,
+                    "key=? and subkey=?", new String[] {
+                            Const.TIME_RECORD_KEY_PREFIX_CIRCLEMEMBER
+                                    + this.cid, "last_req_time" });
+            if (affected == 0) {
+                cv.put("key", Const.TIME_RECORD_KEY_PREFIX_CIRCLEMEMBER
+                        + this.cid);
+                cv.put("subkey", "last_req_time");
+                db.insert(Const.TIME_RECORD_TABLE_NAME, null, cv);
+            }
+
+            db.setTransactionSuccessful();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -435,21 +567,22 @@ public class CircleMemberList extends AbstractData {
         if (!(data instanceof CircleMemberList)) {
             return;
         }
+
         CircleMemberList another = (CircleMemberList) data;
         if (another.members.size() == 0) {
             return;
         }
+
         Map<Integer, CircleMember> olds = new HashMap<Integer, CircleMember>();
         for (CircleMember m : this.members) {
-
             olds.put(m.getPid(), m);
         }
 
         for (CircleMember am : another.members) {
             int pid = am.getPid();
             if (olds.containsKey(pid)) {
-                // mod or del
-                olds.get(pid).updateListSummary(am);
+                // mod
+                olds.get(pid).updateForListRefresh(am);
             } else {
                 // new
                 this.members.add(am);
@@ -463,7 +596,6 @@ public class CircleMemberList extends AbstractData {
         this.lastReqTime = another.lastReqTime;
 
         this.status = Status.UPDATE;
-        // sort();
     }
 
     /**
@@ -498,16 +630,29 @@ public class CircleMemberList extends AbstractData {
             } else {
                 break;
             }
+
             // update for data merge
             update(cml);
-            // BroadCast.sendBroadCast(CLXApplication.getInstance(),
-            // Constants.REFUSH_CIRCLE_MEMBER);
+
             if (cml.getTotal() <= cml.getMembers().size()) {
                 break;
             }
-
             startTime = cml.getEndTime() / 1000;
         }
+    }
+
+    public RetError refreshMembers(long startTime) {
+        Result ret = requestMembers(startTime, 0);
+        if (ret != null && ret.getStatus() == RetStatus.SUCC) {
+        } else {
+            return (ret != null) ? ret.getErr() : null;
+        }
+
+        // update for data merge
+        CircleMemberList cml = (CircleMemberList) ret.getData();
+        update(cml);
+
+        return RetError.NONE;
     }
 
     private Result requestMembers(long startTime, long endTime) {

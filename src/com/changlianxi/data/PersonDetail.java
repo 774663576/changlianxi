@@ -11,10 +11,11 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.changlianxi.data.enums.PersonDetailType;
 import com.changlianxi.db.Const;
-import com.changlianxi.db.DBUtils;
 
 public class PersonDetail extends AbstractData implements Serializable {
     private static final long serialVersionUID = -1090438511326476150L;
+
+    private int _id = 0;
     private int id = 0;
     private int cid = 0;
     private PersonDetailType type = PersonDetailType.UNKNOWN;
@@ -43,6 +44,14 @@ public class PersonDetail extends AbstractData implements Serializable {
         this.value = value;
         this.pid = pid;
         this.uid = uid;
+    }
+
+    public int get_id() {
+        return _id;
+    }
+
+    public void set_id(int _id) {
+        this._id = _id;
     }
 
     public int getUid() {
@@ -126,18 +135,26 @@ public class PersonDetail extends AbstractData implements Serializable {
     @Override
     public void read(SQLiteDatabase db) {
         Cursor cursor = db.query(Const.PERSON_DETAIL_TABLE_NAME1, new String[] {
-                "type", "value", "start", "end" }, "id=? and cid=?",
+                "_id", "uid", "pid", "type", "value", "start", "end" }, "id=? and cid=?",
                 new String[] { this.id + "", this.cid + "" }, null, null, null);
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
+            int _id = cursor.getInt(cursor.getColumnIndex("_id"));
+            int uid = cursor.getInt(cursor.getColumnIndex("uid"));
+            int pid = cursor.getInt(cursor.getColumnIndex("pid"));
             String type = cursor.getString(cursor.getColumnIndex("type"));
             String value = cursor.getString(cursor.getColumnIndex("value"));
             String start = cursor.getString(cursor.getColumnIndex("start"));
             String end = cursor.getString(cursor.getColumnIndex("end"));
+            
+            this._id = _id;
+            this.uid = uid;
+            this.pid = pid;
             this.type = PersonDetailType.convertToType(type);
             this.value = value == null ? "" : value;
             this.start = start;
             this.end = end;
+            
             this.status = Status.OLD;
         }
         cursor.close();
@@ -284,5 +301,15 @@ public class PersonDetail extends AbstractData implements Serializable {
             json.put("end", end);
         }
         return json;
+    }
+
+    public String toDbInsertString() {
+        return "(" + id + "," + cid + "," + pid + "," + uid + ",'"
+                + this.getType().name() + "','" + value + "','" + start + "','"
+                + end + "')";
+    }
+
+    public static String getDbInsertKeyString() {
+        return " (id, cid, pid, uid, type, value, start, end) ";
     }
 }

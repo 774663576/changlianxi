@@ -481,7 +481,7 @@ public class Circle extends AbstractData implements Serializable {
         // members and person details
         dbName = Const.CIRCLE_MEMBER_TABLE_NAME;
         db.delete(dbName, "cid=?", new String[] { cid + "" });
-        dbName = Const.PERSON_DETAIL_TABLE_NAME;
+        dbName = Const.PERSON_DETAIL_TABLE_NAME1;
         db.delete(dbName, "cid=?", new String[] { cid + "" });
 
         // growth, growth images, growth comments

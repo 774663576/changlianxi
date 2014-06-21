@@ -15,7 +15,6 @@ import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteStatement;
 
 import com.changlianxi.data.enums.CircleMemberState;
 import com.changlianxi.data.enums.Gendar;
@@ -121,6 +120,7 @@ public class CircleMember extends AbstractData implements Serializable {
     public final static String PRIVACY_SETTINGS_API = "/circles/iprivacy";
     public final static String INITMYDETAIL_API = "/circles/iinitMyDetail";
 
+    private int _id = 0;
     private int cid = 0;
     private int uid = 0;
     private int pid = 0;
@@ -176,8 +176,16 @@ public class CircleMember extends AbstractData implements Serializable {
         this.inviteRt = inviteRt;
     }
 
-    public boolean isEmpty() {
+    public boolean isEmpty() { // TODO
         return pid == 0 && uid == 0;
+    }
+
+    public int get_id() {
+        return _id;
+    }
+
+    public void set_id(int _id) {
+        this._id = _id;
     }
 
     public int getCid() {
@@ -464,13 +472,14 @@ public class CircleMember extends AbstractData implements Serializable {
             conditionsValue = new String[] { this.cid + "", this.uid + "" };
         }
         Cursor cursor = db.query(Const.CIRCLE_MEMBER_TABLE_NAME, new String[] {
-                "uid", "pid", "name", "cellphone", "location", "gendar",
+                "_id", "uid", "pid", "name", "cellphone", "location", "gendar",
                 "avatar", "birthday", "employer", "jobtitle", "lastModTime",
                 "roleId", "state", "detailIds", "cmid", "inviteCode", "auth",
                 "pinyinFir", "sortkey", "privacySettings", "register" },
                 conditionsKey, conditionsValue, null, null, null);
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
+            int _id = cursor.getInt(cursor.getColumnIndex("_id"));
             int uid = cursor.getInt(cursor.getColumnIndex("uid"));
             int pid = cursor.getInt(cursor.getColumnIndex("pid"));
             String name = cursor.getString(cursor.getColumnIndex("name"));
@@ -503,6 +512,8 @@ public class CircleMember extends AbstractData implements Serializable {
                     .getColumnIndex("privacySettings"));
             String register = cursor.getString(cursor
                     .getColumnIndex("register"));
+            
+            this._id = _id;
             this.uid = uid;
             this.pid = pid;
             this.name = name;
@@ -599,12 +610,13 @@ public class CircleMember extends AbstractData implements Serializable {
             conditionsValue = new String[] { this.cid + "" };
         }
         cursor = db.query(Const.PERSON_DETAIL_TABLE_NAME1, new String[] {
-                "type", "value", "start", "end", "id", "cid", "pid", "uid" },
+                "_id", "id", "cid", "pid", "uid" , "type", "value", "start", "end"},
                 conditionsKey, conditionsValue, null, null, null);
 
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
             for (int i = 0; i < cursor.getCount(); i++) {
+                int _id = cursor.getInt(cursor.getColumnIndex("_id"));
                 int id = cursor.getInt(cursor.getColumnIndex("id"));
                 int cid = cursor.getInt(cursor.getColumnIndex("cid"));
                 int pid = cursor.getInt(cursor.getColumnIndex("pid"));
@@ -614,9 +626,11 @@ public class CircleMember extends AbstractData implements Serializable {
                 String start = cursor.getString(cursor.getColumnIndex("start"));
                 String end = cursor.getString(cursor.getColumnIndex("end"));
                 this.pid = pid;
+                
                 PersonDetail detail = new PersonDetail(id, cid, pid, uid,
                         PersonDetailType.convertToType(type),
                         value == null ? "" : value);
+                detail.set_id(_id);
                 detail.setEnd(end);
                 detail.setStart(start);
                 details.add(detail);
@@ -717,7 +731,7 @@ public class CircleMember extends AbstractData implements Serializable {
             db.update(dbName, cv, conditionsKey, conditionsValue);
         }
         this.status = Status.OLD;
-        // writeDetails(db);
+        // writeDetails(db); // TODO
     }
 
     public void writeDetails1(SQLiteDatabase db) {
@@ -821,7 +835,7 @@ public class CircleMember extends AbstractData implements Serializable {
      * 
      * @param another
      */
-    public void updateListSummary(CircleMember another) {
+    public void updateForListRefresh(CircleMember another) {
         boolean isChange = false;
         if (this.cid != another.cid) {
             this.cid = another.cid;
@@ -835,54 +849,11 @@ public class CircleMember extends AbstractData implements Serializable {
             this.pid = another.pid;
             isChange = true;
         }
-        if (!this.name.equals(another.name)) {
-            this.name = another.name;
-            isChange = true;
-        }
-        if (!this.cellphone.equals(another.cellphone)) {
-            this.cellphone = another.cellphone;
-            isChange = true;
-        }
-        if (!this.location.equals(another.location)) {
-            this.location = another.location;
-            isChange = true;
-        }
-        if (!this.avatar.equals(another.avatar)) {
-            this.avatar = another.avatar;
-            isChange = true;
-        }
-        if (!this.employer.equals(another.employer)) {
-            this.employer = another.employer;
-            isChange = true;
-        }
-        if (!this.jobtitle.equals(another.jobtitle)) {
-            this.jobtitle = another.jobtitle;
-            isChange = true;
-        }
+
         if (!this.lastModTime.equals(another.lastModTime)) {
-            this.lastModTime = another.lastModTime;
             isChange = true;
         }
-        if (this.roleId != another.roleId) {
-            this.roleId = another.roleId;
-            isChange = true;
-        }
-        if (this.state != another.state) {
-            this.state = another.state;
-            isChange = true;
-        }
-        if (this.privacySettings != another.privacySettings) {
-            this.privacySettings = another.privacySettings;
-            isChange = true;
-        }
-        if (this.sortkey != another.sortkey) {
-            this.sortkey = another.sortkey;
-            isChange = true;
-        }
-        if (this.details != another.details) {
-            this.details = another.details;
-            isChange = true;
-        }
+
         if (isChange && this.status == Status.OLD) {
             this.status = Status.UPDATE;
         }
@@ -1728,12 +1699,33 @@ public class CircleMember extends AbstractData implements Serializable {
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
             for (int i = 0; i < cursor.getCount(); i++) {
-                String value = cursor.getString(cursor.getColumnIndex("value"));
-                String type = cursor.getString(cursor.getColumnIndex("type"));
+                // String value =
+                // cursor.getString(cursor.getColumnIndex("value"));
+                // String type =
+                // cursor.getString(cursor.getColumnIndex("type"));
                 cursor.moveToNext();
             }
         }
         cursor.close();
 
     }
+
+    public String toDbInsertString() {
+        return "(" + cid + "," + uid + "," + pid + ",'" + name + "','"
+                + cellphone + "','" + location + "',"
+                + Gendar.parseGendar2Int(gendar) + ",'" + avatar + "','"
+                + birthday + "','" + employer + "','" + jobtitle + "','"
+                + lastModTime + "','" + roleId + "','" + state.name() + "','"
+                + detailIds + "'," + cmid + ",'" + inviteCode + "','" + sortkey
+                + "','" + auth + "','" + pinyinFir + "','" + privacySettings
+                + ",'" + register + "')";
+    }
+
+    public static String getDbInsertKeyString() {
+        return " (cid, uid, pid, name, cellphone, location, gendar, avatar, birthday,"
+                + " employer, jobtitle, lastModTime, roleId integer, state, detailIds,"
+                + " cmid integer, inviteCode, sortkey, auth, pinyinFir, privacySettings,"
+                + " register) ";
+    }
+
 }

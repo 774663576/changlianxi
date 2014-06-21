@@ -21,12 +21,18 @@ public class Const {
             + " detailIds varchar, cmid integer, inviteCode varchar, sortkey varchar, auth varchar,"
             + " pinyinFir varchar, privacySettings varchar, register varchar";
 
+    /**
+     * @deprecated use PERSON_DETAIL_TABLEddd_NAME1
+     */
     public static final String PERSON_DETAIL_TABLE_NAME = "person_details";
+    /**
+     * @deprecated use PERSON_DETAIL_TABLE_STRUCTURE1
+     */
     public static final String PERSON_DETAIL_TABLE_STRUCTURE = "_id integer PRIMARY KEY AUTOINCREMENT,"
             + " id integer, cid integer, type varchar, value varchar, start varchar, end integer";
     public static final String PERSON_DETAIL_TABLE_NAME1 = "person_details1";
     public static final String PERSON_DETAIL_TABLE_STRUCTURE1 = "_id integer PRIMARY KEY AUTOINCREMENT,"
-            + " id integer, cid integer,pid integer,uid integer, type varchar, value varchar, start varchar, end integer";
+            + " id integer, cid integer, pid integer, uid integer, type varchar, value varchar, start varchar, end integer";
     public static final String TIME_RECORD_TABLE_NAME = "time_records";
     public static final String TIME_RECORD_TABLE_STRUCTURE = "_id integer PRIMARY KEY AUTOINCREMENT,"
             + " key varchar, subkey varchar, time long";
