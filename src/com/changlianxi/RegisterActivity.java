@@ -82,6 +82,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,
     private TextView textView2;
     private TextView textView3;
     private int page = 0;
+    private Button btnEmail;
     private Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -178,6 +179,8 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,
                 this));
         ediNum.setInputType(InputType.TYPE_CLASS_NUMBER);
         ediNum.requestFocus();
+        btnEmail = (Button) reg1.findViewById(R.id.btnEmail);
+        btnEmail.setOnClickListener(this);
     }
 
     /**
@@ -329,6 +332,12 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,
                 intent.putExtra("cellphone", txtNum);
                 intent.putExtra("num", 2);
                 startActivityForResult(intent, 1000);
+                break;
+            case R.id.btnEmail:
+                Intent eit = new Intent();
+                eit.setClass(RegisterActivity.this, EmailRegisterActivity.class);
+                startActivity(eit);
+                Utils.leftOutRightIn(this);
                 break;
             default:
                 break;

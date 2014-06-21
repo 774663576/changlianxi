@@ -91,7 +91,6 @@ public class SelectContactsActivity extends BaseActivity implements
     private Dialog dialog;
     private CircleMember member;
     private HorizontalScrollView scrollview;
-    private boolean isRuning = true;
     Handler mHandler = new Handler() {
         public void handleMessage(android.os.Message msg) {
             switch (msg.what) {
@@ -99,7 +98,12 @@ public class SelectContactsActivity extends BaseActivity implements
                     Cursor cursor = (Cursor) msg.obj;
                     addContact(cursor);
                     break;
-
+                case 1:
+                    if (dialog != null) {
+                        dialog.dismiss();
+                    }
+                    adapter.notifyDataSetChanged();
+                    break;
                 default:
                     break;
             }
@@ -124,7 +128,7 @@ public class SelectContactsActivity extends BaseActivity implements
         modle.setPhotoid(photoId);
         modle.setContactid((long) contactId);
         listModle.add(modle);
-        adapter.notifyDataSetChanged();
+        // adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -166,8 +170,6 @@ public class SelectContactsActivity extends BaseActivity implements
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        isRuning = false;
-        System.out.println("aaaaaaaaaaaaaaaaaaa===");
 
     }
 
@@ -199,29 +201,24 @@ public class SelectContactsActivity extends BaseActivity implements
         @Override
         protected void onQueryComplete(int token, Object cookie,
                 final Cursor cursor) {
-            if (dialog != null) {
-                dialog.dismiss();
-            }
             if (cursor != null && cursor.getCount() > 0) {
                 cursor.moveToFirst();
                 new Thread() {
                     public void run() {
                         for (int i = 0; i < cursor.getCount(); i++) {
                             cursor.moveToPosition(i);
-                            Message msg = mHandler.obtainMessage();
-                            msg.what = 0;
-                            msg.obj = cursor;
-                            mHandler.sendMessage(msg);
-                            try {
-                                sleep(1);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
+                            // Message msg = mHandler.obtainMessage();
+                            // msg.what = 0;
+                            // msg.obj = cursor;
+                            // // mHandler.sendMessage(msg);
+                            // mHandler.sendMessageDelayed(msg, 1);
+                            addContact(cursor);
                             if (SelectContactsActivity.this.isFinishing()) {
                                 break;
                             }
 
                         }
+                        mHandler.sendEmptyMessage(1);
                     }
                 }.start();
 

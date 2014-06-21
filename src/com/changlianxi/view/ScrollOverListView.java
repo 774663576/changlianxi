@@ -70,7 +70,7 @@ public class ScrollOverListView extends ListView implements OnScrollListener {
     /** 是否要使用下拉刷新功能 **/
     public boolean showRefresh = true;
     private boolean showLastTime = true;
-    public static boolean canRefleash = true;
+    public static boolean canRefleash = false;
 
     public ScrollOverListView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);

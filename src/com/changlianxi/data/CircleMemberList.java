@@ -58,9 +58,7 @@ public class CircleMemberList extends AbstractData {
     private List<CircleMember> members = new ArrayList<CircleMember>();
 
     enum Type {
-        NEW,
-        MOD,
-        DEL
+        NEW, MOD, DEL
     } // TODO
 
     public CircleMemberList(int cid) {

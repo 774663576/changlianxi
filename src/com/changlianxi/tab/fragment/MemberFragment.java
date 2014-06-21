@@ -47,7 +47,9 @@ import com.changlianxi.popwindow.SearchLayerPopwindow.OnCancleClick;
 import com.changlianxi.task.AcceptCircleInvitationTask;
 import com.changlianxi.task.BaseAsyncTask;
 import com.changlianxi.task.BaseAsyncTask.PostCallBack;
+import com.changlianxi.task.CircleMemberListFirstTask;
 import com.changlianxi.task.CircleMemberListTask;
+import com.changlianxi.task.CircleMemberListTask.GetCircleMemberList;
 import com.changlianxi.task.RefuseCircleInvitationTask;
 import com.changlianxi.util.BroadCast;
 import com.changlianxi.util.Constants;
@@ -90,6 +92,7 @@ public class MemberFragment extends Fragment implements
     private boolean isNewCircle;// 是否是新邀请的圈子
     private List<CircleMember> lists = new ArrayList<CircleMember>();
     private MemberAdapter adapter;
+    private CircleMemberListFirstTask firstTask;
     private CircleMemberListTask task;
     private CircleMemberList circleMemberList;
     private Dialog progressDialog;
@@ -247,7 +250,7 @@ public class MemberFragment extends Fragment implements
         progressDialog.show();
         circleMemberList = new CircleMemberList(cid);
         registerBoradcastReceiver();
-        getCircleMembers(newMemberCount, newMyDetailEditCount, true);
+        getFirstCircleMembers(newMemberCount, newMyDetailEditCount, true);
     }
 
     /**
@@ -272,7 +275,8 @@ public class MemberFragment extends Fragment implements
             String action = intent.getAction();
             if (action.equals(Constants.REFRESH_CIRCLE_USER_LIST)) {// 更新成员列表列表
                 newMemberCount = 1;// 把newMemberCount设为大于0的数
-                getCircleMembers(newMemberCount, newMyDetailEditCount, true);
+                getFirstCircleMembers(newMemberCount, newMyDetailEditCount,
+                        true);
             } else if (action.equals(Constants.UPDECIRNAME)) {// 更新标题
                 String circleName = intent.getStringExtra("circleName");
                 title.setText(circleName);
@@ -355,12 +359,11 @@ public class MemberFragment extends Fragment implements
 
     }
 
-    private void getCircleMembers(int newMemberCount, int newMyDetailEditCount,
-            boolean refushNet) {
-        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaa");
-        task = new CircleMemberListTask(newMemberCount, newMyDetailEditCount,
-                refushNet);
-        task.setTaskCallBack(new BaseAsyncTask.PostCallBack<RetError>() {
+    private void getFirstCircleMembers(int newMemberCount,
+            int newMyDetailEditCount, boolean refushNet) {
+        firstTask = new CircleMemberListFirstTask(newMemberCount,
+                newMyDetailEditCount, refushNet);
+        firstTask.setTaskCallBack(new BaseAsyncTask.PostCallBack<RetError>() {
             @Override
             public void taskFinish(RetError result) {
                 mPullDownView.RefreshComplete();
@@ -370,7 +373,10 @@ public class MemberFragment extends Fragment implements
                 lists = circleMemberList.getLegalMembers();
                 isAuth();
                 setInviteName();
-                // writeDB();
+                System.out.println("size:::::::::::::::::::"+circleMemberList.getTotal()+"      "+lists.size());
+                if (circleMemberList.getTotal() > lists.size()) {
+                    getCircleMember();
+                }
             }
 
             @Override
@@ -379,6 +385,19 @@ public class MemberFragment extends Fragment implements
             }
         });
 
+        firstTask.executeWithCheckNet(circleMemberList);
+    }
+
+    private void getCircleMember() {
+        task = new CircleMemberListTask();
+        task.setFinishCallBack(new GetCircleMemberList() {
+            @Override
+            public void getFinish() {
+                lists = circleMemberList.getLegalMembers();
+                isAuth();
+                setInviteName();
+            }
+        });
         task.executeWithCheckNet(circleMemberList);
     }
 
@@ -402,7 +421,8 @@ public class MemberFragment extends Fragment implements
                 }
                 vsLayInvite.setVisibility(View.GONE);
                 newMemberCount = 1;// 把newMemberCount设为大于0的数
-                getCircleMembers(newMemberCount, newMyDetailEditCount, false);
+                getFirstCircleMembers(newMemberCount, newMyDetailEditCount,
+                        false);
                 Intent intent = new Intent(Constants.ACCEPT_CIRCLE_INVITATE);
                 intent.putExtra("cid", cid);
                 BroadCast.sendBroadCast(getActivity(), intent);
@@ -612,20 +632,12 @@ public class MemberFragment extends Fragment implements
     @Override
     public void onRefresh() {
         newMemberCount = 1;
-        getCircleMembers(newMemberCount, newMyDetailEditCount, true);
+        getFirstCircleMembers(newMemberCount, newMyDetailEditCount, true);
     }
 
     @Override
     public void onMore() {
 
-    }
-
-    private void writeDB() {
-        new Thread() {
-            public void run() {
-                circleMemberList.write(DBUtils.getDBsa(2));
-            }
-        }.start();
     }
 
     @Override

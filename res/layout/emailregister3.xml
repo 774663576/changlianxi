@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/scale228dip"
+        android:shadowColor="#ffffff"
+        android:shadowDx="0.6"
+        android:shadowDy="0.6"
+        android:shadowRadius="0.5"
+        android:text="@string/set_login_password"
+        android:textColor="#5F6761"
+        android:textSize="@dimen/scale36sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/scale34dip"
+        android:layout_marginRight="@dimen/scale34dip"
+        android:layout_marginTop="@dimen/scale52dip"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <com.changlianxi.view.SearchEditText
+            android:id="@+id/editPassword"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/scale129dip"
+            android:background="@drawable/input_top_radius"
+            android:paddingLeft="@dimen/scale44dip"
+            android:paddingRight="15dip"
+            android:inputType="textPassword"
+            android:password="true"
+            android:textColor="#b8b8b8"
+            android:textColorHint="#b8b8b8"
+            android:textSize="@dimen/scale46sp" >
+            <requestFocus />
+        </com.changlianxi.view.SearchEditText>
+
+        <Button
+            android:id="@+id/btfinish_register"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/scale129dip"
+            android:layout_marginLeft="-1dip"
+            android:layout_marginRight="-1dip"
+            android:background="@drawable/bor_radius_bottom"
+            android:text="@string/register_complete"
+            android:textColor="@color/white"
+            android:textSize="@dimen/scale46sp" />
+    </LinearLayout>
+
+
+</LinearLayout>
