@@ -25,6 +25,7 @@ public class GrowthListParser implements IParser {
         int cid = jsonObj.getInt("cid");
         int total = jsonObj.getInt("total");
         int requestTime = jsonObj.getInt("current");
+        String urlBase = jsonObj.getString("urlbase");
         JSONArray jsonArr = jsonObj.getJSONArray("growths");
         if (jsonArr == null) {
             return Result.defContentErrorResult();
@@ -51,7 +52,7 @@ public class GrowthListParser implements IParser {
             for (int j = 0; j < jsonImages.length(); j++) {
                 JSONObject obj2 = (JSONObject) jsonImages.opt(j);
                 int imgId = obj2.getInt("imgid");
-                String img = obj2.getString("img");
+                String img = urlBase + obj2.getString("img");
                 GrowthImage gimg = new GrowthImage(cid, id, imgId, img);
                 images.add(gimg);
             }

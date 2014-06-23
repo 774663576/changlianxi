@@ -25,6 +25,7 @@ public class GrowthYearAlbumParser implements IParser {
         List<GrowthAlbumImages> pics = null;
         List<Growth> growthList = new ArrayList<Growth>();
         int cid = jsonObj.getInt("cid");
+        String urlBase = jsonObj.getString("urlbase");
         JSONArray jsonGrowthAlbum = jsonObj.getJSONArray("albums");
         for (int j = 0; j < jsonGrowthAlbum.length(); j++) {
             JSONObject obj = (JSONObject) jsonGrowthAlbum.opt(j);
@@ -40,7 +41,7 @@ public class GrowthYearAlbumParser implements IParser {
                 int picGrowthID = objPic.getInt("growth_id");
                 String picHappened = objPic.getString("happened");
                 String picLocation = objPic.getString("location");
-                String picPath = objPic.getString("img");
+                String picPath = urlBase + objPic.getString("img");
                 GrowthAlbumImages gimg = new GrowthAlbumImages(cid, picId,
                         picGrowthID, picPath, picHappened, picLocation);
                 pics.add(gimg);

@@ -133,9 +133,6 @@ public class CircleMember extends AbstractData implements Serializable {
     private String employer = "";
     private String jobtitle = "";
     private String lastModTime = "";
-    private int roleId = 0;
-    private String detailIds = "";
-    private String auth = "";
     private String sortkey = "";// 用来排序的关键字
     private String pinyinFir = "";// 名字首字母//搜索时使用
     private List<PersonDetail> details = new ArrayList<PersonDetail>();
@@ -145,7 +142,6 @@ public class CircleMember extends AbstractData implements Serializable {
     private String inviteCode = "";
     private String inviteRt = "1";// 邀请结果标示 1成功 非1失败
     private String inviteContent = "";// 邀请内容 短信预览界面 使用
-    private String privacySettings = "";
     private List<EditData> editData = new ArrayList<EditData>();
     private List<PersonDetail> keyAndValue = new ArrayList<PersonDetail>();
 
@@ -221,11 +217,18 @@ public class CircleMember extends AbstractData implements Serializable {
     }
 
     public String getAvatar() {
-        return avatar;
+        return getAvatar(160); // TODO
     }
 
-    public String getAvatar(String size) {
-        return StringUtils.JoinString(avatar, size);
+    public String getAvatar(int size) {
+        return getAvatar(size, size);
+    }
+
+    public String getAvatar(int width, int height) {
+        if (!avatar.isEmpty()) {
+            return StringUtils.JoinString(avatar, "_" + width + "x" + height);
+        }
+        return "";
     }
 
     public void setAvatar(String avatar) {
@@ -304,28 +307,12 @@ public class CircleMember extends AbstractData implements Serializable {
         this.lastModTime = lastModTime;
     }
 
-    public int getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(int roleId) {
-        this.roleId = roleId;
-    }
-
     public String getRegister() {
         return register;
     }
 
     public void setRegister(String register) {
         this.register = register;
-    }
-
-    public String getDetailIds() {
-        return detailIds;
-    }
-
-    public void setDetailIds(String detailIds) {
-        this.detailIds = detailIds;
     }
 
     public List<PersonDetail> getDetails() {
@@ -378,14 +365,6 @@ public class CircleMember extends AbstractData implements Serializable {
         this.inviteContent = inviteContent;
     }
 
-    public String getAuth() {
-        return auth;
-    }
-
-    public void setAuth(String auth) {
-        this.auth = auth;
-    }
-
     public String getSortkey() {
         return sortkey;
     }
@@ -403,7 +382,7 @@ public class CircleMember extends AbstractData implements Serializable {
     }
 
     public String getPrivacySettings() {
-        return privacySettings;
+        return ""; // TODO
     }
 
     public List<EditData> getEditData() {
@@ -412,45 +391,6 @@ public class CircleMember extends AbstractData implements Serializable {
 
     public void setEditData(List<EditData> editData) {
         this.editData = editData;
-    }
-
-    public List<PersonDetailType> getPrivacyTypes() {
-        String[] ids = privacySettings.split(",");
-        List<PersonDetailType> typeList = new ArrayList<PersonDetailType>();
-        for (String idStr : ids) {
-            int id = Integer.parseInt(idStr);
-            PersonDetailType type = PersonDetailType.convertToType(id);
-            if (type != PersonDetailType.UNKNOWN) {
-                typeList.add(type);
-            }
-        }
-        return typeList;
-    }
-
-    public void setPrivacySettings(String privacySettings) {
-        this.privacySettings = privacySettings;
-    }
-
-    public void setPrivacySettingsByIds(List<Integer> idList) {
-        StringBuffer privacySettings = new StringBuffer();
-        for (int id : idList) {
-            if (privacySettings.length() > 0) {
-                privacySettings.append(',');
-            }
-            privacySettings.append(id);
-        }
-        this.privacySettings = privacySettings.toString();
-    }
-
-    public void setPrivacySettingsByTypes(List<PersonDetailType> typeList) {
-        List<Integer> idList = new ArrayList<Integer>();
-        for (PersonDetailType type : typeList) {
-            int id = PersonDetailType.getID(type);
-            if (id > 0) {
-                idList.add(id);
-            }
-        }
-        setPrivacySettingsByIds(idList);
     }
 
     @Override
@@ -471,17 +411,18 @@ public class CircleMember extends AbstractData implements Serializable {
             conditionsKey = "cid=? and uid=?";
             conditionsValue = new String[] { this.cid + "", this.uid + "" };
         }
+
         Cursor cursor = db.query(Const.CIRCLE_MEMBER_TABLE_NAME, new String[] {
-                "_id", "uid", "pid", "name", "cellphone", "location", "gendar",
-                "avatar", "birthday", "employer", "jobtitle", "lastModTime",
-                "roleId", "state", "detailIds", "cmid", "inviteCode", "auth",
-                "pinyinFir", "sortkey", "privacySettings", "register" },
-                conditionsKey, conditionsValue, null, null, null);
+                "_id", "uid", "pid", "cmid", "name", "cellphone", "location",
+                "gendar", "avatar", "birthday", "employer", "jobtitle",
+                "lastModTime", "state", "inviteCode", "sortkey", "pinyinFir",
+                "register" }, conditionsKey, conditionsValue, null, null, null);
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
             int _id = cursor.getInt(cursor.getColumnIndex("_id"));
             int uid = cursor.getInt(cursor.getColumnIndex("uid"));
             int pid = cursor.getInt(cursor.getColumnIndex("pid"));
+            int cmid = cursor.getInt(cursor.getColumnIndex("cmid"));
             String name = cursor.getString(cursor.getColumnIndex("name"));
             String cellphone = cursor.getString(cursor
                     .getColumnIndex("cellphone"));
@@ -497,25 +438,20 @@ public class CircleMember extends AbstractData implements Serializable {
                     .getColumnIndex("jobtitle"));
             String lastModTime = cursor.getString(cursor
                     .getColumnIndex("lastModTime"));
-            int roleId = cursor.getInt(cursor.getColumnIndex("roleId"));
+
             String state = cursor.getString(cursor.getColumnIndex("state"));
-            String detailIds = cursor.getString(cursor
-                    .getColumnIndex("detailIds"));
-            int cmid = cursor.getInt(cursor.getColumnIndex("cmid"));
             String inviteCode = cursor.getString(cursor
                     .getColumnIndex("inviteCode"));
-            String auth = cursor.getString(cursor.getColumnIndex("auth"));
+            String sortkey = cursor.getString(cursor.getColumnIndex("sortkey"));
             String pinyinFir = cursor.getString(cursor
                     .getColumnIndex("pinyinFir"));
-            String sortkey = cursor.getString(cursor.getColumnIndex("sortkey"));
-            String privacySettings = cursor.getString(cursor
-                    .getColumnIndex("privacySettings"));
             String register = cursor.getString(cursor
                     .getColumnIndex("register"));
 
             this._id = _id;
             this.uid = uid;
             this.pid = pid;
+            this.cmid = cmid;
             this.name = name;
             this.cellphone = cellphone;
             this.location = location;
@@ -525,15 +461,10 @@ public class CircleMember extends AbstractData implements Serializable {
             this.employer = employer;
             this.jobtitle = jobtitle;
             this.lastModTime = lastModTime;
-            this.roleId = roleId;
             this.state = CircleMemberState.convert(state);
-            this.detailIds = detailIds;
-            this.cmid = cmid;
             this.inviteCode = inviteCode;
-            this.auth = auth;
             this.pinyinFir = pinyinFir;
             this.sortkey = sortkey;
-            this.privacySettings = privacySettings;
             this.register = register;
             // set status
             this.status = Status.OLD;
@@ -685,7 +616,6 @@ public class CircleMember extends AbstractData implements Serializable {
 
     @Override
     public void write(SQLiteDatabase db) {
-
         String dbName = Const.CIRCLE_MEMBER_TABLE_NAME;
         if (this.status == Status.OLD) {
             return;
@@ -707,6 +637,7 @@ public class CircleMember extends AbstractData implements Serializable {
         cv.put("cid", cid);
         cv.put("uid", uid);
         cv.put("pid", pid);
+        cv.put("cmid", cmid);
         cv.put("name", name);
         cv.put("cellphone", cellphone);
         cv.put("location", location);
@@ -716,14 +647,10 @@ public class CircleMember extends AbstractData implements Serializable {
         cv.put("employer", employer);
         cv.put("jobtitle", jobtitle);
         cv.put("lastModTime", lastModTime);
-        cv.put("roleId", roleId);
         cv.put("state", state.name());
-        cv.put("cmid", cmid);
         cv.put("inviteCode", inviteCode);
-        cv.put("auth", auth);
-        cv.put("pinyinFir", pinyinFir);
         cv.put("sortkey", sortkey);
-        cv.put("privacySettings", privacySettings);
+        cv.put("pinyinFir", pinyinFir);
         cv.put("register", register);
         if (this.status == Status.NEW) {
             db.insert(dbName, null, cv);
@@ -731,10 +658,13 @@ public class CircleMember extends AbstractData implements Serializable {
             db.update(dbName, cv, conditionsKey, conditionsValue);
         }
         this.status = Status.OLD;
-        // writeDetails(db); // TODO
     }
 
-    public void writeDetails1(SQLiteDatabase db) {
+    /**
+     * 
+     * @param db
+     */
+    public void writeDetails(SQLiteDatabase db) {
         if (cid == 0) {
             db.delete(Const.PERSON_DETAIL_TABLE_NAME1, "cid=?",
                     new String[] { 0 + "" });
@@ -745,27 +675,6 @@ public class CircleMember extends AbstractData implements Serializable {
         for (PersonDetail pd : details) {
             pd.write(db);
         }
-    }
-
-    public void writeDetails(SQLiteDatabase db) {
-        if (cid == 0) {
-            db.delete(Const.PERSON_DETAIL_TABLE_NAME1, "cid=?",
-                    new String[] { 0 + "" });
-        } else {
-            db.delete(Const.PERSON_DETAIL_TABLE_NAME1, "cid=? and pid=? ",
-                    new String[] { cid + "", pid + "" });
-        }
-        StringBuffer buffer = new StringBuffer();
-        buffer.append("insert into " + Const.PERSON_DETAIL_TABLE_NAME1);
-        buffer.append(" (id,cid,pid,uid,type,value,start,end) values");
-        for (PersonDetail pd : details) {
-            buffer.append("(" + pd.getId() + "," + pd.getCid() + ","
-                    + pd.getPid() + "," + pd.getUid() + ",'"
-                    + pd.getType().name() + "','" + pd.getValue() + "','"
-                    + pd.getStart() + "','" + pd.getEnd() + "'),");
-        }
-        String sql = buffer.toString();
-        db.execSQL(sql.substring(0, sql.length() - 1));
     }
 
     @Override
@@ -820,10 +729,6 @@ public class CircleMember extends AbstractData implements Serializable {
             this.jobtitle = another.jobtitle;
             isChange = true;
         }
-        if (!this.auth.equals(another.auth)) {
-            this.auth = another.auth;
-            isChange = true;
-        }
 
         if (isChange && this.status == Status.OLD) {
             this.status = Status.UPDATE;
@@ -866,11 +771,6 @@ public class CircleMember extends AbstractData implements Serializable {
         }
 
         boolean isChange = false;
-        if ("".equals(this.detailIds)) {
-            this.setDetails(another.getDetails());
-            return true;
-        }
-
         Map<Integer, PersonDetail> olds = new HashMap<Integer, PersonDetail>();
         Map<Integer, PersonDetail> news = new HashMap<Integer, PersonDetail>();
         for (PersonDetail cr : this.details) {
@@ -1603,6 +1503,7 @@ public class CircleMember extends AbstractData implements Serializable {
      * @param typeList
      * 
      * @return
+     * @deprecated
      */
     public RetError setPrivacy(List<PersonDetailType> typeList) {
         StringBuffer privacySettings = new StringBuffer();
@@ -1623,7 +1524,7 @@ public class CircleMember extends AbstractData implements Serializable {
         Result ret = ApiRequest.requestWithToken(
                 CircleMember.PRIVACY_SETTINGS_API, params, parser);
         if (ret.getStatus() == RetStatus.SUCC) {
-            this.setPrivacySettingsByTypes(typeList);
+            // this.setPrivacySettingsByTypes(typeList);
             this.status = Status.UPDATE;
 
             return RetError.NONE;
@@ -1711,21 +1612,18 @@ public class CircleMember extends AbstractData implements Serializable {
     }
 
     public String toDbInsertString() {
-        return "(" + cid + "," + uid + "," + pid + ",'" + name + "','"
-                + cellphone + "','" + location + "',"
+        return "(" + cid + "," + uid + "," + pid + "," + cmid + ",'" + name
+                + "','" + cellphone + "','" + location + "',"
                 + Gendar.parseGendar2Int(gendar) + ",'" + avatar + "','"
                 + birthday + "','" + employer + "','" + jobtitle + "','"
-                + lastModTime + "'," + roleId + ",'" + state.name() + "','"
-                + detailIds + "'," + cmid + ",'" + inviteCode + "','" + sortkey
-                + "','" + auth + "','" + pinyinFir + "','" + privacySettings
-                + "','" + register + "')";
+                + lastModTime + "','" + state.name() + "','" + inviteCode
+                + "','" + sortkey + "','" + pinyinFir + "','" + register + "')";
     }
 
     public static String getDbInsertKeyString() {
-        return " (cid, uid, pid, name, cellphone, location, gendar, avatar, birthday,"
-                + " employer, jobtitle, lastModTime, roleId, state, detailIds,"
-                + " cmid, inviteCode, sortkey, auth, pinyinFir, privacySettings,"
-                + " register) ";
+        return " (cid, uid, pid, cmid, name, cellphone, location, gendar, avatar,"
+                + " birthday, employer, jobtitle, lastModTime, state, inviteCode,"
+                + " sortkey, pinyinFir, register) ";
     }
 
 }

@@ -15,11 +15,10 @@ public class Const {
 
     public static final String CIRCLE_MEMBER_TABLE_NAME = "circle_members";
     public static final String CIRCLE_MEMBER_TABLE_STRUCTURE = "_id integer PRIMARY KEY AUTOINCREMENT,"
-            + " cid integer, uid integer, pid integer, name varchar, cellphone varchar, location varchar,"
-            + " gendar integer, avatar varchar, birthday varchar, employer varchar, jobtitle varchar,"
-            + " lastModTime varchar, roleId integer, state varchar,"
-            + " detailIds varchar, cmid integer, inviteCode varchar, sortkey varchar, auth varchar,"
-            + " pinyinFir varchar, privacySettings varchar, register varchar";
+            + " cid integer, uid integer, pid integer, cmid integer, name varchar, cellphone varchar,"
+            + " location varchar, gendar integer, avatar varchar, birthday varchar, employer varchar,"
+            + " jobtitle varchar, lastModTime varchar, state varchar, inviteCode varchar, sortkey varchar,"
+            + " pinyinFir varchar, register varchar";
 
     /**
      * @deprecated use PERSON_DETAIL_TABLEddd_NAME1
