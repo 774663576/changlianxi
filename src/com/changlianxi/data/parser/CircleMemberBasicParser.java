@@ -30,20 +30,14 @@ public class CircleMemberBasicParser implements IParser {
         String name = jsonPerson.getString("name");
         String cellphone = jsonPerson.getString("cellphone");
         String location = jsonPerson.getString("location");
-        int gendar = jsonPerson.getInt("gendar");
         String avatar = jsonPerson.getString("avatar");
-        String birthday = jsonPerson.getString("birthday");
         String employer = jsonPerson.getString("employer");
-        String jobtitle = jsonPerson.getString("jobtitle");
         CircleMember member = new CircleMember(cid, pid, uid);
         member.setName(name);
         member.setCellphone(cellphone);
         member.setLocation(location);
         member.setAvatar(avatar);
-        member.setGendar(gendar);
-        member.setBirthday(birthday);
         member.setEmployer(employer);
-        member.setJobtitle(jobtitle);
 
         Result ret = new Result();
         ret.setData(member);

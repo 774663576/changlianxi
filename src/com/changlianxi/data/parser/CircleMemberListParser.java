@@ -67,10 +67,6 @@ public class CircleMemberListParser implements IParser {
                 String employer = obj.getString("employer");
                 m.setEmployer(employer);
             }
-            if (obj.has("jobtitle")) {
-                String jobtitle = obj.getString("jobtitle");
-                m.setJobtitle(jobtitle);
-            }
             if (obj.has("location")) {
                 String location = obj.getString("location");
                 m.setLocation(location);

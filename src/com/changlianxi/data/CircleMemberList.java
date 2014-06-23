@@ -13,7 +13,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.changlianxi.data.enums.CircleMemberState;
-import com.changlianxi.data.enums.Gendar;
 import com.changlianxi.data.enums.RetError;
 import com.changlianxi.data.enums.RetStatus;
 import com.changlianxi.data.parser.CircleMemberListParser;
@@ -200,9 +199,9 @@ public class CircleMemberList extends AbstractData {
         String[] conditionsValue = { this.cid + "" };
         Cursor cursor = db.query(Const.CIRCLE_MEMBER_TABLE_NAME, new String[] {
                 "_id", "uid", "pid", "cmid", "name", "cellphone", "location",
-                "gendar", "avatar", "birthday", "employer", "jobtitle",
-                "lastModTime", "state", "inviteCode", "sortkey", "pinyinFir"},
-                conditionsKey, conditionsValue, null, null, null);
+                "avatar", "employer", "lastModTime", "state", "inviteCode",
+                "sortkey", "pinyinFir" }, conditionsKey, conditionsValue, null,
+                null, null);
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
             for (int i = 0; i < cursor.getCount(); i++) {
@@ -215,15 +214,10 @@ public class CircleMemberList extends AbstractData {
                         .getColumnIndex("cellphone"));
                 String location = cursor.getString(cursor
                         .getColumnIndex("location"));
-                int gendar = cursor.getInt(cursor.getColumnIndex("gendar"));
                 String avatar = cursor.getString(cursor
                         .getColumnIndex("avatar"));
-                String birthday = cursor.getString(cursor
-                        .getColumnIndex("birthday"));
                 String employer = cursor.getString(cursor
                         .getColumnIndex("employer"));
-                String jobtitle = cursor.getString(cursor
-                        .getColumnIndex("jobtitle"));
                 String lastModTime = cursor.getString(cursor
                         .getColumnIndex("lastModTime"));
                 String state = cursor.getString(cursor.getColumnIndex("state"));
@@ -239,11 +233,8 @@ public class CircleMemberList extends AbstractData {
                 member.setCmid(cmid);
                 member.setCellphone(cellphone);
                 member.setLocation(location);
-                member.setGendar(Gendar.parseInt2Gendar(gendar));
                 member.setAvatar(avatar);
-                member.setBirthday(birthday);
                 member.setEmployer(employer);
-                member.setJobtitle(jobtitle);
                 member.setLastModTime(lastModTime);
                 member.setState(CircleMemberState.convert(state));
                 member.setInviteCode(inviteCode);

@@ -17,7 +17,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.changlianxi.data.enums.CircleMemberState;
-import com.changlianxi.data.enums.Gendar;
 import com.changlianxi.data.enums.PersonDetailType;
 import com.changlianxi.data.enums.RetError;
 import com.changlianxi.data.enums.RetStatus;
@@ -127,11 +126,8 @@ public class CircleMember extends AbstractData implements Serializable {
     private String name = "";
     private String cellphone = "";
     private String location = "";
-    private Gendar gendar = Gendar.UNKNOWN;
     private String avatar = "";
-    private String birthday = "";
     private String employer = "";
-    private String jobtitle = "";
     private String lastModTime = "";
     private String sortkey = "";// 用来排序的关键字
     private String pinyinFir = "";// 名字首字母//搜索时使用
@@ -216,8 +212,12 @@ public class CircleMember extends AbstractData implements Serializable {
         this.name = name;
     }
 
+    public String getOriginalAvatar() {
+        return avatar;
+    }
+
     public String getAvatar() {
-        return getAvatar(160); // TODO
+        return getAvatar(160);
     }
 
     public String getAvatar(int size) {
@@ -243,14 +243,6 @@ public class CircleMember extends AbstractData implements Serializable {
         this.employer = employer;
     }
 
-    public String getJobtitle() {
-        return jobtitle;
-    }
-
-    public void setJobtitle(String jobtitle) {
-        this.jobtitle = jobtitle;
-    }
-
     public CircleMemberState getState() {
         return state;
     }
@@ -273,30 +265,6 @@ public class CircleMember extends AbstractData implements Serializable {
 
     public void setLocation(String location) {
         this.location = location;
-    }
-
-    public Gendar getGendar() {
-        return gendar;
-    }
-
-    public void setGendar(Gendar gendar) {
-        this.gendar = gendar;
-    }
-
-    public void setGendar(int gendar) {
-        this.gendar = Gendar.parseInt2Gendar(gendar);
-    }
-
-    public void setGendar(String gendar) {
-        this.gendar = Gendar.parseString2Gendar(gendar);
-    }
-
-    public String getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
     }
 
     public String getLastModTime() {
@@ -414,9 +382,9 @@ public class CircleMember extends AbstractData implements Serializable {
 
         Cursor cursor = db.query(Const.CIRCLE_MEMBER_TABLE_NAME, new String[] {
                 "_id", "uid", "pid", "cmid", "name", "cellphone", "location",
-                "gendar", "avatar", "birthday", "employer", "jobtitle",
-                "lastModTime", "state", "inviteCode", "sortkey", "pinyinFir",
-                "register" }, conditionsKey, conditionsValue, null, null, null);
+                "avatar", "employer", "lastModTime", "state", "inviteCode",
+                "sortkey", "pinyinFir", "register" }, conditionsKey,
+                conditionsValue, null, null, null);
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
             int _id = cursor.getInt(cursor.getColumnIndex("_id"));
@@ -428,14 +396,9 @@ public class CircleMember extends AbstractData implements Serializable {
                     .getColumnIndex("cellphone"));
             String location = cursor.getString(cursor
                     .getColumnIndex("location"));
-            int gendar = cursor.getInt(cursor.getColumnIndex("gendar"));
             String avatar = cursor.getString(cursor.getColumnIndex("avatar"));
-            String birthday = cursor.getString(cursor
-                    .getColumnIndex("birthday"));
             String employer = cursor.getString(cursor
                     .getColumnIndex("employer"));
-            String jobtitle = cursor.getString(cursor
-                    .getColumnIndex("jobtitle"));
             String lastModTime = cursor.getString(cursor
                     .getColumnIndex("lastModTime"));
 
@@ -455,11 +418,8 @@ public class CircleMember extends AbstractData implements Serializable {
             this.name = name;
             this.cellphone = cellphone;
             this.location = location;
-            this.gendar = Gendar.parseInt2Gendar(gendar);
             this.avatar = avatar;
-            this.birthday = birthday;
             this.employer = employer;
-            this.jobtitle = jobtitle;
             this.lastModTime = lastModTime;
             this.state = CircleMemberState.convert(state);
             this.inviteCode = inviteCode;
@@ -575,9 +535,8 @@ public class CircleMember extends AbstractData implements Serializable {
     public void readMyCard(SQLiteDatabase db) {
         Cursor cursor = db
                 .query(Const.CIRCLE_MEMBER_TABLE_NAME, new String[] { "uid",
-                        "pid", "name", "cellphone", "location", "gendar",
-                        "avatar", "birthday", "employer", "jobtitle",
-                        "register" }, "cid=? and uid=?", new String[] {
+                        "pid", "name", "cellphone", "location", "avatar",
+                        "employer", "register" }, "cid=? and uid=?", new String[] {
                         this.cid + "", this.uid + "" }, null, null, null);
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
@@ -588,14 +547,9 @@ public class CircleMember extends AbstractData implements Serializable {
                     .getColumnIndex("cellphone"));
             String location = cursor.getString(cursor
                     .getColumnIndex("location"));
-            int gendar = cursor.getInt(cursor.getColumnIndex("gendar"));
             String avatar = cursor.getString(cursor.getColumnIndex("avatar"));
-            String birthday = cursor.getString(cursor
-                    .getColumnIndex("birthday"));
             String employer = cursor.getString(cursor
                     .getColumnIndex("employer"));
-            String jobtitle = cursor.getString(cursor
-                    .getColumnIndex("jobtitle"));
             String register = cursor.getString(cursor
                     .getColumnIndex("register"));
             this.uid = uid;
@@ -603,11 +557,8 @@ public class CircleMember extends AbstractData implements Serializable {
             this.name = name;
             this.cellphone = cellphone;
             this.location = location;
-            this.gendar = Gendar.parseInt2Gendar(gendar);
             this.avatar = avatar;
-            this.birthday = birthday;
             this.employer = employer;
-            this.jobtitle = jobtitle;
             this.register = register;
         }
         cursor.close();
@@ -641,11 +592,8 @@ public class CircleMember extends AbstractData implements Serializable {
         cv.put("name", name);
         cv.put("cellphone", cellphone);
         cv.put("location", location);
-        cv.put("gendar", Gendar.parseGendar2Int(gendar));
         cv.put("avatar", avatar);
-        cv.put("birthday", birthday);
         cv.put("employer", employer);
-        cv.put("jobtitle", jobtitle);
         cv.put("lastModTime", lastModTime);
         cv.put("state", state.name());
         cv.put("inviteCode", inviteCode);
@@ -709,24 +657,12 @@ public class CircleMember extends AbstractData implements Serializable {
             this.location = another.location;
             isChange = true;
         }
-        if (this.gendar != another.gendar) {
-            this.gendar = another.gendar;
-            isChange = true;
-        }
         if (!this.avatar.equals(another.avatar)) {
             this.avatar = another.avatar;
             isChange = true;
         }
-        if (!this.birthday.equals(another.birthday)) {
-            this.birthday = another.birthday;
-            isChange = true;
-        }
         if (!this.employer.equals(another.employer)) {
             this.employer = another.employer;
-            isChange = true;
-        }
-        if (!this.jobtitle.equals(another.jobtitle)) {
-            this.jobtitle = another.jobtitle;
             isChange = true;
         }
 
@@ -836,20 +772,6 @@ public class CircleMember extends AbstractData implements Serializable {
                     this.details.add(pd);
                 }
             }
-            type = PersonDetailType.D_GENDAR;
-            if (Gendar.UNKNOWN != this.gendar) {
-                if (type2Details.containsKey(type)) {
-                    type2Details.get(type).setValue(
-                            Gendar.parseGendar2String(this.gendar));
-
-                } else {
-                    PersonDetail pd = new PersonDetail(Integer.MAX_VALUE - 3,
-                            cid);
-                    pd.setType(type);
-                    pd.setValue(Gendar.parseGendar2String(this.gendar));
-                    this.details.add(pd);
-                }
-            }
             type = PersonDetailType.D_AVATAR;
             if (!"".equals(this.avatar)) {
                 if (type2Details.containsKey(type)) {
@@ -862,18 +784,6 @@ public class CircleMember extends AbstractData implements Serializable {
                     this.details.add(pd);
                 }
             }
-            type = PersonDetailType.D_BIRTHDAY;
-            if (!"".equals(this.birthday)) {
-                if (type2Details.containsKey(type)) {
-                    type2Details.get(type).setValue(this.birthday);
-                } else {
-                    PersonDetail pd = new PersonDetail(Integer.MAX_VALUE - 5,
-                            cid);
-                    pd.setType(type);
-                    pd.setValue(this.birthday);
-                    this.details.add(pd);
-                }
-            }
             type = PersonDetailType.D_EMPLOYER;
             if (!"".equals(this.employer)) {
                 if (type2Details.containsKey(type)) {
@@ -883,18 +793,6 @@ public class CircleMember extends AbstractData implements Serializable {
                             cid);
                     pd.setType(type);
                     pd.setValue(this.employer);
-                    this.details.add(pd);
-                }
-            }
-            type = PersonDetailType.D_JOBTITLE;
-            if (!"".equals(this.jobtitle)) {
-                if (type2Details.containsKey(type)) {
-                    type2Details.get(type).setValue(this.jobtitle);
-                } else {
-                    PersonDetail pd = new PersonDetail(Integer.MAX_VALUE - 7,
-                            cid);
-                    pd.setType(type);
-                    pd.setValue(this.jobtitle);
                     this.details.add(pd);
                 }
             }
@@ -916,16 +814,6 @@ public class CircleMember extends AbstractData implements Serializable {
                     this.cellphone = type2Details.get(type).getValue();
                 }
             }
-            type = PersonDetailType.D_GENDAR;
-            if (type2Details.containsKey(type)) {
-                if (type2Details.get(type).getStatus() == Status.DEL) {
-                    this.gendar = Gendar.UNKNOWN;
-                } else {
-                    this.gendar = Gendar.parseString2Gendar(type2Details.get(
-                            type).getValue());
-                }
-
-            }
             type = PersonDetailType.D_AVATAR;
             if (type2Details.containsKey(type)) {
                 if (type2Details.get(type).getStatus() == Status.DEL) {
@@ -934,28 +822,12 @@ public class CircleMember extends AbstractData implements Serializable {
                     this.avatar = type2Details.get(type).getValue();
                 }
             }
-            type = PersonDetailType.D_BIRTHDAY;
-            if (type2Details.containsKey(type)) {
-                if (type2Details.get(type).getStatus() == Status.DEL) {
-                    this.birthday = "";
-                } else {
-                    this.birthday = type2Details.get(type).getValue();
-                }
-            }
             type = PersonDetailType.D_EMPLOYER;
             if (type2Details.containsKey(type)) {
                 if (type2Details.get(type).getStatus() == Status.DEL) {
                     this.employer = "";
                 } else {
                     this.employer = type2Details.get(type).getValue();
-                }
-            }
-            type = PersonDetailType.D_JOBTITLE;
-            if (type2Details.containsKey(type)) {
-                if (type2Details.get(type).getStatus() == Status.DEL) {
-                    this.jobtitle = "";
-                } else {
-                    this.jobtitle = type2Details.get(type).getValue();
                 }
             }
         }
@@ -1386,14 +1258,8 @@ public class CircleMember extends AbstractData implements Serializable {
         params.put("cid", another.cid);
         params.put("name", another.name);
         params.put("cellphone", another.cellphone);
-        if (!"".equals(another.birthday)) {
-            params.put("birthday", another.birthday);
-        }
         if (!"".equals(another.employer)) {
             params.put("employer", another.employer);
-        }
-        if (!"".equals(another.jobtitle)) {
-            params.put("jobtitle", another.jobtitle);
         }
 
         Result ret = ApiRequest.requestWithToken(CircleMember.INVITE_ONE_API,
@@ -1613,17 +1479,16 @@ public class CircleMember extends AbstractData implements Serializable {
 
     public String toDbInsertString() {
         return "(" + cid + "," + uid + "," + pid + "," + cmid + ",'" + name
-                + "','" + cellphone + "','" + location + "',"
-                + Gendar.parseGendar2Int(gendar) + ",'" + avatar + "','"
-                + birthday + "','" + employer + "','" + jobtitle + "','"
-                + lastModTime + "','" + state.name() + "','" + inviteCode
-                + "','" + sortkey + "','" + pinyinFir + "','" + register + "')";
+                + "','" + cellphone + "','" + location + "','" + avatar + "','"
+                + employer + "','" + lastModTime + "','" + state.name() + "','"
+                + inviteCode + "','" + sortkey + "','" + pinyinFir + "','"
+                + register + "')";
     }
 
     public static String getDbInsertKeyString() {
-        return " (cid, uid, pid, cmid, name, cellphone, location, gendar, avatar,"
-                + " birthday, employer, jobtitle, lastModTime, state, inviteCode,"
-                + " sortkey, pinyinFir, register) ";
+        return " (cid, uid, pid, cmid, name, cellphone, location, avatar,"
+                + " employer, lastModTime, state, inviteCode, sortkey, pinyinFir,"
+                + " register) ";
     }
 
 }
