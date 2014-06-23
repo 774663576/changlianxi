@@ -196,5 +196,6 @@
     <string name="title_activity_select_contacts_activity1">SelectContactsActivity1</string>
     <string name="title_activity_user_info_activity1">UserInfoActivity1</string>
     <string name="title_activity_email_register">EmailRegisterActivity</string>
+    <string name="title_activity_email_find_password">EmailFindPasswordActivity</string>
 
 </resources>

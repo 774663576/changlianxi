@@ -223,14 +223,18 @@ public class SelectContactsActivity extends BaseActivity implements
 
                 new Thread() {
                     public void run() {
-                        for (ContactModle modle : listModle) {
+
+                        for (int i = 0; i < listModle.size(); i++)
                             if (SelectContactsActivity.this.isFinishing()) {
-                                break;
+                                return;
+                            } else {
+                                listModle.get(i).setKey_pinyin_fir(
+                                        PinYinUtils.getFirstPinYin(
+                                                listModle.get(i).getName())
+                                                .replace(" ", ""));
                             }
-                            modle.setKey_pinyin_fir(PinYinUtils.getFirstPinYin(
-                                    modle.getName()).replace(" ", ""));
-                        }
                     }
+
                 }.start();
             }
         }

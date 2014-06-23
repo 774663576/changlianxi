@@ -41,7 +41,7 @@
                     android:layout_height="@dimen/scale129dip"
                     android:background="@drawable/input_top_radius"
                     android:gravity="center_vertical"
-                    android:hint="@string/mobile_num"
+                    android:hint="手机号/邮箱地址"
                     android:maxLength="13"
                     android:paddingLeft="@dimen/scale44dip"
                     android:paddingRight="15dip"

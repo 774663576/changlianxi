@@ -86,7 +86,7 @@ public class AddOneMemberActivity extends BaseActivity implements
     private void initView() {
         btnNext = (Button) findViewById(R.id.next);
         editMobile = (SearchEditText) findViewById(R.id.editmobile);
-        editMobile.addTextChangedListener(new EditWather(editMobile, this));
+        // editMobile.addTextChangedListener(new EditWather(editMobile, this));
         editName = (EditText) findViewById(R.id.editname);
         back = (ImageView) findViewById(R.id.back);
         titleTxt = (TextView) findViewById(R.id.titleTxt);
@@ -114,19 +114,26 @@ public class AddOneMemberActivity extends BaseActivity implements
             case R.id.next:
                 editMobile.clearFocus();
                 String name = editName.getText().toString();
-                String mobile = editMobile.getText().toString()
-                        .replace("-", "");
+                String mobile = editMobile.getText().toString().trim();
                 if (name.length() == 0) {
                     Utils.showToast("姓名都没有，不能邀请哦", Toast.LENGTH_SHORT);
                     return;
                 }
                 if (mobile.length() == 0) {
-                    Utils.showToast("手机号没有，不能邀请哦", Toast.LENGTH_SHORT);
+                    Utils.showToast("请输入手机号或者邮箱地址", Toast.LENGTH_SHORT);
                     return;
                 }
-                if (!Utils.isPhoneNum(mobile)) {
-                    Utils.showToast("地球上貌似没有这种格式的手机号码:p", Toast.LENGTH_SHORT);
-                    return;
+                if (mobile.contains("@")) {
+                    if (!Utils.isEmail(mobile)) {
+                        Utils.showToast("邮箱格式不正确", Toast.LENGTH_SHORT);
+                        return;
+                    }
+                } else {
+                    if (!Utils.isPhoneNum(mobile)) {
+                        Utils.showToast("地球上貌似没有这种格式的手机号码:p",
+                                Toast.LENGTH_SHORT);
+                        return;
+                    }
                 }
                 inviteMemberList.clear();
                 CircleMember m = new CircleMember(cid);
@@ -180,7 +187,7 @@ public class AddOneMemberActivity extends BaseActivity implements
                 for (int i = inviteMemberList.size() - 1; i >= 0; i--) {
                     if ("".equals(inviteMemberList.get(i).getInviteCode())) {
                         inviteMemberList.remove(i);
-                        str = "联系人已存";
+                        str = "联系人已存在";
                         break;
                     }
                 }

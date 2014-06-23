@@ -50,25 +50,25 @@
         android:background="@drawable/input_bg"
         android:paddingLeft="20dip" >
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/mobile"
-            android:textColor="#a0a0a0"
-            android:textSize="15sp" />
+        <!-- <TextView -->
+        <!-- android:layout_width="wrap_content" -->
+        <!-- android:layout_height="wrap_content" -->
+        <!-- android:text="@string/mobile" -->
+        <!-- android:textColor="#a0a0a0" -->
+        <!-- android:textSize="15sp" /> -->
 
         <com.changlianxi.view.SearchEditText
             android:id="@+id/editmobile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:inputType="number"
-            android:maxLength="13"
+            android:hint="手机号/邮箱地址"
             android:paddingBottom="10dip"
             android:paddingRight="15dip"
             android:paddingTop="10dip"
             android:singleLine="true"
             android:textColor="#a0a0a0"
+            android:textColorHint="#a0a0a0"
             android:textSize="15sp" />
     </LinearLayout>
 

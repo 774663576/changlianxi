@@ -691,17 +691,6 @@ public class CircleMember extends AbstractData implements Serializable {
         }
 
         if (!this.lastModTime.equals(another.lastModTime)) {
-            this.name = another.name;
-            this.sortkey = another.sortkey;
-            this.pinyinFir = another.pinyinFir;
-            this.avatar = another.avatar;
-            this.cellphone = another.cellphone;
-            this.employer = another.employer;
-            this.inviteCode = another.inviteCode;
-            this.lastModTime = another.lastModTime;
-            this.location = another.location;
-            this.state = another.state;
-
             isChange = true;
         }
 

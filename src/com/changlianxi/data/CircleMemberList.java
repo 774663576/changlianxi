@@ -111,6 +111,7 @@ public class CircleMemberList extends AbstractData {
     public List<CircleMember> getLegalMembers() {
         List<CircleMember> legalMembers = new ArrayList<CircleMember>();
         for (CircleMember cm : this.members) {
+            System.out.println("state::::::::::::"+cm.getName()+"        "+cm.getState());
             if (!CircleMemberState.notInCircle(cm.getState())) {
                 legalMembers.add(cm);
             }

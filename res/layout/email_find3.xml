@@ -2,11 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:gravity="center_horizontal"
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/scale228dip"
@@ -14,7 +15,7 @@
         android:shadowDx="0.6"
         android:shadowDy="0.6"
         android:shadowRadius="0.5"
-        android:text="@string/input_your_phoneNum"
+        android:text="@string/set_password_again"
         android:textColor="#5F6761"
         android:textSize="@dimen/scale36sp" />
 
@@ -27,42 +28,31 @@
         android:gravity="center"
         android:orientation="vertical" >
 
-        <com.changlianxi.view.SearchEditText
-            android:id="@+id/editnum"
+        <EditText
+            android:id="@+id/setPassword"
             android:layout_width="match_parent"
             android:layout_height="@dimen/scale129dip"
             android:background="@drawable/input_top_radius"
-            android:maxLength="13"
+            android:inputType="textPassword"
             android:paddingLeft="@dimen/scale44dip"
             android:paddingRight="15dip"
-            android:singleLine="true"
-            android:textColor="#000000"
-            android:textColorHint="#B8B8B8"
+            android:textColor="#b8b8b8"
+            android:textColorHint="#b8b8b8"
             android:textSize="@dimen/scale46sp" >
-        </com.changlianxi.view.SearchEditText>
+
+            <requestFocus />
+        </EditText>
 
         <Button
-            android:id="@+id/btnext"
+            android:id="@+id/btfinish_register"
             android:layout_width="fill_parent"
             android:layout_height="@dimen/scale129dip"
             android:layout_marginLeft="-1dip"
             android:layout_marginRight="-1dip"
             android:background="@drawable/bor_radius_bottom"
-            android:text="@string/next"
+            android:text="@string/complete"
             android:textColor="@color/white"
             android:textSize="@dimen/scale46sp" />
     </LinearLayout>
-
-    <Button
-        android:id="@+id/btnFindByEmail"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@null"
-        android:gravity="center_horizontal"
-        android:paddingBottom="30dip"
-        android:paddingTop="30dip"
-        android:text="电子邮箱注册用户\n请点击这里找回您的密码"
-        android:textColor="#257dc4"
-        android:textSize="@dimen/scale36sp" />
 
 </LinearLayout>

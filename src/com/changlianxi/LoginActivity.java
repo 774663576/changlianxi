@@ -90,11 +90,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener,
         btReg.setOnClickListener(this);
         btLogin = (Button) findViewById(R.id.btlogin);
         btLogin.setOnClickListener(this);
-        // btThreeButton = (Button) findViewById(R.id.qita);
-        // btThreeButton.setOnClickListener(this);
         ediNum = (SearchEditText) findViewById(R.id.edtNum);
-        ediNum.setInputType(InputType.TYPE_CLASS_NUMBER);
-        ediNum.addTextChangedListener(new EditWather(ediNum, this));
+        // ediNum.addTextChangedListener(new EditWather(ediNum, this));
         ediNum.setOnFocusChangeListener(new OnEditFocusChangeListener(ediNum,
                 this));
         ediPassword = (SearchEditText) findViewById(R.id.edtPassword);
@@ -103,7 +100,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener,
         ediPassword.setOnFocusChangeListener(new OnEditFocusChangeListener(
                 ediPassword, this));
         buttonTxt = (TextView) findViewById(R.id.buttomTxt);
-        // layButtom = (LinearLayout) findViewById(R.id.layoutBottom);
     }
 
     /**
@@ -132,7 +128,13 @@ public class LoginActivity extends BaseActivity implements OnClickListener,
                 String errorCoce = object.getString("err");
                 if (errorCoce.equals("NOT_EXIST_USER")
                         || errorCoce.equals("WRONG_PASSWORD")) {
-                    Utils.showToast("手机号或密码有误！", Toast.LENGTH_SHORT);
+                    if (ediNum.getText().toString().contains("@")) {
+                        Utils.showToast("邮箱地址或密码有误！", Toast.LENGTH_SHORT);
+
+                    } else {
+                        Utils.showToast("手机号或密码有误！", Toast.LENGTH_SHORT);
+
+                    }
                 } else {
                     Utils.showToast("啊哦，登陆没有成功，请查看下您的网络是否正常！",
                             Toast.LENGTH_SHORT);
@@ -166,19 +168,28 @@ public class LoginActivity extends BaseActivity implements OnClickListener,
                     Utils.showToast("杯具，网络不通，快检查下吧！", Toast.LENGTH_SHORT);
                     return;
                 }
-                String num = ediNum.getText().toString().replace("-", "");
+                String num = ediNum.getText().toString();
                 if (ediNum.getText().toString().length() == 0) {
                     Utils.showToast("号码密码都输入，才能登录常联系:)", Toast.LENGTH_SHORT);
                     return;
                 }
-                if (!Utils.isPhoneNum(num)) {
-                    Utils.showToast("地球上貌似没有这种格式的手机号码:)", Toast.LENGTH_SHORT);
-                    ediNum.setFocusable(true);
-                    return;
-                }
-                if (ediPassword.getText().toString().length() == 0) {
-                    Utils.showToast("号码密码都输入，才能登录常联系:)", Toast.LENGTH_SHORT);
-                    return;
+                if (num.contains("@")) {
+                    if (!Utils.isEmail(num)) {
+                        Utils.showToast("邮箱格式不正确", Toast.LENGTH_SHORT);
+                        ediNum.setFocusable(true);
+                        return;
+                    }
+                } else {
+                    if (!Utils.isPhoneNum(num)) {
+                        Utils.showToast("地球上貌似没有这种格式的手机号码:)",
+                                Toast.LENGTH_SHORT);
+                        ediNum.setFocusable(true);
+                        return;
+                    }
+                    if (ediPassword.getText().toString().length() == 0) {
+                        Utils.showToast("号码密码都输入，才能登录常联系:)", Toast.LENGTH_SHORT);
+                        return;
+                    }
                 }
                 Utils.hideSoftInput(this);
                 dialog = DialogUtil.getWaitDialog(this, "登录中");
@@ -207,7 +218,11 @@ public class LoginActivity extends BaseActivity implements OnClickListener,
      */
     private void login(String num) {
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("cellphone", num);
+        if (num.contains("@")) {
+            map.put("email", num);
+        } else {
+            map.put("cellphone", num);
+        }
         map.put("passwd", ediPassword.getText().toString());
         map.put("device", Utils.getModelAndRelease());
         map.put("version", Utils.getVersionName(this));

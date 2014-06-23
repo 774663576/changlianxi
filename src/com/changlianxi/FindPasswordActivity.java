@@ -78,6 +78,7 @@ public class FindPasswordActivity extends BaseActivity implements
     private LinearLayout layButtom;
     private InputMethodRelativeLayout parent;
     private int page = 0;
+    private Button findByEmail;
     private Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -147,7 +148,9 @@ public class FindPasswordActivity extends BaseActivity implements
         ediNum = (SearchEditText) find1.findViewById(R.id.editnum);
         ediNum.addTextChangedListener(new EditWather(ediNum, this));
         ediNum.setInputType(InputType.TYPE_CLASS_NUMBER);
-        ediNum.requestFocus();
+        findByEmail = (Button) find1.findViewById(R.id.btnFindByEmail);
+        findByEmail.setOnClickListener(this);
+
     }
 
     /**
@@ -317,6 +320,11 @@ public class FindPasswordActivity extends BaseActivity implements
                 intent.putExtra("cellphone", phoneNum);
                 intent.putExtra("num", 3);
                 startActivityForResult(intent, 2000);
+                break;
+            case R.id.btnFindByEmail:
+                startActivity(new Intent(this, EmailFindPasswordActivity.class));
+                Utils.leftOutRightIn(this);
+                finish();
                 break;
             default:
                 break;
