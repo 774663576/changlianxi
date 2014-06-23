@@ -14,7 +14,6 @@ import com.changlianxi.data.enums.CircleMemberState;
 import com.changlianxi.data.enums.PersonDetailType;
 import com.changlianxi.data.request.Result;
 import com.changlianxi.util.DateUtils;
-import com.changlianxi.util.StringUtils;
 
 public class CircleMemberListParser implements IParser {
 
@@ -27,6 +26,7 @@ public class CircleMemberListParser implements IParser {
 
         int cid = (Integer) params.get("cid");
         int total = jsonObj.getInt("total");
+        String urlBase = jsonObj.getString("urlbase");
         // int requestTime = jsonObj.getInt("current");
         JSONArray jsonArr = jsonObj.getJSONArray("members");
         if (jsonArr == null) {
@@ -37,38 +37,40 @@ public class CircleMemberListParser implements IParser {
         long start = 0L, end = 0L;
         for (int i = 0; i < jsonArr.length(); i++) {
             JSONObject obj = (JSONObject) jsonArr.opt(i);
-            int pid = obj.getInt("id");
+            int pid = obj.getInt("pid");
             int uid = obj.getInt("uid");
             String name = obj.getString("name");
-            String cellphone = obj.getString("cellphone");
-            String avatar = obj.getString("avatar");
-            String employer = obj.getString("employer");
-            String jobtitle = obj.getString("jobtitle");
-            String time = obj.getString("time");
-            String location = obj.getString("location");
-            // String roleId = obj.getString("role_id");
+            String pinyin = obj.getString("py");
+            String jianpin = obj.getString("jp");
             String state = obj.getString("state");
-            String auth = obj.getString("auth");
-            String privacy = obj.getString("privacy");
             String ic = obj.getString("ic");
-            String sortkey = obj.getString("py");
-            String pinyinFir = obj.getString("jp");
-
+            String time = obj.getString("time");
             CircleMember m = new CircleMember(cid, pid, uid);
             m.setName(name);
-            m.setCellphone(cellphone);
-            m.setAvatar(StringUtils.JoinString(avatar, "_160x160"));
-            m.setEmployer(employer);
-            m.setJobtitle(jobtitle);
-            m.setLocation(location);
-            // m.setRoleId(roleId);
+            m.setSortkey(pinyin);
+            m.setPinyinFir(jianpin);
             m.setState(CircleMemberState.convert(state));
-            m.setPrivacySettings(privacy);
-            m.setSortkey(sortkey);
-            m.setPinyinFir(pinyinFir);
-            m.setAuth(auth);
             m.setLastModTime(time);
             m.setInviteCode(ic);
+
+            if (obj.has("cellphone")) {
+                String cellphone = obj.getString("cellphone");
+                m.setCellphone(cellphone);
+            }
+            if (obj.has("avatar")) {
+                String avatar = obj.getString("avatar").trim();
+                if (!avatar.isEmpty()) {
+                    m.setAvatar(urlBase + avatar);
+                }
+            }
+            if (obj.has("employer")) {
+                String employer = obj.getString("employer");
+                m.setEmployer(employer);
+            }
+            if (obj.has("location")) {
+                String location = obj.getString("location");
+                m.setLocation(location);
+            }
 
             long tmp = DateUtils.convertToDate(time);
             if (end == 0 || tmp > end) {
@@ -84,8 +86,8 @@ public class CircleMemberListParser implements IParser {
             for (int j = 0; j < jsonDetails.length(); j++) {
                 JSONObject objDetail = (JSONObject) jsonDetails.opt(j);
                 int id = objDetail.getInt("id");
-                String type = objDetail.getString("type");
-                String value = objDetail.getString("value");
+                String type = objDetail.getString("t");
+                String value = objDetail.getString("v");
                 PersonDetailType pType = PersonDetailType.convertToType(type);
                 if (pType == PersonDetailType.UNKNOWN) {
                     continue;
@@ -97,9 +99,6 @@ public class CircleMemberListParser implements IParser {
                 }
                 if (objDetail.has("end")) {
                     p.setEnd(objDetail.getString("end"));
-                }
-                if (objDetail.has("remark")) {
-                    p.setRemark(objDetail.getString("remark"));
                 }
 
                 properties.add(p);

@@ -13,7 +13,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.changlianxi.data.enums.CircleMemberState;
-import com.changlianxi.data.enums.Gendar;
 import com.changlianxi.data.enums.RetError;
 import com.changlianxi.data.enums.RetStatus;
 import com.changlianxi.data.parser.CircleMemberListParser;
@@ -197,71 +196,48 @@ public class CircleMemberList extends AbstractData {
         String conditionsKey = "cid=?";
         String[] conditionsValue = { this.cid + "" };
         Cursor cursor = db.query(Const.CIRCLE_MEMBER_TABLE_NAME, new String[] {
-                "_id", "uid", "pid", "name", "cellphone", "location", "gendar",
-                "avatar", "birthday", "employer", "jobtitle", "lastModTime",
-                "roleId", "state", "detailIds", "cmid", "inviteCode", "auth",
-                "pinyinFir", "sortkey", "privacySettings", "register" },
-                conditionsKey, conditionsValue, null, null, null);
+                "_id", "uid", "pid", "cmid", "name", "cellphone", "location",
+                "avatar", "employer", "lastModTime", "state", "inviteCode",
+                "sortkey", "pinyinFir" }, conditionsKey, conditionsValue, null,
+                null, null);
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
             for (int i = 0; i < cursor.getCount(); i++) {
                 int _id = cursor.getInt(cursor.getColumnIndex("_id"));
                 int uid = cursor.getInt(cursor.getColumnIndex("uid"));
                 int pid = cursor.getInt(cursor.getColumnIndex("pid"));
+                int cmid = cursor.getInt(cursor.getColumnIndex("cmid"));
                 String name = cursor.getString(cursor.getColumnIndex("name"));
                 String cellphone = cursor.getString(cursor
                         .getColumnIndex("cellphone"));
                 String location = cursor.getString(cursor
                         .getColumnIndex("location"));
-                int gendar = cursor.getInt(cursor.getColumnIndex("gendar"));
                 String avatar = cursor.getString(cursor
                         .getColumnIndex("avatar"));
-                String birthday = cursor.getString(cursor
-                        .getColumnIndex("birthday"));
                 String employer = cursor.getString(cursor
                         .getColumnIndex("employer"));
-                String jobtitle = cursor.getString(cursor
-                        .getColumnIndex("jobtitle"));
                 String lastModTime = cursor.getString(cursor
                         .getColumnIndex("lastModTime"));
-                // String roleId = cursor.getString(cursor
-                // .getColumnIndex("roleId"));
                 String state = cursor.getString(cursor.getColumnIndex("state"));
-                String detailIds = cursor.getString(cursor
-                        .getColumnIndex("detailIds"));
-                int cmid = cursor.getInt(cursor.getColumnIndex("cmid"));
                 String inviteCode = cursor.getString(cursor
                         .getColumnIndex("inviteCode"));
-                String auth = cursor.getString(cursor.getColumnIndex("auth"));
-                String pinyinFir = cursor.getString(cursor
-                        .getColumnIndex("pinyinFir"));
                 String sortkey = cursor.getString(cursor
                         .getColumnIndex("sortkey"));
-                String privacySettings = cursor.getString(cursor
-                        .getColumnIndex("privacySettings"));
-                String register = cursor.getString(cursor
-                        .getColumnIndex("register"));
+                String pinyinFir = cursor.getString(cursor
+                        .getColumnIndex("pinyinFir"));
 
                 CircleMember member = new CircleMember(cid, pid, uid, name);
                 member.set_id(_id);
+                member.setCmid(cmid);
                 member.setCellphone(cellphone);
                 member.setLocation(location);
-                member.setGendar(Gendar.parseInt2Gendar(gendar));
                 member.setAvatar(avatar);
-                member.setBirthday(birthday);
                 member.setEmployer(employer);
-                member.setJobtitle(jobtitle);
                 member.setLastModTime(lastModTime);
-                // member.setRoleId(roleId);
                 member.setState(CircleMemberState.convert(state));
-                member.setDetailIds(detailIds);
-                member.setCmid(cmid);
                 member.setInviteCode(inviteCode);
-                member.setAuth(auth);
                 member.setPinyinFir(pinyinFir);
                 member.setSortkey(sortkey);
-                member.setPrivacySettings(privacySettings);
-                member.setRegister(register);
                 // set status
                 member.setStatus(Status.OLD);
 
@@ -366,7 +342,7 @@ public class CircleMemberList extends AbstractData {
     public void writeOneByOne(SQLiteDatabase db) {
         try {
             if (this.status != Status.OLD) {
-                db.beginTransaction(); // TODO
+                db.beginTransaction();
 
                 // write one by one
                 for (CircleMember m : members) {
@@ -390,7 +366,7 @@ public class CircleMemberList extends AbstractData {
                 db.setTransactionSuccessful();
                 this.status = Status.OLD;
             }
-        } catch (Exception e) { // TODO
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
             db.endTransaction();

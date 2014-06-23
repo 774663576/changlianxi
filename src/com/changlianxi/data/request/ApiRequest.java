@@ -15,6 +15,7 @@ import com.changlianxi.util.Logger;
 import com.changlianxi.util.Logger.Level;
 
 public class ApiRequest {
+    public static final int API_VERSION = 2;
 
     private static Result parse(IParser parser, String httpResult,
             Map<String, Object> params) {
@@ -45,6 +46,7 @@ public class ApiRequest {
             Map<String, Object> params, IParser parser) {
         params.put("uid", uid);
         params.put("token", token);
+        params.put("v", API_VERSION);
         for (String key : params.keySet()) {
             Logger.out("ApiRequest.request",
                     "[param] " + key + ", " + params.get(key), Level.DEBUG);
@@ -68,6 +70,7 @@ public class ApiRequest {
             IParser parser) {
         params.put("uid", uid);
         params.put("token", token);
+        params.put("v", API_VERSION);
         for (String key : params.keySet()) {
             Logger.out("ApiRequest.request",
                     "[param] " + key + ", " + params.get(key), Level.DEBUG);
@@ -91,6 +94,7 @@ public class ApiRequest {
             String pkey, IParser parser) {
         params.put("uid", uid);
         params.put("token", token);
+        params.put("v", API_VERSION);
         for (String key : params.keySet()) {
             Logger.out("ApiRequest.request",
                     "[param] " + key + ", " + params.get(key), Level.DEBUG);
