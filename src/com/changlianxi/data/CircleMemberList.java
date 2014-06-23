@@ -594,6 +594,7 @@ public class CircleMemberList extends AbstractData {
                 + (another.getTotal() - another.getMembers().size());
 
         this.status = Status.UPDATE;
+        sort();
     }
 
     /**

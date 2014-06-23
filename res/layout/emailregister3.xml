@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:gravity="center_horizontal"
     android:orientation="vertical" >
 
@@ -27,20 +28,20 @@
         android:gravity="center"
         android:orientation="vertical" >
 
-        <com.changlianxi.view.SearchEditText
-            android:id="@+id/editPassword"
+        <EditText
+            android:id="@+id/setPassword"
             android:layout_width="match_parent"
             android:layout_height="@dimen/scale129dip"
             android:background="@drawable/input_top_radius"
+            android:inputType="textPassword"
             android:paddingLeft="@dimen/scale44dip"
             android:paddingRight="15dip"
-            android:inputType="textPassword"
-            android:password="true"
             android:textColor="#b8b8b8"
             android:textColorHint="#b8b8b8"
             android:textSize="@dimen/scale46sp" >
+
             <requestFocus />
-        </com.changlianxi.view.SearchEditText>
+        </EditText>
 
         <Button
             android:id="@+id/btfinish_register"
@@ -53,6 +54,5 @@
             android:textColor="@color/white"
             android:textSize="@dimen/scale46sp" />
     </LinearLayout>
-
 
 </LinearLayout>

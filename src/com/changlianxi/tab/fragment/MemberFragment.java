@@ -113,10 +113,8 @@ public class MemberFragment extends Fragment implements
                     break;
                 case 1:
                     lists = circleMemberList.getLegalMembers();
-                    if (lists.size() > 0 && progressDialog != null) {
-                        progressDialog.dismiss();
-                    }
                     isAuth();
+                    setInviteName();
                     break;
                 default:
                     break;
@@ -281,7 +279,6 @@ public class MemberFragment extends Fragment implements
                 String circleName = intent.getStringExtra("circleName");
                 title.setText(circleName);
             } else if (action.equals(Constants.REFUSH_CIRCLE_MEMBER)) {// 请求成员列表有返回结果时更新界面
-                mHandler.sendEmptyMessage(1);
             }
         }
     };
@@ -373,8 +370,8 @@ public class MemberFragment extends Fragment implements
                 lists = circleMemberList.getLegalMembers();
                 isAuth();
                 setInviteName();
-                System.out.println("size:::::::::::::::::::"+circleMemberList.getTotal()+"      "+lists.size());
-                if (circleMemberList.getTotal() > lists.size()) {
+                if (circleMemberList.getTotal() > circleMemberList.getMembers()
+                        .size()) {
                     getCircleMember();
                 }
             }
@@ -393,9 +390,8 @@ public class MemberFragment extends Fragment implements
         task.setFinishCallBack(new GetCircleMemberList() {
             @Override
             public void getFinish() {
-                lists = circleMemberList.getLegalMembers();
-                isAuth();
-                setInviteName();
+                mHandler.sendEmptyMessage(1);
+
             }
         });
         task.executeWithCheckNet(circleMemberList);
