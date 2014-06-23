@@ -23,6 +23,7 @@ public class MyCardTask extends BaseAsyncTask<MyCard, Void, RetError> {
         db.beginTransaction();
         try {
             card.write(DBUtils.getDBsa(2));
+            card.writeDetails(DBUtils.getDBsa(2));
             db.setTransactionSuccessful();
         } catch (Exception e) {
             e.printStackTrace();

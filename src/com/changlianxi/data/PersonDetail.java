@@ -160,48 +160,22 @@ public class PersonDetail extends AbstractData implements Serializable {
         cursor.close();
     }
 
-    // @Override
-    // public void write(SQLiteDatabase db) {
-    // String dbName = Const.PERSON_DETAIL_TABLE_NAME;
-    // if (!db.isOpen()) {
-    // db = DBUtils.dbase.getReadableDatabase();
-    // }
-    // if (this.status == Status.OLD) {
-    // return;
-    // }
-    // if (this.status == Status.DEL) {
-    // if (cid == 0) {// cid为0是为个人名片删除，所以在圈子中也应该删除对应选项
-    // db.delete(dbName, "id=?", new String[] { id + "", });
-    // } else {
-    // db.delete(dbName, "id=? and cid=?", new String[] { id + "",
-    // cid + "" });
-    // }
-    // return;
-    // }
-    // ContentValues cv = new ContentValues();
-    // cv.put("id", id);
-    // cv.put("cid", cid);
-    // cv.put("type", type.name()); // TODO encrypt
-    // cv.put("value", value);
-    // cv.put("start", start);
-    // cv.put("end", end);
-    // if (this.status == Status.NEW) {
-    // db.insert(dbName, null, cv);
-    //
-    // } else if (this.status == Status.UPDATE) {
-    // db.update(dbName, cv, "id=? and cid=?", new String[] { id + "",
-    // cid + "" });
-    // }
-    // this.status = Status.OLD;
-    // }
     @Override
     public void write(SQLiteDatabase db) {
         String dbName = Const.PERSON_DETAIL_TABLE_NAME1;
-        if (this.status == Status.DEL) {
-            db.delete(dbName, "id=? and cid=?", new String[] { id + "",
-                    cid + "" });
+        if (this.status == Status.OLD) {
             return;
         }
+        if (this.status == Status.DEL) {
+            if (cid == 0) {// for my card
+                db.delete(dbName, "id=?", new String[] { id + "", });
+            } else {
+                db.delete(dbName, "id=? and cid=?", new String[] { id + "",
+                        cid + "" });
+            }
+            return;
+        }
+        
         ContentValues cv = new ContentValues();
         cv.put("id", id);
         cv.put("cid", cid);
@@ -211,12 +185,13 @@ public class PersonDetail extends AbstractData implements Serializable {
         cv.put("value", value);
         cv.put("start", start);
         cv.put("end", end);
-        if (this.status == Status.UPDATE) {
+        if (this.status == Status.NEW) {
+            db.insert(dbName, null, cv);
+        } else if (this.status == Status.UPDATE) {
             db.update(dbName, cv, "id=? and cid=?", new String[] { id + "",
                     cid + "" });
-            return;
         }
-        db.insert(dbName, null, cv);
+        this.status = Status.OLD;
     }
 
     @Override
