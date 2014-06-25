@@ -14,7 +14,6 @@ import android.widget.GridView;
 import android.widget.ImageView;
 
 import com.changlianxi.data.GrowthImage;
-import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.StringUtils;
 import com.changlianxi.util.UniversalImageLoadTool;
 import com.umeng.analytics.MobclickAgent;
@@ -83,7 +82,7 @@ public class SelectShareImageActivity extends BaseActivity implements
                 holder = (ViewHolder) convertView.getTag();
             }
             holder.img.setTag(path);
-            path = StringUtils.JoinString(path, "_200x200");
+            path = images.get(position).getImg(200);
             UniversalImageLoadTool.disPlay(path, 
                     holder.img, R.drawable.empty_photo);
             return convertView;

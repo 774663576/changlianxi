@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.tsz.afinal.bitmap.core.BitmapDisplayConfig;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -19,7 +18,7 @@ import android.widget.TextView;
 import com.changlianxi.showBigPic.AvatarImagePagerActivity;
 import com.changlianxi.util.BitmapUtils;
 import com.changlianxi.util.Constants;
-import com.changlianxi.util.RotateImageViewAware;
+import com.changlianxi.util.StringUtils;
 import com.changlianxi.util.UniversalImageLoadTool;
 import com.changlianxi.view.CircularImage;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -90,7 +89,7 @@ public class NoExistPersonInfoActivity extends BaseActivity implements
                 break;
             case R.id.avatar:
                 List<String> imgUrl = new ArrayList<String>();
-                imgUrl.add(avatarUrl.replace("_160x160", ""));
+                imgUrl.add(StringUtils.revertAliyunOSSImageUrl(avatarUrl));
                 Intent intent = new Intent(this, AvatarImagePagerActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(Constants.EXTRA_IMAGE_URLS,

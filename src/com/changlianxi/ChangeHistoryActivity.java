@@ -197,7 +197,7 @@ public class ChangeHistoryActivity extends BaseActivity implements
             if (lists.get(position).getType() == PersonDetailType.D_AVATAR) {
                 holder.content.setVisibility(View.GONE);
                 holder.avatar.setVisibility(View.VISIBLE);
-                String path = StringUtils.JoinString(value, "_160x160");
+                String path = StringUtils.getAliyunOSSImageUrl(value, 160, 160);
                 UniversalImageLoadTool.disPlay(path, holder.avatar,
                         R.drawable.head_bg);
             } else {

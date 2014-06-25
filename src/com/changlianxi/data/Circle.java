@@ -162,12 +162,16 @@ public class Circle extends AbstractData implements Serializable {
         this.description = description;
     }
 
-    public String getLogo() {
+    public String getOriginalLogo() {
         return logo;
     }
+    
+    public String getLogo() {
+        return getLogo(160);
+    }
 
-    public String getLogo(String size) {
-        return StringUtils.JoinString(logo, size);
+    public String getLogo(int size) {
+        return StringUtils.getAliyunOSSImageUrl(logo, size, size);
     }
 
     public void setLogo(String logo) {

@@ -297,8 +297,7 @@ public class MyCard extends CircleMember {
             upDateEditData(aret.getArrs().get(1));
             if (!"".equals(aret.getAvatar())) {
                 ContentValues cv = new ContentValues();
-                cv.put("avatar",
-                        StringUtils.JoinString(aret.getAvatar(), "_160x160"));
+                cv.put("avatar", aret.getAvatar());
                 DBUtils.getDBsa(2).update(Const.CIRCLE_MEMBER_TABLE_NAME, cv,
                         "cid=? ", new String[] { 0 + "" });
             }

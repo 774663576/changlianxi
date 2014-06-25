@@ -56,9 +56,7 @@ public class GrowthImgAdapter extends BaseAdapter {
             UniversalImageLoadTool.disPlay("file://" + path, holder.img,
                     R.drawable.empty_photo);
         } else {
-            path = StringUtils.JoinString(path, "_200x200");
-            // UniversalImageLoadTool.disPlay(path, new RotateImageViewAware(
-            // holder.img, path), R.drawable.empty_photo);
+            path = listData.get(position).getImg(200);
             UniversalImageLoadTool.disPlay(path, holder.img,
                     R.drawable.empty_photo);
         }

@@ -367,10 +367,8 @@ public class CommentsListItemActivity extends BaseActivity implements
             content.setVisibility(View.VISIBLE);
         }
         if (size == 1) {
-            String imgPath = growth.getImages().get(0).getImg();
-            if (imgPath.startsWith("http")) {
-                imgPath = StringUtils.JoinString(imgPath, "_500x500");
-            } else {
+            String imgPath = growth.getImages().get(0).getImg(500);
+            if (!imgPath.startsWith("http")) {
                 imgPath = "file://" + imgPath;
             }
 

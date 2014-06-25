@@ -144,8 +144,7 @@ public class GrowthAdapter extends BaseAdapter {
             holder.gridView.setVisibility(View.GONE);
             String imgPath = listData.get(position).getImages().get(0).getImg();
             if (imgPath.startsWith("http")) {
-                imgPath = StringUtils.JoinString(listData.get(position)
-                        .getImages().get(0).getImg(), "_500x500");
+                imgPath = listData.get(position).getImages().get(0).getImg(500);
             } else {
                 imgPath = "file://" + imgPath;
             }

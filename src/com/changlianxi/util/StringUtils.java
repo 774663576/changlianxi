@@ -265,6 +265,89 @@ public class StringUtils {
             return "贡献者：" + name + count + "人";
         }
         return "贡献者：" + name + "等" + count + "人";
+    }
+    
+    /**
+     * 从阿里云的处理后的图片地址复原到原始地址
+     * 
+     * @param url
+     * @return
+     */
+    public static String revertAliyunOSSImageUrl(String url) {
+        if ((url == null) || url.isEmpty()) {
+            return "";
+        }
+        if (url.indexOf('@') > 0) {
+            return url.substring(0, url.lastIndexOf('@'));
+        }
+        return url;
+    }
 
+    
+    /**
+     * 得到通过阿里云图片服务进行图片缩放后的图片url地址
+     * 
+     * @param url
+     * @param width
+     * @param height
+     * @return
+     */
+    public static String getAliyunOSSImageUrl(String url, int width, int height) {
+        return getAliyunOSSImageUrl(url, width, height, false, false, false,
+                false, 100, 100, 0, null);
+    }
+
+    /**
+     * 得到通过阿里云图片服务进行图片处理后的图片url地址
+     * 
+     * @param url, 原始图片地址
+     * @param width, 目标图片宽度
+     * @param height, 目标图片高度
+     * @param immobilize, 目标图片是否固定矿高，默认不固定
+     * @param cut, 目标图片是否剪切，默认不剪切
+     * @param edge, 缩放是长边优先还是短边优先，默认长边优先
+     * @param orient, 是否根据相机拍摄方向自适应目标图片，默认不自适应
+     * @param relativeQuality, 目标图片的相对质量，默认100
+     * @param absoluteQuality, 目标图片的绝对质量，默认100
+     * @param multiple, 目标图片的尺寸调整倍数，默认1
+     * @param format, 目标图片的格式，默认是原始图片的格式
+     * @return
+     */
+    public static String getAliyunOSSImageUrl(String url, int width,
+            int height, boolean immobilize, boolean cut, boolean edge,
+            boolean orient, int relativeQuality, int absoluteQuality,
+            int multiple, String format) {
+        if ((url == null) || url.isEmpty()) {
+            return "";
+        }
+
+        String fix = width + "w_" + height + "h";
+        if (immobilize) {
+            fix += "_1i";
+        }
+        if (cut) {
+            fix += "_1c";
+        }
+        if (edge) {
+            fix += "_1e";
+        }
+        if (orient) {
+            fix += "_1o";
+        }
+        if ((relativeQuality > 0) && (relativeQuality < 100)) {
+            fix += "_" + relativeQuality + "q";
+        }
+        if ((absoluteQuality > 0) && (absoluteQuality < 100)) {
+            fix += "_" + absoluteQuality + "Q";
+        }
+        if (multiple > 0) {
+            fix += "_" + multiple + "x";
+        }
+        if ((format == null) || format.isEmpty()) {
+            format = url.substring(url.lastIndexOf('.'));
+        }
+        fix += format;
+
+        return url + '@' + fix;
     }
 }

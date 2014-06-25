@@ -12,7 +12,6 @@ import com.changlianxi.data.Circle;
 import com.changlianxi.data.CircleList;
 import com.changlianxi.data.enums.CircleMemberState;
 import com.changlianxi.data.request.Result;
-import com.changlianxi.util.StringUtils;
 
 public class CircleListParser implements IParser {
 
@@ -43,7 +42,7 @@ public class CircleListParser implements IParser {
             int myInvitor = obj.getInt("inviter");
             String editState = obj.getString("edit_state");
             Circle c = new Circle(id, name);
-            c.setLogo(StringUtils.JoinString(logo, "_160x160"));
+            c.setLogo(logo);
             c.setDescription(description);
             c.setCreator(creator);
             c.setJoinTime(joinTime);

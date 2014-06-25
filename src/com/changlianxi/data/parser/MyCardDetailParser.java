@@ -40,9 +40,6 @@ public class MyCardDetailParser implements IParser {
             int id = obj.getInt("id");
             String type = obj.getString("type");
             String value = obj.getString("value");
-            if ("D_AVATAR".equals(type)) {
-                value = StringUtils.JoinString(value, "_160x160");
-            }
             PersonDetailType pType = PersonDetailType.convertToType(type);
             if (pType == PersonDetailType.UNKNOWN) {
                 continue;
