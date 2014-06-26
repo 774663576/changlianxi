@@ -224,6 +224,21 @@ public class Utils {
     }
 
     /**
+     * 发送邮件
+     * @param email
+     * @param title
+     * @param content
+     */
+    public static void sendEmail(Context context, String email, String title,
+            String content) {
+        Intent data = new Intent(Intent.ACTION_SENDTO);
+        data.setData(Uri.parse("mailto:" + email));
+        data.putExtra(Intent.EXTRA_SUBJECT, title);
+        data.putExtra(Intent.EXTRA_TEXT, content);
+        context.startActivity(data);
+    }
+
+    /**
      * 获取设备imei
      * @param context
      * @return

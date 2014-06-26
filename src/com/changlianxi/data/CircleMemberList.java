@@ -111,7 +111,6 @@ public class CircleMemberList extends AbstractData {
     public List<CircleMember> getLegalMembers() {
         List<CircleMember> legalMembers = new ArrayList<CircleMember>();
         for (CircleMember cm : this.members) {
-            System.out.println("state::::::::::::"+cm.getName()+"        "+cm.getState());
             if (!CircleMemberState.notInCircle(cm.getState())) {
                 legalMembers.add(cm);
             }
@@ -197,10 +196,10 @@ public class CircleMemberList extends AbstractData {
         String conditionsKey = "cid=?";
         String[] conditionsValue = { this.cid + "" };
         Cursor cursor = db.query(Const.CIRCLE_MEMBER_TABLE_NAME, new String[] {
-                "_id", "uid", "pid", "cmid", "name", "cellphone", "location",
-                "avatar", "employer", "lastModTime", "state", "inviteCode",
-                "sortkey", "pinyinFir" }, conditionsKey, conditionsValue, null,
-                null, null);
+                "_id", "uid", "pid", "cmid", "name", "cellphone",
+                "account_email", "location", "avatar", "employer",
+                "lastModTime", "state", "inviteCode", "sortkey", "pinyinFir" },
+                conditionsKey, conditionsValue, null, null, null);
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
             for (int i = 0; i < cursor.getCount(); i++) {
@@ -211,6 +210,8 @@ public class CircleMemberList extends AbstractData {
                 String name = cursor.getString(cursor.getColumnIndex("name"));
                 String cellphone = cursor.getString(cursor
                         .getColumnIndex("cellphone"));
+                String account_email = cursor.getString(cursor
+                        .getColumnIndex("account_email"));
                 String location = cursor.getString(cursor
                         .getColumnIndex("location"));
                 String avatar = cursor.getString(cursor
@@ -231,6 +232,7 @@ public class CircleMemberList extends AbstractData {
                 member.set_id(_id);
                 member.setCmid(cmid);
                 member.setCellphone(cellphone);
+                member.setAccount_email(account_email);
                 member.setLocation(location);
                 member.setAvatar(avatar);
                 member.setEmployer(employer);

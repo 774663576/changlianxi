@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.changlianxi.R;
 import com.changlianxi.data.Circle;
 import com.changlianxi.data.CircleMember;
+import com.changlianxi.data.Global;
 import com.changlianxi.data.enums.CircleMemberState;
 import com.changlianxi.db.DBUtils;
 import com.changlianxi.util.StringUtils;
@@ -99,13 +100,9 @@ public class MemberAdapter extends BaseAdapter {
         holder.authState.setVisibility(View.VISIBLE);
         holder.btnWarn.setVisibility(View.GONE);
         String employer = circleMembers.get(position).getEmployer();
-        if (circleMembers.get(position).getPrivacySettings().contains("5")) {
-            holder.info.setText(circleMembers.get(position).getLocation());
-        } else {
-            holder.info
-                    .setText("".equals(employer) || "null".equals(employer) ? circleMembers
-                            .get(position).getLocation() : employer);
-        }
+        holder.info
+                .setText("".equals(employer) || "null".equals(employer) ? circleMembers
+                        .get(position).getLocation() : employer);
         String name = StringUtils.cutEight(circleMembers.get(position)
                 .getName());
         // String name = circleMembers.get(position).getName();
@@ -113,12 +110,15 @@ public class MemberAdapter extends BaseAdapter {
         if (!name.equals("")) {
             holder.lastName.setText(name.substring(name.length() - 1));
         }
+        String accountEmail = circleMembers.get(position).getAccount_email();
         if (isAuth) {
-            holder.news.setText(circleMembers.get(position).getCellphone());
+            holder.news.setText("".equals(accountEmail) ? circleMembers.get(
+                    position).getCellphone() : accountEmail);
             authState(holder, state);
         } else {
-            holder.news.setText(StringUtils.replaceNum(circleMembers.get(
-                    position).getCellphone()));
+            holder.news.setText("".equals(accountEmail) ? StringUtils
+                    .replaceNum(circleMembers.get(position).getCellphone())
+                    : accountEmail);
             authState(holder, state);
         }
         showAlpha(position, holder);
@@ -230,6 +230,17 @@ public class MemberAdapter extends BaseAdapter {
             String content = Utils.getWarnContent(circleMembers, circleMembers
                     .get(position).getName(), circleName,
                     circleMembers.get(position).getInviteCode());
+            if (!"".equals(circleMembers.get(position).getAccount_email())) {
+                CircleMember self = new CircleMember(circleMembers
+                        .get(position).getCid(), 0, Global.getIntUid());
+                self.getNameAndAvatar(DBUtils.getDBsa(1));
+                String title = circleMembers.get(position).getName() + ","
+                        + self.getName() + "邀请您加入 【" + circleName
+                        + "】在线\"在线常联系圈子\"";
+                Utils.sendEmail(context, circleMembers.get(position)
+                        .getAccount_email(), title, content);
+                return;
+            }
             Utils.sendSMS(context, content, circleMembers.get(position)
                     .getCellphone());
             ((Activity) context).overridePendingTransition(

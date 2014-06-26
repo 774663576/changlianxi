@@ -132,6 +132,7 @@ public class MemberFragment extends Fragment implements
         newMemberCount = getArguments().getInt("newMemberCount");
         newMyDetailEditCount = getArguments().getInt("newMyDetailEditCount");
         isNewCircle = getArguments().getBoolean("isNewCircle", false);
+
     }
 
     @Override

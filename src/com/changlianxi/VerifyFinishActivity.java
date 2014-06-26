@@ -82,7 +82,6 @@ public class VerifyFinishActivity extends BaseActivity implements
         titleName = (TextView) findViewById(R.id.titleTxt);
         titleName.setText("验证手机号");
         bg = (LinearLayout) findViewById(R.id.bg);
-        bg.setBackgroundResource(R.drawable.back_trans6);
         parent = (InputMethodRelativeLayout) findViewById(R.id.Layparent);
         parent.setOnSizeChangedListenner(this);
         layButtom = (LinearLayout) findViewById(R.id.layoutBottom);

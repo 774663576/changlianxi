@@ -102,7 +102,6 @@ public class VerifyWaitActivity extends BaseActivity implements
                 .replace("-", "");
         txtShowNum.setText(getIntent().getExtras().getString("cellphone"));
         bg = (LinearLayout) findViewById(R.id.bg);
-        bg.setBackgroundResource(R.drawable.back_trans6);
         title = (TextView) findViewById(R.id.titleTxt);
         title.setText("验证手机号");
         parent = (InputMethodRelativeLayout) findViewById(R.id.Layparent);

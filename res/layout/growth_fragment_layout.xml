@@ -38,12 +38,12 @@
             android:textSize="15sp" />
     </LinearLayout>
 
-    <com.changlianxi.view.PullDownViewGrowth
+    <com.changlianxi.view.PullDownView
         android:id="@+id/PullDownlistView"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_below="@+id/prompt"
         android:cacheColorHint="@android:color/transparent" >
-    </com.changlianxi.view.PullDownViewGrowth>
+    </com.changlianxi.view.PullDownView>
 
 </RelativeLayout>

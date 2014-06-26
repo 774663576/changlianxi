@@ -52,7 +52,11 @@ public class CircleMemberListParser implements IParser {
             m.setState(CircleMemberState.convert(state));
             m.setLastModTime(time);
             m.setInviteCode(ic);
-
+            if (obj.has("account_email")) {
+                String account_email = obj.getString("account_email");
+                m.setAccount_email(account_email);
+                System.out.println("email::::::::::::::" + account_email);
+            }
             if (obj.has("cellphone")) {
                 String cellphone = obj.getString("cellphone");
                 m.setCellphone(cellphone);

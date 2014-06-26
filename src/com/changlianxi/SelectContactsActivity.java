@@ -140,8 +140,8 @@ public class SelectContactsActivity extends BaseActivity implements
         titleTxt.setText("添加第一批成员");
         if (type.equals("add")) {
             titleTxt.setText("添加成员");
-            cid = getIntent().getIntExtra("cid", 0);
         }
+        cid = getIntent().getIntExtra("cid", 0);
         adapter = new ContactsAdapter(listModle);
         listview.setAdapter(adapter);
         asyncQuery = new MyAsyncQueryHandler(getContentResolver());
@@ -474,7 +474,7 @@ public class SelectContactsActivity extends BaseActivity implements
                         (Serializable) selectMembers);
                 intent.putExtras(bundle);
                 intent.setClass(this, CreateCircleActivity.class);
-                intent.putExtra("type", "more");
+                intent.putExtra("cid", cid);
                 startActivity(intent);
                 finish();
                 Utils.leftOutRightIn(this);

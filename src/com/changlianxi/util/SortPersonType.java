@@ -26,52 +26,63 @@ public class SortPersonType {
     public static List<Integer> workID = new ArrayList<Integer>();
 
     static {
-        typeSort.put(PersonDetailType.D_NAME, 1);
-        typeSort.put(PersonDetailType.D_GENDAR, 5);
-        typeSort.put(PersonDetailType.D_BIRTHDAY, 4);
-        typeSort.put(PersonDetailType.D_EMPLOYER, 2);
-        typeSort.put(PersonDetailType.D_JOBTITLE, 3);
-        typeSort.put(PersonDetailType.D_NICKNAME, 6);
-        typeSort.put(PersonDetailType.D_REMARK, 7);
-        typeSort.put(PersonDetailType.D_CELLPHONE, 8);
-        typeSort.put(PersonDetailType.D_WORK_PHONE, 10);
-        typeSort.put(PersonDetailType.D_HOME_PHONE, 11);
-        typeSort.put(PersonDetailType.D_MOBILE, 9);
-        typeSort.put(PersonDetailType.D_PRIVATE_PHONE, 12);
-        typeSort.put(PersonDetailType.D_WORK_FAX, 13);
-        typeSort.put(PersonDetailType.D_HOME_FAX, 14);
-        typeSort.put(PersonDetailType.D_PAGER, 15);
-        typeSort.put(PersonDetailType.D_SHORT_PHONE, 16);
-        typeSort.put(PersonDetailType.D_OTHER_PHONE, 17);
-        typeSort.put(PersonDetailType.D_EMAIL, 18);
-        typeSort.put(PersonDetailType.D_PERSONAL_EMAIL, 20);
-        typeSort.put(PersonDetailType.D_WORK_EMAIL, 19);
-        typeSort.put(PersonDetailType.D_OTHER_EMAIL, 21);
-        typeSort.put(PersonDetailType.D_WORK_ADDRESS, 24);
-        typeSort.put(PersonDetailType.D_HOME_ADDRESS, 23);
-        typeSort.put(PersonDetailType.D_BIRTH_PLACE, 22);
-        typeSort.put(PersonDetailType.D_QQ, 26);
-        typeSort.put(PersonDetailType.D_WEIXIN, 25);
-        typeSort.put(PersonDetailType.D_SINA_WEIBO, 27);
-        typeSort.put(PersonDetailType.D_RENREN, 28);
-        typeSort.put(PersonDetailType.D_QQ_WEIBO, 29);
-        typeSort.put(PersonDetailType.D_TWITTER, 32);
-        typeSort.put(PersonDetailType.D_FACEBOOK, 31);
-        typeSort.put(PersonDetailType.D_SKYPE, 33);
-        typeSort.put(PersonDetailType.D_BLOG, 30);
-        typeSort.put(PersonDetailType.D_COLLEGE, 39);
-        typeSort.put(PersonDetailType.D_SENIOR_SCHOOL, 38);
-        typeSort.put(PersonDetailType.D_JUNIOR_COLLEGE, 41);
-        typeSort.put(PersonDetailType.D_TECHNICAL_SCHOOL, 40);
-        typeSort.put(PersonDetailType.D_JUNIOR_SCHOOL, 37);
-        typeSort.put(PersonDetailType.D_GRADE_SCHOOL, 36);
-        typeSort.put(PersonDetailType.D_MASTER_COLLEGE, 42);
-        typeSort.put(PersonDetailType.D_KINDER_GARTEN, 35);
-        typeSort.put(PersonDetailType.D_PHD_COLLEGE, 43);
-        typeSort.put(PersonDetailType.D_JOB, 44);
+        typeSort.put(PersonDetailType.D_AVATAR, 1);
+        typeSort.put(PersonDetailType.D_NAME, 2);
+        typeSort.put(PersonDetailType.D_EMPLOYER, 3);
+        typeSort.put(PersonDetailType.D_JOBTITLE, 4);
+        typeSort.put(PersonDetailType.D_BIRTHDAY, 5);
+        typeSort.put(PersonDetailType.D_GRE_BIRTHDAY, 6);
+        typeSort.put(PersonDetailType.D_GENDAR, 7);
+        typeSort.put(PersonDetailType.D_NICKNAME, 8);
+        typeSort.put(PersonDetailType.D_REMARK, 9);
+
+        typeSort.put(PersonDetailType.D_CELLPHONE, 10);
+        typeSort.put(PersonDetailType.D_MOBILE, 11);
+        typeSort.put(PersonDetailType.D_WORK_PHONE, 12);
+        typeSort.put(PersonDetailType.D_HOME_PHONE, 13);
+        typeSort.put(PersonDetailType.D_PRIVATE_PHONE, 14);
+        typeSort.put(PersonDetailType.D_WORK_FAX, 15);
+        typeSort.put(PersonDetailType.D_HOME_FAX, 16);
+        typeSort.put(PersonDetailType.D_PAGER, 17);
+        typeSort.put(PersonDetailType.D_SHORT_PHONE, 18);
+        typeSort.put(PersonDetailType.D_OTHER_PHONE, 19);
+
+        typeSort.put(PersonDetailType.D_ACCOUNT_EMAIL, 20);
+        typeSort.put(PersonDetailType.D_EMAIL, 21);
+        typeSort.put(PersonDetailType.D_WORK_EMAIL, 22);
+        typeSort.put(PersonDetailType.D_PERSONAL_EMAIL, 23);
+        typeSort.put(PersonDetailType.D_OTHER_EMAIL, 24);
+
+        typeSort.put(PersonDetailType.D_BIRTH_PLACE, 25);
+        typeSort.put(PersonDetailType.D_CURRENT_ADDRESS, 26);
+        typeSort.put(PersonDetailType.D_POSTAL_ADDRESS, 27);
+        typeSort.put(PersonDetailType.D_HOME_ADDRESS, 28);
+        typeSort.put(PersonDetailType.D_WORK_ADDRESS, 29);
+
+        typeSort.put(PersonDetailType.D_WEIXIN, 30);
+        typeSort.put(PersonDetailType.D_QQ, 31);
+        typeSort.put(PersonDetailType.D_SINA_WEIBO, 32);
+        typeSort.put(PersonDetailType.D_RENREN, 33);
+        typeSort.put(PersonDetailType.D_QQ_WEIBO, 34);
+        typeSort.put(PersonDetailType.D_BLOG, 35);
+        typeSort.put(PersonDetailType.D_FACEBOOK, 36);
+        typeSort.put(PersonDetailType.D_TWITTER, 37);
+        typeSort.put(PersonDetailType.D_SKYPE, 38);
+
+        typeSort.put(PersonDetailType.D_KINDER_GARTEN, 39);
+        typeSort.put(PersonDetailType.D_GRADE_SCHOOL, 40);
+        typeSort.put(PersonDetailType.D_JUNIOR_SCHOOL, 41);
+        typeSort.put(PersonDetailType.D_SENIOR_SCHOOL, 42);
+        typeSort.put(PersonDetailType.D_COLLEGE, 43);
+        typeSort.put(PersonDetailType.D_TECHNICAL_SCHOOL, 44);
+        typeSort.put(PersonDetailType.D_JUNIOR_COLLEGE, 45);
+        typeSort.put(PersonDetailType.D_MASTER_COLLEGE, 46);
+        typeSort.put(PersonDetailType.D_PHD_COLLEGE, 47);
+        typeSort.put(PersonDetailType.D_JOB, 48);
 
         basic.add(PersonDetailType.D_BIRTHDAY);
         basic.add(PersonDetailType.D_REMARK);
+        basic.add(PersonDetailType.D_GRE_BIRTHDAY);
         basic.add(PersonDetailType.D_NICKNAME);
         basic.add(PersonDetailType.D_JOBTITLE);
         basic.add(PersonDetailType.D_EMPLOYER);
@@ -100,6 +111,7 @@ public class SortPersonType {
         social.add(PersonDetailType.D_WEIXIN);
 
         email.add(PersonDetailType.D_EMAIL);
+        email.add(PersonDetailType.D_ACCOUNT_EMAIL);
         email.add(PersonDetailType.D_PERSONAL_EMAIL);
         email.add(PersonDetailType.D_WORK_EMAIL);
         email.add(PersonDetailType.D_OTHER_EMAIL);
@@ -107,6 +119,8 @@ public class SortPersonType {
         add.add(PersonDetailType.D_WORK_ADDRESS);
         add.add(PersonDetailType.D_HOME_ADDRESS);
         add.add(PersonDetailType.D_BIRTH_PLACE);
+        add.add(PersonDetailType.D_CURRENT_ADDRESS);
+        add.add(PersonDetailType.D_POSTAL_ADDRESS);
 
         edu.add(PersonDetailType.D_OTHER_EDU);
         edu.add(PersonDetailType.D_KINDER_GARTEN);
@@ -124,19 +138,19 @@ public class SortPersonType {
         for (int i = 10; i < 20; i++) {
             contactPhoneID.add(i);
         }
-        for (int i = 20; i < 24; i++) {
+        for (int i = 20; i < 25; i++) {
             emailID.add(i);
         }
-        for (int i = 24; i < 27; i++) {
+        for (int i = 25; i < 30; i++) {
             addID.add(i);
         }
-        for (int i = 27; i < 37; i++) {
+        for (int i = 30; i < 39; i++) {
             socialID.add(i);
         }
-        for (int i = 37; i < 47; i++) {
+        for (int i = 39; i < 48; i++) {
             eduID.add(i);
         }
-        workID.add(47);
+        workID.add(48);
     }
 
     public static Comparator<Info> getComparator() {

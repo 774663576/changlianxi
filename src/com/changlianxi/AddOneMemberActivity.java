@@ -27,7 +27,6 @@ import com.changlianxi.task.IinviteCircleMemberTask;
 import com.changlianxi.util.BroadCast;
 import com.changlianxi.util.Constants;
 import com.changlianxi.util.DialogUtil;
-import com.changlianxi.util.EditWather;
 import com.changlianxi.util.Utils;
 import com.changlianxi.view.SearchEditText;
 import com.umeng.analytics.MobclickAgent;
@@ -57,9 +56,7 @@ public class AddOneMemberActivity extends BaseActivity implements
         setContentView(R.layout.activity_add_one_member);
         CLXApplication.addInviteActivity(this);
         type = getIntent().getStringExtra("type");
-        if (type.equals("add")) {
-            cid = getIntent().getIntExtra("cid", 0);
-        }
+        cid = getIntent().getIntExtra("cid", 0);
         initView();
         setListener();
     }
@@ -86,7 +83,6 @@ public class AddOneMemberActivity extends BaseActivity implements
     private void initView() {
         btnNext = (Button) findViewById(R.id.next);
         editMobile = (SearchEditText) findViewById(R.id.editmobile);
-        // editMobile.addTextChangedListener(new EditWather(editMobile, this));
         editName = (EditText) findViewById(R.id.editname);
         back = (ImageView) findViewById(R.id.back);
         titleTxt = (TextView) findViewById(R.id.titleTxt);
@@ -146,6 +142,7 @@ public class AddOneMemberActivity extends BaseActivity implements
                     bundle.putSerializable("contactsList",
                             (Serializable) (Serializable) inviteMemberList);
                     intent.putExtras(bundle);
+                    intent.putExtra("cid", cid);
                     intent.setClass(this, CreateCircleActivity.class);
                     startActivity(intent);
                     Utils.leftOutRightIn(this);
@@ -217,24 +214,11 @@ public class AddOneMemberActivity extends BaseActivity implements
 
                     @Override
                     public void onCancleClick() {
-                        intentSmsPreviewActivity();
+                        CLXApplication.exitSmsInvite();
+                        Utils.rightOut(AddOneMemberActivity.this);
                     }
                 });
         dialog.show();
-    }
-
-    /**
-     * 跳转到短信预览界面
-     */
-    private void intentSmsPreviewActivity() {
-        Intent intent = new Intent();
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("contactsList", (Serializable) inviteMemberList);
-        intent.putExtras(bundle);
-        intent.setAction(Constants.CIRCLE_MEMBERS_INVITE_WARN);
-        BroadCast.sendBroadCast(this, intent);
-        CLXApplication.exitSmsInvite();
-        Utils.rightOut(this);
     }
 
     @Override

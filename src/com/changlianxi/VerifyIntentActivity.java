@@ -41,6 +41,7 @@ public class VerifyIntentActivity extends BaseActivity {
     private Timer timer;
     private ImageView back;
     private String str;
+    private TextView title;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +53,8 @@ public class VerifyIntentActivity extends BaseActivity {
                 + getIntent().getExtras().getString("cellphone");
         textView = (TextView) findViewById(R.id.textView3);
         textView.setText("您已通过本手机向服务器发送了验证短信“常联系”，我们正在努力验证您的个人信息，请稍候。");
+        title = (TextView) findViewById(R.id.titleTxt);
+        title.setText("验证注册短信");
         timer = new Timer();
         timer.scheduleAtFixedRate(new MyTask(), 1, 5000);
         back = (ImageView) findViewById(R.id.back);

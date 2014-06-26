@@ -9,8 +9,11 @@ public class CircleListTask extends BaseAsyncTask<CircleList, Void, RetError> {
     private CircleList circleList = null; // TODO
     private boolean refushNet = false;// 从网络刷新数据
     private boolean refushNotify = false;// 刷新圈子提示信息
+    private boolean readDB = true;
 
-    public CircleListTask(boolean refushNet, boolean refushNotify) {
+    public CircleListTask(boolean readDB, boolean refushNet,
+            boolean refushNotify) {
+        this.readDB = readDB;
         this.refushNet = refushNet;
         this.refushNotify = refushNotify;
     }
@@ -22,8 +25,10 @@ public class CircleListTask extends BaseAsyncTask<CircleList, Void, RetError> {
             return null;
         }
         circleList = params[0];
-        circleList.read(DBUtils.getDBsa(1));
-        callBack.readDBFinish();
+        if (readDB) {
+            circleList.read(DBUtils.getDBsa(1));
+            callBack.readDBFinish();
+        }
         if (!refushNet) {
             return RetError.NONE;
         }

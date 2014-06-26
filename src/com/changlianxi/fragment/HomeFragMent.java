@@ -22,18 +22,16 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
-import android.view.ViewStub;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.changlianxi.AddCircleMemberActivity;
+import com.changlianxi.CircleGuideActivity;
 import com.changlianxi.R;
 import com.changlianxi.adapter.CircleAdapter;
 import com.changlianxi.data.AbstractData.Status;
@@ -45,7 +43,7 @@ import com.changlianxi.db.DBUtils;
 import com.changlianxi.popwindow.HomeSearchLayerPopwindow;
 import com.changlianxi.popwindow.HomeSearchLayerPopwindow.OnCancleClick;
 import com.changlianxi.slidingmenu.lib.app.SlidingActivity;
-import com.changlianxi.tab.fragment.MainTabActivity;
+import com.changlianxi.tab.fragment.MainTabActivity1;
 import com.changlianxi.task.BaseAsyncTask.PostCallBack;
 import com.changlianxi.task.CircleListTask;
 import com.changlianxi.util.Constants;
@@ -70,13 +68,10 @@ public class HomeFragMent extends Fragment implements OnClickListener,
     private ImageView imgPromte;
     private CircleListTask circleListTask;
     private Dialog dialog;
-    private ViewStub firstPromptLayout;
     private LinearLayout searchLayout;
     private RelativeLayout titleLayout;
     private RelativeLayout parentLayout;
     private HomeSearchLayerPopwindow popWindow;
-    private Button btnOk;
-    private Button btnCancle;
     private OpenMyCardFragment callBack;
     private boolean isMoveing = false;
     private Handler mHandler = new Handler() {
@@ -138,10 +133,6 @@ public class HomeFragMent extends Fragment implements OnClickListener,
         searchLayout = (LinearLayout) getView().findViewById(R.id.searchLayout);
         search = (EditText) getView().findViewById(R.id.search);
         imgPromte = (ImageView) getView().findViewById(R.id.imgNews);
-        if (SharedUtils.getInt("loginType", 0) == 1) {
-            initLayPrompt();
-            imgPromte.setVisibility(View.VISIBLE);
-        }
         getPrompt();
         setListener();
 
@@ -164,19 +155,9 @@ public class HomeFragMent extends Fragment implements OnClickListener,
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                return MotionEvent.ACTION_MOVE == event.getAction() ? true
-                        : false;
-                // switch (event.getAction()) {
-                // case MotionEvent.ACTION_UP:
-                // isMoveing = false;
-                // break;
-                // case MotionEvent.ACTION_MOVE:
-                // isMoveing = true;
-                // return true;
-                // default:
-                // break;
-                // }
-                // return false;
+                // return MotionEvent.ACTION_MOVE == event.getAction() ? true
+                // : false;
+                return false;
             }
         });
         setValue();
@@ -190,7 +171,7 @@ public class HomeFragMent extends Fragment implements OnClickListener,
         dialog = DialogUtil.getWaitDialog(getActivity(), "请稍候");
         dialog.show();
         registerBoradcastReceiver();
-        filldata(true, true);
+        filldata(true, true, true);
 
     }
 
@@ -198,20 +179,23 @@ public class HomeFragMent extends Fragment implements OnClickListener,
         imgPromte.setVisibility(visible);
     }
 
-    private void initLayPrompt() {
-        firstPromptLayout = (ViewStub) getView().findViewById(
-                R.id.firstLayoutPrompt);
-        firstPromptLayout.setLayoutResource(R.layout.lay_invite);
-        firstPromptLayout.inflate();
-        btnOk = (Button) getView().findViewById(R.id.btnOk);
-        btnOk.setText("立即去完善");
-        btnCancle = (Button) getView().findViewById(R.id.btnCancle);
-        btnCancle.setText("稍后完善");
-        btnOk.setOnClickListener(this);
-        btnCancle.setOnClickListener(this);
-        TextView txt = (TextView) getView().findViewById(R.id.txtShow);
-        txt.setTextColor(getResources().getColor(R.color.ff5400));
-        txt.setText("为了更好的体验，\n建议您尽快完善个人名片");
+    private void initCircles() {
+        Circle circle = new Circle(-1);
+        circle.setLogo("");
+        circle.setNew(false);
+        circle.setName("创建家人圈子");
+        circleslists.add(0, circle);
+        circle = new Circle(-2);
+        circle.setLogo("");
+        circle.setNew(false);
+        circle.setName("创建同事圈子");
+        circleslists.add(0, circle);
+        circle = new Circle(-3);
+        circle.setLogo("");
+        circle.setNew(false);
+        circle.setName("创建同学圈子");
+        circleslists.add(0, circle);
+
     }
 
     private void showSearchPopWindow() {
@@ -241,6 +225,8 @@ public class HomeFragMent extends Fragment implements OnClickListener,
         myIntentFilter.addAction(Constants.KICKOUT_CIRCLE);
         myIntentFilter.addAction(Constants.REMOVE_CIRCLE_PROMPT_COUNT);
         myIntentFilter.addAction(Constants.ACCEPT_CIRCLE_INVITATE);
+        myIntentFilter.addAction(Constants.REMOVE_INIT_CIRCLE);
+
         // 注册广播
         getActivity().registerReceiver(mBroadcastReceiver, myIntentFilter);
     }
@@ -253,7 +239,7 @@ public class HomeFragMent extends Fragment implements OnClickListener,
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             if (action.equals(Constants.REFRESH_CIRCLE_LIST)) {// 更新圈子列表
-                filldata(true, false);
+                filldata(false, true, false);
             } else if (action.equals(Constants.EXIT_CIRCLE)) {// 退出圈子
                 int cid = intent.getIntExtra("cid", 0);
                 exitCircle(cid);
@@ -271,9 +257,22 @@ public class HomeFragMent extends Fragment implements OnClickListener,
             } else if (action.equals(Constants.ACCEPT_CIRCLE_INVITATE)) { // 接受圈子邀请
                 int cid = intent.getIntExtra("cid", 0);
                 acceptCircleInvitation(cid);
+            } else if (action.equals(Constants.REMOVE_INIT_CIRCLE)) {
+                int cid = intent.getIntExtra("cid", 0);
+                remoreInitCircle(cid);
             }
         }
     };
+
+    private void remoreInitCircle(int cid) {
+        for (int i = circleslists.size() - 1; i >= 0; i--) {
+            if (circleslists.get(i).getId() == cid) {
+                circleslists.remove(i);
+                break;
+            }
+        }
+        adapter.notifyDataSetChanged();
+    }
 
     /**
      * 更新提示数量
@@ -318,13 +317,18 @@ public class HomeFragMent extends Fragment implements OnClickListener,
         adapter.notifyDataSetChanged();
     }
 
-    private void filldata(boolean refushNet, boolean refushANotify) {
-        circleListTask = new CircleListTask(refushNet, refushANotify);
+    private void filldata(boolean readDB, boolean refushNet,
+            boolean refushANotify) {
+        circleListTask = new CircleListTask(readDB, refushNet, refushANotify);
         circleListTask.setTaskCallBack(new PostCallBack<RetError>() {
             @Override
             public void taskFinish(RetError result) {
                 if (dialog != null) {
                     dialog.dismiss();
+                }
+                if (SharedUtils.getInt("loginType", 0) == 1
+                        && circleslists.size() == 1) {
+                    initCircles();
                 }
                 addNewCircle();
                 adapter.setData(circleslists);
@@ -414,34 +418,45 @@ public class HomeFragMent extends Fragment implements OnClickListener,
     @Override
     public void onItemClick(AdapterView<?> arg0, View arg1, int position,
             long arg3) {
+        System.out.println("onItemClickonItemClick");
         if (isMoveing) {
             return;
         }
+        Intent intent;
         if (position == circleslists.size() - 1) {
-            Intent intent = new Intent();
+            intent = new Intent();
             intent.setClass(getActivity(), AddCircleMemberActivity.class);
             intent.putExtra("type", "create");
             getActivity().startActivity(intent);
             Utils.leftOutRightIn(getActivity());
             return;
         }
-        Intent it = new Intent();
-        it.setClass(getActivity(), MainTabActivity.class);
-        it.putExtra("circleName", circleslists.get(position).getName());
-        it.putExtra("isNewCircle", circleslists.get(position).isNew());
-        it.putExtra("inviterID", circleslists.get(position).getMyInvitor());
-        it.putExtra("cid", circleslists.get(position).getId());
-        it.putExtra("newGrowthCount", circleslists.get(position)
+        if (circleslists.get(position).getId() < 0) {
+            intent = new Intent();
+            intent.putExtra("cid", circleslists.get(position).getId());
+            intent.setClass(getActivity(), CircleGuideActivity.class);
+            getActivity().startActivity(intent);
+            Utils.leftOutRightIn(getActivity());
+
+            return;
+        }
+        intent = new Intent();
+        intent.setClass(getActivity(), MainTabActivity1.class);
+        intent.putExtra("circleName", circleslists.get(position).getName());
+        intent.putExtra("isNewCircle", circleslists.get(position).isNew());
+        intent.putExtra("inviterID", circleslists.get(position).getMyInvitor());
+        intent.putExtra("cid", circleslists.get(position).getId());
+        intent.putExtra("newGrowthCount", circleslists.get(position)
                 .getNewGrowthCnt());
-        it.putExtra("newCommentCount", circleslists.get(position)
+        intent.putExtra("newCommentCount", circleslists.get(position)
                 .getNewGrowthCommentCnt());
-        it.putExtra("newDynamicCount", circleslists.get(position)
+        intent.putExtra("newDynamicCount", circleslists.get(position)
                 .getNewDynamicCnt());
-        it.putExtra("newMemberCount", circleslists.get(position)
+        intent.putExtra("newMemberCount", circleslists.get(position)
                 .getNewMemberCnt());
-        it.putExtra("newMyDetailEditCount", circleslists.get(position)
+        intent.putExtra("newMyDetailEditCount", circleslists.get(position)
                 .getNewMyDetailEditCnt());
-        getActivity().startActivity(it);
+        getActivity().startActivity(intent);
         Utils.leftOutRightIn(getActivity());
         if (circleslists.get(position).getNewMyDetailEditCnt() > 0) {
             removeCirclePrompt(circleslists.get(position).getId(),
@@ -462,13 +477,6 @@ public class HomeFragMent extends Fragment implements OnClickListener,
                 break;
             case R.id.search:
                 showSearchPopWindow();
-                break;
-            case R.id.btnOk:
-                callBack.openMyCard();
-                firstPromptLayout.setVisibility(View.GONE);
-                break;
-            case R.id.btnCancle:
-                firstPromptLayout.setVisibility(View.GONE);
                 break;
             default:
                 break;

@@ -125,6 +125,7 @@ public class CircleMember extends AbstractData implements Serializable {
     private int pid = 0;
     private String name = "";
     private String cellphone = "";
+    private String account_email = "";
     private String location = "";
     private String avatar = "";
     private String employer = "";
@@ -259,6 +260,14 @@ public class CircleMember extends AbstractData implements Serializable {
         this.cellphone = cellphone;
     }
 
+    public String getAccount_email() {
+        return account_email;
+    }
+
+    public void setAccount_email(String account_email) {
+        this.account_email = account_email;
+    }
+
     public String getLocation() {
         return location;
     }
@@ -381,10 +390,10 @@ public class CircleMember extends AbstractData implements Serializable {
         }
 
         Cursor cursor = db.query(Const.CIRCLE_MEMBER_TABLE_NAME, new String[] {
-                "_id", "uid", "pid", "cmid", "name", "cellphone", "location",
-                "avatar", "employer", "lastModTime", "state", "inviteCode",
-                "sortkey", "pinyinFir", "register" }, conditionsKey,
-                conditionsValue, null, null, null);
+                "_id", "uid", "pid", "cmid", "name", "cellphone",
+                "account_email", "location", "avatar", "employer",
+                "lastModTime", "state", "inviteCode", "sortkey", "pinyinFir",
+                "register" }, conditionsKey, conditionsValue, null, null, null);
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
             int _id = cursor.getInt(cursor.getColumnIndex("_id"));
@@ -394,6 +403,8 @@ public class CircleMember extends AbstractData implements Serializable {
             String name = cursor.getString(cursor.getColumnIndex("name"));
             String cellphone = cursor.getString(cursor
                     .getColumnIndex("cellphone"));
+            String account_email = cursor.getString(cursor
+                    .getColumnIndex("account_email"));
             String location = cursor.getString(cursor
                     .getColumnIndex("location"));
             String avatar = cursor.getString(cursor.getColumnIndex("avatar"));
@@ -417,6 +428,7 @@ public class CircleMember extends AbstractData implements Serializable {
             this.cmid = cmid;
             this.name = name;
             this.cellphone = cellphone;
+            this.account_email = account_email;
             this.location = location;
             this.avatar = avatar;
             this.employer = employer;
@@ -590,6 +602,7 @@ public class CircleMember extends AbstractData implements Serializable {
         cv.put("cmid", cmid);
         cv.put("name", name);
         cv.put("cellphone", cellphone);
+        cv.put("account_email", account_email);
         cv.put("location", location);
         cv.put("avatar", avatar);
         cv.put("employer", employer);
@@ -1493,14 +1506,14 @@ public class CircleMember extends AbstractData implements Serializable {
 
     public String toDbInsertString() {
         return "(" + cid + "," + uid + "," + pid + "," + cmid + ",'" + name
-                + "','" + cellphone + "','" + location + "','" + avatar + "','"
-                + employer + "','" + lastModTime + "','" + state.name() + "','"
-                + inviteCode + "','" + sortkey + "','" + pinyinFir + "','"
-                + register + "')";
+                + "','" + cellphone + "','" + account_email + "','" + location
+                + "','" + avatar + "','" + employer + "','" + lastModTime
+                + "','" + state.name() + "','" + inviteCode + "','" + sortkey
+                + "','" + pinyinFir + "','" + register + "')";
     }
 
     public static String getDbInsertKeyString() {
-        return " (cid, uid, pid, cmid, name, cellphone, location, avatar,"
+        return " (cid, uid, pid, cmid, name, cellphone,account_email, location, avatar,"
                 + " employer, lastModTime, state, inviteCode, sortkey, pinyinFir,"
                 + " register) ";
     }

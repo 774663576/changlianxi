@@ -49,6 +49,7 @@ public class CreateCircleActivity extends BaseActivity implements
     private CircleMember member;
     private Circle circle;
     private boolean isCallBack = false;
+    private int initCircleID = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -89,7 +90,7 @@ public class CreateCircleActivity extends BaseActivity implements
         Bundle bundle = getIntent().getExtras();
         contactsList = (List<CircleMember>) bundle
                 .getSerializable("contactsList");
-
+        initCircleID = getIntent().getIntExtra("cid", 0);
     }
 
     private void inviteFInish() {
@@ -155,6 +156,11 @@ public class CreateCircleActivity extends BaseActivity implements
                 }
                 if (result != RetError.NONE) {
                     return;
+                }
+                if (initCircleID < 0) {
+                    Intent intent = new Intent(Constants.REMOVE_INIT_CIRCLE);
+                    intent.putExtra("cid", initCircleID);
+                    BroadCast.sendBroadCast(CreateCircleActivity.this, intent);
                 }
                 BroadCast.sendBroadCast(CreateCircleActivity.this,
                         Constants.REFRESH_CIRCLE_LIST);

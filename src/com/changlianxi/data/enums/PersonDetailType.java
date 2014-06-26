@@ -7,7 +7,7 @@ import android.annotation.SuppressLint;
 
 public enum PersonDetailType {
 
-    UNKNOWN, D_NAME, D_GENDAR, D_BIRTHDAY, D_AVATAR, D_EMPLOYER, D_JOBTITLE, D_NICKNAME, D_REMARK, D_ROLE, D_CELLPHONE, D_WORK_PHONE, D_HOME_PHONE, D_MOBILE, D_PRIVATE_PHONE, D_WORK_FAX, D_HOME_FAX, D_PAGER, D_SHORT_PHONE, D_OTHER_PHONE, D_EMAIL, D_PERSONAL_EMAIL, D_WORK_EMAIL, D_OTHER_EMAIL, D_WORK_ADDRESS, D_HOME_ADDRESS, D_BIRTH_PLACE, D_QQ, D_WEIXIN, D_SINA_WEIBO, D_RENREN, D_QQ_WEIBO, D_TWITTER, D_FACEBOOK, D_SKYPE, D_BLOG, D_HOME_PAGE, D_COLLEGE, D_SENIOR_SCHOOL, D_JUNIOR_COLLEGE, D_TECHNICAL_SCHOOL, D_JUNIOR_SCHOOL, D_GRADE_SCHOOL, D_MASTER_COLLEGE, D_PHD_COLLEGE, D_KINDER_GARTEN, D_OTHER_EDU, D_JOB;
+    UNKNOWN, D_NAME, D_GENDAR, D_GRE_BIRTHDAY, D_BIRTHDAY, D_AVATAR, D_EMPLOYER, D_JOBTITLE, D_NICKNAME, D_REMARK, D_ROLE, D_CELLPHONE, D_WORK_PHONE, D_HOME_PHONE, D_MOBILE, D_PRIVATE_PHONE, D_WORK_FAX, D_HOME_FAX, D_PAGER, D_SHORT_PHONE, D_OTHER_PHONE, D_ACCOUNT_EMAIL, D_EMAIL, D_PERSONAL_EMAIL, D_WORK_EMAIL, D_OTHER_EMAIL, D_CURRENT_ADDRESS, D_POSTAL_ADDRESS, D_WORK_ADDRESS, D_HOME_ADDRESS, D_BIRTH_PLACE, D_QQ, D_WEIXIN, D_SINA_WEIBO, D_RENREN, D_QQ_WEIBO, D_TWITTER, D_FACEBOOK, D_SKYPE, D_BLOG, D_HOME_PAGE, D_COLLEGE, D_SENIOR_SCHOOL, D_JUNIOR_COLLEGE, D_TECHNICAL_SCHOOL, D_JUNIOR_SCHOOL, D_GRADE_SCHOOL, D_MASTER_COLLEGE, D_PHD_COLLEGE, D_KINDER_GARTEN, D_OTHER_EDU, D_JOB;
 
     public static Map<String, PersonDetailType> s2t = new HashMap<String, PersonDetailType>();
     static {
@@ -41,6 +41,7 @@ public enum PersonDetailType {
         t2text.put(D_GENDAR, "性别");
         t2id.put(D_GENDAR, 2);
         t2text.put(D_BIRTHDAY, "生日");
+        t2text.put(D_GRE_BIRTHDAY, "公历生日");
         t2id.put(D_BIRTHDAY, 3);
         t2text.put(D_AVATAR, "头像");
         t2id.put(D_AVATAR, 4);
@@ -76,6 +77,7 @@ public enum PersonDetailType {
         t2text.put(D_OTHER_PHONE, "其他");
         t2id.put(D_OTHER_PHONE, 19);
 
+        t2text.put(D_ACCOUNT_EMAIL, "电子邮箱");
         t2text.put(D_EMAIL, "常用邮箱");
         t2id.put(D_EMAIL, 20);
         t2text.put(D_PERSONAL_EMAIL, "个人邮箱");
@@ -85,6 +87,8 @@ public enum PersonDetailType {
         t2text.put(D_OTHER_EMAIL, "其他邮箱");
         t2id.put(D_OTHER_EMAIL, 23);
 
+        t2text.put(D_CURRENT_ADDRESS, "当前地址");
+        t2text.put(D_POSTAL_ADDRESS, "通讯地址");
         t2text.put(D_WORK_ADDRESS, "工作地址");
         t2id.put(D_WORK_ADDRESS, 24);
         t2text.put(D_HOME_ADDRESS, "居住地址");

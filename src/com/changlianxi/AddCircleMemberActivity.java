@@ -44,9 +44,9 @@ public class AddCircleMemberActivity extends BaseActivity implements
         input.setOnClickListener(this);
         back.setOnClickListener(this);
         type = getIntent().getStringExtra("type");
+        cid = getIntent().getIntExtra("cid", 0);
         if (type.equals("add")) {
             titleTxt.setText("添加成员");
-            cid = getIntent().getIntExtra("cid", 0);
             cirName = getIntent().getStringExtra("cirName");
         }
         btnPage = (TextView) findViewById(R.id.btnPage);

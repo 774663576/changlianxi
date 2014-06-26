@@ -43,6 +43,7 @@ public class VerifyActivity extends BaseActivity implements OnClickListener,
     private String PATH = "/users/ibindCellphone";
     private InputMethodRelativeLayout parent;
     private String type = "";
+    private TextView title;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +53,8 @@ public class VerifyActivity extends BaseActivity implements OnClickListener,
         parent = (InputMethodRelativeLayout) findViewById(R.id.Layparent);
         parent.setOnSizeChangedListenner(this);
         textView3 = (TextView) findViewById(R.id.textView3);
+        title = (TextView) findViewById(R.id.titleTxt);
+        title.setText("绑定手机号");
         yanzhengButton = (Button) findViewById(R.id.yanzheng);
         editText = (SearchEditText) findViewById(R.id.num);
         editText.addTextChangedListener(new EditWather(editText, this));

@@ -1,0 +1,58 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white" >
+
+    <include
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        layout="@layout/layout_title_bar" />
+
+    <ImageView
+        android:id="@+id/img"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:scaleType="matrix"
+        android:src="@drawable/family" />
+
+    <TextView
+        android:id="@+id/showTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/img"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="60dip"
+        android:layout_marginRight="60dip"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:textColor="#585858"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/btnAdd"
+        android:layout_width="match_parent"
+        android:layout_height="50dip"
+        android:layout_above="@+id/notWarn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="60dip"
+        android:layout_marginRight="60dip"
+        android:background="@drawable/btn_14c1c7"
+        android:text="Button"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/notWarn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:paddingBottom="40dip"
+        android:paddingTop="20dp"
+        android:text="不在提示"
+        android:textColor="#7d7d7d"
+        android:textSize="16sp" />
+
+</RelativeLayout>

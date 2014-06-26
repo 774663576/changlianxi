@@ -76,7 +76,6 @@ public class DynamicFragment extends Fragment implements OnClickListener {
     private void initView() {
         mPager = (HackyViewPager) getView().findViewById(R.id.pager);
         InitImageView();
-        InitImageView();
         btnAll = (Button) getView().findViewById(R.id.btnAll);
         btnAboutMe = (Button) getView().findViewById(R.id.btnAboutMe);
         back = (ImageView) getView().findViewById(R.id.back);
@@ -101,6 +100,7 @@ public class DynamicFragment extends Fragment implements OnClickListener {
         Matrix matrix = new Matrix();
         matrix.postTranslate(offset, 0);
         imageView.setImageMatrix(matrix);// 设置动画初始位置
+
     }
 
     private void setListener() {

@@ -18,8 +18,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
@@ -40,12 +38,12 @@ import com.changlianxi.task.GrowthListTask;
 import com.changlianxi.util.Constants;
 import com.changlianxi.util.DateUtils;
 import com.changlianxi.util.DialogUtil;
-import com.changlianxi.view.PullDownViewGrowth;
-import com.changlianxi.view.PullDownViewGrowth.OnPullDownListener;
+import com.changlianxi.view.PullDownView;
+import com.changlianxi.view.PullDownView.OnPullDownListener;
 
 public class GrowthFragMent extends Fragment implements OnClickListener,
-        OnItemClickListener, OnPullDownListener, OnScrollListener {
-    private PullDownViewGrowth mPullDownView;
+        OnItemClickListener, OnPullDownListener {
+    private PullDownView mPullDownView;
     private GrowthAdapter adapter;
     private TextView promptCount;
     private LinearLayout layPrompt;
@@ -124,7 +122,7 @@ public class GrowthFragMent extends Fragment implements OnClickListener,
      */
     private void initView() {
         layPrompt = (LinearLayout) getView().findViewById(R.id.prompt);
-        mPullDownView = (PullDownViewGrowth) getView().findViewById(
+        mPullDownView = (PullDownView) getView().findViewById(
                 R.id.PullDownlistView);
         mListView = mPullDownView.getListView();
         mListView.setCacheColorHint(0);
@@ -137,7 +135,6 @@ public class GrowthFragMent extends Fragment implements OnClickListener,
             t.setText("亲，您还未通过认证，暂时只能看到3条圈子成长，赶快找人帮你认证吧。");
             mListView.addFooterView(footerView);
             footerView.setVisibility(View.GONE);
-
         }
         setListener();
         visivlePromptCount();
@@ -150,9 +147,8 @@ public class GrowthFragMent extends Fragment implements OnClickListener,
         mPullDownView.notifyDidMore();
         mListView.setOnItemClickListener(this);
         layPrompt.setOnClickListener(this);
-        mListView.setOnScrollListener(this);
+        mPullDownView.addFooterView();
         mPullDownView.setShowFooter();
-        mPullDownView.setFooterVisible(false);
         setValue();
     }
 
@@ -173,6 +169,7 @@ public class GrowthFragMent extends Fragment implements OnClickListener,
     }
 
     private void filldata(boolean isReadDB, boolean isMore, int newGrowthCount) {
+        System.out.println("filldatafilldatafilldata");
         growthListTask = new GrowthListTask(growthList, isReadDB, start, end,
                 isMore, newGrowthCount);
         growthListTask.setTaskCallBack(new PostCallBack<RetError>() {
@@ -375,36 +372,8 @@ public class GrowthFragMent extends Fragment implements OnClickListener,
     public void onDestroy() {
         super.onDestroy();
         adapter.clearCache();
-        if (mBroadcastReceiver.isOrderedBroadcast()) {
-            getActivity().unregisterReceiver(mBroadcastReceiver);
-        }
+        getActivity().unregisterReceiver(mBroadcastReceiver);
+
     }
 
-    @Override
-    public void onScroll(AbsListView view, int firstVisibleItem,
-            int visibleItemCount, int totalItemCount) {
-        mPullDownView.setFirstItemIndex(firstVisibleItem);
-    }
-
-    @Override
-    public void onScrollStateChanged(AbsListView view, int scrollState) {
-
-        switch (scrollState) {
-            case OnScrollListener.SCROLL_STATE_IDLE: // Idle态，进行实际数据的加载显示
-                // adapter.setScrolling(false);
-                // FinalBitmapLoadTool.onResume();
-                // adapter.notifyDataSetChanged();
-                break;
-            case OnScrollListener.SCROLL_STATE_TOUCH_SCROLL:
-                // adapter.setScrolling(true);
-                // FinalBitmapLoadTool.onPause();
-                break;
-            case OnScrollListener.SCROLL_STATE_FLING:
-                // FinalBitmapLoadTool.onPause();
-                // adapter.setScrolling(true);
-                break;
-            default:
-                break;
-        }
-    }
 }

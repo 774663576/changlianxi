@@ -31,6 +31,7 @@ import android.widget.Toast;
 import com.changlianxi.data.Circle;
 import com.changlianxi.data.CircleList;
 import com.changlianxi.data.EditData;
+import com.changlianxi.data.enums.PersonDetailType;
 import com.changlianxi.db.DBUtils;
 import com.changlianxi.task.PostAsyncTask;
 import com.changlianxi.task.PostAsyncTask.PostCallBack;
@@ -179,8 +180,7 @@ public class SyncchronousInformationActivity extends BaseActivity implements
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             ViewHolderTop holder = null;
-            String typeString = UserInfoUtils.convertToChines2(lists
-                    .get(position).getType().toString());
+            String typeString = lists.get(position).getType().name();
             String detail = lists.get(position).getDetail();
             String oprition = lists.get(position).getOperation();
             if (convertView == null) {
@@ -196,7 +196,7 @@ public class SyncchronousInformationActivity extends BaseActivity implements
             } else {
                 holder = (ViewHolderTop) convertView.getTag();
             }
-            if (typeString.equals("头像")) {
+            if (typeString.equals(PersonDetailType.D_AVATAR.name())) {
                 holder.detail.setVisibility(View.GONE);
                 holder.headImg.setVisibility(View.VISIBLE);
                 if (detail == null || detail.equals("")

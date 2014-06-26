@@ -131,9 +131,11 @@ public class CircleList extends AbstractData {
         if (this.status != Status.OLD) {
             // write one by one
             for (Circle c : this.circles) {
-                if (c.getId() != 0) {
-                    c.write(db);
+                if (c.getId() <= 0) {
+                    continue;
                 }
+                c.write(db);
+
             }
             // write last request time
             ContentValues cv = new ContentValues();

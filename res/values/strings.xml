@@ -197,5 +197,7 @@
     <string name="title_activity_user_info_activity1">UserInfoActivity1</string>
     <string name="title_activity_email_register">EmailRegisterActivity</string>
     <string name="title_activity_email_find_password">EmailFindPasswordActivity</string>
+    <string name="title_activity_circle_guide">CircleGuideActivity</string>
+    <string name="title_activity_main_tab_activity1">MainTabActivity1</string>
 
 </resources>
