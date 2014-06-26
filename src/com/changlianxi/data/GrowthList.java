@@ -51,6 +51,8 @@ public class GrowthList extends AbstractData {
     private long lastReqTime = 0L; // last request time of growth data
     private int total = 0;
     private List<Growth> growths = new ArrayList<Growth>();
+    private List<Integer> delIds = new ArrayList<Integer>(); // deleted growth
+                                                             // ids
     private int serverCount = -1;// 服务器返回的当前请求结果条数
 
     public GrowthList(int cid) {
@@ -118,6 +120,14 @@ public class GrowthList extends AbstractData {
         if (growths != null) {
             this.growths = growths;
         }
+    }
+
+    public List<Integer> getDelIds() {
+        return delIds;
+    }
+
+    public void setDelIds(List<Integer> delIds) {
+        this.delIds = delIds;
     }
 
     private void sort(boolean byTimeAsc) {
@@ -260,6 +270,11 @@ public class GrowthList extends AbstractData {
                 canJoin = true;
             } else {
                 this.growths.add(growth);
+            }
+        }
+        for (int gid : another.delIds) {
+            if (olds.containsKey(gid)) {
+                olds.get(gid).setStatus(Status.DEL);
             }
         }
 
