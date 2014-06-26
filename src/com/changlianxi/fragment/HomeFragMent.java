@@ -43,7 +43,7 @@ import com.changlianxi.db.DBUtils;
 import com.changlianxi.popwindow.HomeSearchLayerPopwindow;
 import com.changlianxi.popwindow.HomeSearchLayerPopwindow.OnCancleClick;
 import com.changlianxi.slidingmenu.lib.app.SlidingActivity;
-import com.changlianxi.tab.fragment.MainTabActivity1;
+import com.changlianxi.tab.fragment.MainTabActivity;
 import com.changlianxi.task.BaseAsyncTask.PostCallBack;
 import com.changlianxi.task.CircleListTask;
 import com.changlianxi.util.Constants;
@@ -133,6 +133,9 @@ public class HomeFragMent extends Fragment implements OnClickListener,
         searchLayout = (LinearLayout) getView().findViewById(R.id.searchLayout);
         search = (EditText) getView().findViewById(R.id.search);
         imgPromte = (ImageView) getView().findViewById(R.id.imgNews);
+        if (SharedUtils.getInt("loginType", 0) == 1) {
+            imgPromte.setVisibility(View.VISIBLE);
+        }
         getPrompt();
         setListener();
 
@@ -441,7 +444,7 @@ public class HomeFragMent extends Fragment implements OnClickListener,
             return;
         }
         intent = new Intent();
-        intent.setClass(getActivity(), MainTabActivity1.class);
+        intent.setClass(getActivity(), MainTabActivity.class);
         intent.putExtra("circleName", circleslists.get(position).getName());
         intent.putExtra("isNewCircle", circleslists.get(position).isNew());
         intent.putExtra("inviterID", circleslists.get(position).getMyInvitor());

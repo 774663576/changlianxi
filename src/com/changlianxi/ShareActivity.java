@@ -85,11 +85,9 @@ public class ShareActivity extends BaseActivity implements OnClickListener,
                 "shareImages");
         if (gimg.size() > 0) {
             if (gimg.size() == 1) {
-                imgNetPath = StringUtils.JoinString(gimg.get(0).getImg(),
-                        "_500x500");
+                imgNetPath = gimg.get(0).getImg(500);
             } else {
-                imgNetPath = StringUtils.JoinString(gimg.get(0).getImg(),
-                        "_500x500");
+                imgNetPath = gimg.get(0).getImg(500);
             }
         }
         tv_get.setText(content);
@@ -463,8 +461,8 @@ public class ShareActivity extends BaseActivity implements OnClickListener,
         if (requestCode != 2 || data == null) {
             return;
         }
-        imgNetPath = StringUtils.JoinString(data.getStringExtra("imgs"),
-                "_500x500");
+        imgNetPath = StringUtils.getAliyunOSSImageUrl(data.getStringExtra("imgs"),
+                500, 500);
         setImage();
         createBitmapFile();
     }

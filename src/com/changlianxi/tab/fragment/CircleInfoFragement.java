@@ -201,7 +201,7 @@ public class CircleInfoFragement extends Fragment implements OnClickListener,
 
     private void intentShowBigImg() {
         List<String> imgUrl = new ArrayList<String>();
-        imgUrl.add(circle.getLogo().replace("_160x160", ""));
+        imgUrl.add(circle.getOriginalLogo());
         Intent intent = new Intent(getActivity(),
                 AvatarImagePagerActivity.class);
         Bundle bundle = new Bundle();

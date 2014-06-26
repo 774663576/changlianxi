@@ -55,6 +55,7 @@ import com.changlianxi.util.DateUtils;
 import com.changlianxi.util.DialogUtil;
 import com.changlianxi.util.SaveContactsToPhone;
 import com.changlianxi.util.SortPersonType;
+import com.changlianxi.util.StringUtils;
 import com.changlianxi.util.UniversalImageLoadTool;
 import com.changlianxi.util.UserInfoUtils;
 import com.changlianxi.util.Utils;
@@ -1226,7 +1227,7 @@ public class UserInfoActivity extends BaseActivity implements OnClickListener,
                 break;
             case R.id.avatar:
                 List<String> imgUrl = new ArrayList<String>();
-                imgUrl.add(iconPath.replace("_160x160", ""));
+                imgUrl.add(StringUtils.revertAliyunOSSImageUrl(iconPath));
                 intent = new Intent(this, AvatarImagePagerActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(Constants.EXTRA_IMAGE_URLS,

@@ -2,40 +2,49 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:background="@color/white" >
 
     <LinearLayout
         android:id="@+id/main_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:layout_above="@+id/liine" >
     </LinearLayout>
 
+    <View
+        android:id="@+id/liine"
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:layout_above="@+id/tabLayotu"
+        android:background="#d7d7d7" />
+
     <LinearLayout
+        android:id="@+id/tabLayotu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="#efefef" >
 
         <RelativeLayout
+            android:id="@+id/tab_member"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dip"
+            android:layout_marginLeft="30dip"
             android:layout_weight="1" >
 
             <ImageView
-                android:id="@+id/imageview"
+                android:id="@+id/imgMember"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:focusable="false"
                 android:padding="3dp"
                 android:src="@drawable/tab_member" >
             </ImageView>
 
             <TextView
-                android:id="@+id/un_read_num"
+                android:id="@+id/un_read_num_member"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/imageview"
+                android:layout_toRightOf="@+id/imgMember"
                 android:background="@drawable/tab_unread1"
                 android:gravity="center"
                 android:textColor="@color/white"
@@ -44,24 +53,24 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/tab_growth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1" >
 
             <ImageView
-                android:id="@+id/imageview"
+                android:id="@+id/imgGrowth"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:focusable="false"
                 android:padding="3dp"
                 android:src="@drawable/tab_growth" >
             </ImageView>
 
             <TextView
-                android:id="@+id/un_read_num"
+                android:id="@+id/un_read_num_growth"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/imageview"
+                android:layout_toRightOf="@+id/imgGrowth"
                 android:background="@drawable/tab_unread1"
                 android:gravity="center"
                 android:textColor="@color/white"
@@ -70,24 +79,24 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/tab_Dynamic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1" >
 
             <ImageView
-                android:id="@+id/imageview"
+                android:id="@+id/imgDynamic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:focusable="false"
                 android:padding="3dp"
                 android:src="@drawable/tab_dynamic" >
             </ImageView>
 
             <TextView
-                android:id="@+id/un_read_num"
+                android:id="@+id/un_read_num_dynamic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/imageview"
+                android:layout_toRightOf="@+id/imgDynamic"
                 android:background="@drawable/tab_unread1"
                 android:gravity="center"
                 android:textColor="@color/white"
@@ -96,15 +105,15 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/tab_circleInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1" >
 
             <ImageView
-                android:id="@+id/imageview"
+                android:id="@+id/imgCircleInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:focusable="false"
                 android:padding="3dp"
                 android:src="@drawable/tab_setting" >
             </ImageView>
@@ -113,7 +122,7 @@
                 android:id="@+id/un_read_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/imageview"
+                android:layout_toRightOf="@+id/imgCircleInfo"
                 android:background="@drawable/tab_unread1"
                 android:gravity="center"
                 android:textColor="@color/white"

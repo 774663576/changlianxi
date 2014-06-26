@@ -531,10 +531,6 @@
             android:label="@string/title_activity_circle_guide"
             android:screenOrientation="portrait" >
         </activity>
-        <activity
-            android:name=".tab.fragment.MainTabActivity1"
-            android:label="@string/title_activity_main_tab_activity1" >
-        </activity>
     </application>
 
 </manifest>

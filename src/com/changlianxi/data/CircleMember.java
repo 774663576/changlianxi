@@ -226,10 +226,7 @@ public class CircleMember extends AbstractData implements Serializable {
     }
 
     public String getAvatar(int width, int height) {
-        if (!avatar.isEmpty()) {
-            return StringUtils.JoinString(avatar, "_" + width + "x" + height);
-        }
-        return "";
+        return StringUtils.getAliyunOSSImageUrl(avatar, width, height);
     }
 
     public void setAvatar(String avatar) {

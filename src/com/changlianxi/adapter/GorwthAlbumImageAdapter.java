@@ -41,7 +41,6 @@ public class GorwthAlbumImageAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder = null;
-        String path = pics.get(position).getPicPath();
         if (convertView == null) {
             holder = new ViewHolder();
             convertView = LayoutInflater.from(mContext).inflate(
@@ -51,7 +50,7 @@ public class GorwthAlbumImageAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        path = StringUtils.JoinString(path, "_200x200");
+        String path = pics.get(position).getPicPath(200);
         UniversalImageLoadTool
                 .disPlay(path, holder.img, R.drawable.empty_photo);
         return convertView;

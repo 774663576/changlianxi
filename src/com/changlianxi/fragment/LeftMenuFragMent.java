@@ -101,7 +101,7 @@ public class LeftMenuFragMent extends Fragment implements OnItemClickListener {
             @Override
             public void onClick(View v) {
                 List<String> imgUrl = new ArrayList<String>();
-                imgUrl.add(myCard.getAvatar());
+                imgUrl.add(myCard.getOriginalAvatar());
                 Intent intent = new Intent(getActivity(),
                         AvatarImagePagerActivity.class);
                 Bundle bundle = new Bundle();

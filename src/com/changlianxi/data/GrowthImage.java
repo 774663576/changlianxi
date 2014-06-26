@@ -62,8 +62,12 @@ public class GrowthImage extends AbstractData implements Serializable {
         return img;
     }
 
-    public String getImg(String size) {
-        return StringUtils.JoinString(img, size);
+    public String getImg(int size) {
+        return getImg(size, size);
+    }
+
+    public String getImg(int width, int height) {
+        return StringUtils.getAliyunOSSImageUrl(img, width, height);
     }
 
     public void setImg(String img) {

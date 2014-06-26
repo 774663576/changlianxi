@@ -58,7 +58,7 @@ public class CircleAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder = null;
         String circleName = circleLists.get(position).getName();
-        String circleLogo = circleLists.get(position).getLogo();
+        String circleLogo = circleLists.get(position).getOriginalLogo();
         if (convertView == null) {
             holder = new ViewHolder();
             convertView = LayoutInflater.from(mcontext).inflate(
@@ -83,6 +83,7 @@ public class CircleAdapter extends BaseAdapter {
             holder.circleBg.setImageResource(R.drawable.pic_bg_no);
             holder.circleImg.setVisibility(View.INVISIBLE);
         } else {
+            circleLogo = circleLists.get(position).getLogo();
             UniversalImageLoadTool.disPlay(circleLogo, holder.circleImg,
                     R.drawable.pic_bg_no);
         }

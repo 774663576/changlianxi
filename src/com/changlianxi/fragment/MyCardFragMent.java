@@ -697,7 +697,7 @@ public class MyCardFragMent extends Fragment implements OnClickListener,
                 break;
             case R.id.avatar:
                 List<String> imgUrl = new ArrayList<String>();
-                imgUrl.add(card.getAvatar().replace("_160x160", ""));
+                imgUrl.add(card.getOriginalAvatar());
                 intent = new Intent(getActivity(),
                         AvatarImagePagerActivity.class);
                 Bundle bundle = new Bundle();

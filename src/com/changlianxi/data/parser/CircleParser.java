@@ -33,7 +33,6 @@ public class CircleParser implements IParser {
         // circle basic info
         String name = jsonCircle.getString("name");
         String logo = jsonCircle.getString("logo");
-        logo = StringUtils.JoinString(logo, "_160x160");
         String description = jsonCircle.getString("description");
         int creator = jsonCircle.getInt("creator");
         String created = jsonCircle.getString("created");

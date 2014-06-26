@@ -6,18 +6,17 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTabHost;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ImageView;
-import android.widget.TabHost.OnTabChangeListener;
-import android.widget.TabHost.TabSpec;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.changlianxi.R;
-import com.changlianxi.applation.CLXApplication;
 import com.changlianxi.data.CircleMember;
 import com.changlianxi.data.Global;
 import com.changlianxi.data.enums.CircleMemberState;
@@ -28,16 +27,12 @@ import com.changlianxi.util.ResolutionPushJson;
 import com.changlianxi.util.Utils;
 
 public class MainTabActivity extends FragmentActivity implements
-        OnTabChangeListener {
-    private FragmentTabHost mTabHost;
-    private LayoutInflater layoutInflater;
-    private Class fragmentArray[] = { MemberFragment.class,
-            GrowthAndAlbumFragment.class, DynamicFragment.class,
-            CircleInfoFragement.class };
-    private String mTextviewArray[] = { "成员", "成长", "动态", "更多" };
-    private int mImageViewArray[] = { R.drawable.tab_member,
-            R.drawable.tab_growth, R.drawable.tab_dynamic,
-            R.drawable.tab_setting };
+        OnClickListener {
+    private FragmentManager manager;
+    private MemberFragment tabMember;
+    private GrowthAndAlbumFragment tabGrowth;
+    private DynamicFragment tabDynamic;
+    private CircleInfoFragement tabCircleInfo;
     private String ciecleName;// 圈子名称
     private boolean isNewCircle;
     private int inviterID;
@@ -47,13 +42,23 @@ public class MainTabActivity extends FragmentActivity implements
     private int newCommentCount = 0;// 新评论数。
     private int newMemberCount = 0;// 新成员数
     private int newMyDetailEditCount = 0;// 我的资料修改数
+    private RelativeLayout layoutMember;
+    private RelativeLayout layoutGrowth;
+    private RelativeLayout layoutDynamic;
+    private RelativeLayout layoutCircleInfo;
+    private ImageView imgMember;
+    private ImageView imgGrowth;
+    private ImageView imgDynamic;
+    private ImageView imgCircleInfo;
+    private TextView num_no_read_growth;
+    private TextView num_no_read_dynamic;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_tab);
-        CLXApplication.addActivity(this);
+        setContentView(R.layout.activity_main_tab_activity1);
         getActivityData();
+        initFragmentTransaction();
         initView();
         registerBoradcastReceiver();
     }
@@ -72,15 +77,53 @@ public class MainTabActivity extends FragmentActivity implements
     }
 
     private void initView() {
-        layoutInflater = LayoutInflater.from(this);
-        mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
-        mTabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
-        addTab();
-        // mTabHost.setOnTabChangedListener(this);
+        layoutMember = (RelativeLayout) findViewById(R.id.tab_member);
+        layoutGrowth = (RelativeLayout) findViewById(R.id.tab_growth);
+        layoutCircleInfo = (RelativeLayout) findViewById(R.id.tab_circleInfo);
+        layoutDynamic = (RelativeLayout) findViewById(R.id.tab_Dynamic);
+        imgMember = (ImageView) findViewById(R.id.imgMember);
+        imgGrowth = (ImageView) findViewById(R.id.imgGrowth);
+        imgDynamic = (ImageView) findViewById(R.id.imgDynamic);
+        imgCircleInfo = (ImageView) findViewById(R.id.imgCircleInfo);
+        num_no_read_dynamic = (TextView) findViewById(R.id.un_read_num_dynamic);
+        num_no_read_growth = (TextView) findViewById(R.id.un_read_num_growth);
+        setListener();
+    }
+
+    private void setListener() {
+        layoutGrowth.setOnClickListener(this);
+        layoutMember.setOnClickListener(this);
+        layoutCircleInfo.setOnClickListener(this);
+        layoutDynamic.setOnClickListener(this);
+        setValue();
+    }
+
+    private void setValue() {
+        imgCircleInfo.setEnabled(false);
+        imgGrowth.setEnabled(false);
+        imgDynamic.setEnabled(false);
+        int nu = newCommentCount + newGrowthCount;
+        if (nu > 0) {
+            num_no_read_growth.setText(nu + "");
+            num_no_read_growth.setVisibility(View.VISIBLE);
+        }
+        if (newDynamicCount > 0) {
+            num_no_read_dynamic.setText(newDynamicCount + "");
+            num_no_read_dynamic.setVisibility(View.VISIBLE);
+        }
 
     }
 
-    private void addTab() {
+    private void initFragmentTransaction() {
+        manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        tabMember = new MemberFragment();
+        tabMember.setArguments(getMemberBundle());
+        transaction.add(R.id.main_layout, tabMember);
+        transaction.commit();
+    }
+
+    private Bundle getMemberBundle() {
         Bundle bundle = new Bundle();
         bundle.putInt("cid", cid);
         bundle.putInt("inviterID", inviterID);
@@ -88,111 +131,180 @@ public class MainTabActivity extends FragmentActivity implements
         bundle.putString("circleName", ciecleName);
         bundle.putInt("newMemberCount", newMemberCount);
         bundle.putInt("newMyDetailEditCount", newMyDetailEditCount);
-        TabSpec tabSpec = mTabHost.newTabSpec(mTextviewArray[0]).setIndicator(
-                getTabItemView(0));
-        mTabHost.addTab(tabSpec, fragmentArray[0], bundle);
-        bundle = new Bundle();
+        return bundle;
+    }
+
+    private Bundle getGrowthBundle() {
+        Bundle bundle = new Bundle();
         bundle.putInt("cid", cid);
         bundle.putInt("newGrowthCount", newGrowthCount);
         bundle.putInt("newCommentCount", newCommentCount);
-        tabSpec = mTabHost.newTabSpec(mTextviewArray[1]).setIndicator(
-                getTabItemView(1));
-        mTabHost.addTab(tabSpec, fragmentArray[1], bundle);
-        bundle = new Bundle();
+        return bundle;
+    }
+
+    private Bundle getDynamicBundle() {
+        Bundle bundle = new Bundle();
         bundle.putInt("cid", cid);
         bundle.putInt("newDynamicCount", newDynamicCount);
         bundle.putString("circleName", ciecleName);
-        tabSpec = mTabHost.newTabSpec(mTextviewArray[2]).setIndicator(
-                getTabItemView(2));
-        mTabHost.addTab(tabSpec, fragmentArray[2], bundle);
-        bundle = new Bundle();
-        bundle.putInt("cid", cid);
-        tabSpec = mTabHost.newTabSpec(mTextviewArray[3]).setIndicator(
-                getTabItemView(3));
-        mTabHost.addTab(tabSpec, fragmentArray[3], bundle);
-        mTabHost.setOnTabChangedListener(this);
+        return bundle;
     }
 
-    /**
-    * 给Tab按钮设置图标和文字
-    */
-    private View getTabItemView(int index) {
-        View view = layoutInflater.inflate(R.layout.tab_item_view, null);
-        ImageView imageView = (ImageView) view.findViewById(R.id.imageview);
-        imageView.setImageResource(mImageViewArray[index]);
-        TextView num = (TextView) view.findViewById(R.id.un_read_num);
-        switch (index) {
-            case 0:
-                break;
-            case 1:
-                int nu = newCommentCount + newGrowthCount;
-                if (nu > 0) {
-                    num.setText(nu + "");
-                    num.setVisibility(View.VISIBLE);
-                }
-                break;
-            case 2:
-                if (newDynamicCount > 0) {
-                    num.setText(newDynamicCount + "");
-                    num.setVisibility(View.VISIBLE);
-                }
-                break;
+    private Bundle getCircleInfoBundle() {
+        Bundle bundle = new Bundle();
+        bundle.putInt("cid", cid);
+        return bundle;
+    }
 
+    @Override
+    public void onClick(View v) {
+        if (v.getId() != R.id.tab_member) {
+            CircleMember self = new CircleMember(cid, 0, Global.getIntUid());
+            self.getMemberState(DBUtils.getDBsa(1));
+            if (self.getState().equals(CircleMemberState.STATUS_INVITING)) {
+                Utils.showToast("亲，加入圈子以后才能看到这些精彩内容哦！", Toast.LENGTH_SHORT);
+                return;
+            }
+        }
+        FragmentTransaction transaction = manager.beginTransaction();
+        hideFragment(v.getId(), transaction);
+        showCurrentFragment(v.getId(), transaction);
+        transaction.commit();
+    }
+
+    private void showCurrentFragment(int id, FragmentTransaction transaction) {
+        switch (id) {
+            case R.id.tab_member:
+                transaction.show(tabMember);
+                imgMember.setEnabled(true);
+                imgCircleInfo.setEnabled(false);
+                imgGrowth.setEnabled(false);
+                imgDynamic.setEnabled(false);
+                break;
+            case R.id.tab_growth:
+                if (tabGrowth == null) {
+                    tabGrowth = new GrowthAndAlbumFragment();
+                    tabGrowth.setArguments(getGrowthBundle());
+                    transaction.add(R.id.main_layout, tabGrowth);
+                } else {
+                    transaction.show(tabGrowth);
+                }
+                imgMember.setEnabled(false);
+                imgCircleInfo.setEnabled(false);
+                imgGrowth.setEnabled(true);
+                imgDynamic.setEnabled(false);
+                num_no_read_growth.setVisibility(View.INVISIBLE);
+                sendBroadcast(ResolutionPushJson.GROWTH_TYPE);
+                break;
+            case R.id.tab_Dynamic:
+                if (tabDynamic == null) {
+                    tabDynamic = new DynamicFragment();
+                    tabDynamic.setArguments(getDynamicBundle());
+                    transaction.add(R.id.main_layout, tabDynamic);
+                } else {
+                    transaction.show(tabDynamic);
+                }
+                imgMember.setEnabled(false);
+                imgCircleInfo.setEnabled(false);
+                imgGrowth.setEnabled(false);
+                imgDynamic.setEnabled(true);
+                num_no_read_dynamic.setVisibility(View.INVISIBLE);
+                sendBroadcast(ResolutionPushJson.NEW_TYPE);
+                break;
+            case R.id.tab_circleInfo:
+                if (tabCircleInfo == null) {
+                    tabCircleInfo = new CircleInfoFragement();
+                    tabCircleInfo.setArguments(getCircleInfoBundle());
+                    transaction.add(R.id.main_layout, tabCircleInfo);
+                } else {
+                    transaction.show(tabCircleInfo);
+                }
+                imgMember.setEnabled(false);
+                imgCircleInfo.setEnabled(true);
+                imgGrowth.setEnabled(false);
+                imgDynamic.setEnabled(false);
+                break;
             default:
                 break;
         }
-        return view;
     }
 
-    @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event) {
-        return false;
+    private void hideFragment(int id, FragmentTransaction transaction) {
+        switch (id) {
+            case R.id.tab_member:
+                if (tabGrowth != null) {
+                    transaction.hide(tabGrowth);
+                }
+                if (tabDynamic != null) {
+                    transaction.hide(tabDynamic);
+                }
+                if (tabCircleInfo != null) {
+                    transaction.hide(tabCircleInfo);
+                }
+                break;
+            case R.id.tab_growth:
+                if (tabMember != null) {
+                    transaction.hide(tabMember);
+                }
+                if (tabDynamic != null) {
+                    transaction.hide(tabDynamic);
+                }
+                if (tabCircleInfo != null) {
+                    transaction.hide(tabCircleInfo);
+                }
+                break;
+            case R.id.tab_Dynamic:
+                if (tabMember != null) {
+                    transaction.hide(tabMember);
+                }
+                if (tabGrowth != null) {
+                    transaction.hide(tabGrowth);
+                }
+                if (tabCircleInfo != null) {
+                    transaction.hide(tabCircleInfo);
+                }
+                break;
+            case R.id.tab_circleInfo:
+                if (tabMember != null) {
+                    transaction.hide(tabMember);
+                }
+                if (tabDynamic != null) {
+                    transaction.hide(tabDynamic);
+                }
+                if (tabGrowth != null) {
+                    transaction.hide(tabGrowth);
+                }
+                break;
+            default:
+                break;
+        }
     }
 
-    @Override
-    public void onTabChanged(String tabId) {
-        CircleMember c = new CircleMember(cid, 0, Global.getIntUid());
-        c.getMemberState(DBUtils.getDBsa(1));
-        if (c.getState().equals(CircleMemberState.STATUS_INVITING)) {
-            if (mTabHost.getCurrentTab() != 0) {
-                mTabHost.setCurrentTab(0);
-                Utils.showToast("亲，加入圈子以后才能看到这些精彩内容哦！", Toast.LENGTH_SHORT);
-            }
-            return;
-        }
-        View v = mTabHost.getCurrentTabView();
-        TextView numTxt = (TextView) v.findViewById(R.id.un_read_num);
-        numTxt.setVisibility(View.INVISIBLE);
-        int currentItem = mTabHost.getCurrentTab();
-        if (currentItem == 1) {
-            Intent intent = new Intent(Constants.REMOVE_CIRCLE_PROMPT_COUNT);
-            intent.putExtra("type", ResolutionPushJson.GROWTH_TYPE);
-            intent.putExtra("cid", cid);
-            BroadCast.sendBroadCast(this, intent);
-        } else if (currentItem == 2) {
-            Intent intent = new Intent(Constants.REMOVE_CIRCLE_PROMPT_COUNT);
-            intent.putExtra("type", ResolutionPushJson.NEW_TYPE);
-            intent.putExtra("cid", cid);
-            BroadCast.sendBroadCast(this, intent);
-        }
-
+    public void sendBroadcast(String type) {
+        Intent intent = new Intent(Constants.REMOVE_CIRCLE_PROMPT_COUNT);
+        intent.putExtra("type", type);
+        intent.putExtra("cid", cid);
+        BroadCast.sendBroadCast(this, intent);
     }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (mTabHost.getCurrentTab() != 0) {
-                mTabHost.setCurrentTab(0);
+            if (!imgMember.isEnabled()) {
+                FragmentTransaction transaction = manager.beginTransaction();
+                hideFragment(R.id.tab_member, transaction);
+                showCurrentFragment(R.id.tab_member, transaction);
+                transaction.commit();
             } else {
                 finish();
                 Utils.rightOut(this);
             }
         }
-        return super.onKeyDown(keyCode, event);
+        return false;
     }
 
     /**
-    * 注册该广播
+     * 注册该广播
     */
     public void registerBoradcastReceiver() {
         IntentFilter myIntentFilter = new IntentFilter();
@@ -210,7 +322,10 @@ public class MainTabActivity extends FragmentActivity implements
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             if (action.equals(Constants.CHANGE_TAB)) {
-                mTabHost.setCurrentTab(0);
+                FragmentTransaction transaction = manager.beginTransaction();
+                hideFragment(R.id.tab_member, transaction);
+                showCurrentFragment(R.id.tab_member, transaction);
+                transaction.commit();
             }
         }
     };

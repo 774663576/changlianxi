@@ -14,6 +14,7 @@ import com.changlianxi.data.parser.SimpleParser;
 import com.changlianxi.data.request.ApiRequest;
 import com.changlianxi.data.request.Result;
 import com.changlianxi.db.Const;
+import com.changlianxi.util.StringUtils;
 
 public class GrowthAlbumImages extends AbstractData implements Serializable {
     /**
@@ -112,6 +113,14 @@ public class GrowthAlbumImages extends AbstractData implements Serializable {
 
     public String getPicPath() {
         return picPath;
+    }
+
+    public String getPicPath(int size) {
+        return getPicPath(size, size);
+    }
+
+    public String getPicPath(int width, int height) {
+        return StringUtils.getAliyunOSSImageUrl(picPath, width, height);
     }
 
     public void setPicPath(String picPath) {
