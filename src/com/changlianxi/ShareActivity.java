@@ -19,7 +19,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,7 +38,6 @@ import com.changlianxi.util.BitmapUtils;
 import com.changlianxi.util.Constants;
 import com.changlianxi.util.FileUtils;
 import com.changlianxi.util.MD5;
-import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.StringUtils;
 import com.changlianxi.util.UniversalImageLoadTool;
 import com.changlianxi.util.Utils;
@@ -461,8 +459,8 @@ public class ShareActivity extends BaseActivity implements OnClickListener,
         if (requestCode != 2 || data == null) {
             return;
         }
-        imgNetPath = StringUtils.getAliyunOSSImageUrl(data.getStringExtra("imgs"),
-                500, 500);
+        imgNetPath = StringUtils.getAliyunOSSImageUrl(
+                data.getStringExtra("imgs"), 500, 500);
         setImage();
         createBitmapFile();
     }

@@ -151,7 +151,7 @@ public class HttpUrlHelper {
     public static String postData(Map<String, Object> map, String api,
             String host) {
         for (String key : map.keySet()) {
-            Logger.out("RequestMap==", "[param] " + key + ", " + map.get(key),
+            Logger.out("RequestMap==", "[param] " + key + ", " + map.get(key)+"        "+api,
                     Level.DEBUG);
         }
         List<NameValuePair> params = new ArrayList<NameValuePair>();

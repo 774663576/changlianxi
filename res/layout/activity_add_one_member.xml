@@ -15,61 +15,100 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dip"
-        android:layout_marginLeft="13dip"
         android:layout_marginRight="13dip"
         android:layout_marginTop="12dip"
-        android:background="@drawable/input_bg"
+        android:orientation="vertical"
         android:paddingLeft="20dip" >
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/name"
-            android:textColor="#a0a0a0"
-            android:textSize="15sp" />
-
-        <EditText
-            android:id="@+id/editname"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:paddingBottom="10dip"
-            android:paddingRight="10dip"
-            android:paddingTop="10dip"
-            android:singleLine="true"
-            android:textColor="#a0a0a0"
-            android:textSize="15sp" >
-        </EditText>
+            android:layout_height="35dip" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_marginTop="5dip"
+                android:gravity="center"
+                android:paddingLeft="15dip"
+                android:paddingRight="10dip"
+                android:text="姓名"
+                android:textColor="#a0a0a0"
+                android:textSize="15sp" />
+
+            <View
+                android:id="@+id/line"
+                android:layout_width="1dip"
+                android:layout_height="fill_parent"
+                android:background="#d1d1d1" />
+
+            <EditText
+                android:id="@+id/editname"
+                android:layout_width="0dip"
+                android:layout_height="fill_parent"
+                android:layout_marginTop="5dip"
+                android:layout_weight="1"
+                android:background="@null"
+                android:paddingLeft="15dip"
+                android:singleLine="true"
+                android:textColor="#a0a0a0"
+                android:textSize="15sp" >
+            </EditText>
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="#d1d1d1" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="13dip"
         android:layout_marginRight="13dip"
-        android:background="@drawable/input_bg"
+        android:orientation="vertical"
         android:paddingLeft="20dip" >
 
-        <!-- <TextView -->
-        <!-- android:layout_width="wrap_content" -->
-        <!-- android:layout_height="wrap_content" -->
-        <!-- android:text="@string/mobile" -->
-        <!-- android:textColor="#a0a0a0" -->
-        <!-- android:textSize="15sp" /> -->
-
-        <com.changlianxi.view.SearchEditText
-            android:id="@+id/editmobile"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:hint="手机号/邮箱地址"
-            android:paddingBottom="10dip"
-            android:paddingRight="15dip"
-            android:paddingTop="10dip"
-            android:singleLine="true"
-            android:textColor="#a0a0a0"
-            android:textColorHint="#a0a0a0"
-            android:textSize="15sp" />
+            android:layout_height="35dip" >
+
+            <TextView
+                android:id="@+id/key"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_marginTop="5dip"
+                android:drawablePadding="6dip"
+                android:drawableRight="@drawable/angle_down2"
+                android:gravity="center"
+                android:paddingLeft="15dip"
+                android:paddingRight="10dip"
+                android:text="手机号"
+                android:textColor="#a0a0a0"
+                android:textSize="15sp" />
+
+            <View
+                android:layout_width="1dip"
+                android:layout_height="fill_parent"
+                android:background="#d1d1d1" />
+
+            <com.changlianxi.view.SearchEditText
+                android:id="@+id/editmobile"
+                android:layout_width="0dip"
+                android:layout_height="fill_parent"
+                android:layout_marginTop="5dip"
+                android:layout_weight="1"
+                android:background="@null"
+                android:paddingLeft="15dip"
+                android:singleLine="true"
+                android:textColor="#a0a0a0"
+                android:textSize="15sp" >
+            </com.changlianxi.view.SearchEditText>
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="#d1d1d1" />
     </LinearLayout>
 
     <Button

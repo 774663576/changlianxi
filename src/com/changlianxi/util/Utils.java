@@ -1,5 +1,6 @@
 package com.changlianxi.util;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -18,6 +19,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
@@ -179,7 +181,8 @@ public class Utils {
      * 获取短信地形内容
      */
     public static String getWarnContent(List<CircleMember> circleMembers,
-            String nameWarn, String circleName, String inviteCode) {
+            String nameWarn, String circleName, String inviteCode,
+            String selfName) {
 
         String name = "";
         int size = circleMembers.size();
@@ -205,7 +208,7 @@ public class Utils {
                     + circleMembers.size() + "人";
         }
         String content = StringUtils.getWarneContent(nameWarn, inviteCode,
-                circleName, name);
+                circleName, name, selfName);
         return content;
     }
 
@@ -431,5 +434,20 @@ public class Utils {
         bundle.putSerializable("member", c);
         it.putExtras(bundle);
         context.startActivity(it);
+    }
+
+    // 媒体库更新
+    // - 通过 Intent.ACTION_MEDIA_MOUNTED 进行全扫描
+    public static void allScan(Context context) {
+        context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri
+                .parse("file://" + Environment.getExternalStorageDirectory())));
+    }
+
+    // - 通过 Intent.ACTION_MEDIA_SCANNER_SCAN_FILE 扫描某个文件
+    public static void fileScan(Context context, String fName) {
+        Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        Uri uri = Uri.fromFile(new File(fName));
+        intent.setData(uri);
+        context.sendBroadcast(intent);
     }
 }

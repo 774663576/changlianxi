@@ -5,10 +5,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.1dip"
-        android:background="#d1d1d1" />
+    <!-- <View -->
+    <!-- android:layout_width="match_parent" -->
+    <!-- android:layout_height="0.1dip" -->
+    <!-- android:background="#d1d1d1" /> -->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,7 +28,7 @@
             android:textSize="@dimen/scale32sp" />
 
         <TextView
-            android:id="@+id/line1"
+            android:id="@+id/lineSave"
             android:layout_width="fill_parent"
             android:layout_height="1dip"
             android:background="#e0e0e0" />
@@ -44,7 +44,7 @@
             android:textSize="@dimen/scale32sp" />
 
         <TextView
-            android:id="@+id/line4"
+            android:id="@+id/lineSendMessage"
             android:layout_width="fill_parent"
             android:layout_height="1dip"
             android:background="#e0e0e0" />
@@ -60,7 +60,7 @@
             android:textSize="@dimen/scale32sp" />
 
         <TextView
-            android:id="@+id/line2"
+            android:id="@+id/lineHistory"
             android:layout_width="fill_parent"
             android:layout_height="1dip"
             android:background="#e0e0e0"
@@ -78,7 +78,7 @@
             android:textSize="@dimen/scale32sp" />
 
         <TextView
-            android:id="@+id/line3"
+            android:id="@+id/lineKickOut"
             android:layout_width="fill_parent"
             android:layout_height="1dip"
             android:background="#e0e0e0" />

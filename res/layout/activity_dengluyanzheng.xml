@@ -40,18 +40,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/scale66sp" />
-
-            <!--
-                 <TextView
-                android:id="@+id/tv_genggai"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginRight="5dp"
-                android:text="@string/change"
-                android:textColor="#b2000000"
-                android:textSize="@dimen/scale36sp" />
-            -->
         </LinearLayout>
 
         <LinearLayout

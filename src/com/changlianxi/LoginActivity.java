@@ -9,7 +9,6 @@ import org.json.JSONObject;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -24,7 +23,6 @@ import com.changlianxi.inteface.PasswordEditTextWatcher;
 import com.changlianxi.task.PostAsyncTask;
 import com.changlianxi.task.PostAsyncTask.PostCallBack;
 import com.changlianxi.util.DialogUtil;
-import com.changlianxi.util.EditWather;
 import com.changlianxi.util.SharedUtils;
 import com.changlianxi.util.Utils;
 import com.changlianxi.view.InputMethodRelativeLayout;
@@ -97,8 +95,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener,
         ediPassword = (SearchEditText) findViewById(R.id.edtPassword);
         ediPassword.addTextChangedListener(new PasswordEditTextWatcher(
                 ediPassword, this, true));
-        ediPassword.setOnFocusChangeListener(new OnEditFocusChangeListener(
-                ediPassword, this));
         buttonTxt = (TextView) findViewById(R.id.buttomTxt);
     }
 
@@ -168,8 +164,9 @@ public class LoginActivity extends BaseActivity implements OnClickListener,
                     Utils.showToast("杯具，网络不通，快检查下吧！", Toast.LENGTH_SHORT);
                     return;
                 }
-                String num = ediNum.getText().toString();
-                if (ediNum.getText().toString().length() == 0) {
+                String num = ediNum.getText().toString().trim();
+                String pass = ediPassword.getText().toString().trim();
+                if (num.length() == 0 || pass.length() == 0) {
                     Utils.showToast("号码密码都输入，才能登录常联系:)", Toast.LENGTH_SHORT);
                     return;
                 }

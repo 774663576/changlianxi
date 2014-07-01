@@ -29,7 +29,7 @@
                 android:layout_marginRight="28dip"
                 android:layout_marginTop="40dip"
                 android:lineSpacingExtra="5dip"
-                android:text="友情提示：常联系圈子里每个人都可以看到其他成员的联系方式，为避免误会和信息泄露，请不要选择相互间不认识的朋友到同一个圈子哦。"
+                android:text="友情提示：成员可互相看到联系方式，建议不要将互不认识的朋友拉进一个圈子。"
                 android:textColor="#686868"
                 android:textSize="16sp" />
 

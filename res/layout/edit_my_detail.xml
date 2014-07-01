@@ -11,7 +11,7 @@
         android:layout_weight="1"
         android:paddingBottom="15dip"
         android:paddingTop="15dip"
-        android:text="有人修改了您的资料,快去查看吧"
+        android:text="有人修改了你的资料，快去查看下。"
         android:textColor="#ff7800"
         android:textSize="@dimen/scale32sp" />
 

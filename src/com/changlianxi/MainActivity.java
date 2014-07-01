@@ -261,6 +261,7 @@ public class MainActivity extends SlidingActivity implements
     @Override
     protected void onDestroy() {
         SharedUtils.setInt("loginType", 2);
+        unregisterReceiver(mBroadcastReceiver);
         super.onDestroy();
     }
 
@@ -325,6 +326,7 @@ public class MainActivity extends SlidingActivity implements
         try {
             JSONObject json = new JSONObject(result);
             int rt = json.getInt("rt");
+            SharedUtils.setBoolean("isLogin", true);
             if (rt != 1) {
                 String err = json.getString("err");
                 String errorString = ErrorCodeUtil.convertToChines(err);
@@ -343,6 +345,9 @@ public class MainActivity extends SlidingActivity implements
     public void onBind(String channel_id, String user_id) {
         SharedUtils.setString(SharedUtils.SP_BPUSH_CHANNEL_ID, channel_id);
         SharedUtils.setString(SharedUtils.SP_BPUSH_USER_ID, user_id);
+        if (SharedUtils.getBoolean("isLogin", false)) {
+            return;
+        }
         SetClientInfoTask task = new SetClientInfoTask(new ClientCallBack() {//
                     // 设置属性接口回调
                     public void afterLogin(String result) {

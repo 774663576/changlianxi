@@ -22,6 +22,8 @@ import com.changlianxi.data.Global;
 import com.changlianxi.data.enums.RetError;
 import com.changlianxi.inteface.ConfirmDialog;
 import com.changlianxi.inteface.OnEditFocusChangeListener;
+import com.changlianxi.popwindow.UserInfoEditSelectTypePopwindow;
+import com.changlianxi.popwindow.UserInfoEditSelectTypePopwindow.OnSelectKey;
 import com.changlianxi.task.BaseAsyncTask;
 import com.changlianxi.task.IinviteCircleMemberTask;
 import com.changlianxi.util.BroadCast;
@@ -49,6 +51,8 @@ public class AddOneMemberActivity extends BaseActivity implements
     private TextView titleTxt;
     private CircleMember member;
     private List<CircleMember> inviteMemberList = new ArrayList<CircleMember>();
+    private TextView key;
+    private String keyArray[] = { "手机号", "邮箱" };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -87,6 +91,8 @@ public class AddOneMemberActivity extends BaseActivity implements
         back = (ImageView) findViewById(R.id.back);
         titleTxt = (TextView) findViewById(R.id.titleTxt);
         titleTxt.setText("输入联系人");
+        key = (TextView) findViewById(R.id.key);
+        key.setOnClickListener(this);
     }
 
     /**
@@ -111,24 +117,28 @@ public class AddOneMemberActivity extends BaseActivity implements
                 editMobile.clearFocus();
                 String name = editName.getText().toString();
                 String mobile = editMobile.getText().toString().trim();
+                String keystr = key.getText().toString();
                 if (name.length() == 0) {
                     Utils.showToast("姓名都没有，不能邀请哦", Toast.LENGTH_SHORT);
                     return;
                 }
                 if (mobile.length() == 0) {
-                    Utils.showToast("请输入手机号或者邮箱地址", Toast.LENGTH_SHORT);
-                    return;
-                }
-                if (mobile.contains("@")) {
-                    if (!Utils.isEmail(mobile)) {
-                        Utils.showToast("邮箱格式不正确", Toast.LENGTH_SHORT);
-                        return;
+                    if (keyArray[0].equals(keystr)) {
+                        Utils.showToast("请输入手机号", Toast.LENGTH_SHORT);
+
+                    } else if (keyArray[1].equals(keystr)) {
+                        Utils.showToast("请输入邮箱地址", Toast.LENGTH_SHORT);
                     }
+                    return;
                 } else {
-                    if (!Utils.isPhoneNum(mobile)) {
+                    if (keyArray[0].equals(keystr)) {
                         Utils.showToast("地球上貌似没有这种格式的手机号码:p",
                                 Toast.LENGTH_SHORT);
                         return;
+                    } else if (keyArray[1].equals(keystr)) {
+                        Utils.showToast("邮箱格式不正确", Toast.LENGTH_SHORT);
+                        return;
+
                     }
                 }
                 inviteMemberList.clear();
@@ -153,6 +163,19 @@ public class AddOneMemberActivity extends BaseActivity implements
             case R.id.back:
                 finish();
                 Utils.rightOut(this);
+                break;
+            case R.id.key:
+
+                UserInfoEditSelectTypePopwindow pop = new UserInfoEditSelectTypePopwindow(
+                        AddOneMemberActivity.this, btnNext, keyArray, "");
+                pop.setCallBack(new OnSelectKey() {
+
+                    @Override
+                    public void getSelectKey(String str) {
+                        key.setText(str);
+                    }
+                });
+                pop.show();
                 break;
             default:
                 break;

@@ -45,8 +45,6 @@
             android:id="@+id/btnext"
             android:layout_width="fill_parent"
             android:layout_height="@dimen/scale129dip"
-            android:layout_marginLeft="-1dip"
-            android:layout_marginRight="-1dip"
             android:background="@drawable/bor_radius_bottom"
             android:text="@string/next"
             android:textColor="@color/white"

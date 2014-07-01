@@ -95,6 +95,7 @@ public class UserInfoActivity extends BaseActivity implements OnClickListener,
     private final int TYPE_2 = 2;
     private final int TYPE_3 = 3;
     private final int TYPE_4 = 4;
+    private String registerEmail = "";
     private String username = ""; // 姓名
     private String cellPhone = "";// 手机
     private String compony = ""; // 公司
@@ -110,6 +111,7 @@ public class UserInfoActivity extends BaseActivity implements OnClickListener,
     private TextView save;
     private TextView kickOut;
     private TextView sendMessage;
+    private TextView line1;
     private TextView line2;
     private TextView line3;
     private TextView line4;
@@ -177,6 +179,7 @@ public class UserInfoActivity extends BaseActivity implements OnClickListener,
         cid = circleMember.getCid();
         uid = circleMember.getUid();
         cellPhone = circleMember.getCellphone();
+        registerEmail = circleMember.getAccount_email();
         mHandler.sendEmptyMessageDelayed(5, 200);
     }
 
@@ -209,10 +212,7 @@ public class UserInfoActivity extends BaseActivity implements OnClickListener,
         if (circleMember.getState() == CircleMemberState.STATUS_INVITING) {
             // initLayPrompt();
         }
-        if (!circleMember.getState().equals(CircleMemberState.STATUS_VERIFIED)) {
-            sendMessage.setVisibility(View.GONE);
-            line4.setVisibility(View.GONE);
-        }
+
         if (circleMember.getState().equals(CircleMemberState.STATUS_INVITING)
                 && uid == Global.getIntUid()) {
             btnEdit.setVisibility(View.GONE);
@@ -221,17 +221,21 @@ public class UserInfoActivity extends BaseActivity implements OnClickListener,
         if (circleMember.isAuth(DBUtils.getDBsa(1))) {
             btnEdit.setVisibility(View.VISIBLE);
         }
-        Circle c = new Circle(cid);
-        c.getCircleCreatprById(DBUtils.getDBsa(1));
-        if (Global.getIntUid() == uid || uid == c.getCreator()) {
+
+        if (Global.getIntUid() == uid) {
+            save.setVisibility(View.GONE);
+            sendMessage.setVisibility(View.GONE);
             kickOut.setVisibility(View.GONE);
-            line3.setVisibility(View.GONE);
-        }
-        if (Global.getIntUid() != uid) {
-            history.setVisibility(View.GONE);
+            line1.setVisibility(View.GONE);
             line2.setVisibility(View.GONE);
+            line4.setVisibility(View.GONE);
         } else {
-            history.setVisibility(View.VISIBLE);
+            history.setVisibility(View.GONE);
+            line3.setVisibility(View.GONE);
+            if (circleMember.getState() != CircleMemberState.STATUS_VERIFIED) {
+                sendMessage.setVisibility(View.GONE);
+                line2.setVisibility(View.GONE);
+            }
         }
     }
 
@@ -240,13 +244,14 @@ public class UserInfoActivity extends BaseActivity implements OnClickListener,
         footView = infla.inflate(R.layout.activity_user_info_add, null);
         list.addFooterView(footView, null, false);
         txtnews = (TextView) findViewById(R.id.txtnews);
-        history = (TextView) findViewById(R.id.btnHistory);
-        sendMessage = (TextView) findViewById(R.id.btnSendMessage);
-        save = (TextView) findViewById(R.id.btnSave);
+        history = (TextView) footView.findViewById(R.id.btnHistory);
+        sendMessage = (TextView) footView.findViewById(R.id.btnSendMessage);
+        save = (TextView) footView.findViewById(R.id.btnSave);
         kickOut = (TextView) findViewById(R.id.btnKickOut);
-        line2 = (TextView) findViewById(R.id.line2);
-        line3 = (TextView) findViewById(R.id.line3);
-        line4 = (TextView) findViewById(R.id.line4);
+        line1 = (TextView) footView.findViewById(R.id.lineSave);
+        line2 = (TextView) footView.findViewById(R.id.lineSendMessage);
+        line3 = (TextView) footView.findViewById(R.id.lineHistory);
+        line4 = (TextView) footView.findViewById(R.id.lineKickOut);
 
     }
 
@@ -278,7 +283,9 @@ public class UserInfoActivity extends BaseActivity implements OnClickListener,
     }
 
     private void setValue() {
-        if (!"".equals(cellPhone)) {
+        if (!"".equals(registerEmail) && "".equals(cellPhone)) {
+            txtnews.setText(registerEmail);
+        } else {
             txtnews.setText(cellPhone);
         }
         name.setText(username);
@@ -1188,15 +1195,15 @@ public class UserInfoActivity extends BaseActivity implements OnClickListener,
             case R.id.btnSave:
                 // circleMember.getContactsValues(DBUtils.getDBsa(1));
                 Dialog dialog = DialogUtil.confirmDialog(UserInfoActivity.this,
-                        "请选择保存方式", "保存至已有联系人", "新建联系人", new ConfirmDialog() {
+                        "请选择保存方式", "新建联系人", "保存至已有联系人", new ConfirmDialog() {
                             @Override
                             public void onOKClick() {
-                                saveToExistingContacts();
+                                newContacts();
                             }
 
                             @Override
                             public void onCancleClick() {
-                                newContacts();
+                                saveToExistingContacts();
                             }
                         });
                 dialog.show();
@@ -1220,8 +1227,11 @@ public class UserInfoActivity extends BaseActivity implements OnClickListener,
                 Circle circle = new Circle(cid);
                 circle.getCircleName(DBUtils.getDBsa(1));
                 String circleName = circle.getName();
+                CircleMember self = new CircleMember(cid, 0, Global.getIntUid());
+                self.getNameAndAvatar(DBUtils.getDBsa(1));
                 String content = Utils.getWarnContent(listMemers, username,
-                        circleName, circleMember.getInviteCode());
+                        circleName, circleMember.getInviteCode(),
+                        self.getName());
                 Utils.sendSMS(this, content, circleMember.getCellphone());
                 Utils.rightOut(this);
                 break;

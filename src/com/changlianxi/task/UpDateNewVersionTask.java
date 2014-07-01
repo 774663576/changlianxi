@@ -37,6 +37,7 @@ public class UpDateNewVersionTask extends AsyncTask<String, Integer, String> {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("uid", SharedUtils.getString("uid", ""));
         map.put("token", SharedUtils.getString("token", ""));
+        map.put("v", 2);
         String result = HttpUrlHelper.postData(map, "/users/inewVersion");
         if (result == null || "".equals(result)) {
             return "0";
@@ -54,7 +55,7 @@ public class UpDateNewVersionTask extends AsyncTask<String, Integer, String> {
             String inviteTemplate = json.getString("inviteTemplate");
             inviteTemplate = inviteTemplate.replace("[name]", "%1$s")
                     .replace("[circle]", "%2$s").replace("[friends]", "%3$s")
-                    .replace("[code]", "%4$s");
+                    .replace("[code]", "%4$s").replace("[inviter]", "%5$s");
             SharedUtils.setString("inviteTemplate", inviteTemplate);
             return rt;
         } catch (JSONException e) {

@@ -114,6 +114,7 @@ public class SetPublicInfoShowInfoActivity extends BaseActivity implements
     private TextView save;
     private TextView kickOut;
     private TextView sendMessage;
+    private TextView line1;
     private TextView line2;
     private TextView line3;
     private TextView line4;
@@ -216,13 +217,11 @@ public class SetPublicInfoShowInfoActivity extends BaseActivity implements
         sendMessage = (TextView) findViewById(R.id.btnSendMessage);
         save = (TextView) findViewById(R.id.btnSave);
         kickOut = (TextView) findViewById(R.id.btnKickOut);
-        line2 = (TextView) findViewById(R.id.line2);
-        line3 = (TextView) findViewById(R.id.line3);
-        line4 = (TextView) findViewById(R.id.line4);
-        if (circleMember.getState() != CircleMemberState.STATUS_VERIFIED) {
-            sendMessage.setVisibility(View.GONE);
-            line4.setVisibility(View.GONE);
-        }
+        line1 = (TextView) footView.findViewById(R.id.lineSave);
+        line2 = (TextView) footView.findViewById(R.id.lineSendMessage);
+        line3 = (TextView) footView.findViewById(R.id.lineHistory);
+        line4 = (TextView) footView.findViewById(R.id.lineKickOut);
+
         if (circleMember.getState() == CircleMemberState.STATUS_INVITING
                 && uid == Global.getIntUid()) {
             warnLayout.setVisibility(View.GONE);
@@ -232,17 +231,20 @@ public class SetPublicInfoShowInfoActivity extends BaseActivity implements
         if (circleMember.isAuth(DBUtils.getDBsa(1))) {
             btnEdit.setVisibility(View.VISIBLE);
         }
-        Circle c = new Circle(cid);
-        c.getCircleName(DBUtils.getDBsa(1));
-        if (Global.getIntUid() == uid || uid == c.getCreator()) {
+        if (Global.getIntUid() == uid) {
+            save.setVisibility(View.GONE);
+            sendMessage.setVisibility(View.GONE);
             kickOut.setVisibility(View.GONE);
-            line3.setVisibility(View.GONE);
-        }
-        if (Global.getIntUid() != uid) {
-            history.setVisibility(View.GONE);
+            line1.setVisibility(View.GONE);
             line2.setVisibility(View.GONE);
+            line4.setVisibility(View.GONE);
         } else {
-            history.setVisibility(View.VISIBLE);
+            history.setVisibility(View.GONE);
+            line3.setVisibility(View.GONE);
+            if (circleMember.getState() != CircleMemberState.STATUS_VERIFIED) {
+                sendMessage.setVisibility(View.GONE);
+                line2.setVisibility(View.GONE);
+            }
         }
         authState(circleMember.getState());
 

@@ -114,6 +114,16 @@ public class FileUtils {
 
     }
 
+    public static String getClxImgSavePath() {
+        String path = getRootDir() + "/changlianxiImgSave/";
+        File destDir = new File(path);
+        if (!destDir.exists()) {// 创建文件夹
+            destDir.mkdirs();
+        }
+        return path;
+
+    }
+
     private static void createNoMediaFile() {
         File file = new File(getRootDir() + "/changlianxi/.nomedia");
         if (!file.exists()) {// 判断文件是否存在（不存在则创建这个文件）

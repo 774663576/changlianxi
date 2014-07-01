@@ -80,8 +80,20 @@ public class CircleAdapter extends BaseAdapter {
             holder.circleImg.setVisibility(View.INVISIBLE);
         } else if (circleLogo == null || circleLogo.equals("")
                 || !circleLogo.startsWith("http")) {
-            holder.circleBg.setImageResource(R.drawable.pic_bg_no);
-            holder.circleImg.setVisibility(View.INVISIBLE);
+            if (circleLists.get(position).getId() == -1) {
+                holder.circleImg
+                        .setImageResource(R.drawable.circle_logo_wokemate);
+            } else if (circleLists.get(position).getId() == -2) {
+                holder.circleImg
+                        .setImageResource(R.drawable.circle_logo_classmate);
+            } else if (circleLists.get(position).getId() == -3) {
+                holder.circleImg
+                        .setImageResource(R.drawable.circle_logo_family);
+            } else {
+                holder.circleBg.setImageResource(R.drawable.pic_bg_no);
+                holder.circleImg.setVisibility(View.GONE);
+
+            }
         } else {
             circleLogo = circleLists.get(position).getLogo();
             UniversalImageLoadTool.disPlay(circleLogo, holder.circleImg,

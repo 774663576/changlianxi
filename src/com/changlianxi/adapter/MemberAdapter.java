@@ -97,20 +97,23 @@ public class MemberAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
+        String name = StringUtils.cutEight(circleMembers.get(position)
+                .getName());
+        String accountEmail = circleMembers.get(position).getAccount_email();
         holder.authState.setVisibility(View.VISIBLE);
         holder.btnWarn.setVisibility(View.GONE);
         String employer = circleMembers.get(position).getEmployer();
-        holder.info
-                .setText("".equals(employer) || "null".equals(employer) ? circleMembers
-                        .get(position).getLocation() : employer);
-        String name = StringUtils.cutEight(circleMembers.get(position)
-                .getName());
-        // String name = circleMembers.get(position).getName();
+        String locaiton = circleMembers.get(position).getLocation();
+        if (!"".equals(accountEmail) && "".equals(employer)
+                && "".equals(locaiton)) {
+            holder.info.setText("邮箱注册");
+        } else {
+            holder.info.setText("".equals(employer) ? locaiton : employer);
+        }
         holder.name.setText(name);
         if (!name.equals("")) {
             holder.lastName.setText(name.substring(name.length() - 1));
         }
-        String accountEmail = circleMembers.get(position).getAccount_email();
         if (isAuth) {
             holder.news.setText("".equals(accountEmail) ? circleMembers.get(
                     position).getCellphone() : accountEmail);
@@ -118,7 +121,7 @@ public class MemberAdapter extends BaseAdapter {
         } else {
             holder.news.setText("".equals(accountEmail) ? StringUtils
                     .replaceNum(circleMembers.get(position).getCellphone())
-                    : accountEmail);
+                    : StringUtils.cutEmail(accountEmail));
             authState(holder, state);
         }
         showAlpha(position, holder);
@@ -227,16 +230,18 @@ public class MemberAdapter extends BaseAdapter {
             Circle c = new Circle(circleMembers.get(position).getCid());
             c.getCircleName(DBUtils.getDBsa(1));
             String circleName = c.getName();
-            String content = Utils.getWarnContent(circleMembers, circleMembers
-                    .get(position).getName(), circleName,
-                    circleMembers.get(position).getInviteCode());
+            CircleMember self = new CircleMember(circleMembers.get(position)
+                    .getCid(), 0, Global.getIntUid());
+            self.getNameAndAvatar(DBUtils.getDBsa(1));
+            String content = Utils
+                    .getWarnContent(circleMembers, circleMembers.get(position)
+                            .getName(), circleName, circleMembers.get(position)
+                            .getInviteCode(), self.getName());
             if (!"".equals(circleMembers.get(position).getAccount_email())) {
-                CircleMember self = new CircleMember(circleMembers
-                        .get(position).getCid(), 0, Global.getIntUid());
-                self.getNameAndAvatar(DBUtils.getDBsa(1));
+
                 String title = circleMembers.get(position).getName() + ","
                         + self.getName() + "邀请您加入 【" + circleName
-                        + "】在线\"在线常联系圈子\"";
+                        + "】\"在线常联系圈子\"";
                 Utils.sendEmail(context, circleMembers.get(position)
                         .getAccount_email(), title, content);
                 return;

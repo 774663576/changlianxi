@@ -25,6 +25,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.changlianxi.applation.CLXApplication;
 import com.changlianxi.inteface.PasswordEditTextWatcher;
 import com.changlianxi.task.PostAsyncTask;
 import com.changlianxi.task.PostAsyncTask.PostCallBack;
@@ -324,7 +325,7 @@ public class FindPasswordActivity extends BaseActivity implements
             case R.id.btnFindByEmail:
                 startActivity(new Intent(this, EmailFindPasswordActivity.class));
                 Utils.leftOutRightIn(this);
-                finish();
+                // finish();
                 break;
             default:
                 break;
@@ -374,7 +375,7 @@ public class FindPasswordActivity extends BaseActivity implements
                 page++;
                 ediPasswd.requestFocus();
                 // 弹出软键盘
-                Utils.popUp(this);
+//                Utils.popUp(this);
                 mHandler.removeMessages(0);
             } else {
                 Utils.showToast("啊哦，验证码不对\n验证码为6个数字，请再确认输入一次",
@@ -395,20 +396,11 @@ public class FindPasswordActivity extends BaseActivity implements
     private void SetPassword(String result) {
         try {
             JSONObject object = new JSONObject(result);
-            System.out.println("resut;:::::::::::::" + result);
             int rt = object.getInt("rt");
             if (rt == 1) {
-                // String token = object.getString("token");
-                // String uid = object.getString("uid");
-                // SharedUtils.setString("token", token);
-                // SharedUtils.setString("uid", uid);
-                // CLXApplication.exit(false);
-                // Intent intent = new Intent();
-                // intent.setClass(this, LoginActivity.class);
-                // startActivity(intent);
                 Utils.showToast("密码设置成功！", Toast.LENGTH_SHORT);
-                finish();
-                // Utils.rightOut(this);
+                CLXApplication.exit(false);
+                startActivity(new Intent(this, LoginActivity.class));
             } else {
                 Utils.showToast("啊哦，密码设置没有成功，请查看下您的网络是否正常！", Toast.LENGTH_SHORT);
             }
@@ -462,12 +454,14 @@ public class FindPasswordActivity extends BaseActivity implements
     @Override
     public void onSizeChange(boolean flag, int w, int h) {
         if (flag) {// 键盘弹出时
-            parent.setPadding(0, -10, 0, 0);
+            parent.setPadding(0, -100, 0, 0);
             layButtom.setVisibility(View.GONE);
             txtPrompt1.setVisibility(View.GONE);
             txtPrompt2.setVisibility(View.GONE);
             showNum.setVisibility(View.GONE);
             showNum2.setVisibility(View.GONE);
+            findByEmail.setVisibility(View.GONE);
+
         } else { // 键盘隐藏时
             parent.setPadding(0, 0, 0, 0);
             layButtom.setVisibility(View.VISIBLE);
@@ -475,6 +469,7 @@ public class FindPasswordActivity extends BaseActivity implements
             txtPrompt2.setVisibility(View.VISIBLE);
             showNum.setVisibility(View.VISIBLE);
             showNum2.setVisibility(View.VISIBLE);
+            findByEmail.setVisibility(View.VISIBLE);
         }
     }
 

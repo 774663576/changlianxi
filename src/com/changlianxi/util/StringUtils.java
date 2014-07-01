@@ -39,6 +39,13 @@ public class StringUtils {
         return true;
     }
 
+    public static String cutEmail(String str) {
+        String cutemail = "";
+        int index = str.indexOf("@");
+        return cutemail.substring(0, 1)+"****"+str.substring(index, str.length()-1);
+
+    }
+
     /**
      * 字符串拼接
      * 
@@ -189,10 +196,10 @@ public class StringUtils {
      * @param inviteCode 邀请码
      */
     public static String getWarneContent(String inviteName, String inviteCode,
-            String circleName, String otherName) {
+            String circleName, String otherName, String selfName) {
         String data = SharedUtils.getString("inviteTemplate", "");
         return data = String.format(data, inviteName, circleName, otherName,
-                inviteCode);
+                inviteCode, selfName);
     }
 
     /**

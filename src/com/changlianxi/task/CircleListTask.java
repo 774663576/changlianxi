@@ -3,6 +3,7 @@ package com.changlianxi.task;
 import com.changlianxi.data.CircleList;
 import com.changlianxi.data.enums.RetError;
 import com.changlianxi.db.DBUtils;
+import com.changlianxi.util.SharedUtils;
 
 public class CircleListTask extends BaseAsyncTask<CircleList, Void, RetError> {
 
@@ -36,6 +37,12 @@ public class CircleListTask extends BaseAsyncTask<CircleList, Void, RetError> {
             return RetError.NETWORK_ERROR;
         }
         RetError retError = circleList.refresh(circleList.getLastReqTime());
+        if (SharedUtils.getInt("loginType", 0) == 1
+                && circleList.getCircles().size() == 1) {
+            circleList.initCircles();
+            circleList.setStatus(com.changlianxi.data.AbstractData.Status.NEW);
+            SharedUtils.setInt("loginType", 2);
+        }
         if (refushNotify) {
             circleList.getCirclesNotify();
         }
@@ -49,4 +56,5 @@ public class CircleListTask extends BaseAsyncTask<CircleList, Void, RetError> {
     protected void onPostExecute(RetError result) {
         super.onPostExecute(result);
     }
+
 }

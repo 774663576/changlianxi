@@ -12,7 +12,6 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.changlianxi.data.enums.CircleMemberState;
 import com.changlianxi.data.enums.RetError;
 import com.changlianxi.data.enums.RetStatus;
 import com.changlianxi.data.parser.CircleListParser;
@@ -131,11 +130,10 @@ public class CircleList extends AbstractData {
         if (this.status != Status.OLD) {
             // write one by one
             for (Circle c : this.circles) {
-                if (c.getId() <= 0) {
+                if (c.getId() == 0) {
                     continue;
                 }
                 c.write(db);
-
             }
             // write last request time
             ContentValues cv = new ContentValues();
@@ -310,5 +308,24 @@ public class CircleList extends AbstractData {
         }
         cursor.close();
         return count;
+    }
+
+    public void initCircles() {
+        Circle circle = new Circle(-1);
+        circle.setLogo("");
+        circle.setNew(false);
+        circle.setName("同事");
+        circles.add(0, circle);
+        circle = new Circle(-2);
+        circle.setLogo("");
+        circle.setNew(false);
+        circle.setName("同学");
+        circles.add(0, circle);
+        circle = new Circle(-3);
+        circle.setLogo("");
+        circle.setNew(false);
+        circle.setName("家人");
+        circles.add(0, circle);
+
     }
 }

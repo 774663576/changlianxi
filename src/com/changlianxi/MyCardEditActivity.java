@@ -418,7 +418,8 @@ public class MyCardEditActivity extends BaseActivity implements
                     .getEditType();
             switch (viewType) {
                 case 1:
-                    if (isContainsSpecialKey(key) || key.equals("手机号")) {
+                    if (isContainsSpecialKey(key) || key.equals("手机号")
+                            || "电子邮箱".equals(key)) {
                         cHolder.key
                                 .setCompoundDrawables(null, null, null, null);
                     }
@@ -429,7 +430,7 @@ public class MyCardEditActivity extends BaseActivity implements
                             groupPosition, childPosition, key));
                     cHolder.value.addTextChangedListener(new EditTextWatcher(
                             valueList, childPosition, editType));
-                    if ("手机号".equals(key)) {
+                    if ("手机号".equals(key) || "电子邮箱".equals(key)) {
                         cHolder.value.setFocusable(false);
                         cHolder.text.setVisibility(View.VISIBLE);
                         cHolder.btnDel.setVisibility(View.INVISIBLE);
@@ -960,7 +961,8 @@ public class MyCardEditActivity extends BaseActivity implements
 
         @Override
         public void onClick(View v) {
-            if (isContainsSpecialKey(key) || "手机号".equals(key)) {
+            if (isContainsSpecialKey(key) || "手机号".equals(key)
+                    || "电子邮箱".equals(key)) {
                 return;
             }
             List<String> list = null;
@@ -1018,7 +1020,17 @@ public class MyCardEditActivity extends BaseActivity implements
                     }
                     array = (arrayList.toArray(new String[arrayList.size()]));
                     break;
-
+                case 2:
+                    list = Arrays.asList(UserInfoUtils.emailChineseStr);
+                    arrayList = new ArrayList<String>(list);
+                    for (int i = 0; i < arrayList.size(); i++) {
+                        if (arrayList.get(i).equals("电子邮箱")) {
+                            arrayList.remove(i);
+                            break;
+                        }
+                    }
+                    array = (arrayList.toArray(new String[arrayList.size()]));
+                    break;
                 default:
                     break;
             }
@@ -1148,7 +1160,17 @@ public class MyCardEditActivity extends BaseActivity implements
                     }
                     array = (arrayList.toArray(new String[arrayList.size()]));
                     break;
-
+                case 2:
+                    list = Arrays.asList(UserInfoUtils.emailChineseStr);
+                    arrayList = new ArrayList<String>(list);
+                    for (int i = 0; i < arrayList.size(); i++) {
+                        if (arrayList.get(i).equals("电子邮箱")) {
+                            arrayList.remove(i);
+                            break;
+                        }
+                    }
+                    array = (arrayList.toArray(new String[arrayList.size()]));
+                    break;
                 default:
                     break;
             }

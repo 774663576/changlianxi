@@ -3,7 +3,7 @@
 
     <dimen name="scale125dip">59dip</dimen>
     <dimen name="scale106dip">50dip</dimen>
-    <dimen name="scale129dip">60dip</dimen>
+    <dimen name="scale129dip">55dip</dimen>
     <dimen name="editpassword">55dip</dimen>
 
 </resources>

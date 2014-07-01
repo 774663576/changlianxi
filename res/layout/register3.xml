@@ -32,13 +32,14 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/scale129dip"
             android:background="@drawable/input_top_radius"
+            android:inputType="textPassword"
             android:paddingLeft="@dimen/scale44dip"
             android:paddingRight="15dip"
-            android:inputType="textPassword"
             android:password="true"
             android:textColor="#b8b8b8"
             android:textColorHint="#b8b8b8"
             android:textSize="@dimen/scale46sp" >
+
             <requestFocus />
         </com.changlianxi.view.SearchEditText>
 
@@ -46,13 +47,10 @@
             android:id="@+id/btfinish_register"
             android:layout_width="fill_parent"
             android:layout_height="@dimen/scale129dip"
-            android:layout_marginLeft="-1dip"
-            android:layout_marginRight="-1dip"
             android:background="@drawable/bor_radius_bottom"
             android:text="@string/register_complete"
             android:textColor="@color/white"
             android:textSize="@dimen/scale46sp" />
     </LinearLayout>
-
 
 </LinearLayout>

@@ -6,6 +6,7 @@ import java.util.List;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.changlianxi.GrowthCommentActivity;
 import com.changlianxi.R;
@@ -36,10 +38,13 @@ import com.changlianxi.db.DBUtils;
 import com.changlianxi.showBigPic.ImageDetailFragment.OnBack;
 import com.changlianxi.task.BaseAsyncTask;
 import com.changlianxi.task.BaseAsyncTask.PostCallBack;
+import com.changlianxi.task.SaveImageTask;
+import com.changlianxi.task.SaveImageTask.SaveImge;
 import com.changlianxi.util.DateUtils;
 import com.changlianxi.util.DialogUtil;
 import com.changlianxi.util.Utils;
 import com.changlianxi.view.HackyViewPager;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.umeng.analytics.MobclickAgent;
 
 public class AlbumImagePagerActivity extends FragmentActivity implements
@@ -67,6 +72,7 @@ public class AlbumImagePagerActivity extends FragmentActivity implements
     private LinearLayout layPraise;
     private boolean isAuth = true;
     private LinearLayout layComment;
+    private ImageView btnSave;
 
     @SuppressWarnings("unchecked")
     @Override
@@ -137,6 +143,8 @@ public class AlbumImagePagerActivity extends FragmentActivity implements
         back.setOnClickListener(this);
         layComment = (LinearLayout) findViewById(R.id.layoutComments);
         layComment.setOnClickListener(this);
+        btnSave = (ImageView) findViewById(R.id.btnSave);
+        btnSave.setOnClickListener(this);
     }
 
     private void setValue(int growthID) {
@@ -271,6 +279,25 @@ public class AlbumImagePagerActivity extends FragmentActivity implements
             case R.id.imgBack:
                 finish();
                 break;
+            case R.id.btnSave:
+                btnSave.setEnabled(false);
+                Bitmap bmp = ImageLoader.getInstance().loadImageSync(
+                        lists.get(pagerPosition).getPicPath());
+                if (bmp != null) {
+                    SaveImageTask task = new SaveImageTask(bmp);
+                    task.setCallBack(new SaveImge() {
+                        @Override
+                        public void saveFinish() {
+                            btnSave.setEnabled(true);
+                            Utils.showToast("保存成功", Toast.LENGTH_SHORT);
+                        }
+                    });
+                    task.execute();
+                } else {
+                    Utils.showToast("保存失败", Toast.LENGTH_SHORT);
+                    btnSave.setEnabled(true);
+
+                }
             default:
                 break;
         }
@@ -432,4 +459,5 @@ public class AlbumImagePagerActivity extends FragmentActivity implements
                     R.anim.down_out));
         }
     }
+
 }

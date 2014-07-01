@@ -613,7 +613,7 @@ public class SetingPublicInfomationActivity extends BaseActivity implements
                             cHolder.txtMust.setVisibility(View.VISIBLE);
                         }
                     }
-                    if ("手机号".equals(key)) {
+                    if ("手机号".equals(key) || "电子邮箱".equals(key)) {
                         cHolder.mySwitch.setVisibility(View.INVISIBLE);
                         cHolder.txtMust.setVisibility(View.VISIBLE);
                     }

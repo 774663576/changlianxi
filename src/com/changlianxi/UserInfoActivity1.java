@@ -251,7 +251,7 @@ public class UserInfoActivity1 extends BaseActivity implements OnClickListener,
         save = (TextView) findViewById(R.id.btnSave);
         kickOut = (TextView) findViewById(R.id.btnKickOut);
         line2 = (TextView) findViewById(R.id.line2);
-        line3 = (TextView) findViewById(R.id.line3);
+        line3 = (TextView) findViewById(R.id.lineHistory);
         line4 = (TextView) findViewById(R.id.line4);
 
     }
@@ -1227,8 +1227,11 @@ public class UserInfoActivity1 extends BaseActivity implements OnClickListener,
                 Circle circle = new Circle(cid);
                 circle.getCircleName(DBUtils.getDBsa(1));
                 String circleName = circle.getName();
+                CircleMember self = new CircleMember(cid, 0, Global.getIntUid());
+                self.getNameAndAvatar(DBUtils.getDBsa(1));
                 String content = Utils.getWarnContent(listMemers, username,
-                        circleName, circleMember.getInviteCode());
+                        circleName, circleMember.getInviteCode(),
+                        self.getName());
                 Utils.sendSMS(this, content, circleMember.getCellphone());
                 Utils.rightOut(this);
                 break;

@@ -22,7 +22,6 @@ import android.widget.Toast;
 
 import com.changlianxi.data.EditData;
 import com.changlianxi.data.enums.PersonDetailType;
-import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.UniversalImageLoadTool;
 import com.changlianxi.util.Utils;
 import com.changlianxi.view.CircularImage;
@@ -193,8 +192,8 @@ public class SynchronizeSelfInfoActivity extends BaseActivity implements
                     .equals(PersonDetailType.D_AVATAR)) {
                 holder.avatr.setVisibility(View.VISIBLE);
                 holder.value.setVisibility(View.GONE);
-                UniversalImageLoadTool.disPlay(value, 
-                        holder.avatr,  R.drawable.head_bg);
+                UniversalImageLoadTool.disPlay(value, holder.avatr,
+                        R.drawable.head_bg);
 
             } else {
                 holder.avatr.setVisibility(View.GONE);

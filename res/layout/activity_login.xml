@@ -41,8 +41,7 @@
                     android:layout_height="@dimen/scale129dip"
                     android:background="@drawable/input_top_radius"
                     android:gravity="center_vertical"
-                    android:hint="手机号/邮箱地址"
-                    android:maxLength="13"
+                    android:hint="手机号/邮箱"
                     android:paddingLeft="@dimen/scale44dip"
                     android:paddingRight="15dip"
                     android:singleLine="true"
@@ -97,15 +96,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@null"
-                    android:text="@string/forget_password"
+                    android:text="找回密码"
                     android:textColor="#9d9b90"
                     android:textSize="@dimen/scale36sp" />
 
                 <View
                     android:layout_width="1dip"
                     android:layout_height="15dip"
-                    android:layout_marginLeft="8dip"
-                    android:layout_marginRight="8dip"
+                    android:layout_marginLeft="12dip"
+                    android:layout_marginRight="12dip"
                     android:background="#9d9b90" />
 
                 <Button
@@ -127,49 +126,10 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:gravity="center"
-        android:paddingBottom="20dip"
+        android:paddingBottom="25dip"
         android:text="RelnDeEr 驯鹿科技出品"
-        android:textColor="#bdd1d4"
+        android:textColor="#fafbfb"
         android:textSize="15sp" >
     </TextView>
-    <!-- <LinearLayout> -->
-    <!-- android:id="@+id/layoutBottom" -->
-    <!-- android:layout_width="fill_parent" -->
-    <!-- android:layout_height="wrap_content" -->
-    <!-- android:layout_alignParentBottom="true" -->
-    <!-- android:layout_marginLeft="@dimen/scale34dip" -->
-    <!-- android:layout_marginRight="@dimen/scale34dip" > -->
-
-
-    <!-- <Button -->
-    <!-- android:id="@+id/qita" -->
-    <!-- android:layout_width="fill_parent" -->
-    <!-- android:layout_height="@dimen/scale97dip" -->
-    <!-- android:layout_marginBottom="20dip" -->
-    <!-- android:layout_marginRight="10dip" -->
-    <!-- android:layout_weight="1" -->
-    <!-- android:background="@drawable/btn_tran51" -->
-    <!-- android:text="@string/other_login" -->
-    <!-- android:textColor="#ffffff" -->
-    <!-- android:textSize="@dimen/scale36sp" /> -->
-
-
-    <!-- <Button -->
-    <!-- android:id="@+id/btregister" -->
-    <!-- android:layout_width="fill_parent" -->
-    <!-- android:layout_height="@dimen/scale97dip" -->
-    <!-- android:layout_marginBottom="20dip" -->
-    <!-- android:layout_marginLeft="10dip" -->
-    <!-- android:layout_weight="1" -->
-    <!-- android:background="@drawable/btn_tran13" -->
-    <!-- android:text="@string/regist_new_user" -->
-    <!-- android:textColor="#ffffff" -->
-    <!-- android:textSize="@dimen/scale36sp" /> -->
-
-
-    <!-- </LinearLayout> -->
-
-
-    <!-- </LinearLayout> -->
 
 </com.changlianxi.view.InputMethodRelativeLayout>

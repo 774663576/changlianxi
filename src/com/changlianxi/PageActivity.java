@@ -38,7 +38,6 @@ public class PageActivity extends BaseActivity {
         titleTxt = (TextView) findViewById(R.id.titleTxt);
         titleTxt.setText("纸质通讯录导入说明");
         wb = (WebView) findViewById(R.id.webView1);
-        // wb.loadUrl("http://i.changlianxi.com/pages/import_paper_address_book");//
         // 测试
         wb.loadUrl("http://www.changlianxi.com/pages/import_paper_address_book");// 线上
     }

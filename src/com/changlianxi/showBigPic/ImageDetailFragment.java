@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -29,11 +28,9 @@ import com.nostra13.universalimageloader.core.assist.SimpleImageLoadingListener;
  */
 public class ImageDetailFragment extends Fragment {
     private String mImageUrl;
-    private ImageView mImageView;
     private ImageLoader imageLoader;
     private DisplayImageOptions options;
     private ProgressBar progressBar;
-    // private PhotoViewAttacher mAttacher;
     private OnBack callBack;
     private PhotoView photoView;
 
@@ -53,12 +50,8 @@ public class ImageDetailFragment extends Fragment {
         imageLoader = ImageLoader.getInstance();
         imageLoader.init(ImageLoaderConfiguration.createDefault(CLXApplication
                 .getInstance()));
-        options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.drawable.empty_photo)
-                .showImageForEmptyUri(R.drawable.empty_photo)
-                .showImageOnFail(R.drawable.empty_photo).cacheInMemory(true)
-                .cacheOnDisc(true).bitmapConfig(Bitmap.Config.ARGB_8888)
-                .build();
+        options = new DisplayImageOptions.Builder().cacheOnDisc(true)
+                .bitmapConfig(Bitmap.Config.ARGB_8888).build();
     }
 
     @Override
@@ -66,21 +59,8 @@ public class ImageDetailFragment extends Fragment {
             Bundle savedInstanceState) {
         final View v = inflater.inflate(R.layout.image_detail_fragment,
                 container, false);
-        // mImageView = (ImageView) v.findViewById(R.id.image);
         photoView = (PhotoView) v.findViewById(R.id.image);
-        // mAttacher = new PhotoViewAttacher(mImageView);
-        // mAttacher.setOnPhotoTapListener(new OnPhotoTapListener() {
-        //
-        // @Override
-        // public void onPhotoTap(View arg0, float arg1, float arg2) {
-        // if (callBack != null) {
-        // callBack.onBackClick();
-        // } else {
-        // getActivity().finish();
-        //
-        // }
-        // }
-        // });
+
         photoView.setOnPhotoTapListener(new OnPhotoTapListener() {
 
             @Override
@@ -103,7 +83,7 @@ public class ImageDetailFragment extends Fragment {
         if (!mImageUrl.startsWith("http")) {
             mImageUrl = "file://" + mImageUrl;
         }
-        imageLoader.displayImage(mImageUrl, photoView,
+        imageLoader.displayImage(mImageUrl, photoView, options,
                 new SimpleImageLoadingListener() {
                     @Override
                     public void onLoadingStarted(String imageUri, View view) {
@@ -139,8 +119,7 @@ public class ImageDetailFragment extends Fragment {
                     public void onLoadingComplete(String imageUri, View view,
                             Bitmap loadedImage) {
                         progressBar.setVisibility(View.GONE);
-                        // photoView.
-                        // mAttacher.update();
+
                     }
                 });
 

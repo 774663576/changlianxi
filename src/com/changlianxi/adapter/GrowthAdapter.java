@@ -299,8 +299,8 @@ public class GrowthAdapter extends BaseAdapter {
         @Override
         public void getPosition(int position) {
             if (position < 0) {
-                CircleMember c = new CircleMember(listData.get(0)
-                        .getCid(), 0, Global.getIntUid());
+                CircleMember c = new CircleMember(listData.get(0).getCid(), 0,
+                        Global.getIntUid());
                 if (!c.isAuth(DBUtils.getDBsa(1))) {
                     Utils.showToast("啊哦，您还不是认证成员，快去找圈中朋友帮您认证:)",
                             Toast.LENGTH_SHORT);

@@ -180,6 +180,7 @@ public class ReleaseGrowthActivity extends MapActivity implements
         gridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
         adapter = new MyAdapter();
         gridView.setAdapter(adapter);
+        location.setText("正在获取地址...");
     }
 
     private void setListener() {

@@ -101,6 +101,7 @@ public class SelectContactsActivity extends BaseActivity implements
                     if (dialog != null) {
                         dialog.dismiss();
                     }
+                    listview.requestLayout();
                     adapter.notifyDataSetChanged();
                     break;
                 default:
@@ -218,13 +219,7 @@ public class SelectContactsActivity extends BaseActivity implements
 
                         }
                         mHandler.sendEmptyMessage(1);
-                    }
-                }.start();
-
-                new Thread() {
-                    public void run() {
-
-                        for (int i = 0; i < listModle.size(); i++)
+                        for (int i = 0; i < listModle.size(); i++) {
                             if (SelectContactsActivity.this.isFinishing()) {
                                 return;
                             } else {
@@ -233,9 +228,17 @@ public class SelectContactsActivity extends BaseActivity implements
                                                 listModle.get(i).getName())
                                                 .replace(" ", ""));
                             }
+                        }
+                        mHandler.sendEmptyMessage(1);
                     }
-
                 }.start();
+
+                // new Thread() {
+                // public void run() {
+                //
+                // }
+                //
+                // }.start();
             }
         }
     }

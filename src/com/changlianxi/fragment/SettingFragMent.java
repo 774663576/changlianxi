@@ -346,6 +346,7 @@ public class SettingFragMent extends Fragment implements OnClickListener,
     }
 
     private void finish() {
+        SharedUtils.setBoolean("isLogin", false);
         SharedUtils.setString("uid", "");
         SharedUtils.setString("token", "");
         BaiDuPushUtils.setBind(getActivity(), false);

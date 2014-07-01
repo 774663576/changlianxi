@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -22,7 +23,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.changlianxi.inteface.OnEditFocusChangeListener;
+import com.changlianxi.applation.CLXApplication;
+import com.changlianxi.inteface.PasswordEditTextWatcher;
 import com.changlianxi.task.PostAsyncTask;
 import com.changlianxi.task.PostAsyncTask.PostCallBack;
 import com.changlianxi.util.DialogUtil;
@@ -34,7 +36,6 @@ import com.changlianxi.util.Utils;
 import com.changlianxi.view.InputMethodRelativeLayout;
 import com.changlianxi.view.InputMethodRelativeLayout.OnSizeChangedListenner;
 import com.changlianxi.view.MyViewGroup;
-import com.changlianxi.view.SearchEditText;
 
 public class EmailFindPasswordActivity extends BaseActivity implements
         OnClickListener, OnSizeChangedListenner, PostCallBack {
@@ -58,7 +59,8 @@ public class EmailFindPasswordActivity extends BaseActivity implements
     private TextView txtSecond;
     private Dialog dialog;
     private int currentStep = 1;
-    private int second = 60;// 用于重新获取验证码时间倒计时
+    private int second = 10;// 用于重新获取验证码时间倒计时
+    private Button findByCellphone;
 
     private Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
@@ -69,6 +71,8 @@ public class EmailFindPasswordActivity extends BaseActivity implements
                     if (second < 0) {
                         txtSecond.setVisibility(View.GONE);
                         btnAgainGetCode.setEnabled(true);
+                        btnAgainGetCode
+                                .setBackgroundResource(R.drawable.btn_tran51);
                         return;
                     }
                     this.sendEmptyMessageDelayed(0, 1000);
@@ -107,9 +111,9 @@ public class EmailFindPasswordActivity extends BaseActivity implements
     private void initReg1() {
         find1 = flater.inflate(R.layout.email_find1, null);
         reg1BtnNext = (Button) find1.findViewById(R.id.next);
-        reg1EditEmail = (SearchEditText) find1.findViewById(R.id.editEmail);
+        reg1EditEmail = (EditText) find1.findViewById(R.id.editEmail);
         reg1EditEmail.requestFocus();
-
+        findByCellphone = (Button) find1.findViewById(R.id.btnFindByCellphone);
     }
 
     private void initReg2() {
@@ -133,13 +137,14 @@ public class EmailFindPasswordActivity extends BaseActivity implements
     private void setListener() {
         parent.setOnSizeChangedListenner(this);
         back.setOnClickListener(this);
-        reg1EditEmail.setOnFocusChangeListener(new OnEditFocusChangeListener(
-                reg1EditEmail, this));
+        reg1EditEmail.addTextChangedListener(new PasswordEditTextWatcher(
+                reg1EditEmail, this, true));
         reg1BtnNext.setOnClickListener(this);
         bthFinishYz.setOnClickListener(this);
         parent.setOnSizeChangedListenner(this);
         btnFinishRegister.setOnClickListener(this);
         btnAgainGetCode.setOnClickListener(this);
+        findByCellphone.setOnClickListener(this);
 
     }
 
@@ -150,12 +155,14 @@ public class EmailFindPasswordActivity extends BaseActivity implements
             textView2.setVisibility(View.GONE);
             emailShow.setVisibility(View.GONE);
             layButtom.setVisibility(View.GONE);
+            findByCellphone.setVisibility(View.GONE);
 
         } else { // 键盘隐藏时
             parent.setPadding(0, 0, 0, 0);
             textView2.setVisibility(View.VISIBLE);
             emailShow.setVisibility(View.VISIBLE);
             layButtom.setVisibility(View.VISIBLE);
+            findByCellphone.setVisibility(View.VISIBLE);
 
         }
     }
@@ -184,7 +191,11 @@ public class EmailFindPasswordActivity extends BaseActivity implements
                 if (second > 0) {
                     return;
                 }
+                btnAgainGetCode.setBackgroundResource(R.drawable.btn_tran51);
                 getAuthCode();
+                break;
+            case R.id.btnFindByCellphone:
+                exit();
                 break;
             default:
                 break;
@@ -249,10 +260,9 @@ public class EmailFindPasswordActivity extends BaseActivity implements
             JSONObject object = new JSONObject(result);
             int rt = object.getInt("rt");
             if (rt == 1) {
-                // SharedUtils.setString("token", object.getString("token"));
-                // SharedUtils.setString("uid", object.getString("uid"));
                 Utils.showToast("密码设置成功！", Toast.LENGTH_SHORT);
-                finish();
+                CLXApplication.exit(false);
+                startActivity(new Intent(this, LoginActivity.class));
             } else {
                 Utils.showToast("啊哦，密码设置没有成功，请查看下您的网络是否正常！", Toast.LENGTH_SHORT);
             }
@@ -299,7 +309,7 @@ public class EmailFindPasswordActivity extends BaseActivity implements
             int rt = object.getInt("rt");
             if (rt == 1) {
                 rGroup.setView(find3);
-                Utils.popUp(this);
+                // Utils.popUp(this);
                 currentStep = 3;
             } else {
                 Utils.showToast("啊哦，验证码不对\n验证码为6个数字，请再确认输入一次",
@@ -346,7 +356,6 @@ public class EmailFindPasswordActivity extends BaseActivity implements
                 rGroup.addView(find2);
                 emailShow.setText(reg1EditEmail.getText().toString());
                 currentStep = 2;
-                mHandler.sendEmptyMessage(0);
                 return;
             } else {
                 String errString = object.getString("err");
@@ -408,11 +417,14 @@ public class EmailFindPasswordActivity extends BaseActivity implements
             case 2:
                 rGroup.setView(find1);
                 currentStep = 1;
+                second = 60;
+                mHandler.removeMessages(0);
                 break;
             case 3:
                 rGroup.setView(find1);
                 currentStep = 2;
                 break;
+
             default:
                 break;
         }

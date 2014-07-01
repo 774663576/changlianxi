@@ -89,7 +89,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@null"
-                    android:hint="正在获取地址..."
                     android:paddingBottom="12dip"
                     android:paddingTop="12dip"
                     android:textColor="@color/font81"

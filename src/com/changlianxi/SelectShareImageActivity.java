@@ -14,7 +14,6 @@ import android.widget.GridView;
 import android.widget.ImageView;
 
 import com.changlianxi.data.GrowthImage;
-import com.changlianxi.util.StringUtils;
 import com.changlianxi.util.UniversalImageLoadTool;
 import com.umeng.analytics.MobclickAgent;
 
@@ -83,8 +82,8 @@ public class SelectShareImageActivity extends BaseActivity implements
             }
             holder.img.setTag(path);
             path = images.get(position).getImg(200);
-            UniversalImageLoadTool.disPlay(path, 
-                    holder.img, R.drawable.empty_photo);
+            UniversalImageLoadTool.disPlay(path, holder.img,
+                    R.drawable.empty_photo);
             return convertView;
         }
 

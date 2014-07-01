@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/scale296dip"
+        android:layout_marginTop="@dimen/scale228dip"
         android:shadowColor="#ffffff"
         android:shadowDx="0.6"
         android:shadowDy="0.6"
@@ -40,11 +40,24 @@
         android:layout_width="fill_parent"
         android:layout_height="@dimen/scale129dip"
         android:layout_below="@+id/editEmail"
-        android:layout_marginLeft="@dimen/scale34dip"
-        android:layout_marginRight="@dimen/scale34dip"
+        android:layout_marginLeft="@dimen/scale36dip"
+        android:layout_marginRight="@dimen/scale36dip"
         android:background="@drawable/bor_radius_bottom"
         android:text="@string/next"
         android:textColor="@color/white"
         android:textSize="@dimen/scale46sp" />
+
+    <Button
+        android:id="@+id/btnFindByCellphone"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/next"
+        android:background="@null"
+        android:gravity="center_horizontal"
+        android:paddingBottom="30dip"
+        android:paddingTop="30dip"
+        android:text="手机号注册用户\n请点击这里找回您的密码"
+        android:textColor="#257dc4"
+        android:textSize="@dimen/scale36sp" />
 
 </RelativeLayout>

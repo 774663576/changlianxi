@@ -259,7 +259,7 @@ public class BitmapUtils {
         FileOutputStream b = null;
         try {
             b = new FileOutputStream(filename);
-            bmp.compress(Bitmap.CompressFormat.PNG, 100, b);// 把数据写入文件
+            bmp.compress(Bitmap.CompressFormat.JPEG, 100, b);// 把数据写入文件
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } finally {

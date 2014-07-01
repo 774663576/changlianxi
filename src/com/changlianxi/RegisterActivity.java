@@ -422,7 +422,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,
             if (rt == 1) {
                 rGroup.setView(reg3);
                 page++;
-                Utils.popUp(this);
+                // Utils.popUp(this);
                 mHandler.removeMessages(0);
             } else {
                 Utils.showToast("啊哦，验证码不对\n验证码为6个数字，请再确认输入一次",
@@ -511,6 +511,8 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,
             txtShowNum.setVisibility(View.GONE);
             textView3.setVisibility(View.GONE);
             txtShowNum2.setVisibility(View.GONE);
+            btnEmail.setVisibility(View.GONE);
+
         } else { // 键盘隐藏时
             parent.setPadding(0, 0, 0, 0);
             layButtom.setVisibility(View.VISIBLE);
@@ -518,6 +520,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,
             txtShowNum.setVisibility(View.VISIBLE);
             textView3.setVisibility(View.VISIBLE);
             txtShowNum2.setVisibility(View.VISIBLE);
+            btnEmail.setVisibility(View.VISIBLE);
         }
     }
 }

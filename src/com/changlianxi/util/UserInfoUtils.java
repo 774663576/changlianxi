@@ -17,14 +17,14 @@ public class UserInfoUtils {
 
     /* 基本数据key所对应的中文名称 "姓名", */
     public static final String basicChineseStr[] = { "姓名", "单位", "职位", "生日",
-            "公历生日", "性別", "昵称", "备注" };
+            "农历生日", "性別", "昵称", "备注" };
     public static final String basicUserStr[] = { "D_NAME", "D_EMPLOYER",
             "D_JOBTITLE", "D_BIRTHDAY", "D_GRE_BIRTHDAY", "D_GENDAR",
             "D_NICKNAME", "D_REMARK" };
 
     /* 基本数据key所对应的中文名称 "姓名", */
     public static final String basicUserChineseStr[] = { "姓名", "单位", "职位",
-            "生日", "公历生日", "性別", "昵称", "备注" };
+            "生日", "农历生日", "性別", "昵称", "备注" };
     /* 联系方式数据对包含的属性key */
     public static final String contactPhone[] = { "D_CELLPHONE", "D_MOBILE",
             "D_WORK_PHONE", "D_HOME_PHONE", "D_PRIVATE_PHONE", "D_WORK_FAX",
@@ -84,7 +84,7 @@ public class UserInfoUtils {
             "D_MASTER_COLLEGE", "D_PHD_COLLEGE", "D_JOB" };
 
     public static final String infoKeyChinese[] = { "姓名", "单位", "职位", "生日",
-            "公历生日", "性別", "昵称", "备注", "手机号", "常用电话", "工作电话", "住宅电话", "私人电话",
+            "农历生日", "性別", "昵称", "备注", "手机号", "常用电话", "工作电话", "住宅电话", "私人电话",
             "工作传真", "住宅传真", "传呼", "短号码", "其他号码", "电子邮箱", "常用邮箱", "工作邮箱",
             "个人邮箱", "其他邮箱", "微信", "QQ", "新浪微博", "人人网", "腾讯微博", "个人博客",
             "FaceBook", "Twitter", "Skype", "籍贯", "当前地址", "通讯地址", "居住地址",

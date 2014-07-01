@@ -17,7 +17,9 @@ import com.changlianxi.applation.CLXApplication;
 import com.changlianxi.data.Circle;
 import com.changlianxi.data.CircleMember;
 import com.changlianxi.data.Global;
+import com.changlianxi.data.AbstractData.Status;
 import com.changlianxi.data.enums.RetError;
+import com.changlianxi.db.DBUtils;
 import com.changlianxi.inteface.ConfirmDialog;
 import com.changlianxi.tab.fragment.MainTabActivity;
 import com.changlianxi.task.BaseAsyncTask;
@@ -91,6 +93,11 @@ public class CreateCircleActivity extends BaseActivity implements
         contactsList = (List<CircleMember>) bundle
                 .getSerializable("contactsList");
         initCircleID = getIntent().getIntExtra("cid", 0);
+        if (initCircleID != 0) {
+            Circle c = new Circle(initCircleID);
+            c.getCircleName(DBUtils.getDBsa(1));
+            editCirName.setText(c.getName());
+        }
     }
 
     private void inviteFInish() {
@@ -161,6 +168,9 @@ public class CreateCircleActivity extends BaseActivity implements
                     Intent intent = new Intent(Constants.REMOVE_INIT_CIRCLE);
                     intent.putExtra("cid", initCircleID);
                     BroadCast.sendBroadCast(CreateCircleActivity.this, intent);
+                    Circle c = new Circle(initCircleID);
+                    c.setStatus(Status.DEL);
+                    c.write(DBUtils.getDBsa(2));
                 }
                 BroadCast.sendBroadCast(CreateCircleActivity.this,
                         Constants.REFRESH_CIRCLE_LIST);

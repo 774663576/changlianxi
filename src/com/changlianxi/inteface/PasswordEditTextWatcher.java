@@ -4,15 +4,16 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.widget.EditText;
 
 import com.changlianxi.R;
 import com.changlianxi.view.SearchEditText;
 
 public class PasswordEditTextWatcher implements TextWatcher {
-    private SearchEditText edit;
+    private EditText edit;
     private Context mContext;
 
-    public PasswordEditTextWatcher(SearchEditText edit, Context context,
+    public PasswordEditTextWatcher(EditText edit, Context context,
             boolean isPswd) {
         this.edit = edit;
         mContext = context;

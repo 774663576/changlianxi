@@ -41,7 +41,6 @@ import com.changlianxi.util.DialogUtil;
 import com.changlianxi.util.SharedUtils;
 import com.changlianxi.util.StringUtils;
 import com.changlianxi.util.UniversalImageLoadTool;
-import com.changlianxi.util.UserInfoUtils;
 import com.changlianxi.util.Utils;
 import com.changlianxi.view.CircularImage;
 import com.changlianxi.view.ScrollViewWithListView;
@@ -124,7 +123,8 @@ public class SyncchronousInformationActivity extends BaseActivity implements
         circleList = new CircleList(circles);
         circleList.read(DBUtils.getDBsa(1));
         for (int i = circles.size() - 1; i >= 0; i--) {
-            if (circles.get(i).isNew() || cid == circles.get(i).getId()) {
+            if (circles.get(i).isNew() || cid == circles.get(i).getId()
+                    || circles.get(i).getId() < 0) {
                 circles.remove(i);
             }
         }

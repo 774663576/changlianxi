@@ -47,8 +47,6 @@
             android:id="@+id/btfinish_register"
             android:layout_width="fill_parent"
             android:layout_height="@dimen/scale129dip"
-            android:layout_marginLeft="-1dip"
-            android:layout_marginRight="-1dip"
             android:background="@drawable/bor_radius_bottom"
             android:text="@string/register_complete"
             android:textColor="@color/white"

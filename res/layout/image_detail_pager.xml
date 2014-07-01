@@ -38,6 +38,13 @@
             android:text="@string/viewpager_indicator"
             android:textColor="@color/white"
             android:textSize="23sp" />
+
+        <ImageView
+            android:id="@+id/btnSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dip"
+            android:src="@drawable/action_save" />
     </LinearLayout>
 
     <LinearLayout

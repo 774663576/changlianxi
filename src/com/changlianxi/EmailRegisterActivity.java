@@ -22,7 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.changlianxi.inteface.OnEditFocusChangeListener;
+import com.changlianxi.inteface.PasswordEditTextWatcher;
 import com.changlianxi.task.PostAsyncTask;
 import com.changlianxi.task.PostAsyncTask.PostCallBack;
 import com.changlianxi.task.RegisterTask;
@@ -59,7 +59,7 @@ public class EmailRegisterActivity extends BaseActivity implements
     private Dialog dialog;
     private int currentStep = 1;
     private int second = 60;// 用于重新获取验证码时间倒计时
-
+    private Button btnCellphone;
     private Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -69,6 +69,8 @@ public class EmailRegisterActivity extends BaseActivity implements
                     if (second < 0) {
                         txtSecond.setVisibility(View.GONE);
                         btnAgainGetCode.setEnabled(true);
+                        btnAgainGetCode
+                                .setBackgroundResource(R.drawable.btn_tran51);
                         return;
                     }
                     this.sendEmptyMessageDelayed(0, 1000);
@@ -109,7 +111,7 @@ public class EmailRegisterActivity extends BaseActivity implements
         reg1BtnNext = (Button) reg1.findViewById(R.id.next);
         reg1EditEmail = (SearchEditText) reg1.findViewById(R.id.editEmail);
         reg1EditEmail.requestFocus();
-
+        btnCellphone = (Button) reg1.findViewById(R.id.btnCellphone);
     }
 
     private void initReg2() {
@@ -133,14 +135,14 @@ public class EmailRegisterActivity extends BaseActivity implements
     private void setListener() {
         parent.setOnSizeChangedListenner(this);
         back.setOnClickListener(this);
-        reg1EditEmail.setOnFocusChangeListener(new OnEditFocusChangeListener(
-                reg1EditEmail, this));
+        reg1EditEmail.addTextChangedListener(new PasswordEditTextWatcher(
+                reg1EditEmail, this, true));
         reg1BtnNext.setOnClickListener(this);
         bthFinishYz.setOnClickListener(this);
         parent.setOnSizeChangedListenner(this);
         btnFinishRegister.setOnClickListener(this);
         btnAgainGetCode.setOnClickListener(this);
-
+        btnCellphone.setOnClickListener(this);
     }
 
     @Override
@@ -150,12 +152,14 @@ public class EmailRegisterActivity extends BaseActivity implements
             textView2.setVisibility(View.GONE);
             emailShow.setVisibility(View.GONE);
             layButtom.setVisibility(View.GONE);
+            btnCellphone.setVisibility(View.GONE);
 
         } else { // 键盘隐藏时
             parent.setPadding(0, 0, 0, 0);
             textView2.setVisibility(View.VISIBLE);
             emailShow.setVisibility(View.VISIBLE);
             layButtom.setVisibility(View.VISIBLE);
+            btnCellphone.setVisibility(View.VISIBLE);
 
         }
     }
@@ -184,7 +188,11 @@ public class EmailRegisterActivity extends BaseActivity implements
                 if (second > 0) {
                     return;
                 }
+                btnAgainGetCode.setBackgroundResource(R.drawable.btn_tran51);
                 getAuthCode();
+                break;
+            case R.id.btnCellphone:
+                exit();
                 break;
             default:
                 break;
@@ -305,7 +313,7 @@ public class EmailRegisterActivity extends BaseActivity implements
             int rt = object.getInt("rt");
             if (rt == 1) {
                 rGroup.setView(reg3);
-                Utils.popUp(this);
+                // Utils.popUp(this);
                 currentStep = 3;
             } else {
                 Utils.showToast("啊哦，验证码不对\n验证码为6个数字，请再确认输入一次",
@@ -403,6 +411,8 @@ public class EmailRegisterActivity extends BaseActivity implements
             case 2:
                 rGroup.setView(reg1);
                 currentStep = 1;
+                second = 60;
+                mHandler.removeMessages(0);
                 break;
             case 3:
                 rGroup.setView(reg1);

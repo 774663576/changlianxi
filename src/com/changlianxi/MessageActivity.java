@@ -443,8 +443,9 @@ public class MessageActivity extends BaseActivity implements OnClickListener,
 
                 break;
             case R.id.btnSend:
-                String content = editContent.getText().toString();
+                String content = editContent.getText().toString().trim();
                 if (content.length() == 0) {
+                    Utils.showToast("不能发送空内容", Toast.LENGTH_SHORT);
                     return;
                 }
                 // 从而显示最新消息

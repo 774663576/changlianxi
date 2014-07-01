@@ -164,7 +164,6 @@ public class HomeFragMent extends Fragment implements OnClickListener,
             }
         });
         setValue();
-
     }
 
     private void setValue() {
@@ -174,31 +173,13 @@ public class HomeFragMent extends Fragment implements OnClickListener,
         dialog = DialogUtil.getWaitDialog(getActivity(), "请稍候");
         dialog.show();
         registerBoradcastReceiver();
+        // SharedUtils.setInt("loginType", 1);
         filldata(true, true, true);
 
     }
 
     public void setPromptVisible(int visible) {
         imgPromte.setVisibility(visible);
-    }
-
-    private void initCircles() {
-        Circle circle = new Circle(-1);
-        circle.setLogo("");
-        circle.setNew(false);
-        circle.setName("创建家人圈子");
-        circleslists.add(0, circle);
-        circle = new Circle(-2);
-        circle.setLogo("");
-        circle.setNew(false);
-        circle.setName("创建同事圈子");
-        circleslists.add(0, circle);
-        circle = new Circle(-3);
-        circle.setLogo("");
-        circle.setNew(false);
-        circle.setName("创建同学圈子");
-        circleslists.add(0, circle);
-
     }
 
     private void showSearchPopWindow() {
@@ -329,10 +310,7 @@ public class HomeFragMent extends Fragment implements OnClickListener,
                 if (dialog != null) {
                     dialog.dismiss();
                 }
-                if (SharedUtils.getInt("loginType", 0) == 1
-                        && circleslists.size() == 1) {
-                    initCircles();
-                }
+
                 addNewCircle();
                 adapter.setData(circleslists);
             }
@@ -370,6 +348,7 @@ public class HomeFragMent extends Fragment implements OnClickListener,
     private Circle getNewCircle() {
         Circle circle = new Circle(0);
         circle.setLogo("addroot");
+        // circle.setJoinTime("1970-01-11 14:29:34");
         circle.setNew(false);
         circle.setName("添加圈子");
         return circle;
