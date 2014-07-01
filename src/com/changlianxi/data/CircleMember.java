@@ -711,7 +711,8 @@ public class CircleMember extends AbstractData implements Serializable {
             this.lastModTime = another.lastModTime;
             this.location = another.location;
             this.state = another.state;
-
+            
+            this.details = another.details;
             isChange = true;
         }
 
