@@ -295,7 +295,8 @@ public class UserInfoActivity extends BaseActivity implements OnClickListener,
 
     private void authState(CircleMemberState state) {
         authState.setVisibility(View.VISIBLE);
-        if (state.equals(CircleMemberState.STATUS_VERIFIED)) {
+        if (state.equals(CircleMemberState.STATUS_VERIFIED)
+                || state.equals(CircleMemberState.STATUS_KICKOFFING)) {
             authState.setText("已认证");
             authState.setBackgroundResource(R.drawable.auth);
         } else if (state.equals(CircleMemberState.STATUS_ENTER_AND_VERIFYING)) {

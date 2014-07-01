@@ -266,14 +266,13 @@ public class SyncchronousInformationActivity extends BaseActivity implements
                 viewHolder = (ViewHolder) convertView.getTag();
             }
             viewHolder.circleName.setText(StringUtils.ToDBC(circleName));
-            if (circleLogo == null || circleLogo.equals("")
-                    || !circleLogo.startsWith("http")) {
-                viewHolder.circleImg.setImageResource(R.drawable.pic_bg_no);
-            } else {
-                UniversalImageLoadTool.disPlay(circleLogo,
-                        viewHolder.circleImg, R.drawable.pic_bg_no);
-
-            }
+            // if (circleLogo == null || circleLogo.equals("")
+            // || !circleLogo.startsWith("http")) {
+            // viewHolder.circleImg.setImageResource(R.drawable.pic_bg_no);
+            // } else {
+            UniversalImageLoadTool.disPlay(circleLogo, viewHolder.circleImg,
+                    R.drawable.pic_bg_no);
+            // }
 
             viewHolder.checkBox.setChecked(circles.get(position).isNew());
             viewHolder.checkBox.setClickable(false);

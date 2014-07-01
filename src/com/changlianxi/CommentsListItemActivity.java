@@ -295,6 +295,7 @@ public class CommentsListItemActivity extends BaseActivity implements
             public void onItemClick(AdapterView<?> arg0, View arg1,
                     int position, long arg3) {
                 replyId = Global.getIntUid();
+
                 int uid = comments.get(position - 1).getUid();
                 CircleMember m = getNameAndAvatar(cid, uid);
                 edtContent.setHint("回复" + m.getName() + ":");

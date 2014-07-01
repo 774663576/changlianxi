@@ -250,6 +250,7 @@ public class MemberFragment extends Fragment implements
         circleMemberList = new CircleMemberList(cid);
         registerBoradcastReceiver();
         getFirstCircleMembers(newMemberCount, newMyDetailEditCount, true);
+
     }
 
     /**
@@ -276,6 +277,7 @@ public class MemberFragment extends Fragment implements
                 newMemberCount = 1;// 把newMemberCount设为大于0的数
                 getFirstCircleMembers(newMemberCount, newMyDetailEditCount,
                         true);
+
             } else if (action.equals(Constants.UPDECIRNAME)) {// 更新标题
                 String circleName = intent.getStringExtra("circleName");
                 title.setText(circleName);
@@ -337,6 +339,7 @@ public class MemberFragment extends Fragment implements
                 // lists.remove(i);
                 // }
                 // adapter.setData(lists);
+
             }
         } else {
             btadd.setVisibility(View.VISIBLE);
@@ -362,6 +365,7 @@ public class MemberFragment extends Fragment implements
         firstTask = new CircleMemberListFirstTask(newMemberCount,
                 newMyDetailEditCount, refushNet);
         firstTask.setTaskCallBack(new BaseAsyncTask.PostCallBack<RetError>() {
+
             @Override
             public void taskFinish(RetError result) {
                 mPullDownView.RefreshComplete();
@@ -420,6 +424,7 @@ public class MemberFragment extends Fragment implements
                 newMemberCount = 1;// 把newMemberCount设为大于0的数
                 getFirstCircleMembers(newMemberCount, newMyDetailEditCount,
                         false);
+
                 Intent intent = new Intent(Constants.ACCEPT_CIRCLE_INVITATE);
                 intent.putExtra("cid", cid);
                 BroadCast.sendBroadCast(getActivity(), intent);

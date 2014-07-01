@@ -907,7 +907,8 @@ public class Growth extends AbstractData implements Serializable {
                 parser);
         if (ret.getStatus() == RetStatus.SUCC) {
             GrowthComment newComent = (GrowthComment) ret.getData();
-            // this.commentList.addComment(newComent);
+            newComent.setReplyid(comment.getReplyid());
+            this.commentList.addComment(newComent);
             this.commentCnt = newComent.getTotal();
             this.status = Status.UPDATE;
             return RetError.NONE;

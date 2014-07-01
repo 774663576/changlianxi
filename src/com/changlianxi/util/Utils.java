@@ -64,13 +64,13 @@ public class Utils {
     }
 
     /**
-     * 邮箱验证
+     * 确认字符串是否为email格式
      * 
      * @param strEmail
      * @return
      */
     public static boolean isEmail(String strEmail) {
-        String strPattern = "^[a-zA-Z0-9]*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*";
+        String strPattern = "^[a-zA-Z][\\w\\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\\w\\.-]*[a-zA-Z0-9]\\.[a-zA-Z][a-zA-Z\\.]*[a-zA-Z]$";
         Pattern p = Pattern.compile(strPattern);
         Matcher m = p.matcher(strEmail);
         return m.matches();

@@ -114,7 +114,11 @@
         <service
             android:name="com.baidu.android.pushservice.PushService"
             android:exported="true"
-            android:process=":bdservice_v1" />
+            android:process=":bdservice_v1" >
+            <intent-filter>
+                <action android:name="com.baidu.android.pushservice.action.PUSH_SERVICE" />
+            </intent-filter>
+        </service>
         <!-- push结束 -->
         <!-- PorfpiwrTOFPGLgTbMBV57C0 -->
         <!-- 在百度开发者中心查询应用的API Key -->
