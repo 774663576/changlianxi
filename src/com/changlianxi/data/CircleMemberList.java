@@ -57,7 +57,9 @@ public class CircleMemberList extends AbstractData {
     private List<CircleMember> members = new ArrayList<CircleMember>();
 
     enum Type {
-        NEW, MOD, DEL
+        NEW,
+        MOD,
+        DEL
     } // TODO
 
     public CircleMemberList(int cid) {
@@ -454,19 +456,14 @@ public class CircleMemberList extends AbstractData {
             }
             // detail info: delete del members' details
             sqlBuffer.append("delete from " + Const.PERSON_DETAIL_TABLE_NAME1
-                    + " where _id in (");
+                    + " where cid=" + cid + " and pid in (");
             cnt = 0;
             for (CircleMember dm : delMembers) {
-                for (PersonDetail pd : dm.getDetails()) {
-                    if (cnt > 0) {
-                        sqlBuffer.append(",");
-                    }
-                    if (dm.get_id() == 0) {
-                        continue;
-                    }
-                    sqlBuffer.append(pd.get_id());
-                    cnt++;
+                if (cnt > 0) {
+                    sqlBuffer.append(",");
                 }
+                sqlBuffer.append(dm.getPid());
+                cnt++;
             }
 
             if (cnt > 0) {
