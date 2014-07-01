@@ -132,13 +132,16 @@ public class AddOneMemberActivity extends BaseActivity implements
                     return;
                 } else {
                     if (keyArray[0].equals(keystr)) {
-                        Utils.showToast("地球上貌似没有这种格式的手机号码:p",
-                                Toast.LENGTH_SHORT);
-                        return;
+                        if (!Utils.isPhoneNum(mobile)) {
+                            Utils.showToast("地球上貌似没有这种格式的手机号码:p",
+                                    Toast.LENGTH_SHORT);
+                            return;
+                        }
                     } else if (keyArray[1].equals(keystr)) {
-                        Utils.showToast("邮箱格式不正确", Toast.LENGTH_SHORT);
-                        return;
-
+                        if (!Utils.isEmail(mobile)) {
+                            Utils.showToast("邮箱格式不正确", Toast.LENGTH_SHORT);
+                            return;
+                        }
                     }
                 }
                 inviteMemberList.clear();

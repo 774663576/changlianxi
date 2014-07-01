@@ -12,14 +12,14 @@ public class UserInfoUtils {
             "社交账号", "地址信息", "教育经历", "工作经历" };
     /* 基本数据对包含的属性key "D_NAME", */
     public static final String basicStr[] = { "D_NAME", "D_EMPLOYER",
-            "D_JOBTITLE", "D_BIRTHDAY", "D_GRE_BIRTHDAY", "D_GENDAR",
+            "D_JOBTITLE", "D_BIRTHDAY", "D_LUNAR_BIRTHDAY", "D_GENDAR",
             "D_NICKNAME", "D_REMARK" };
 
     /* 基本数据key所对应的中文名称 "姓名", */
     public static final String basicChineseStr[] = { "姓名", "单位", "职位", "生日",
             "农历生日", "性別", "昵称", "备注" };
     public static final String basicUserStr[] = { "D_NAME", "D_EMPLOYER",
-            "D_JOBTITLE", "D_BIRTHDAY", "D_GRE_BIRTHDAY", "D_GENDAR",
+            "D_JOBTITLE", "D_BIRTHDAY", "D_LUNAR_BIRTHDAY", "D_GENDAR",
             "D_NICKNAME", "D_REMARK" };
 
     /* 基本数据key所对应的中文名称 "姓名", */
@@ -70,7 +70,7 @@ public class UserInfoUtils {
     public static final String workChineseStr[] = { "工作" };
     /* 资料属性type */
     public static final String infoKey[] = { "D_NAME", "D_EMPLOYER",
-            "D_JOBTITLE", "D_BIRTHDAY", "D_GRE_BIRTHDAY", "D_GENDAR",
+            "D_JOBTITLE", "D_BIRTHDAY", "D_LUNAR_BIRTHDAY", "D_GENDAR",
             "D_NICKNAME", "D_REMARK", "D_CELLPHONE", "D_MOBILE",
             "D_WORK_PHONE", "D_HOME_PHONE", "D_PRIVATE_PHONE", "D_WORK_FAX",
             "D_HOME_FAX", "D_PAGER", "D_SHORT_PHONE", "D_OTHER_PHONE",

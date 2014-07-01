@@ -31,7 +31,7 @@ public class SortPersonType {
         typeSort.put(PersonDetailType.D_EMPLOYER, 3);
         typeSort.put(PersonDetailType.D_JOBTITLE, 4);
         typeSort.put(PersonDetailType.D_BIRTHDAY, 5);
-        typeSort.put(PersonDetailType.D_GRE_BIRTHDAY, 6);
+        typeSort.put(PersonDetailType.D_LUNAR_BIRTHDAY, 6);
         typeSort.put(PersonDetailType.D_GENDAR, 7);
         typeSort.put(PersonDetailType.D_NICKNAME, 8);
         typeSort.put(PersonDetailType.D_REMARK, 9);
@@ -82,7 +82,7 @@ public class SortPersonType {
 
         basic.add(PersonDetailType.D_BIRTHDAY);
         basic.add(PersonDetailType.D_REMARK);
-        basic.add(PersonDetailType.D_GRE_BIRTHDAY);
+        basic.add(PersonDetailType.D_LUNAR_BIRTHDAY);
         basic.add(PersonDetailType.D_NICKNAME);
         basic.add(PersonDetailType.D_JOBTITLE);
         basic.add(PersonDetailType.D_EMPLOYER);

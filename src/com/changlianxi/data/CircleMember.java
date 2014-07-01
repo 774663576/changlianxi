@@ -674,7 +674,6 @@ public class CircleMember extends AbstractData implements Serializable {
             this.employer = another.employer;
             isChange = true;
         }
-
         if (isChange && this.status == Status.OLD) {
             this.status = Status.UPDATE;
         }
@@ -699,7 +698,6 @@ public class CircleMember extends AbstractData implements Serializable {
             this.pid = another.pid;
             isChange = true;
         }
-
         if (!this.lastModTime.equals(another.lastModTime)) {
             this.name = another.name;
             this.sortkey = another.sortkey;
@@ -714,7 +712,6 @@ public class CircleMember extends AbstractData implements Serializable {
 
             isChange = true;
         }
-
         if (isChange && this.status == Status.OLD) {
             this.status = Status.UPDATE;
         }

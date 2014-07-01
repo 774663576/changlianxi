@@ -381,10 +381,10 @@ public class CircleMemberList extends AbstractData {
         if (this.status == Status.OLD) {
             return;
         }
-
         List<CircleMember> newMembers = new ArrayList<CircleMember>();
         List<CircleMember> delMembers = new ArrayList<CircleMember>();
         for (CircleMember m : members) {
+     
             if (m.status == Status.OLD) {
                 continue;
             }
@@ -452,7 +452,6 @@ public class CircleMemberList extends AbstractData {
             for (CircleMember m : newMembers) {
                 m.setStatus(Status.OLD);
             }
-
             // detail info: delete del members' details
             sqlBuffer.append("delete from " + Const.PERSON_DETAIL_TABLE_NAME1
                     + " where _id in (");
@@ -469,9 +468,11 @@ public class CircleMemberList extends AbstractData {
                     cnt++;
                 }
             }
+
             if (cnt > 0) {
                 sqlBuffer.append(")");
                 db.execSQL(sqlBuffer.toString());
+
             }
             for (CircleMember dm : delMembers) {
                 for (PersonDetail pd : dm.getDetails()) {
