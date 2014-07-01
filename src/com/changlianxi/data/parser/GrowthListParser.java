@@ -26,11 +26,11 @@ public class GrowthListParser implements IParser {
         int total = jsonObj.getInt("total");
         int requestTime = jsonObj.getInt("current");
         String urlBase = jsonObj.getString("urlbase");
+
         JSONArray jsonArr = jsonObj.getJSONArray("growths");
         if (jsonArr == null) {
             return Result.defContentErrorResult();
         }
-
         List<Growth> growths = new ArrayList<Growth>();
         long start = 0L, end = 0L;
         for (int i = 0; i < jsonArr.length(); i++) {
@@ -74,6 +74,15 @@ public class GrowthListParser implements IParser {
             }
         }
 
+        JSONArray delArr = jsonObj.getJSONArray("dels");
+        List<Integer> delIds = new ArrayList<Integer>();
+        if (delArr != null) {
+            for (int i = 0; i < delArr.length(); i++) {
+                int delid = (Integer) delArr.opt(i);
+                delIds.add(delid);
+            }
+        }
+
         GrowthList gl = new GrowthList(cid);
         gl.setGrowths(growths);
         gl.setTotal(total);
@@ -84,7 +93,8 @@ public class GrowthListParser implements IParser {
         } else {
             gl.setLastReqTime(requestTime);
         }
-        
+        gl.setDelIds(delIds);
+
         Result ret = new Result();
         ret.setData(gl);
         return ret;
