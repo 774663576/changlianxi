@@ -350,7 +350,12 @@ public class StringUtils {
             fix += "_" + multiple + "x";
         }
         if ((format == null) || format.isEmpty()) {
-            format = url.substring(url.lastIndexOf('.'));
+            int index = url.lastIndexOf('.');
+            if (index > 0) {
+                format = url.substring(index);
+            } else {
+                format = ".jpg";
+            }
         }
         fix += format;
 
