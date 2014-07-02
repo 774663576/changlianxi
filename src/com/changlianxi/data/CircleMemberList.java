@@ -437,13 +437,13 @@ public class CircleMemberList extends AbstractData {
             // basic info: insert newMembers
             sqlBuffer = new StringBuffer();
             sqlBuffer.append("insert into " + Const.CIRCLE_MEMBER_TABLE_NAME
-                    + CircleMember.getDbInsertKeyString() + " values ");
+                    + CircleMember.getDbInsertKeyString() + " select ");
             cnt = 0;
             for (CircleMember nm : newMembers) {
                 if (cnt > 0) {
-                    sqlBuffer.append(",");
+                    sqlBuffer.append(" union all select ");
                 }
-                sqlBuffer.append(nm.toDbInsertString());
+                sqlBuffer.append(nm.toDbUnionInsertString());
 
                 cnt++;
                 if (cnt >= MAX_INSERT_COUNT_FOR_CIRCLE_MEMBER) {
@@ -454,7 +454,7 @@ public class CircleMemberList extends AbstractData {
                     sqlBuffer = new StringBuffer();
                     sqlBuffer.append("insert into "
                             + Const.CIRCLE_MEMBER_TABLE_NAME
-                            + CircleMember.getDbInsertKeyString() + " values ");
+                            + CircleMember.getDbInsertKeyString() + " select ");
                 }
             }
             if (cnt > 0) {
@@ -494,14 +494,14 @@ public class CircleMemberList extends AbstractData {
             // detail info: insert new members' details
             sqlBuffer = new StringBuffer();
             sqlBuffer.append("insert into " + Const.PERSON_DETAIL_TABLE_NAME1
-                    + PersonDetail.getDbInsertKeyString() + " values ");
+                    + PersonDetail.getDbInsertKeyString() + " select ");
             cnt = 0;
             for (CircleMember nm : newMembers) {
                 for (PersonDetail pd : nm.getDetails()) {
                     if (cnt > 0) {
-                        sqlBuffer.append(",");
+                        sqlBuffer.append(" union all select ");
                     }
-                    sqlBuffer.append(pd.toDbInsertString());
+                    sqlBuffer.append(pd.toDbUnionInsertString());
 
                     cnt++;
                     if (cnt >= MAX_INSERT_COUNT_FOR_PERSONAL_DETAIL) {
@@ -513,7 +513,7 @@ public class CircleMemberList extends AbstractData {
                         sqlBuffer.append("insert into "
                                 + Const.PERSON_DETAIL_TABLE_NAME1
                                 + PersonDetail.getDbInsertKeyString()
-                                + " values ");
+                                + " select ");
                     }
                 }
             }

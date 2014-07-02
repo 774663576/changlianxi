@@ -1501,11 +1501,29 @@ public class CircleMember extends AbstractData implements Serializable {
     }
 
     public String toDbInsertString() {
+        String name = this.name.replaceAll("'", "''");
+        String employer = this.employer.replaceAll("'", "''");
+        String sortkey = this.sortkey.replaceAll("'", "");
+        String pinyinFir = this.pinyinFir.replaceAll("'", "");
+        
         return "(" + cid + "," + uid + "," + pid + "," + cmid + ",'" + name
                 + "','" + cellphone + "','" + account_email + "','" + location
                 + "','" + avatar + "','" + employer + "','" + lastModTime
                 + "','" + state.name() + "','" + inviteCode + "','" + sortkey
                 + "','" + pinyinFir + "','" + register + "')";
+    }
+
+    public String toDbUnionInsertString() {
+        String name = this.name.replaceAll("'", "''");
+        String employer = this.employer.replaceAll("'", "''");
+        String sortkey = this.sortkey.replaceAll("'", "");
+        String pinyinFir = this.pinyinFir.replaceAll("'", "");
+        
+        return cid + "," + uid + "," + pid + "," + cmid + ",'" + name + "','"
+                + cellphone + "','" + account_email + "','" + location + "','"
+                + avatar + "','" + employer + "','" + lastModTime + "','"
+                + state.name() + "','" + inviteCode + "','" + sortkey + "','"
+                + pinyinFir + "','" + register + "'";
     }
 
     public static String getDbInsertKeyString() {
