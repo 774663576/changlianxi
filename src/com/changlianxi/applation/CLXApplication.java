@@ -9,6 +9,9 @@ import android.app.NotificationManager;
 
 import com.baidu.frontia.FrontiaApplication;
 import com.changlianxi.chooseImage.CheckImageLoaderConfiguration;
+import com.changlianxi.util.CrashHandler;
+import com.changlianxi.util.Logger;
+import com.changlianxi.util.Logger.Level;
 
 public class CLXApplication extends Application {
     private static CLXApplication instance;

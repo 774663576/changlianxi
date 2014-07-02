@@ -40,9 +40,12 @@ public class StringUtils {
     }
 
     public static String cutEmail(String str) {
-        String cutemail = "";
+        if ("".equals(str)) {
+            return str;
+        }
         int index = str.indexOf("@");
-        return cutemail.substring(0, 1)+"****"+str.substring(index, str.length()-1);
+        return str.substring(0, 1) + "****"
+                + str.substring(index, str.length());
 
     }
 

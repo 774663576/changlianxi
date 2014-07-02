@@ -506,7 +506,7 @@ public class MyCardFragMent extends Fragment implements OnClickListener,
                     String start = DateUtils.interceptDateStr(
                             lists.get(groupPosition).get(childPosition)
                                     .getStartDate(), "yyyy-MM-dd");
-                    ediHolder.endTime.setText(end.equals("") ? "无" : end);
+                    ediHolder.endTime.setText(end.equals("") ? "今" : end);
                     ediHolder.startTime.setText(start.equals("") ? "无" : start);
                     if (groupPosition % 2 == 0) {
                         ediHolder.bg.setBackgroundColor(Color.WHITE);

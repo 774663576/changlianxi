@@ -335,10 +335,10 @@ public class MemberFragment extends Fragment implements
                     listView.removeFooterView(fotter);
                 }
                 listView.addFooterView(fotter, null, false);
-                // for (int i = lists.size() - 1; i >= 20; i--) {
-                // lists.remove(i);
-                // }
-                // adapter.setData(lists);
+                for (int i = lists.size() - 1; i >= 20; i--) {
+                    lists.remove(i);
+                }
+                adapter.setData(lists);
 
             }
         } else {
@@ -598,7 +598,7 @@ public class MemberFragment extends Fragment implements
         indexBar.getBackground().setAlpha(200);
         selectedChar.setText(s);
         selectedChar.setVisibility(View.VISIBLE);
-        position = (findIndexer(s));
+        position = (findIndexer(s.toLowerCase()));
         if (position != 0) {
             listView.setSelection(position);
         }
@@ -628,6 +628,7 @@ public class MemberFragment extends Fragment implements
                 break;
             }
         }
+        System.out.println("str:::::::::::" + position);
         return position;
     }
 

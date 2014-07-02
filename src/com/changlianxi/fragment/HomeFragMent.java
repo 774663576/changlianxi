@@ -205,7 +205,7 @@ public class HomeFragMent extends Fragment implements OnClickListener,
         IntentFilter myIntentFilter = new IntentFilter();
         myIntentFilter.addAction(Constants.REFRESH_CIRCLE_LIST);
         myIntentFilter.addAction(Constants.EXIT_CIRCLE);
-        myIntentFilter.addAction(Constants.REFRESH_CIRCLES_PROMPT_COUNT);
+        myIntentFilter.addAction(Constants.UPDETE_CIRCLE_PROMPT_COUNT);
         myIntentFilter.addAction(Constants.KICKOUT_CIRCLE);
         myIntentFilter.addAction(Constants.REMOVE_CIRCLE_PROMPT_COUNT);
         myIntentFilter.addAction(Constants.ACCEPT_CIRCLE_INVITATE);
@@ -227,10 +227,10 @@ public class HomeFragMent extends Fragment implements OnClickListener,
             } else if (action.equals(Constants.EXIT_CIRCLE)) {// 退出圈子
                 int cid = intent.getIntExtra("cid", 0);
                 exitCircle(cid);
-            } else if (action.equals(Constants.REFRESH_CIRCLES_PROMPT_COUNT)) { // 更新圈子提示数量
+            } else if (action.equals(Constants.UPDETE_CIRCLE_PROMPT_COUNT)) { // 更新圈子提示数量
                 int cid = intent.getIntExtra("cid", 0);
-                String type = intent.getStringExtra("type");
-                refushCirclePrompt(cid, type);
+                String unread = intent.getStringExtra("unread");
+                refushCirclePrompt(cid, unread);
             } else if (action.equals(Constants.KICKOUT_CIRCLE)) { // 踢出圈子
                 int cid = intent.getIntExtra("cid", 0);
                 kickOutCircle(cid);
@@ -263,16 +263,15 @@ public class HomeFragMent extends Fragment implements OnClickListener,
      * @param cid
      * @param type
      */
-    private void refushCirclePrompt(int cid, String type) {
+    private void refushCirclePrompt(int cid, String unread) {
+        String[] arrayUnread = unread.split(",");
         for (Circle c : circleslists) {
             if (cid == c.getId()) {
-                if (type.equals(ResolutionPushJson.GROWTH_TYPE)) {
-                    c.setNewGrowthCnt(c.getNewGrowthCnt() + 1);
-                } else if (type.equals(ResolutionPushJson.COMMENT_TYPE)) {
-                    c.setNewGrowthCommentCnt(c.getNewGrowthCommentCnt() + 1);
-                } else if (type.equals(ResolutionPushJson.NEW_TYPE)) {
-                    c.setNewGrowthCommentCnt(c.getNewGrowthCommentCnt() + 1);
-                }
+                c.setNewMyDetailEditCnt(Integer.valueOf(arrayUnread[0]));
+                c.setNewMemberCnt(Integer.valueOf(arrayUnread[1]));
+                c.setNewGrowthCnt(Integer.valueOf(arrayUnread[2]));
+                c.setNewGrowthCommentCnt(Integer.valueOf(arrayUnread[3]));
+                c.setNewDynamicCnt(Integer.valueOf(arrayUnread[4]));
                 break;
             }
         }

@@ -119,9 +119,18 @@ public class MemberAdapter extends BaseAdapter {
                     position).getCellphone() : accountEmail);
             authState(holder, state);
         } else {
-            holder.news.setText("".equals(accountEmail) ? StringUtils
-                    .replaceNum(circleMembers.get(position).getCellphone())
-                    : StringUtils.cutEmail(accountEmail));
+            if ("".equals(accountEmail)) {
+                if (circleMembers.get(position).getUid() == Global.getIntUid()) {
+                    holder.news.setText(circleMembers.get(position)
+                            .getCellphone());
+                } else {
+                    holder.news.setText(StringUtils.replaceNum(circleMembers
+                            .get(position).getCellphone()));
+                }
+            } else {
+                holder.news.setText(StringUtils.cutEmail(accountEmail));
+            }
+
             authState(holder, state);
         }
         showAlpha(position, holder);

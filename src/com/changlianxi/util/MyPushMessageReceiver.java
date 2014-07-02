@@ -14,9 +14,6 @@ import com.baidu.frontia.api.FrontiaPushMessageReceiver;
 import com.changlianxi.R;
 import com.changlianxi.WelcomeActivity;
 import com.changlianxi.applation.CLXApplication;
-import com.changlianxi.data.Circle;
-import com.changlianxi.data.CircleMember;
-import com.changlianxi.data.PersonChat;
 import com.changlianxi.inteface.PushMessages;
 import com.changlianxi.inteface.PushOnBind;
 
@@ -148,7 +145,8 @@ public class MyPushMessageReceiver extends FrontiaPushMessageReceiver {
             if (type.equals("MESSAGE")) {
                 if (pushMessage == null) {
                     if (isBackHome) {
-                        showNotify(strJson);
+                        String alert = json.getString("alert");
+                        showNotify(alert);
                     }
                     ResolutionPushJson.resolutionJson(strJson);
                 } else {
@@ -163,32 +161,21 @@ public class MyPushMessageReceiver extends FrontiaPushMessageReceiver {
     }
 
     @SuppressWarnings("deprecation")
-    private void showNotify(String message) {
-        PersonChat chat = ChatParser.getChatModle(message);
-        if (chat == null) {// 自己发送的消息不谈
-            return;
-        }
-        mNewNum++;
+    private void showNotify(String alert) {
         // 更新通知栏
         CLXApplication application = CLXApplication.getInstance();
         int icon = R.drawable.app_icon;
         long when = System.currentTimeMillis();
-        Circle c = new Circle(chat.getCid());
-        String circleName = c.getName();
-        Notification notification = new Notification(icon, circleName, when);
+        Notification notification = new Notification(icon, "", when);
         notification.flags = Notification.FLAG_AUTO_CANCEL;
         // 设置默认声音
         notification.defaults |= Notification.DEFAULT_SOUND;
         notification.contentView = null;
         Intent intent = new Intent(application, WelcomeActivity.class);
-        intent.putExtra("ruid", chat.getPartner());
-        intent.putExtra("cid", chat.getCid());
-        CircleMember m = new CircleMember(chat.getCid(), 0, chat.getPartner());
         PendingIntent contentIntent = PendingIntent.getActivity(application, 0,
                 intent, 0);
-        notification.setLatestEventInfo(CLXApplication.getInstance(),
-                (CharSequence) m.getName() + " (" + mNewNum + "条新消息)",
-                (CharSequence) chat.getContent(), contentIntent);
+        notification.setLatestEventInfo(CLXApplication.getInstance(), "常联系",
+                (CharSequence) alert, contentIntent);
         application.getNotificationManager().notify(NOTIFY_ID, notification);// 通知一下才会生效哦
     }
 

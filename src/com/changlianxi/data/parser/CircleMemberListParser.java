@@ -47,15 +47,14 @@ public class CircleMemberListParser implements IParser {
             String time = obj.getString("time");
             CircleMember m = new CircleMember(cid, pid, uid);
             m.setName(name);
-            m.setSortkey(pinyin);
-            m.setPinyinFir(jianpin);
+            m.setSortkey(pinyin.toLowerCase());
+            m.setPinyinFir(jianpin.toLowerCase());
             m.setState(CircleMemberState.convert(state));
             m.setLastModTime(time);
             m.setInviteCode(ic);
             if (obj.has("account_email")) {
                 String account_email = obj.getString("account_email");
                 m.setAccount_email(account_email);
-                System.out.println("email::::::::::::::" + account_email);
             }
             if (obj.has("cellphone")) {
                 String cellphone = obj.getString("cellphone");

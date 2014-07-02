@@ -371,7 +371,8 @@ public class CircleMember extends AbstractData implements Serializable {
     public String toString() {
         return "CircleMember [cid=" + cid + ", uid=" + uid + ", pid=" + pid
                 + ", name=" + name + ", cellphone=" + cellphone + ", location="
-                + location + "]" + "detail=" + details + "sortKey=" + sortkey;
+                + location + "]" + "detail=" + details + "sortKey=" + sortkey
+                + " status:" + status;
     }
 
     @Override
@@ -709,7 +710,7 @@ public class CircleMember extends AbstractData implements Serializable {
             this.lastModTime = another.lastModTime;
             this.location = another.location;
             this.state = another.state;
-            
+
             this.details = another.details;
             isChange = true;
         }

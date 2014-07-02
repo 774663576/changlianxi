@@ -57,9 +57,7 @@ public class CircleMemberList extends AbstractData {
     private List<CircleMember> members = new ArrayList<CircleMember>();
 
     enum Type {
-        NEW,
-        MOD,
-        DEL
+        NEW, MOD, DEL
     } // TODO
 
     public CircleMemberList(int cid) {
@@ -133,6 +131,7 @@ public class CircleMemberList extends AbstractData {
                 return lhs.getSortkey().compareTo(rhs.getSortkey());
             }
         });
+
     }
 
     /**
@@ -386,7 +385,7 @@ public class CircleMemberList extends AbstractData {
         List<CircleMember> newMembers = new ArrayList<CircleMember>();
         List<CircleMember> delMembers = new ArrayList<CircleMember>();
         for (CircleMember m : members) {
-     
+
             if (m.status == Status.OLD) {
                 continue;
             }
@@ -399,7 +398,12 @@ public class CircleMemberList extends AbstractData {
             }
             newMembers.add(m);
         }
-
+        for (CircleMember m : newMembers) {
+            System.out.println("m::::::::::" + m);
+        }
+        for (CircleMember m : delMembers) {
+            System.out.println("m::::::::::del" + m);
+        }
         try {
             db.beginTransaction();
             StringBuffer sqlBuffer = new StringBuffer();
@@ -421,7 +425,11 @@ public class CircleMemberList extends AbstractData {
             if (cnt > 0) {
                 sqlBuffer.append(")");
                 db.execSQL(sqlBuffer.toString());
+                System.out.println("sql:::::::::::::::::1"
+                        + sqlBuffer.toString());
+
             }
+
             for (CircleMember m : delMembers) {
                 m.setStatus(Status.OLD);
             }
@@ -440,7 +448,8 @@ public class CircleMemberList extends AbstractData {
                 cnt++;
                 if (cnt >= MAX_INSERT_COUNT_FOR_CIRCLE_MEMBER) {
                     db.execSQL(sqlBuffer.toString());
-
+                    System.out.println("sql:::::::::::::::::2"
+                            + sqlBuffer.toString());
                     cnt = 0;
                     sqlBuffer = new StringBuffer();
                     sqlBuffer.append("insert into "
@@ -450,11 +459,14 @@ public class CircleMemberList extends AbstractData {
             }
             if (cnt > 0) {
                 db.execSQL(sqlBuffer.toString());
+                System.out.println("sql:::::::::::::::::3"
+                        + sqlBuffer.toString());
             }
             for (CircleMember m : newMembers) {
                 m.setStatus(Status.OLD);
             }
             // detail info: delete del members' details
+            sqlBuffer = new StringBuffer();
             sqlBuffer.append("delete from " + Const.PERSON_DETAIL_TABLE_NAME1
                     + " where cid=" + cid + " and pid in (");
             cnt = 0;
@@ -469,6 +481,8 @@ public class CircleMemberList extends AbstractData {
             if (cnt > 0) {
                 sqlBuffer.append(")");
                 db.execSQL(sqlBuffer.toString());
+                System.out.println("sql:::::::::::::::::4"
+                        + sqlBuffer.toString());
 
             }
             for (CircleMember dm : delMembers) {
@@ -492,7 +506,8 @@ public class CircleMemberList extends AbstractData {
                     cnt++;
                     if (cnt >= MAX_INSERT_COUNT_FOR_PERSONAL_DETAIL) {
                         db.execSQL(sqlBuffer.toString());
-
+                        System.out.println("sql:::::::::::::::::5"
+                                + sqlBuffer.toString());
                         cnt = 0;
                         sqlBuffer = new StringBuffer();
                         sqlBuffer.append("insert into "
@@ -504,6 +519,8 @@ public class CircleMemberList extends AbstractData {
             }
             if (cnt > 0) {
                 db.execSQL(sqlBuffer.toString());
+                System.out.println("sql:::::::::::::::::6"
+                        + sqlBuffer.toString());
             }
             for (CircleMember nm : newMembers) {
                 for (PersonDetail pd : nm.getDetails()) {
@@ -530,6 +547,7 @@ public class CircleMemberList extends AbstractData {
 
             db.setTransactionSuccessful();
         } catch (Exception e) {
+            
             e.printStackTrace();
         } finally {
             db.endTransaction();

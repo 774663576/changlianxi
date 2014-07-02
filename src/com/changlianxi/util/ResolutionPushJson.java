@@ -29,10 +29,12 @@ public class ResolutionPushJson {
     public static final String MESSAGE = "MESSAGE";// 私信
     public static final String KICKOUT = "KICKOUT_NOTICE";// 踢出圈子提醒
     public static final String TYPE_MY_EDIT = "MY_EDIT";// 个人圈子信息修改
+    public static final String TYPE_MEMBER_UPDATE = "MEMBER_UPDATE";// 个人圈子信息修改
 
     public static void resolutionJson(String jsonStr) {
         String alert = "";
         String uid = "";
+        String unRead = "";
         int cid = 0;
         try {
             JSONObject json = new JSONObject(jsonStr);
@@ -57,11 +59,14 @@ public class ResolutionPushJson {
                 return;
             }
             if (type.equals(COMMENT_TYPE)) {// 成长评论
-                refushCirclePromptCount(cid, type);
+                unRead = json.getString("unread");
+                upDateCirclePromptCount(cid, unRead);
             } else if (type.equals(GROWTH_TYPE)) {// 新的成长
-                refushCirclePromptCount(cid, type);
+                unRead = json.getString("unread");
+                upDateCirclePromptCount(cid, unRead);
             } else if (type.equals(NEW_TYPE)) {// 新的动态
-                refushCirclePromptCount(cid, NEW_TYPE);
+                unRead = json.getString("unread");
+                upDateCirclePromptCount(cid, unRead);
             } else if (NEW_CIRCLE.equals(type)) {// 新圈子邀请
                 alert = json.getString("alert");
                 BroadCast.sendBroadCast(CLXApplication.getInstance(),
@@ -73,6 +78,9 @@ public class ResolutionPushJson {
                 setPromptInDB(type);
                 BroadCast.sendBroadCast(CLXApplication.getInstance(),
                         Constants.LEFT_MENU_MESSAGE_PROMPT);
+            } else if (TYPE_MEMBER_UPDATE.equals(type)) {// 成员更新
+                unRead = json.getString("unread");
+                upDateCirclePromptCount(cid, unRead);
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -103,10 +111,10 @@ public class ResolutionPushJson {
 
     }
 
-    private static void refushCirclePromptCount(int cid, String type) {
-        Intent intent = new Intent(Constants.REFRESH_CIRCLES_PROMPT_COUNT);
+    private static void upDateCirclePromptCount(int cid, String unread) {
+        Intent intent = new Intent(Constants.UPDETE_CIRCLE_PROMPT_COUNT);
         intent.putExtra("cid", cid);
-        intent.putExtra("type", type);
+        intent.putExtra("unread", unread);
         BroadCast.sendBroadCast(CLXApplication.getInstance(), intent);
     }
 
