@@ -135,8 +135,9 @@ public class PersonDetail extends AbstractData implements Serializable {
     @Override
     public void read(SQLiteDatabase db) {
         Cursor cursor = db.query(Const.PERSON_DETAIL_TABLE_NAME1, new String[] {
-                "_id", "uid", "pid", "type", "value", "start", "end" }, "id=? and cid=?",
-                new String[] { this.id + "", this.cid + "" }, null, null, null);
+                "_id", "uid", "pid", "type", "value", "start", "end" },
+                "id=? and cid=?", new String[] { this.id + "", this.cid + "" },
+                null, null, null);
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
             int _id = cursor.getInt(cursor.getColumnIndex("_id"));
@@ -146,7 +147,7 @@ public class PersonDetail extends AbstractData implements Serializable {
             String value = cursor.getString(cursor.getColumnIndex("value"));
             String start = cursor.getString(cursor.getColumnIndex("start"));
             String end = cursor.getString(cursor.getColumnIndex("end"));
-            
+
             this._id = _id;
             this.uid = uid;
             this.pid = pid;
@@ -154,7 +155,7 @@ public class PersonDetail extends AbstractData implements Serializable {
             this.value = value == null ? "" : value;
             this.start = start;
             this.end = end;
-            
+
             this.status = Status.OLD;
         }
         cursor.close();
@@ -175,7 +176,7 @@ public class PersonDetail extends AbstractData implements Serializable {
             }
             return;
         }
-        
+
         ContentValues cv = new ContentValues();
         cv.put("id", id);
         cv.put("cid", cid);
@@ -279,9 +280,19 @@ public class PersonDetail extends AbstractData implements Serializable {
     }
 
     public String toDbInsertString() {
+        String value = this.value.replaceAll("'", "''");
+
         return "(" + id + "," + cid + "," + pid + "," + uid + ",'"
                 + this.getType().name() + "','" + value + "','" + start + "','"
                 + end + "')";
+    }
+
+    public String toDbUnionInsertString() {
+        String value = this.value.replaceAll("'", "''");
+
+        return id + "," + cid + "," + pid + "," + uid + ",'"
+                + this.getType().name() + "','" + value + "','" + start + "','"
+                + end + "'";
     }
 
     public static String getDbInsertKeyString() {
