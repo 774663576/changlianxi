@@ -140,6 +140,7 @@ public class CircleInfoFragement extends Fragment implements OnClickListener,
     }
 
     private void setValue() {
+        // circleLogo.setImageResource(R.drawable.pic_bg_no);
         getServerData();
 
     }

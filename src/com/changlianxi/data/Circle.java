@@ -165,7 +165,7 @@ public class Circle extends AbstractData implements Serializable {
     public String getOriginalLogo() {
         return logo;
     }
-    
+
     public String getLogo() {
         return getLogo(160);
     }

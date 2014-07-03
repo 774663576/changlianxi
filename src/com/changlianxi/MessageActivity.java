@@ -152,7 +152,7 @@ public class MessageActivity extends BaseActivity implements OnClickListener,
         MyPushMessageReceiver.setPushMessageCallBack(this);
         pd = DialogUtil.getWaitDialog(this, "请稍候");
         pd.show();
-        uid = Integer.valueOf(Global.getUid());
+        uid = Global.getIntUid();
         getPersonChatList(true);
     }
 
@@ -254,7 +254,7 @@ public class MessageActivity extends BaseActivity implements OnClickListener,
         name = (TextView) findViewById(R.id.titleTxt);
         name.setText(receiveName);
         adapter = new MessageAdapter(this, chatsList, receiveAvatar,
-                receiveName, receivePid);
+                receiveName, receivePid, cid, ruid);
         listview.setAdapter(adapter);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         listview.setCacheColorHint(0);

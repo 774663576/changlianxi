@@ -24,6 +24,7 @@ import com.changlianxi.data.MyCard;
 import com.changlianxi.data.PersonChat;
 import com.changlianxi.data.enums.ChatType;
 import com.changlianxi.db.DBUtils;
+import com.changlianxi.inteface.OnAvatarClickListener;
 import com.changlianxi.showBigPic.ImagePagerActivity;
 import com.changlianxi.util.Constants;
 import com.changlianxi.util.DateUtils;
@@ -44,9 +45,11 @@ public class MessageAdapter extends BaseAdapter {
     private int pid;
     private final int TYPE_1 = 0;
     private final int TYPE_2 = 1;
+    private int cid = 0;
+    private int otherUid = 0;
 
     public MessageAdapter(Context context, List<PersonChat> chatsList,
-            String otherAvatar, String otherName, int pid) {
+            String otherAvatar, String otherName, int pid, int cid, int otherUid) {
         this.mContext = context;
         this.listModle = chatsList;
         MyCard card = new MyCard(0, Global.getIntUid());
@@ -55,7 +58,8 @@ public class MessageAdapter extends BaseAdapter {
         this.pid = pid;
         this.otherAvater = otherAvatar;
         this.otherName = otherName;
-
+        this.cid = cid;
+        this.otherUid = otherUid;
     }
 
     @Override
@@ -103,8 +107,8 @@ public class MessageAdapter extends BaseAdapter {
         ViewHolderOther otherHolder = null;
         ChatType type = listModle.get(position).getType();
         String content = listModle.get(position).getContent();
-        int cid = listModle.get(position).getCid();
-        int uid = listModle.get(position).getPartner();
+//        int cid = listModle.get(position).getCid();
+//        int uid = listModle.get(position).getPartner();
         int viewType = getItemViewType(position);
         if (convertView == null) {
             switch (viewType) {
@@ -211,8 +215,10 @@ public class MessageAdapter extends BaseAdapter {
                     UniversalImageLoadTool.disPlay(path,
                             otherHolder.otherAvatar, R.drawable.head_bg);
                 }
-                otherHolder.otherAvatar.setOnClickListener(new OnAvatarClick(
-                        cid, uid, pid, otherName, otherAvater));
+                // otherHolder.otherAvatar.setOnClickListener(new
+                // OnAvatarClick());
+                otherHolder.otherAvatar.setOnClickListener(new OnAvatarClickListener(
+                        mContext, cid, otherUid, pid, otherName, otherAvater, 1));
                 showTime(position, otherHolder);
                 otherHolder.otherImg.setOnClickListener(new ImageOnClick(
                         content));
@@ -255,26 +261,12 @@ public class MessageAdapter extends BaseAdapter {
     }
 
     class OnAvatarClick implements OnClickListener {
-        int uid;
-        int cid;
-        int pid;
-        String name = "";
-        String avatarImg;
         int intentType = 0;
-
-        public OnAvatarClick(int cid, int uid, int pid, String name,
-                String avatarImg) {
-            this.cid = cid;
-            this.uid = uid;
-            this.pid = pid;
-            this.name = name;
-            this.avatarImg = avatarImg;
-        }
 
         @Override
         public void onClick(View v) {
-            Utils.intentUserDetailActivity(mContext, cid, uid, pid, name,
-                    avatarImg);
+            Utils.intentUserDetailActivity(mContext, cid, otherUid, pid,
+                    otherName, otherAvater);
             ((Activity) mContext).overridePendingTransition(
                     R.anim.in_from_right, R.anim.out_to_left);
 

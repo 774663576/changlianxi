@@ -26,8 +26,8 @@ public class UpdateCircleIdetailTask extends
         if (retError != RetError.NONE) {
             return retError;
         }
-        oldCircle.write(DBUtils.getDBsa(2));
-        retError = oldCircle.uploadLogo(newCircle.getLogo());
+        // oldCircle.write(DBUtils.getDBsa(2));
+        retError = oldCircle.uploadLogo(newCircle.getOriginalLogo());
         oldCircle.write(DBUtils.getDBsa(2));
         if (retError == RetError.INVALID) {
             return RetError.NONE;

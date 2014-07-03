@@ -36,8 +36,8 @@ public class CLXApplication extends Application {
         // Logger.setWriteFile(false); // 设置日志是写文件还是使用标准输出
         // Logger.setLogLevel(Level.DEBUG); // 日志级别
         Logger.setOutPut(false);// 不在控制台输出`
-        CrashHandler catchHandler = CrashHandler.getInstance();
-        catchHandler.init(this);
+        // CrashHandler catchHandler = CrashHandler.getInstance();
+        // catchHandler.init(this);
     }
 
     // 添加Activity到容器中

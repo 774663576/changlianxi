@@ -248,7 +248,7 @@ public class PublicMessageActivity extends BaseActivity implements
         name = (TextView) findViewById(R.id.titleTxt);
         name.setText(receiveName);
         adapter = new MessageAdapter(this, chatsList, receiveAvatar,
-                receiveName, receivePid);
+                receiveName, receivePid,cid,ruid);
         listview.setAdapter(adapter);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         listview.setCacheColorHint(0);
