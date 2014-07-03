@@ -125,7 +125,7 @@ public class PublicMessageActivity extends BaseActivity implements
                     chatsList.add(chat);
                     adapter.setData(chatsList);
                     listview.setSelection(chatsList.size());// 每次发送之后将listview滑动到最低端
-
+                    break;
                 case 1:
                     chatsList.addAll(0, lists);
                     adapter.setData(chatsList);
