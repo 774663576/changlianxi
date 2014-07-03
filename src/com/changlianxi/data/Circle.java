@@ -165,7 +165,7 @@ public class Circle extends AbstractData implements Serializable {
     public String getOriginalLogo() {
         return logo;
     }
-    
+
     public String getLogo() {
         return getLogo(160);
     }
@@ -440,6 +440,7 @@ public class Circle extends AbstractData implements Serializable {
         if (!db.isOpen()) {
             db = DBUtils.dbase.getWritableDatabase();
         }
+
         String dbName = Const.CIRCLE_TABLE_NAME;
         if (this.status == Status.OLD) {
             return;
@@ -449,6 +450,7 @@ public class Circle extends AbstractData implements Serializable {
             clearCircleCache(id, db);
             return;
         }
+
         ContentValues cv = new ContentValues();
         cv.put("id", id);
         cv.put("name", name);
@@ -465,10 +467,12 @@ public class Circle extends AbstractData implements Serializable {
         cv.put("verified", verifiedCnt);
         cv.put("unverified", unverifiedCnt);
         if (this.status == Status.NEW) {
+            db.delete(dbName, "id=?", new String[] { id + "" }); // TODO too bad
             db.insert(dbName, null, cv);
         } else if (this.status == Status.UPDATE) {
             db.update(dbName, cv, "id=?", new String[] { id + "" });
         }
+
         // write roles
         for (CircleRole cRole : roles) {
             cRole.write(db);
