@@ -6,6 +6,16 @@
     android:orientation="vertical" >
 
     <TextView
+        android:id="@+id/titleTxt"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/scale110dip"
+        android:background="@drawable/top_bg"
+        android:gravity="center"
+        android:text="设置用户姓名"
+        android:textColor="#FFFFFF"
+        android:textSize="@dimen/scale42sp" />
+
+    <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -622,7 +622,8 @@ public class CommentsListItemActivity extends BaseActivity implements
             protected RetError doInBackground(Void... params) {
                 RetError ret = growth.uploadMyComment(growthComment);
                 if (ret == RetError.NONE) {
-                    growth.write(DBUtils.getDBsa(2));
+                    // growth.setStatus(com.changlianxi.data.AbstractData.Status.UPDATE);
+                    // growth.write(DBUtils.getDBsa(2));
                 }
                 return ret;
             }
@@ -638,7 +639,7 @@ public class CommentsListItemActivity extends BaseActivity implements
                 if (result != RetError.NONE) {
                     return;
                 }
-                comments.add(0, growthComment);
+                // comments.add(0, growthComment);
                 setGrowthCommentCount(growth.getCommentCnt());
                 edtContent.setText("");
                 Utils.setListViewHeightBasedOnChildren(listview);

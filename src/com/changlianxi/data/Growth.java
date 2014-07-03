@@ -907,6 +907,9 @@ public class Growth extends AbstractData implements Serializable {
                 parser);
         if (ret.getStatus() == RetStatus.SUCC) {
             GrowthComment newComent = (GrowthComment) ret.getData();
+            newComent.setTime(DateUtils.getCurrDateStr());
+            System.out.println("time:::::::::::::" + newComent.getContent()
+                    + "       " + newComent.getTime());
             newComent.setReplyid(comment.getReplyid());
             this.commentList.addComment(newComent);
             this.commentCnt = newComent.getTotal();

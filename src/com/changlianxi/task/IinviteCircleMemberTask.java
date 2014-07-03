@@ -17,6 +17,9 @@ public class IinviteCircleMemberTask extends
     @Override
     protected RetError doInBackground(CircleMember... params) {
         cMember = params[0];
+        if (!isNet) {
+            return RetError.NETWORK_ERROR;
+        }
         RetError err = cMember.inviteMore(mebers);
         return err;
     }

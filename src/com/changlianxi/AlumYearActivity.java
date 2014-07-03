@@ -107,6 +107,7 @@ public class AlumYearActivity extends BaseActivity implements OnClickListener,
         listview.setAdapter(adapter);
         mPullDownView.setOnPullDownListener(this);
         mPullDownView.notifyDidMore();
+        mPullDownView.setShowFooter();
         mPullDownView.setFooterVisible(false);
         listview.setOnScrollListener(this);
         registerBoradcastReceiver();
@@ -121,6 +122,7 @@ public class AlumYearActivity extends BaseActivity implements OnClickListener,
                 if (dialog != null) {
                     dialog.dismiss();
                 }
+                mPullDownView.setFooterVisible(false);
                 mPullDownView.notifyDidMore();
                 mPullDownView.RefreshComplete();
                 mHandler.sendEmptyMessage(0);
@@ -231,13 +233,22 @@ public class AlumYearActivity extends BaseActivity implements OnClickListener,
 
     @Override
     public void onRefresh() {
-        startY = startY + 1;
+        if (album.size() == 0) {
+            mPullDownView.RefreshComplete();
+            return;
+        }
+        String year = DateUtils.getYear(album.get(0).getAlbumDate(), "yyyy");
+        startY = Integer.valueOf(year) + 1;
         endY = startY;
         getServerData(1, 12);
     }
 
     @Override
     public void onMore() {
+        String year = DateUtils.getYear(album.get(album.size() - 1)
+                .getAlbumDate(), "yyyy");
+        startY = Integer.valueOf(year);
+        endY = startY;
         String month = DateUtils.getYear(album.get(album.size() - 1)
                 .getAlbumDate(), "MM");
         if ("".equals(month)) {

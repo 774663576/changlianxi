@@ -326,12 +326,13 @@ public class MainActivity extends SlidingActivity implements
         try {
             JSONObject json = new JSONObject(result);
             int rt = json.getInt("rt");
-            SharedUtils.setBoolean("isLogin", true);
             if (rt != 1) {
                 String err = json.getString("err");
                 String errorString = ErrorCodeUtil.convertToChines(err);
                 Utils.showToast(errorString, Toast.LENGTH_SHORT);
+                return;
             }
+            SharedUtils.setBoolean("isLogin", true);
         } catch (JSONException e) {
             e.printStackTrace();
         }

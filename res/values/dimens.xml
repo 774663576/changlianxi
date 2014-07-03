@@ -85,7 +85,7 @@
     <dimen name="scale135dip">63dip</dimen>
     <dimen name="scale280dip">131dip</dimen>
     <dimen name="scale115dip">54dip</dimen>
-    <dimen name="scale125dip">59dip</dimen>
+    <dimen name="scale125dip">30dip</dimen>
     <dimen name="scale107dip">50dip</dimen>
     <dimen name="scale34dip">16dip</dimen>
     <dimen name="scale129dip">55dip</dimen>
@@ -100,7 +100,7 @@
     <dimen name="scale56dip">26dip</dimen>
     <dimen name="scale390dip">188dip</dimen>
     <dimen name="scale170dip">80dip</dimen>
-    <dimen name="scale106dip">50dip</dimen>
+    <dimen name="scale106dip">40dip</dimen>
     <dimen name="scale194dip">91dip</dimen>
     <dimen name="scale97dip">45dip</dimen>
     <dimen name="scale21dip">10dip</dimen>

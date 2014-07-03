@@ -19,6 +19,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.provider.ContactsContract;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -94,14 +95,12 @@ public class SelectContactsActivity extends BaseActivity implements
         public void handleMessage(android.os.Message msg) {
             switch (msg.what) {
                 case 0:
-                    Cursor cursor = (Cursor) msg.obj;
-                    addContact(cursor);
+                    listModle.add((ContactModle)msg.obj);
                     break;
                 case 1:
                     if (dialog != null) {
                         dialog.dismiss();
                     }
-                    listview.requestLayout();
                     adapter.notifyDataSetChanged();
                     break;
                 default:
@@ -127,8 +126,11 @@ public class SelectContactsActivity extends BaseActivity implements
         modle.setSort_key(sortKey.replace(" ", ""));
         modle.setPhotoid(photoId);
         modle.setContactid((long) contactId);
-        listModle.add(modle);
-        // adapter.notifyDataSetChanged();
+        // listModle.add(modle);
+        Message msg = mHandler.obtainMessage();
+        msg.what = 0;
+        msg.obj = modle;
+        mHandler.sendMessage(msg);
     }
 
     @Override
@@ -169,6 +171,7 @@ public class SelectContactsActivity extends BaseActivity implements
 
     @Override
     protected void onDestroy() {
+        listModle.clear();
         super.onDestroy();
 
     }
@@ -207,11 +210,6 @@ public class SelectContactsActivity extends BaseActivity implements
                     public void run() {
                         for (int i = 0; i < cursor.getCount(); i++) {
                             cursor.moveToPosition(i);
-                            // Message msg = mHandler.obtainMessage();
-                            // msg.what = 0;
-                            // msg.obj = cursor;
-                            // // mHandler.sendMessage(msg);
-                            // mHandler.sendMessageDelayed(msg, 1);
                             addContact(cursor);
                             if (SelectContactsActivity.this.isFinishing()) {
                                 break;
@@ -233,12 +231,6 @@ public class SelectContactsActivity extends BaseActivity implements
                     }
                 }.start();
 
-                // new Thread() {
-                // public void run() {
-                //
-                // }
-                //
-                // }.start();
             }
         }
     }

@@ -55,7 +55,7 @@ public class SortPersonType {
 
         typeSort.put(PersonDetailType.D_BIRTH_PLACE, 25);
         typeSort.put(PersonDetailType.D_CURRENT_ADDRESS, 26);
-        typeSort.put(PersonDetailType.D_POSTAL_ADDRESS, 27);
+        typeSort.put(PersonDetailType.D_POST_ADDRESS, 27);
         typeSort.put(PersonDetailType.D_HOME_ADDRESS, 28);
         typeSort.put(PersonDetailType.D_WORK_ADDRESS, 29);
 
@@ -120,7 +120,7 @@ public class SortPersonType {
         add.add(PersonDetailType.D_HOME_ADDRESS);
         add.add(PersonDetailType.D_BIRTH_PLACE);
         add.add(PersonDetailType.D_CURRENT_ADDRESS);
-        add.add(PersonDetailType.D_POSTAL_ADDRESS);
+        add.add(PersonDetailType.D_POST_ADDRESS);
 
         edu.add(PersonDetailType.D_OTHER_EDU);
         edu.add(PersonDetailType.D_KINDER_GARTEN);

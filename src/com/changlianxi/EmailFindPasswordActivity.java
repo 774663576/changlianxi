@@ -59,7 +59,7 @@ public class EmailFindPasswordActivity extends BaseActivity implements
     private TextView txtSecond;
     private Dialog dialog;
     private int currentStep = 1;
-    private int second = 10;// 用于重新获取验证码时间倒计时
+    private int second = 60;// 用于重新获取验证码时间倒计时
     private Button findByCellphone;
 
     private Handler mHandler = new Handler() {
@@ -87,13 +87,13 @@ public class EmailFindPasswordActivity extends BaseActivity implements
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_email_register);
+        setContentView(R.layout.activity_email_find_password);
         initView();
     }
 
     private void initView() {
         parent = (InputMethodRelativeLayout) findViewById(R.id.Layparent);
-        rGroup = (MyViewGroup) findViewById(R.id.regisGroup);
+        rGroup = (MyViewGroup) findViewById(R.id.myGroup);
         flater = LayoutInflater.from(this);
         parent = (InputMethodRelativeLayout) findViewById(R.id.Layparent);
         params = new LayoutParams(LayoutParams.MATCH_PARENT,
@@ -191,7 +191,8 @@ public class EmailFindPasswordActivity extends BaseActivity implements
                 if (second > 0) {
                     return;
                 }
-                btnAgainGetCode.setBackgroundResource(R.drawable.btn_tran51);
+                btnAgainGetCode
+                        .setBackgroundResource(R.drawable.btn_tran51_hui);
                 getAuthCode();
                 break;
             case R.id.btnFindByCellphone:

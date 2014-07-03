@@ -117,8 +117,9 @@ public class SelectPicPopwindow implements OnClickListener {
                 break;
             case R.id.btn_pick_photo:
                 if (imageNum < 0) {
-                    intent = new Intent(Intent.ACTION_GET_CONTENT);
-                    intent.setType("image/*");
+                    intent = new Intent(
+                            Intent.ACTION_PICK,
+                            android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     ((Activity) mContext).startActivityForResult(intent,
                             Constants.REQUEST_CODE_GETIMAGE_BYSDCARD);
                     return;

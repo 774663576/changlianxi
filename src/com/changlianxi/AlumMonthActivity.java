@@ -131,6 +131,7 @@ public class AlumMonthActivity extends BaseActivity implements OnClickListener,
                 }
                 mPullDownView.notifyDidMore();
                 mPullDownView.RefreshComplete();
+                mPullDownView.setFooterVisible(false);
                 mHandler.sendEmptyMessage(0);
             }
 

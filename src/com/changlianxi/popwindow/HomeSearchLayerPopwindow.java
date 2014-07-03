@@ -23,10 +23,12 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.PopupWindow.OnDismissListener;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.changlianxi.R;
 import com.changlianxi.UserInfoActivity;
 import com.changlianxi.adapter.HomeSearchAdapter;
+import com.changlianxi.data.Circle;
 import com.changlianxi.data.CircleMember;
 import com.changlianxi.data.CircleMemberList;
 import com.changlianxi.db.DBUtils;
@@ -175,6 +177,12 @@ public class HomeSearchLayerPopwindow implements OnItemClickListener,
     @Override
     public void onItemClick(AdapterView<?> arg0, View arg1, int position,
             long arg3) {
+        Circle c = new Circle(searchListModles.get(position).getCid());
+        c.read(DBUtils.getDBsa(1));
+        if (c.isNew()) {
+            Utils.showToast("亲，加入圈子以后才能看到这些精彩内容哦！", Toast.LENGTH_SHORT);
+            return;
+        }
         Intent it = new Intent();
         it.setClass(mContext, UserInfoActivity.class);
         Bundle bundle = new Bundle();

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.changlianxi.R;
 import com.changlianxi.data.Circle;
 import com.changlianxi.data.CircleMember;
+import com.changlianxi.data.Global;
 import com.changlianxi.db.DBUtils;
 import com.changlianxi.util.StringUtils;
 import com.changlianxi.util.UniversalImageLoadTool;
@@ -57,6 +58,7 @@ public class HomeSearchAdapter extends BaseAdapter {
         Circle c = new Circle(member.getCid());
         c.getCircleName(DBUtils.getDBsa(1));
         String circleName = c.getName();
+
         if (convertView == null) {
             holder = new ViewHolder();
             convertView = LayoutInflater.from(context).inflate(
@@ -70,14 +72,22 @@ public class HomeSearchAdapter extends BaseAdapter {
                     .findViewById(R.id.cellPhone);
             holder.circleName = (TextView) convertView
                     .findViewById(R.id.circleName);
-            convertView.setTag(holder);
+            convertView.setTag(holder);   
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
         String name = StringUtils.cutEight(member.getName());
         holder.name.setText(name);
         holder.lastName.setText(name.substring(name.length() - 1));
-        holder.cellPhone.setText(member.getCellphone());
+        CircleMember self = new CircleMember(member.getCid(), 0,
+                Global.getIntUid());
+        if (self.isAuth(DBUtils.getDBsa(1))) {
+            holder.cellPhone.setText(member.getCellphone());
+        } else {
+            holder.cellPhone.setText(StringUtils.replaceNum(member
+                    .getCellphone()));
+
+        }
         holder.circleName.setText(circleName);
         String path = member.getAvatar();
         if (path == null || "".equals(path)) {

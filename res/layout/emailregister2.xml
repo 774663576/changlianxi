@@ -17,7 +17,8 @@
         android:shadowRadius="0.5"
         android:text="我们已经向您的邮箱发送验证码"
         android:textColor="#5F6761"
-        android:textSize="@dimen/scale36sp" />
+        android:textSize="@dimen/scale36sp"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/txt_show_email"
@@ -26,7 +27,8 @@
         android:layout_above="@+id/layInput"
         android:layout_marginBottom="15dip"
         android:gravity="center"
-        android:textSize="25sp" />
+        android:textSize="@dimen/scale66sp"
+        android:visibility="gone" />
 
     <LinearLayout
         android:id="@+id/layInput"

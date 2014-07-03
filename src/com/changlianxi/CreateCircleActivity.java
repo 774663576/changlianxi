@@ -58,7 +58,6 @@ public class CreateCircleActivity extends BaseActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_ciecle);
         CLXApplication.addInviteActivity(this);
-        getActivityValue();
         btnBack = (ImageView) findViewById(R.id.back);
         btnBack.setOnClickListener(this);
         editCirName = (EditText) findViewById(R.id.circleName);
@@ -66,6 +65,7 @@ public class CreateCircleActivity extends BaseActivity implements
         createCir.setOnClickListener(this);
         titleTxt = (TextView) findViewById(R.id.titleTxt);
         titleTxt.setText("创建圈子");
+        getActivityValue();
     }
 
     /**
@@ -105,6 +105,7 @@ public class CreateCircleActivity extends BaseActivity implements
         it.setClass(this, MainTabActivity.class);
         it.putExtra("circleName", editCirName.getText().toString());
         it.putExtra("cid", cid);
+        it.putExtra("newGrowthCount", 1);
         startActivity(it);
         CLXApplication.exitSmsInvite();
         Intent intent = new Intent();

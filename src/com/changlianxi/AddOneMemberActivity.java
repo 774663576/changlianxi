@@ -52,7 +52,7 @@ public class AddOneMemberActivity extends BaseActivity implements
     private CircleMember member;
     private List<CircleMember> inviteMemberList = new ArrayList<CircleMember>();
     private TextView key;
-    private String keyArray[] = { "手机号", "邮箱" };
+    private String keyArray[] = { "手机", "邮箱" };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

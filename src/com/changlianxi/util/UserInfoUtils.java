@@ -49,7 +49,7 @@ public class UserInfoUtils {
             "人人网", "腾讯微博", "个人博客", "FaceBook", "Twitter", "Skype" };
     /* 地址数据对包含的属性key */
     public static final String addressStr[] = { "D_BIRTH_PLACE",
-            "D_CURRENT_ADDRESS", "D_POSTAL_ADDRESS", "D_HOME_ADDRESS",
+            "D_CURRENT_ADDRESS", "D_POST_ADDRESS", "D_HOME_ADDRESS",
             "D_WORK_ADDRESS" };
     /* 地址数据key所对应的中文名称 */
     public static final String addressChineseStr[] = { "籍贯", "当前地址", "通讯地址",
@@ -77,7 +77,7 @@ public class UserInfoUtils {
             "D_ACCOUNT_EMAIL", "D_EMAIL", "D_WORK_EMAIL", "D_PERSONAL_EMAIL",
             "D_OTHER_EMAIL", "D_WEIXIN", "D_QQ", "D_SINA_WEIBO", "D_RENREN",
             "D_QQ_WEIBO", "D_BLOG", "D_FACEBOOK", "D_TWITTER", "D_SKYPE",
-            "D_BIRTH_PLACE", "D_CURRENT_ADDRESS", "D_POSTAL_ADDRESS",
+            "D_BIRTH_PLACE", "D_CURRENT_ADDRESS", "D_POST_ADDRESS",
             "D_HOME_ADDRESS", "D_WORK_ADDRESS", "D_KINDER_GARTEN",
             "D_GRADE_SCHOOL", "D_JUNIOR_SCHOOL", "D_SENIOR_SCHOOL",
             "D_COLLEGE", "D_TECHNICAL_SCHOOL", "D_JUNIOR_COLLEGE",

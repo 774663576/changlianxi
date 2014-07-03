@@ -290,8 +290,7 @@ public class GrowthAndAlbumFragment extends Fragment implements OnClickListener 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (mBroadcastReceiver.isOrderedBroadcast()) {
-            getActivity().unregisterReceiver(mBroadcastReceiver);
-        }
+        getActivity().unregisterReceiver(mBroadcastReceiver);
+
     }
 }

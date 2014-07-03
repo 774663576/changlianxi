@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.changlianxi.UserInfoActivity.BoxBlurFilterThread;
 import com.changlianxi.showBigPic.AvatarImagePagerActivity;
 import com.changlianxi.util.BitmapUtils;
 import com.changlianxi.util.Constants;
@@ -114,10 +115,11 @@ public class NoExistPersonInfoActivity extends BaseActivity implements
     public void onLoadingComplete(String arg0, View arg1, Bitmap mBitmap) {
         if (mBitmap != null) {
             avatar.setImageBitmap(mBitmap);
-            setBackGroubdOfDrable(BitmapUtils.convertBimapToDrawable(mBitmap));
+            setBackGroubdOfDrable(BitmapUtils.BoxBlurFilter(mBitmap));
         } else {
             avatar.setImageResource(R.drawable.head_bg);
         }
+
     }
 
     @Override

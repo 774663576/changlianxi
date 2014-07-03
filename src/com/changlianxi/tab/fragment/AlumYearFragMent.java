@@ -109,6 +109,7 @@ public class AlumYearFragMent extends Fragment implements OnPullDownListener {
                 }
                 mPullDownView.notifyDidMore();
                 mPullDownView.RefreshComplete();
+                mPullDownView.setFooterVisible(false);
                 mHandler.sendEmptyMessage(0);
             }
 
@@ -139,6 +140,7 @@ public class AlumYearFragMent extends Fragment implements OnPullDownListener {
         mPullDownView.setOnPullDownListener(this);
         mPullDownView.notifyDidMore();
         mPullDownView.setFooterVisible(false);
+        mPullDownView.setShowFooter();
         setValue();
     }
 

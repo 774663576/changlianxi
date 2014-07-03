@@ -448,7 +448,6 @@ public class GrowthCommentActivity extends BaseActivity implements
             ViewHolder holder = null;
             int uid = comments.get(position).getUid();
             int replyID = comments.get(position).getReplyid();
-            System.out.println("id;:::::::::::" + uid + "     " + replyID);
             CircleMember m = getNameAndAvatar(cid, uid);
             String name = m.getName();
             String avatar = m.getAvatar();

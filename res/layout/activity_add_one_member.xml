@@ -14,9 +14,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dip"
+        android:layout_marginBottom="20dip"
         android:layout_marginRight="13dip"
-        android:layout_marginTop="12dip"
+        android:layout_marginTop="20dip"
         android:orientation="vertical"
         android:paddingLeft="20dip" >
 
@@ -25,12 +25,13 @@
             android:layout_height="35dip" >
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="70dip"
                 android:layout_height="fill_parent"
                 android:layout_marginTop="5dip"
                 android:gravity="center"
+                android:maxLength="8"
                 android:paddingLeft="15dip"
-                android:paddingRight="10dip"
+                android:paddingRight="5dip"
                 android:text="姓名"
                 android:textColor="#a0a0a0"
                 android:textSize="15sp" />
@@ -74,15 +75,15 @@
 
             <TextView
                 android:id="@+id/key"
-                android:layout_width="wrap_content"
+                android:layout_width="70dip"
                 android:layout_height="fill_parent"
                 android:layout_marginTop="5dip"
                 android:drawablePadding="6dip"
                 android:drawableRight="@drawable/angle_down2"
                 android:gravity="center"
                 android:paddingLeft="15dip"
-                android:paddingRight="10dip"
-                android:text="手机号"
+                android:paddingRight="5dip"
+                android:text="手机"
                 android:textColor="#a0a0a0"
                 android:textSize="15sp" />
 

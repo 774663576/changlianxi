@@ -29,7 +29,7 @@ public class RegisterTask extends AsyncTask<String, Integer, String> {
         map.put("cellphone", cellPhone);
         map.put("email", email);
         map.put("version", Utils.getVersionName(mContext));
-        String tag = "".equals(cellPhone) ? cellPhone : email;
+        String tag = "".equals(cellPhone) ? email : cellPhone;
         map.put("tag",
                 MD5.MD5_32(StringUtils.reverseSort(tag)
                         + Utils.getVersionName(mContext) + tag

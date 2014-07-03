@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -28,6 +29,7 @@ import com.changlianxi.util.Constants;
 import com.changlianxi.util.DateUtils;
 import com.changlianxi.util.EmojiParser;
 import com.changlianxi.util.UniversalImageLoadTool;
+import com.changlianxi.util.Utils;
 import com.changlianxi.view.CircularImage;
 import com.changlianxi.view.EmojiEditText;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -271,10 +273,10 @@ public class MessageAdapter extends BaseAdapter {
 
         @Override
         public void onClick(View v) {
-            // Utils.intentUserDetailActivity(mContext, cid, uid, pid, name,
-            // avatarImg);
-            // ((Activity) mContext).overridePendingTransition(
-            // R.anim.in_from_right, R.anim.out_to_left);
+            Utils.intentUserDetailActivity(mContext, cid, uid, pid, name,
+                    avatarImg);
+            ((Activity) mContext).overridePendingTransition(
+                    R.anim.in_from_right, R.anim.out_to_left);
 
         }
     }

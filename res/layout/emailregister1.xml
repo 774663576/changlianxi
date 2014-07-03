@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="85dip"
+        android:layout_marginTop="@dimen/scale296dip"
         android:shadowColor="#ffffff"
         android:shadowDx="0.6"
         android:shadowDy="0.6"

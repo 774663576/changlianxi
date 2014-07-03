@@ -106,7 +106,7 @@ public class MemberAdapter extends BaseAdapter {
         String locaiton = circleMembers.get(position).getLocation();
         if (!"".equals(accountEmail) && "".equals(employer)
                 && "".equals(locaiton)) {
-            holder.info.setText("邮箱注册");
+            holder.info.setText("邮箱用户");
         } else {
             holder.info.setText("".equals(employer) ? locaiton : employer);
         }

@@ -188,7 +188,8 @@ public class EmailRegisterActivity extends BaseActivity implements
                 if (second > 0) {
                     return;
                 }
-                btnAgainGetCode.setBackgroundResource(R.drawable.btn_tran51);
+                btnAgainGetCode
+                        .setBackgroundResource(R.drawable.btn_tran51_hui);
                 getAuthCode();
                 break;
             case R.id.btnCellphone:

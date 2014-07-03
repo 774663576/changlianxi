@@ -628,7 +628,6 @@ public class MemberFragment extends Fragment implements
                 break;
             }
         }
-        System.out.println("str:::::::::::" + position);
         return position;
     }
 

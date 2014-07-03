@@ -123,7 +123,7 @@ public class AvatarImageDetailFragment extends Fragment {
                         String message = null;
                         switch (failReason.getType()) {
                             case IO_ERROR:
-                                message = "下载错误";
+                                message = "图片无法加载，请检查网络是否正常！";
                                 break;
                             case DECODING_ERROR:
                                 message = "图片无法显示";

@@ -92,9 +92,13 @@ public class LoginActivity extends BaseActivity implements OnClickListener,
         // ediNum.addTextChangedListener(new EditWather(ediNum, this));
         ediNum.setOnFocusChangeListener(new OnEditFocusChangeListener(ediNum,
                 this));
+        ediNum.addTextChangedListener(new PasswordEditTextWatcher(ediNum, this,
+                true));
         ediPassword = (SearchEditText) findViewById(R.id.edtPassword);
         ediPassword.addTextChangedListener(new PasswordEditTextWatcher(
                 ediPassword, this, true));
+        ediPassword.setOnFocusChangeListener(new OnEditFocusChangeListener(
+                ediPassword, this));
         buttonTxt = (TextView) findViewById(R.id.buttomTxt);
     }
 

@@ -279,7 +279,7 @@ public class SetPublicInfoShowInfoActivity extends BaseActivity implements
             authState.setText("已认证");
             authState.setBackgroundResource(R.drawable.auth);
         } else if (state.equals(CircleMemberState.STATUS_ENTER_AND_VERIFYING)) {
-            authState.setText("未认证");
+            authState.setText("认证中");
             authState.setBackgroundResource(R.drawable.btn_aaaaaa);
         } else if (state.equals(CircleMemberState.STATUS_INVITING)) {
             authState.setText("未加入");

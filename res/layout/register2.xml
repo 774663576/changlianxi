@@ -23,7 +23,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/input"
-        android:layout_marginBottom="20dip"
+        android:layout_marginBottom="15dip"
         android:gravity="center"
         android:textSize="@dimen/scale66sp" />
 
@@ -38,7 +38,7 @@
         android:focusableInTouchMode="true"
         android:gravity="center"
         android:orientation="vertical"
-        android:paddingBottom="50dip" >
+        android:paddingBottom="30dip" >
 
         <EditText
             android:id="@+id/editCode"

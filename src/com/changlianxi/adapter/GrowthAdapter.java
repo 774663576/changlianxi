@@ -6,6 +6,7 @@ import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -35,16 +36,15 @@ import com.changlianxi.data.Growth;
 import com.changlianxi.data.GrowthAlbumImages;
 import com.changlianxi.data.enums.RetError;
 import com.changlianxi.db.DBUtils;
+import com.changlianxi.inteface.ConfirmDialog;
 import com.changlianxi.inteface.OnAvatarClickListener;
-import com.changlianxi.popwindow.GrowthLoadingFailPopwindow;
-import com.changlianxi.popwindow.GrowthLoadingFailPopwindow.FailGrowth;
 import com.changlianxi.showBigPic.GrowthImagePagerActivity;
 import com.changlianxi.task.BaseAsyncTask;
 import com.changlianxi.task.BaseAsyncTask.PostCallBack;
 import com.changlianxi.task.UpLoadNewGrowthTask;
 import com.changlianxi.util.Constants;
 import com.changlianxi.util.DateUtils;
-import com.changlianxi.util.StringUtils;
+import com.changlianxi.util.DialogUtil;
 import com.changlianxi.util.UniversalImageLoadTool;
 import com.changlianxi.util.Utils;
 import com.changlianxi.view.CircularImage;
@@ -378,25 +378,43 @@ public class GrowthAdapter extends BaseAdapter {
     }
 
     private void GrowthFail(View view, final int position) {
-        GrowthLoadingFailPopwindow pop = new GrowthLoadingFailPopwindow(
-                mContext, view);
-        pop.setCallback(new FailGrowth() {
+        Dialog dialog = DialogUtil.confirmDialog(mContext, "请选择操作", "重新发送",
+                "删除", new ConfirmDialog() {
 
-            @Override
-            public void ToSend() {
-                listData.get(position).setUpLoading(true);
-                listData.get(position).setLoadingFail(false);
-                notifyDataSetChanged();
-                upLoadGrowth(listData.get(position));
-            }
+                    @Override
+                    public void onOKClick() {
+                        listData.get(position).setUpLoading(true);
+                        listData.get(position).setLoadingFail(false);
+                        notifyDataSetChanged();
+                        upLoadGrowth(listData.get(position));
+                    }
 
-            @Override
-            public void DelGrowth() {
-                listData.remove(position);
-                notifyDataSetChanged();
-            }
-        });
-        pop.show();
+                    @Override
+                    public void onCancleClick() {
+                        listData.remove(position);
+                        notifyDataSetChanged();
+                    }
+                });
+        dialog.show();
+        // GrowthLoadingFailPopwindow pop = new GrowthLoadingFailPopwindow(
+        // mContext, view);
+        // pop.setCallback(new FailGrowth() {
+        //
+        // @Override
+        // public void ToSend() {
+        // listData.get(position).setUpLoading(true);
+        // listData.get(position).setLoadingFail(false);
+        // notifyDataSetChanged();
+        // upLoadGrowth(listData.get(position));
+        // }
+        //
+        // @Override
+        // public void DelGrowth() {
+        // listData.remove(position);
+        // notifyDataSetChanged();
+        // }
+        // });
+        // pop.show();
     }
 
     private void upLoadGrowth(final Growth growth) {
