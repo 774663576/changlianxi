@@ -699,7 +699,7 @@ public class CircleMember extends AbstractData implements Serializable {
             this.pid = another.pid;
             isChange = true;
         }
-        if (!this.lastModTime.equals(another.lastModTime)) {
+        if (isChange || !this.lastModTime.equals(another.lastModTime)) {
             this.name = another.name;
             this.sortkey = another.sortkey;
             this.pinyinFir = another.pinyinFir;

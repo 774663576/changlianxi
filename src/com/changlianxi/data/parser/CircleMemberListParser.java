@@ -95,6 +95,9 @@ public class CircleMemberListParser implements IParser {
                 if (pType == PersonDetailType.UNKNOWN) {
                     continue;
                 }
+                if (pType == PersonDetailType.D_AVATAR) {
+                    value = urlBase + value;
+                }
                 PersonDetail p = new PersonDetail(id, cid, pid, uid, pType,
                         value);
                 if (objDetail.has("start")) {
