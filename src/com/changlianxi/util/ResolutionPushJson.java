@@ -99,6 +99,7 @@ public class ResolutionPushJson {
     private static void finish() {
         SharedUtils.setString("uid", "");
         SharedUtils.setString("token", "");
+        SharedUtils.setBoolean("isLogin", false);
         BaiDuPushUtils.setBind(CLXApplication.getInstance(), false);
         DataBaseHelper.setIinstanceNull();
         DBUtils.dbase = null;
@@ -124,6 +125,7 @@ public class ResolutionPushJson {
             if (type.equals(QUIT_TYPE)) {
                 SharedUtils.setString("uid", "");
                 SharedUtils.setString("token", "");
+                SharedUtils.setBoolean("isLogin", false);
                 BaiDuPushUtils.setBind(CLXApplication.getInstance(), false);
                 DataBaseHelper.setIinstanceNull();
                 DBUtils.dbase = null;

@@ -7,7 +7,6 @@ import android.text.TextWatcher;
 import android.widget.EditText;
 
 import com.changlianxi.R;
-import com.changlianxi.view.SearchEditText;
 
 public class PasswordEditTextWatcher implements TextWatcher {
     private EditText edit;

@@ -41,7 +41,7 @@
         android:orientation="vertical"
         android:paddingBottom="30dip" >
 
-        <EditText
+        <com.changlianxi.view.SearchEditText
             android:id="@+id/emailCode"
             android:layout_width="match_parent"
             android:layout_height="@dimen/scale129dip"

@@ -165,6 +165,8 @@ public class VerifyWaitActivity extends BaseActivity implements
                                         int rt = object.getInt("rt");
                                         if (rt == 1) {
                                             mHandler.removeMessages(0);
+                                            Utils.showToast("绑定成功",
+                                                    Toast.LENGTH_SHORT);
                                             Intent it = new Intent();
                                             it.setClass(
                                                     VerifyWaitActivity.this,

@@ -210,6 +210,7 @@ public class HomeFragMent extends Fragment implements OnClickListener,
         myIntentFilter.addAction(Constants.REMOVE_CIRCLE_PROMPT_COUNT);
         myIntentFilter.addAction(Constants.ACCEPT_CIRCLE_INVITATE);
         myIntentFilter.addAction(Constants.REMOVE_INIT_CIRCLE);
+        myIntentFilter.addAction(Constants.ADD_NEW_CIRCLE);
 
         // 注册广播
         getActivity().registerReceiver(mBroadcastReceiver, myIntentFilter);
@@ -244,9 +245,28 @@ public class HomeFragMent extends Fragment implements OnClickListener,
             } else if (action.equals(Constants.REMOVE_INIT_CIRCLE)) {
                 int cid = intent.getIntExtra("cid", 0);
                 remoreInitCircle(cid);
+            } else if (action.equals(Constants.ADD_NEW_CIRCLE)) {
+                // int cid = intent.getIntExtra("ci", 0);
+                // // String cirName = intent.getStringExtra("cirName");
+                // // createNewCircle(cid, cirName);
+                Circle circle = (Circle) intent.getSerializableExtra("circle");
+                circle.setNewGrowthCnt(1);
+                circleslists.add(0, circle);
+                adapter.notifyDataSetChanged();
             }
         }
     };
+
+    /**
+     * 创建新圈子
+     */
+    private void createNewCircle(int cid, String cirName) {
+        Circle circle = new Circle(cid);
+        circle.setName(cirName);
+        circle.setNewGrowthCnt(1);
+        circleslists.add(0, circle);
+        adapter.notifyDataSetChanged();
+    }
 
     private void remoreInitCircle(int cid) {
         for (int i = circleslists.size() - 1; i >= 0; i--) {

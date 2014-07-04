@@ -40,7 +40,7 @@
         android:orientation="vertical"
         android:paddingBottom="50dip" >
 
-        <EditText
+        <com.changlianxi.view.SearchEditText
             android:id="@+id/editCode"
             android:layout_width="match_parent"
             android:layout_height="@dimen/scale129dip"
@@ -54,7 +54,7 @@
             android:textColor="#000000"
             android:textColorHint="#B8B8B8"
             android:textSize="@dimen/scale46sp" >
-        </EditText>
+        </com.changlianxi.view.SearchEditText>
 
         <Button
             android:id="@+id/btfinish_yz"

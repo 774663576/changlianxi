@@ -287,9 +287,10 @@ public class ReleaseGrowthActivity extends MapActivity implements
                             modle.getPath_absolute());
                     imgs.add(img);
                 }
+                String strLocotion = location.getText().toString();
                 growth = new Growth(cid, 0, Global.getIntUid(), contentStr,
-                        location.getText().toString(), happenedTime,
-                        DateUtils.timestampConvertToDate(
+                        strLocotion.equals("正在获取地址...") ? "" : strLocotion,
+                        happenedTime, DateUtils.timestampConvertToDate(
                                 System.currentTimeMillis() / 1000 + "",
                                 "yyyy-MM-dd HH:mm:ss"));
                 growth.setCoordinate(latitude + "," + longitude);

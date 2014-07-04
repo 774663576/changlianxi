@@ -159,24 +159,28 @@ public class CreateCircleActivity extends BaseActivity implements
         circleTask.setTaskCallBack(new BaseAsyncTask.PostCallBack<RetError>() {
             @Override
             public void taskFinish(RetError result) {
-                if (progressDialog != null) {
-                    progressDialog.dismiss();
-                }
                 if (result != RetError.NONE) {
                     return;
                 }
+                Intent intent;
                 if (initCircleID < 0) {
-                    Intent intent = new Intent(Constants.REMOVE_INIT_CIRCLE);
+                    intent = new Intent(Constants.REMOVE_INIT_CIRCLE);
                     intent.putExtra("cid", initCircleID);
                     BroadCast.sendBroadCast(CreateCircleActivity.this, intent);
                     Circle c = new Circle(initCircleID);
                     c.setStatus(Status.DEL);
                     c.write(DBUtils.getDBsa(2));
                 }
-                BroadCast.sendBroadCast(CreateCircleActivity.this,
-                        Constants.REFRESH_CIRCLE_LIST);
                 cid = circle.getId();
+                intent = new Intent(Constants.ADD_NEW_CIRCLE);
+                // intent.putExtra("cirName", circle.getName());
+                // intent.putExtra("cid", cid);
+                intent.putExtra("circle", circle);
+                BroadCast.sendBroadCast(CreateCircleActivity.this, intent);
                 if (contactsList.size() == 0) {
+                    if (progressDialog != null) {
+                        progressDialog.dismiss();
+                    }
                     promptDialog("圈子创建成功");
                     isCallBack = true;
                     return;

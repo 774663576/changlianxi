@@ -28,7 +28,7 @@
         android:gravity="center"
         android:orientation="vertical" >
 
-        <EditText
+        <com.changlianxi.view.SearchEditText
             android:id="@+id/setPassword"
             android:layout_width="match_parent"
             android:layout_height="@dimen/scale129dip"
@@ -38,10 +38,7 @@
             android:paddingRight="15dip"
             android:textColor="#b8b8b8"
             android:textColorHint="#b8b8b8"
-            android:textSize="@dimen/scale46sp" >
-
-            <requestFocus />
-        </EditText>
+            android:textSize="@dimen/scale46sp" />
 
         <Button
             android:id="@+id/btfinish_register"

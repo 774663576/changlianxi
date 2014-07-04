@@ -36,6 +36,7 @@ public class Constants {
     public static final String REFUSH_CIRCLE_MEMBER = "com.changlianxi.fefushCircleMember";
     public static final String REMOVE_INIT_CIRCLE = "com.changlianxi.removeInitCircle";
     public static final String UPDETE_CIRCLE_PROMPT_COUNT = "com.updateCirclePromptCount";
+    public static final String ADD_NEW_CIRCLE = "com.addNewCircle";// 新建圈子
 
     /***************************************************/
     public static final String USERLIST_TABLE = "userlist";// 成员列表
