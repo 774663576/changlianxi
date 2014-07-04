@@ -649,4 +649,15 @@ public class CircleMemberList extends AbstractData {
         return ret;
     }
 
+    @Override
+    public String toString() {
+        StringBuffer sb = new StringBuffer();
+        sb.append("count:" + members.size());
+        int cnt = 1;
+        for (CircleMember cm : members) {
+            sb.append(", member_" + (cnt++) + ":" + cm.toString());
+        }
+        return sb.toString();
+    }
+
 }

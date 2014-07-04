@@ -23,27 +23,40 @@ public class CircleMemberListFirstTask extends
         if (isCancelled() || params == null) {
             return RetError.NONE;
         }
-        circleMemberList = params[0];
-        circleMemberList.read(DBUtils.getDBsa(1));
-        callBack.readDBFinish();
-        if (!refushNet) {
-            return RetError.NONE;
-        }
-        if (circleMemberList.getMembers().size() != 0
-                && newMemberCount + newMyDetailEditCount == 0) {
-            return RetError.NONE;
-        }
         if (!isNet) {
             return RetError.NETWORK_ERROR;
         }
-        long start = System.currentTimeMillis();
+        if (!refushNet) {
+            return RetError.NONE;
+        }
+
+        boolean needRefresh = false;
+        circleMemberList = params[0];
+        circleMemberList.read(DBUtils.getDBsa(1));
+        callBack.readDBFinish();
+        if (circleMemberList.getMembers().size() == 0) {
+            needRefresh = true;
+        }
+        if ((newMemberCount + newMyDetailEditCount) > 0) {
+            needRefresh = true;
+        }
+        if ((circleMemberList.getMembers().size() == 1)
+                && (circleMemberList.getLegalMembers().size() == 0)) {
+            needRefresh = true;
+        }
+        if (!needRefresh) {
+            return RetError.NONE;
+        }
+
+        // long start = System.currentTimeMillis();
         circleMemberList
                 .refreshMembers(circleMemberList.getLastReqTime() / 1000);
-        System.out.println("end::::::::::::::::"
-                + (System.currentTimeMillis() - start));
+        // System.out.println("end::::::::::::::::"
+        // + (System.currentTimeMillis() - start));
         circleMemberList.write(DBUtils.getDBsa(2));
-        System.out.println("end::::::::::::::::=="
-                + (System.currentTimeMillis() - start));
+        // System.out.println("end::::::::::::::::=="
+        // + (System.currentTimeMillis() - start));
+
         return RetError.NONE;
     }
 

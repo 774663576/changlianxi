@@ -370,9 +370,9 @@ public class CircleMember extends AbstractData implements Serializable {
     @Override
     public String toString() {
         return "CircleMember [cid=" + cid + ", uid=" + uid + ", pid=" + pid
-                + ", name=" + name + ", cellphone=" + cellphone + ", location="
-                + location + "]" + "detail=" + details + "sortKey=" + sortkey
-                + " status:" + status;
+                + ", name=" + name + ", cellphone=" + cellphone
+                + ", account_email=" + account_email + ", status=" + status
+                + "]";
     }
 
     @Override
@@ -705,6 +705,7 @@ public class CircleMember extends AbstractData implements Serializable {
             this.pinyinFir = another.pinyinFir;
             this.avatar = another.avatar;
             this.cellphone = another.cellphone;
+            this.account_email = another.account_email;
             this.employer = another.employer;
             this.inviteCode = another.inviteCode;
             this.lastModTime = another.lastModTime;
@@ -1505,7 +1506,7 @@ public class CircleMember extends AbstractData implements Serializable {
         String employer = this.employer.replaceAll("'", "''");
         String sortkey = this.sortkey.replaceAll("'", "");
         String pinyinFir = this.pinyinFir.replaceAll("'", "");
-        
+
         return "(" + cid + "," + uid + "," + pid + "," + cmid + ",'" + name
                 + "','" + cellphone + "','" + account_email + "','" + location
                 + "','" + avatar + "','" + employer + "','" + lastModTime
@@ -1518,7 +1519,7 @@ public class CircleMember extends AbstractData implements Serializable {
         String employer = this.employer.replaceAll("'", "''");
         String sortkey = this.sortkey.replaceAll("'", "");
         String pinyinFir = this.pinyinFir.replaceAll("'", "");
-        
+
         return cid + "," + uid + "," + pid + "," + cmid + ",'" + name + "','"
                 + cellphone + "','" + account_email + "','" + location + "','"
                 + avatar + "','" + employer + "','" + lastModTime + "','"

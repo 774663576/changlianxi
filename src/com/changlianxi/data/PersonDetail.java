@@ -128,8 +128,8 @@ public class PersonDetail extends AbstractData implements Serializable {
 
     @Override
     public String toString() {
-        return "PersonProperty [id=" + id + ", cid=" + cid + ", type=" + type
-                + ", value=" + value + "]" + "starus=" + status;
+        return "PersonProperty [id=" + id + ", cid=" + cid + ", uid=" + uid
+                + ", pid=" + pid + ", type=" + type + ", value=" + value + "]";
     }
 
     @Override
