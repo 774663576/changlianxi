@@ -165,6 +165,8 @@ public class FindPasswordActivity extends BaseActivity implements
         showNum2 = (TextView) find4.findViewById(R.id.txt_show_num2);
         txtPrompt2 = (TextView) find4.findViewById(R.id.textrompt2);
         ediCode2.setInputType(InputType.TYPE_CLASS_NUMBER);
+        ediCode2.addTextChangedListener(new PasswordEditTextWatcher(ediCode2,
+                this, true));
     }
 
     /**
@@ -182,6 +184,8 @@ public class FindPasswordActivity extends BaseActivity implements
         btGetCode = (Button) find2.findViewById(R.id.bt_get_code);
         btGetCode.setOnClickListener(this);
         layButtom = (LinearLayout) find2.findViewById(R.id.layBottom);
+        ediCode.addTextChangedListener(new PasswordEditTextWatcher(ediCode,
+                this, true));
     }
 
     /**
@@ -375,7 +379,7 @@ public class FindPasswordActivity extends BaseActivity implements
                 page++;
                 ediPasswd.requestFocus();
                 // 弹出软键盘
-//                Utils.popUp(this);
+                // Utils.popUp(this);
                 mHandler.removeMessages(0);
             } else {
                 Utils.showToast("啊哦，验证码不对\n验证码为6个数字，请再确认输入一次",

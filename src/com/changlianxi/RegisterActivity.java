@@ -165,6 +165,8 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,
         code2.setInputType(InputType.TYPE_CLASS_NUMBER);
         txtShowNum2 = (TextView) reg4.findViewById(R.id.txt_show_num2);
         textView3 = (TextView) reg4.findViewById(R.id.textView2);
+        code2.addTextChangedListener(new PasswordEditTextWatcher(code2, this,
+                true));
     }
 
     /**
@@ -198,6 +200,8 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,
         txtShowNum = (TextView) reg2.findViewById(R.id.txt_show_num);
         layButtom = (LinearLayout) reg2.findViewById(R.id.lay_buttom);
         textView2 = (TextView) reg2.findViewById(R.id.textView2);
+        code.addTextChangedListener(new PasswordEditTextWatcher(code, this,
+                true));
     }
 
     /**

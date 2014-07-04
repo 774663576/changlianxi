@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import com.changlianxi.data.CircleMember;
 import com.changlianxi.data.EditData;
+import com.changlianxi.data.Global;
 import com.changlianxi.data.enums.PersonDetailType;
 import com.changlianxi.db.DBUtils;
 import com.changlianxi.task.PostAsyncTask;
@@ -170,9 +171,15 @@ public class ChangeHistoryActivity extends BaseActivity implements
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             ViewHolder holder = null;
-            CircleMember c = new CircleMember(cid, 0, lists.get(position)
-                    .getUser_id());
-            c.getNameAndAvatar(DBUtils.getDBsa(1));
+            String name = "";
+            if (Global.getIntUid() == lists.get(position).getUser_id()) {
+                name = "我";
+            } else {
+                CircleMember c = new CircleMember(cid, 0, lists.get(position)
+                        .getUser_id());
+                c.getNameAndAvatar(DBUtils.getDBsa(1));
+                name = c.getName();
+            }
             String time = lists.get(position).getTime();
             String value = lists.get(position).getDetail();
             String type = lists.get(position).getOperation() + ":";
@@ -205,7 +212,7 @@ public class ChangeHistoryActivity extends BaseActivity implements
                 holder.avatar.setVisibility(View.GONE);
                 holder.content.setText(value);
             }
-            holder.name.setText(c.getName());
+            holder.name.setText(name);
             holder.time.setText(DateUtils.publishedTime3(time));
             holder.type.setText(type);
             return convertView;

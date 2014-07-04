@@ -50,6 +50,7 @@
             android:hint="@string/input_auth_code"
             android:inputType="number"
             android:paddingLeft="@dimen/scale44dip"
+            android:paddingRight="15dip"
             android:singleLine="true"
             android:textColor="#000000"
             android:textColorHint="#B8B8B8"

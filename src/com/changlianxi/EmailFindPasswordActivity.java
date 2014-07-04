@@ -139,6 +139,10 @@ public class EmailFindPasswordActivity extends BaseActivity implements
         back.setOnClickListener(this);
         reg1EditEmail.addTextChangedListener(new PasswordEditTextWatcher(
                 reg1EditEmail, this, true));
+        emailCode.addTextChangedListener(new PasswordEditTextWatcher(emailCode,
+                this, true));
+        setPassword.addTextChangedListener(new PasswordEditTextWatcher(
+                setPassword, this, true));
         reg1BtnNext.setOnClickListener(this);
         bthFinishYz.setOnClickListener(this);
         parent.setOnSizeChangedListenner(this);

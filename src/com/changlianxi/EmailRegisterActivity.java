@@ -120,7 +120,7 @@ public class EmailRegisterActivity extends BaseActivity implements
         emailShow = (TextView) reg2.findViewById(R.id.txt_show_email);
         bthFinishYz = (Button) reg2.findViewById(R.id.btfinish_yz);
         layButtom = (LinearLayout) reg2.findViewById(R.id.lay_bottom);
-        emailCode = (EditText) reg2.findViewById(R.id.emailCode);
+        emailCode = (SearchEditText) reg2.findViewById(R.id.emailCode);
         btnAgainGetCode = (Button) reg2.findViewById(R.id.btAgainCode);
         txtSecond = (TextView) reg2.findViewById(R.id.txt_second);
     }
@@ -137,6 +137,10 @@ public class EmailRegisterActivity extends BaseActivity implements
         back.setOnClickListener(this);
         reg1EditEmail.addTextChangedListener(new PasswordEditTextWatcher(
                 reg1EditEmail, this, true));
+        emailCode.addTextChangedListener(new PasswordEditTextWatcher(emailCode,
+                this, true));
+        setPassword.addTextChangedListener(new PasswordEditTextWatcher(
+                setPassword, this, true));
         reg1BtnNext.setOnClickListener(this);
         bthFinishYz.setOnClickListener(this);
         parent.setOnSizeChangedListenner(this);

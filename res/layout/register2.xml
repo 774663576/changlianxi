@@ -40,7 +40,7 @@
         android:orientation="vertical"
         android:paddingBottom="30dip" >
 
-        <EditText
+        <com.changlianxi.view.SearchEditText
             android:id="@+id/editCode"
             android:layout_width="match_parent"
             android:layout_height="@dimen/scale129dip"
@@ -49,6 +49,7 @@
             android:focusableInTouchMode="true"
             android:hint="@string/input_auth_code"
             android:paddingLeft="@dimen/scale44dip"
+            android:paddingRight="15dip"
             android:textColor="#000000"
             android:textColorHint="#B8B8B8"
             android:textSize="@dimen/scale46sp" />
