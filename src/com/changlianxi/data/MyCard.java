@@ -14,7 +14,6 @@ import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.widget.Toast;
 
 import com.changlianxi.data.enums.PersonDetailType;
 import com.changlianxi.data.enums.RetError;
@@ -34,8 +33,6 @@ import com.changlianxi.data.request.StringResult;
 import com.changlianxi.db.Const;
 import com.changlianxi.db.DBUtils;
 import com.changlianxi.util.BitmapUtils;
-import com.changlianxi.util.StringUtils;
-import com.changlianxi.util.Utils;
 
 /**
  * My card, whose cid=0,
