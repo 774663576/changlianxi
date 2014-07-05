@@ -109,11 +109,4 @@
         </LinearLayout>
     </ScrollView>
 
-    <com.baidu.mapapi.MapView
-        android:id="@+id/map_View"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:clickable="true"
-        android:visibility="gone" />
-
 </LinearLayout>

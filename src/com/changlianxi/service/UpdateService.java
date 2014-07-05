@@ -16,6 +16,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -27,6 +28,7 @@ import android.os.Message;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
+import com.changlianxi.LoginActivity;
 import com.changlianxi.R;
 import com.changlianxi.util.FileUtils;
 
@@ -64,9 +66,9 @@ public class UpdateService extends Service {
         // 设置任务栏中下载进程显示的views
         views = new RemoteViews(getPackageName(), R.layout.version_update);
         notification.contentView = views;
-        // PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-        // new Intent(this, LoginActivity.class), 0);
-        notification.setLatestEventInfo(this, "", "", null);
+        PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
+                new Intent(), 0);
+        notification.setLatestEventInfo(this, "", "", contentIntent);
         // 将下载任务添加到任务栏中
         nm.notify(notificationId, notification);
 

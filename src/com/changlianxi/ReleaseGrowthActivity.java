@@ -7,15 +7,15 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.location.Location;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,12 +31,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.baidu.location.BDLocation;
-import com.baidu.location.BDLocationListener;
-import com.baidu.location.LocationClient;
-import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.BMapManager;
 import com.baidu.mapapi.GeoPoint;
+import com.baidu.mapapi.LocationListener;
 import com.baidu.mapapi.MKAddrInfo;
 import com.baidu.mapapi.MKBusLineResult;
 import com.baidu.mapapi.MKDrivingRouteResult;
@@ -46,7 +43,6 @@ import com.baidu.mapapi.MKSearchListener;
 import com.baidu.mapapi.MKSuggestionResult;
 import com.baidu.mapapi.MKTransitRouteResult;
 import com.baidu.mapapi.MKWalkingRouteResult;
-import com.baidu.mapapi.MapActivity;
 import com.changlianxi.applation.CLXApplication;
 import com.changlianxi.chooseImage.PhotoInfo;
 import com.changlianxi.chooseImage.RotateImageViewAware;
@@ -77,8 +73,8 @@ import com.umeng.analytics.MobclickAgent;
  *
  */
 // key 771eee919e7e1179a1c249b38367c0d3
-public class ReleaseGrowthActivity extends MapActivity implements
-        OnClickListener, OnItemClickListener, DelPic, CameraPath {
+public class ReleaseGrowthActivity extends Activity implements OnClickListener,
+        OnItemClickListener, DelPic, CameraPath {
     private EditText time;
     private EditText location;// 地点输入框
     private EditText content;// 内容输入框
@@ -91,9 +87,6 @@ public class ReleaseGrowthActivity extends MapActivity implements
     private MyAdapter adapter;
     private SelectPicPopwindow pop;
     private TextView titleTxt;
-    private LocationClient mClient;
-    private LocationClientOption mOption;
-    private String mLBSAddress;
     private Calendar cal = Calendar.getInstance();
     private Growth growth;
     private List<PhotoInfo> list = new ArrayList<PhotoInfo>(); // 获取图片的地址
@@ -102,27 +95,9 @@ public class ReleaseGrowthActivity extends MapActivity implements
     private MKSearch mMKSearch;
     private BMapManager mapManager;
     private GeoPoint point;
-    private String picAddress = "";
     private String happenedTime = "";
     private int currentYear = 0;
     private String cameraPath = "";
-    private Handler handler = new Handler() {
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what) {
-                case 0:
-                    if (mClient.isStarted()) {
-                        mClient.stop();
-                    }
-                    if (mLBSAddress != null && !"".equals(mLBSAddress)) {
-                        location.setText(mLBSAddress.replace("x026", ""));
-                    }
-                    break;
-                default:
-                    break;
-            }
-        }
-    };
 
     @SuppressWarnings("unchecked")
     @Override
@@ -135,10 +110,8 @@ public class ReleaseGrowthActivity extends MapActivity implements
         listBmp.add(null);
         cid = getIntent().getExtras().getInt("cid");
         initView();
-        initLBS();
         setListener();
-        mClient.start();
-        mClient.requestLocation();
+        initLBS();
         getSelectPicPath();
         currentYear = cal.get(Calendar.YEAR);
     }
@@ -146,7 +119,6 @@ public class ReleaseGrowthActivity extends MapActivity implements
     private void getSelectPicPath() {
         for (PhotoInfo m : list) {
             listBmp.add(listBmp.size() - 1, m);
-
         }
         adapter.notifyDataSetChanged();
         if (list.size() > 0) {
@@ -159,9 +131,14 @@ public class ReleaseGrowthActivity extends MapActivity implements
             }
             latitude = list.get(0).getLatitude();
             longitude = list.get(0).getLongitude();
-            point = new GeoPoint((int) (latitude * 1E6),
-                    (int) (longitude * 1E6));
-            mMKSearch.reverseGeocode(point);
+            if (latitude != 0 && longitude != 0) {
+                mMKSearch = new MKSearch();
+                point = new GeoPoint((int) (latitude * 1E6),
+                        (int) (longitude * 1E6));
+                mMKSearch.init(mapManager, new MyMKSearchListener());
+                mMKSearch.reverseGeocode(point);
+            }
+            mapManager.start();
         }
     }
 
@@ -188,17 +165,6 @@ public class ReleaseGrowthActivity extends MapActivity implements
         btnback.setOnClickListener(this);
         btnUpload.setOnClickListener(this);
         gridView.setOnItemClickListener(this);
-        mClient.registerLocationListener(new BDLocationListener() {
-            public void onReceivePoi(BDLocation arg0) {
-            }
-
-            public void onReceiveLocation(BDLocation arg0) {
-                mLBSAddress = arg0.getAddrStr();
-                latitude = arg0.getLatitude();
-                longitude = arg0.getLongitude();
-                handler.sendEmptyMessage(0);
-            }
-        });
     }
 
     /**
@@ -232,24 +198,81 @@ public class ReleaseGrowthActivity extends MapActivity implements
     }
 
     private void initLBS() {
-        mOption = new LocationClientOption();
-        mOption.setOpenGps(true);
-        mOption.setCoorType("bd09ll");
-        mOption.setAddrType("all");
-        mOption.setScanSpan(100);
-        mOption.disableCache(true);
-        mOption.setPoiNumber(20);
-        mOption.setPoiDistance(1000);
-        mOption.setPoiExtraInfo(true);
-        mOption.setProdName("常联系");
-        mClient = new LocationClient(this, mOption);
-        mapManager = new BMapManager(getApplication());
-        // init方法的第一个参数需填入申请的API Key
-        mapManager.init("02AD0B51770522AB1EECE64CB3ED44B6B930364F", null);
-        super.initMapActivity(mapManager);
-        // 初始化
-        mMKSearch = new MKSearch();
-        mMKSearch.init(mapManager, new MySeach());
+        mapManager = new BMapManager(this);
+        mapManager.init("EDB67AD764D300895C95ABA02A4DDC58D5485CCD", null);
+        mapManager.getLocationManager().requestLocationUpdates(
+                new MyLocationListener());
+    }
+
+    class MyLocationListener implements LocationListener {
+
+        @Override
+        public void onLocationChanged(Location arg0) {
+            int jindu = (int) (arg0.getLatitude() * 1000000);
+            int weidu = (int) (arg0.getLongitude() * 1000000);
+            if (mMKSearch != null) {
+                return;
+            }
+            mMKSearch = new MKSearch();
+            mMKSearch.init(mapManager, new MyMKSearchListener());
+            mMKSearch.reverseGeocode(new GeoPoint(jindu, weidu));
+        }
+
+    }
+
+    class MyMKSearchListener implements MKSearchListener {
+        @Override
+        public void onGetAddrResult(MKAddrInfo arg0, int arg1) {
+            if (arg0 == null) {
+                location.setText("获取地址失败");
+                location.setText("");
+            } else {
+                location.setText(arg0.strAddr.replace("x026", ""));
+            }
+        }
+
+        @Override
+        public void onGetBusDetailResult(MKBusLineResult arg0, int arg1) {
+
+        }
+
+        @Override
+        public void onGetDrivingRouteResult(MKDrivingRouteResult arg0, int arg1) {
+
+        }
+
+        @Override
+        public void onGetPoiResult(MKPoiResult arg0, int arg1, int arg2) {
+
+        }
+
+        @Override
+        public void onGetSuggestionResult(MKSuggestionResult arg0, int arg1) {
+
+        }
+
+        @Override
+        public void onGetTransitRouteResult(MKTransitRouteResult arg0, int arg1) {
+
+        }
+
+        @Override
+        public void onGetWalkingRouteResult(MKWalkingRouteResult arg0, int arg1) {
+
+        }
+
+        @Override
+        public void onGetPoiDetailSearchResult(int arg0, int arg1) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void onGetRGCShareUrlResult(String arg0, int arg1) {
+            // TODO Auto-generated method stub
+
+        }
+
     }
 
     private void confirmDialog() {
@@ -524,67 +547,6 @@ public class ReleaseGrowthActivity extends MapActivity implements
             }
         }
         return false;
-    }
-
-    @Override
-    protected boolean isRouteDisplayed() {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    class MySeach implements MKSearchListener {
-
-        @Override
-        public void onGetAddrResult(MKAddrInfo result, int arg1) {
-            if (arg1 == 0) {
-                picAddress = result.strAddr;
-                if (picAddress != null) {
-                    location.setText(picAddress);
-                }
-
-            }
-        }
-
-        @Override
-        public void onGetBusDetailResult(MKBusLineResult arg0, int arg1) {
-
-        }
-
-        @Override
-        public void onGetPoiDetailSearchResult(int arg0, int arg1) {
-
-        }
-
-        @Override
-        public void onGetPoiResult(MKPoiResult arg0, int arg1, int arg2) {
-
-        }
-
-        @Override
-        public void onGetRGCShareUrlResult(String arg0, int arg1) {
-
-        }
-
-        @Override
-        public void onGetSuggestionResult(MKSuggestionResult arg0, int arg1) {
-
-        }
-
-        @Override
-        public void onGetTransitRouteResult(MKTransitRouteResult arg0, int arg1) {
-
-        }
-
-        @Override
-        public void onGetWalkingRouteResult(MKWalkingRouteResult arg0, int arg1) {
-
-        }
-
-        @Override
-        public void onGetDrivingRouteResult(MKDrivingRouteResult arg0, int arg1) {
-
-        }
-
     }
 
     @Override

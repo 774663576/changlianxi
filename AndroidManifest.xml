@@ -73,7 +73,17 @@
             android:name="com.baidu.location.f"
             android:enabled="true"
             android:process=":remote" >
+            <intent-filter>
+                <action android:name="com.baidu.location.service_v2.2" >
+                </action>
+            </intent-filter>
         </service>
+
+        <!-- meta-data需要写在application中 -->
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="771eee919e7e1179a1c249b38367c0d3" />
+
         <!-- push应用定义消息receiver声明 -->
         <receiver android:name="com.changlianxi.util.MyPushMessageReceiver" >
             <intent-filter>

@@ -237,6 +237,12 @@ public class UserInfoActivity extends BaseActivity implements OnClickListener,
                 line2.setVisibility(View.GONE);
             }
         }
+        Circle circle = new Circle(cid);
+        circle.read(DBUtils.getDBsa(1));
+        if (circle.getCreator() == uid) {
+            line4.setVisibility(View.GONE);
+            kickOut.setVisibility(View.GONE);
+        }
     }
 
     private void initFooterView() {

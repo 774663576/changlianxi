@@ -15,6 +15,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.telephony.gsm.SmsManager;
 import android.text.InputType;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -493,6 +494,22 @@ public class RegisterActivity extends BaseActivity implements OnClickListener,
         } else if (type.equals("3")) {
             getAgainCode(result);
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (page > 0) {
+                rGroup.setView(reg1);
+                second = 60;
+                mHandler.removeMessages(0);
+                page = 0;
+            } else {
+                finish();
+                Utils.rightOut(this);
+            }
+        }
+        return false;
     }
 
     @Override

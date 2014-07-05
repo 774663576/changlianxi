@@ -6,6 +6,7 @@ import org.json.JSONObject;
 import android.app.Dialog;
 import android.content.Intent;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.changlianxi.LoginActivity;
 import com.changlianxi.applation.CLXApplication;
@@ -55,25 +56,38 @@ public class ResolutionPushJson {
                 BroadCast.sendBroadCast(CLXApplication.getInstance(), intent);
                 showNotify(alert, type);
             }
-            if (uid.equals(Global.getUid())) {
-                return;
-            }
+
             if (type.equals(COMMENT_TYPE)) {// 成长评论
+                if (uid.equals(Global.getUid())) {
+                    return;
+                }
                 unRead = json.getString("unread");
                 upDateCirclePromptCount(cid, unRead);
             } else if (type.equals(GROWTH_TYPE)) {// 新的成长
+                if (uid.equals(Global.getUid())) {
+                    return;
+                }
                 unRead = json.getString("unread");
                 upDateCirclePromptCount(cid, unRead);
             } else if (type.equals(NEW_TYPE)) {// 新的动态
+                if (uid.equals(Global.getUid())) {
+                    return;
+                }
                 unRead = json.getString("unread");
                 upDateCirclePromptCount(cid, unRead);
             } else if (NEW_CIRCLE.equals(type)) {// 新圈子邀请
+                if (uid.equals(Global.getUid())) {
+                    return;
+                }
                 alert = json.getString("alert");
                 BroadCast.sendBroadCast(CLXApplication.getInstance(),
                         Constants.REFRESH_CIRCLE_LIST);
                 showNotify(alert, type);
 
             } else if (MESSAGE.equals(type)) {// 新的私信
+                if (uid.equals(Global.getUid())) {
+                    return;
+                }
                 alert = json.getString("alert");
                 setPromptInDB(type);
                 BroadCast.sendBroadCast(CLXApplication.getInstance(),

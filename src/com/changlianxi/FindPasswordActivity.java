@@ -14,6 +14,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.telephony.gsm.SmsManager;
 import android.text.InputType;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -475,6 +476,22 @@ public class FindPasswordActivity extends BaseActivity implements
             showNum2.setVisibility(View.VISIBLE);
             findByEmail.setVisibility(View.VISIBLE);
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (page > 0) {
+                group.setView(find1);
+                second = 60;
+                mHandler.removeMessages(0);
+                page = 0;
+            } else {
+                finish();
+                Utils.rightOut(this);
+            }
+        }
+        return false;
     }
 
     @Override
