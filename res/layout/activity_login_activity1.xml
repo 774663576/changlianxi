@@ -1,0 +1,51 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundcolor" >
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp80"
+        android:background="@drawable/input_new"
+        android:orientation="vertical" >
+
+        <EditText
+            android:id="@+id/editText1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp98"
+            android:layout_marginLeft="@dimen/dp54"
+            android:background="@null"
+            android:text="手机号/邮箱"
+            android:textColor="@color/editTextClolor"
+            android:textSize="@dimen/dp40sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:layout_marginLeft="@dimen/dp54"
+            android:background="@color/bg_line" />
+
+        <EditText
+            android:id="@+id/editText2"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp98"
+            android:layout_marginLeft="@dimen/dp54"
+            android:background="@null"
+            android:text="请输入密码："
+            android:textColor="@color/editTextClolor"
+            android:textSize="@dimen/dp40sp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout1"
+        android:layout_marginTop="@dimen/dp80"
+        android:background="@drawable/button_new"
+        android:text="Button" />
+
+</RelativeLayout>

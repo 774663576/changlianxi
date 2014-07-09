@@ -36,5 +36,8 @@
     <color name="ca">#CACACA</color>
     <color name="ff5400">#ff5400</color>
     <color name="member_list_item_line">#e3e3e3</color>
+    <color name="backgroundcolor">#efeef3</color>
+    <color name="bg_line">#c7c7c9</color>
+    <color name="editTextClolor">#c0c0c2</color>
 
 </resources>

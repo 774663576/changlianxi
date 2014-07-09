@@ -117,5 +117,10 @@
     <dimen name="scale279dip">130dip</dimen>
     <dimen name="change_history_name">23sp</dimen>
     <dimen name="editpassword">55dip</dimen>
+    <dimen name="dp80">37dip</dimen>
+    <dimen name="dp98">46dip</dimen>
+    <dimen name="dp54">25dip</dimen>
+    <dimen name="dp86">40dip</dimen>
+    <dimen name="dp40sp">19dip</dimen>
 
 </resources>

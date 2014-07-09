@@ -261,12 +261,17 @@ public class EditCircleActivity extends BaseActivity implements
             Bundle extras = data.getExtras();
             if (extras != null) {
                 Bitmap photo = extras.getParcelable("data");
+                if (photo == null) {
+                    circleLogo.setImageResource(R.drawable.pic_bg_no);
+                    return;
+                }
                 circleLogo.setImageBitmap(photo);
                 logoBmp = photo;
                 File file = new File(upLoadPath);
                 if (file.exists()) {
                     return;
                 }
+
                 String name = FileUtils.getFileName() + ".jpg";
                 String fileName = FileUtils.getCameraPath() + File.separator
                         + name;

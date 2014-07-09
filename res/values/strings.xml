@@ -199,5 +199,6 @@
     <string name="title_activity_email_find_password">EmailFindPasswordActivity</string>
     <string name="title_activity_circle_guide">CircleGuideActivity</string>
     <string name="title_activity_main_tab_activity1">MainTabActivity1</string>
+    <string name="title_activity_login_activity1">LoginActivity1</string>
 
 </resources>

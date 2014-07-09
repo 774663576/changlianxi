@@ -210,6 +210,8 @@ public class ReleaseGrowthActivity extends Activity implements OnClickListener,
         public void onLocationChanged(Location arg0) {
             int jindu = (int) (arg0.getLatitude() * 1000000);
             int weidu = (int) (arg0.getLongitude() * 1000000);
+            latitude = arg0.getLatitude();
+            longitude = arg0.getLongitude();
             if (mMKSearch != null) {
                 return;
             }
@@ -224,8 +226,8 @@ public class ReleaseGrowthActivity extends Activity implements OnClickListener,
         @Override
         public void onGetAddrResult(MKAddrInfo arg0, int arg1) {
             if (arg0 == null) {
+                Utils.showToast("", Toast.LENGTH_SHORT);
                 location.setText("获取地址失败");
-                location.setText("");
             } else {
                 location.setText(arg0.strAddr.replace("x026", ""));
             }
