@@ -43,7 +43,7 @@ public enum RetError {
         s2t.put("TOKEN_INVALID", "用户身份验证失败");
         s2t.put("OLD_PASSWD_WRONG", "老密码错误");
         s2t.put("INVALID_OPERATION", "无效操作");
-        s2t.put("WRANG_MOBILE_PHONE_NUMBER", "手机号吗格式不正确");
+        s2t.put("WRANG_MOBILE_PHONE_NUMBER", "手机号码格式不正确");
         s2t.put("CELLPHONE_ALREADY_USED", "手机号已注册或已版定");
         s2t.put("USER_ALREADY_BIND", "该用户已绑定手机号");
     }

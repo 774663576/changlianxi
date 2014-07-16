@@ -1,31 +1,60 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/white" >
 
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/dp82"
+        android:text="RelnDeEr 驯鹿科技"
+        android:textColor="#686868"
+        android:textSize="13sp" />
+
     <LinearLayout
-        android:id="@+id/layWelcome2"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="@drawable/welcome2"
-        android:visibility="gone" >
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView1"
+        android:layout_marginBottom="@dimen/dp84"
+        android:layout_marginLeft="25dip"
+        android:layout_marginRight="25dip" >
 
         <Button
-            android:id="@+id/btnGO"
+            android:id="@+id/btn_register"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginBottom="30dip"
-            android:layout_marginLeft="30dip"
-            android:layout_marginRight="30dip"
-            android:background="@drawable/welcome3" />
+            android:layout_height="@dimen/dp94"
+            android:layout_marginRight="10dip"
+            android:layout_weight="1"
+            android:background="@drawable/hollow_button"
+            android:text="注册"
+            android:textColor="#03a3f3"
+            android:textSize="@dimen/sp_44" />
+
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp94"
+            android:layout_marginLeft="10dip"
+            android:layout_weight="1"
+            android:background="@drawable/button_new"
+            android:text="登录"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_44" />
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/imgWelcome1"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:src="@drawable/welcome1" />
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="40dip"
+        android:layout_marginRight="40dip"
+        android:layout_marginTop="100dip"
+        android:src="@drawable/logo" />
 
-</LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <com.changlianxi.view.SearchEditText
+        android:id="@+id/edit_cellPhone"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp98"
+        android:layout_marginTop="@dimen/dp80"
+        android:background="@drawable/input_new"
+        android:hint="请输入手机号"
+        android:inputType="number"
+        android:maxLength="13"
+        android:paddingLeft="@dimen/dp54"
+        android:paddingRight="15dip"
+        android:textColor="@color/black"
+        android:textColorHint="@color/editTextClolor"
+        android:textSize="@dimen/sp_40" />
+
+    <com.changlianxi.view.SearchEditText
+        android:id="@+id/edit_email"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp98"
+        android:layout_marginTop="@dimen/dp80"
+        android:background="@drawable/input_new"
+        android:hint="请输入邮箱地址"
+        android:paddingLeft="@dimen/dp54"
+        android:paddingRight="15dip"
+        android:textColor="@color/black"
+        android:textColorHint="@color/editTextClolor"
+        android:textSize="@dimen/sp_40"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp88"
+        android:layout_marginTop="@dimen/dp38" >
+
+        <com.changlianxi.view.MyCheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/dp30"
+            android:paddingLeft="20dip"
+            android:paddingTop="3dip"
+            android:src="@drawable/register_checkbox_select" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dip"
+            android:text="同意"
+            android:textColor="@color/black" />
+
+        <Button
+            android:id="@+id/btn_agree"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:text="《常联系用户注册协议》"
+            android:textColor="#0677f2"
+            android:textSize="@dimen/sp_24" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnNext"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp94"
+        android:layout_marginLeft="@dimen/dp76"
+        android:layout_marginRight="@dimen/dp76"
+        android:background="@drawable/button_hui_new"
+        android:enabled="false"
+        android:text="下一步"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_48" />
+
+    <Button
+        android:id="@+id/btn_registerBy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/dp60"
+        android:background="@null"
+        android:paddingBottom="20dip"
+        android:text="使用电子邮箱注册"
+        android:textColor="#0677f2"
+        android:textSize="@dimen/sp_30" />
+
+</LinearLayout>

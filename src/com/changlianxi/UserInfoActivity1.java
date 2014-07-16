@@ -132,7 +132,8 @@ public class UserInfoActivity1 extends BaseActivity implements OnClickListener,
     private Bitmap editAvatarBitmap;
     private int[] postion = new int[] { 0, 0 };
     private boolean isfirstVisibleItem = true;
-
+    private int lastY;
+    private int screenHeight;
     private Handler mHandler = new Handler() {
         @SuppressLint("NewApi")
         public void handleMessage(android.os.Message msg) {
@@ -166,6 +167,7 @@ public class UserInfoActivity1 extends BaseActivity implements OnClickListener,
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_info_activity1);
         init();
+        screenHeight = Utils.getSecreenHeight(this);
     }
 
     @SuppressWarnings("unchecked")
@@ -1276,36 +1278,36 @@ public class UserInfoActivity1 extends BaseActivity implements OnClickListener,
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        int y = (int) event.getRawY();
-        switch (event.getAction()) {
+        int ea = event.getAction();
+        switch (ea) {
             case MotionEvent.ACTION_DOWN:
-                postion[1] = y - selMes.getTop();
+                lastY = (int) event.getRawY();
                 break;
             case MotionEvent.ACTION_MOVE:
-                if (!isfirstVisibleItem) {
-                    return false;
-                }
-                int top = y - postion[1];
-                if (top < 70) {
-                    top = 70;
-                    selMes.layout(selMes.getLeft(), top, selMes.getRight(),
-                            selMes.getBottom());
-                    return false;
+                int dy = (int) event.getRawY() - lastY;
+                int top = selMes.getTop() + dy;
+                int bottom = selMes.getBottom() + dy;
+                if (top < 50) {
+                    top = 50;
+                    bottom = top + selMes.getHeight();
                 }
                 if (top > 200) {
                     top = 200;
-                    selMes.layout(selMes.getLeft(), top, selMes.getRight(),
-                            selMes.getBottom());
-                    return false;
+                    bottom = top + selMes.getHeight();
                 }
+                // if (bottom > screenHeight - 100) {
+                // bottom = screenHeight - 100;
+                // top = bottom - selMes.getHeight();
+                // }
                 selMes.layout(selMes.getLeft(), top, selMes.getRight(),
                         selMes.getBottom());
-                // layout.postInvalidate();
-            default:
+                lastY = (int) event.getRawY();
+
+                break;
+            case MotionEvent.ACTION_UP:
                 break;
         }
         return false;
-
     }
 
     @Override

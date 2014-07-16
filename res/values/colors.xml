@@ -39,5 +39,6 @@
     <color name="backgroundcolor">#efeef3</color>
     <color name="bg_line">#c7c7c9</color>
     <color name="editTextClolor">#c0c0c2</color>
+    <color name="titleBarBackGround">#58BCDD</color>
 
 </resources>

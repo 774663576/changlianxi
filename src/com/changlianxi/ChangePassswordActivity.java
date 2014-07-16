@@ -16,7 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.changlianxi.inteface.OnEditFocusChangeListener;
-import com.changlianxi.inteface.PasswordEditTextWatcher;
+import com.changlianxi.inteface.MyEditTextWatcher;
 import com.changlianxi.task.PostAsyncTask;
 import com.changlianxi.task.PostAsyncTask.PostCallBack;
 import com.changlianxi.util.DialogUtil;
@@ -70,10 +70,10 @@ public class ChangePassswordActivity extends BaseActivity implements
         titleTxt = (TextView) findViewById(R.id.titleTxt);
         titleTxt.setText("修改密码");
         back = (ImageView) findViewById(R.id.back);
-        nowPasswrod.addTextChangedListener(new PasswordEditTextWatcher(
-                nowPasswrod, this, true));
-        newPassword.addTextChangedListener(new PasswordEditTextWatcher(
-                newPassword, this, true));
+        nowPasswrod.addTextChangedListener(new MyEditTextWatcher(nowPasswrod,
+                this, null));
+        newPassword.addTextChangedListener(new MyEditTextWatcher(newPassword,
+                this, null));
         newPassword.setOnFocusChangeListener(new OnEditFocusChangeListener(
                 newPassword, this));
         nowPasswrod.setOnFocusChangeListener(new OnEditFocusChangeListener(

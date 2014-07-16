@@ -121,6 +121,31 @@
     <dimen name="dp98">46dip</dimen>
     <dimen name="dp54">25dip</dimen>
     <dimen name="dp86">40dip</dimen>
-    <dimen name="dp40sp">19dip</dimen>
+    <dimen name="sp_40">19sp</dimen>
+    <dimen name="dp104">49dip</dimen>
+    <dimen name="dp26">12dip</dimen>
+    <dimen name="dp28">13dip</dimen>
+    <dimen name="sp_50">23sp</dimen>
+    <dimen name="dp32">15dip</dimen>
+    <dimen name="sp_30">16sp</dimen>
+    <dimen name="dp38">18dip</dimen>
+    <dimen name="dp30">14dip</dimen>
+    <dimen name="dp88">41dip</dimen>
+    <dimen name="sp_24">14sp</dimen>
+    <dimen name="sp_48">22sp</dimen>
+    <dimen name="dp76">36dip</dimen>
+    <dimen name="dp60">28dip</dimen>
+    <dimen name="sp_32">15sp</dimen>
+    <dimen name="sp_36">17sp</dimen>
+    <dimen name="dp36">17dip</dimen>
+    <dimen name="dp52">24dip</dimen>
+    <dimen name="dp58">27dip</dimen>
+    <dimen name="dp42">20dip</dimen>
+    <dimen name="dp94">44dip</dimen>
+    <dimen name="dp34">16dip</dimen>
+    <dimen name="sp_44">21sp</dimen>
+    <dimen name="dp48">23dip</dimen>
+    <dimen name="dp82">38dip</dimen>
+    <dimen name="dp84">39dip</dimen>
 
 </resources>

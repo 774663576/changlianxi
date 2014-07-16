@@ -7,6 +7,7 @@ import android.view.Window;
 
 import com.changlianxi.applation.CLXApplication;
 import com.changlianxi.util.Utils;
+import com.umeng.analytics.MobclickAgent;
 
 public class BaseActivity extends Activity {
 
@@ -22,6 +23,23 @@ public class BaseActivity extends Activity {
         finish();
         Utils.rightOut(this);
 
+    }
+
+    /**
+     * 数据统计
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart(getClass().getName());
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd(getClass().getName());
+        MobclickAgent.onPause(this);
     }
 
     @Override

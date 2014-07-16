@@ -48,6 +48,22 @@ import com.changlianxi.showBigPic.GrowthImagePagerActivity;
  * 
  */
 public class Utils {
+    private static long lastClickTime;
+
+    /**
+     * 避免按钮重复点击以至于多次提交数据
+     * @return
+     */
+    public static boolean isFastDoubleClick() {
+        long time = System.currentTimeMillis();
+        long timeD = time - lastClickTime;
+        if (0 < timeD && timeD < 1000) {
+            return true;
+        }
+        lastClickTime = time;
+        return false;
+
+    }
 
     /**
      * 手机号码验证
@@ -448,5 +464,16 @@ public class Utils {
         Uri uri = Uri.fromFile(new File(fName));
         intent.setData(uri);
         context.sendBroadcast(intent);
+    }
+
+    /**
+     * 获取焦点
+     * @param v
+     */
+    public static void getFocus(View v) {
+        v.setFocusable(true);
+        v.setFocusableInTouchMode(true);
+        v.requestFocus();
+        v.requestFocusFromTouch();
     }
 }

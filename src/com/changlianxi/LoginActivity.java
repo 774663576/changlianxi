@@ -9,272 +9,205 @@ import org.json.JSONObject;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import cn.sharesdk.framework.ShareSDK;
 
+import com.changlianxi.activity.findpassword.FindPasswordActivity;
+import com.changlianxi.activity.register.RegisterActivity;
+import com.changlianxi.inteface.MyEditTextWatcher.OnTextLengthChange;
 import com.changlianxi.inteface.OnEditFocusChangeListener;
-import com.changlianxi.inteface.PasswordEditTextWatcher;
+import com.changlianxi.inteface.MyEditTextWatcher;
 import com.changlianxi.task.PostAsyncTask;
 import com.changlianxi.task.PostAsyncTask.PostCallBack;
 import com.changlianxi.util.DialogUtil;
 import com.changlianxi.util.SharedUtils;
 import com.changlianxi.util.Utils;
-import com.changlianxi.view.InputMethodRelativeLayout;
-import com.changlianxi.view.InputMethodRelativeLayout.OnSizeChangedListenner;
-import com.changlianxi.view.SearchEditText;
 import com.umeng.analytics.MobclickAgent;
 
-/**
- * µÇÂ¼½çÃæ
- * 
- * @author teeker_bin
- * 
- */
 public class LoginActivity extends BaseActivity implements OnClickListener,
-        PostCallBack, OnSizeChangedListenner {
-    private Button btReg;// È¥Íù×¢²á½çÃæ°´Å¥
-    private Button btLogin;// µÇÂ¼°´Å¥
-    private SearchEditText ediNum;// ÊÖ»úºÅÂëÊäÈë¿ò
-    private SearchEditText ediPassword;// ÃÜÂëÊäÈë¿ò
-    private String uid = "";// ³É¹¦ºó²ÅÓĞ£¬´ú±íÓÃ»§ID
-    private String token = "";
-    private Button btFindWd;// ÕÒ»ØÃÜÂë°´Å¥
+        OnTextLengthChange {
+    private ImageView back;
+    private TextView title;
+    private EditText editUserName;
+    private EditText editPassword;
+    private Button btnLogin;
+    private Button btnFindPswd;
+//    private Button btnRegister;
     private Dialog dialog;
-    private InputMethodRelativeLayout parent;
-    private TextView buttonTxt;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_login_activity1);
+        initView();
         ShareSDK.initSDK(this);
         MobclickAgent.openActivityDurationTrack(false);
-        initView();
     }
 
-    /**
-     * Êı¾İÍ³¼Æ
-     */
-    @Override
-    protected void onResume() {
-        super.onResume();
-        MobclickAgent.onPageStart(getClass().getName());
-        MobclickAgent.onResume(this);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        MobclickAgent.onPageEnd(getClass().getName());
-        MobclickAgent.onPause(this);
-    }
-
-    /**
-     * ³õÊ¼»¯¿Ø¼ş
-     */
     private void initView() {
-        parent = (InputMethodRelativeLayout) findViewById(R.id.Layparent);
-        parent.setOnSizeChangedListenner(this);
-        btFindWd = (Button) findViewById(R.id.findpd);
-        btFindWd.setOnClickListener(this);
-        btReg = (Button) findViewById(R.id.btregister);
-        btReg.setOnClickListener(this);
-        btLogin = (Button) findViewById(R.id.btlogin);
-        btLogin.setOnClickListener(this);
-        ediNum = (SearchEditText) findViewById(R.id.edtNum);
-        // ediNum.addTextChangedListener(new EditWather(ediNum, this));
-        ediNum.setOnFocusChangeListener(new OnEditFocusChangeListener(ediNum,
-                this));
-        ediNum.addTextChangedListener(new PasswordEditTextWatcher(ediNum, this,
-                true));
-        ediPassword = (SearchEditText) findViewById(R.id.edtPassword);
-        ediPassword.addTextChangedListener(new PasswordEditTextWatcher(
-                ediPassword, this, true));
-        ediPassword.setOnFocusChangeListener(new OnEditFocusChangeListener(
-                ediPassword, this));
-        buttonTxt = (TextView) findViewById(R.id.buttomTxt);
+        back = (ImageView) findViewById(R.id.back);
+        title = (TextView) findViewById(R.id.txt_title);
+        title.setText("ç™»å½•");
+        editPassword = (EditText) findViewById(R.id.edit_password);
+        editUserName = (EditText) findViewById(R.id.edit_userName);
+        btnLogin = (Button) findViewById(R.id.btn_login);
+        btnFindPswd = (Button) findViewById(R.id.btn_findPasswrod);
+//        btnRegister = (Button) findViewById(R.id.btn_register);
+        setListener();
+        editUserName.setText(SharedUtils.getString("userName", ""));
     }
 
-    /**
-     * µÇÂ¼Ê±ÅĞ¶ÏÓÃ»§ÃûÊÇ·ñ´æÔÚ
-     * 
-     * @param str
-     * @return
-     */
-    private boolean isUserExist(String str) {
-        try {
-            JSONObject object = new JSONObject(str);
-            int rt = object.getInt("rt");
-            if (rt == 1) {
-                SharedUtils.setInt("loginType", 2);// µÇÂ¼·½Ê½±ê¼Ç 1 ×¢²áµÇÂ¼ 2 Õı³£µÇÂ¼
-                token = object.getString("token");
-                uid = object.getString("uid");
-                SharedUtils.setString("uid", uid);
-                SharedUtils.setString("token", token);
-                Intent it = new Intent();
-                it.setClass(LoginActivity.this, MainActivity.class);
-                startActivity(it);
-                finish();
-                return true;
-            } else {
-                dialog.dismiss();
-                String errorCoce = object.getString("err");
-                if (errorCoce.equals("NOT_EXIST_USER")
-                        || errorCoce.equals("WRONG_PASSWORD")) {
-                    if (ediNum.getText().toString().contains("@")) {
-                        Utils.showToast("ÓÊÏäµØÖ·»òÃÜÂëÓĞÎó£¡", Toast.LENGTH_SHORT);
-
-                    } else {
-                        Utils.showToast("ÊÖ»úºÅ»òÃÜÂëÓĞÎó£¡", Toast.LENGTH_SHORT);
-
-                    }
-                } else {
-                    Utils.showToast("°¡Å¶£¬µÇÂ½Ã»ÓĞ³É¹¦£¬Çë²é¿´ÏÂÄúµÄÍøÂçÊÇ·ñÕı³££¡",
-                            Toast.LENGTH_SHORT);
-                }
-                return false;
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return false;
-
+    private void setListener() {
+        back.setOnClickListener(this);
+        btnFindPswd.setOnClickListener(this);
+        btnLogin.setOnClickListener(this);
+//        btnRegister.setOnClickListener(this);
+        editUserName.setOnFocusChangeListener(new OnEditFocusChangeListener(
+                editUserName, this));
+        editUserName.addTextChangedListener(new MyEditTextWatcher(editUserName,
+                this, this));
+        editPassword.addTextChangedListener(new MyEditTextWatcher(editPassword,
+                this, this));
+        editPassword.setOnFocusChangeListener(new OnEditFocusChangeListener(
+                editPassword, this));
     }
 
-    /**
-     * ¿Ø¼şµÄµã»÷ÊÂ¼ş
-     */
+    @Override
     public void onClick(View v) {
-        Intent intent;
         switch (v.getId()) {
-
-            case R.id.btregister:
-                intent = new Intent();
-                intent.setClass(this, RegisterActivity.class);
-                startActivity(intent);
-                Utils.leftOutRightIn(this);
+            case R.id.back:
+                exit();
                 break;
-            case R.id.btlogin:
-                ediNum.clearFocus();
-                ediPassword.clearFocus();
-                if (!Utils.isNetworkAvailable()) {
-                    Utils.showToast("±­¾ß£¬ÍøÂç²»Í¨£¬¿ì¼ì²éÏÂ°É£¡", Toast.LENGTH_SHORT);
+            case R.id.btn_login:
+                Utils.getFocus(v);
+                if (Utils.isFastDoubleClick()) {
                     return;
                 }
-                String num = ediNum.getText().toString().trim();
-                String pass = ediPassword.getText().toString().trim();
-                if (num.length() == 0 || pass.length() == 0) {
-                    Utils.showToast("ºÅÂëÃÜÂë¶¼ÊäÈë£¬²ÅÄÜµÇÂ¼³£ÁªÏµ:)", Toast.LENGTH_SHORT);
-                    return;
-                }
-                if (num.contains("@")) {
-                    if (!Utils.isEmail(num)) {
-                        Utils.showToast("ÓÊÏä¸ñÊ½²»ÕıÈ·", Toast.LENGTH_SHORT);
-                        ediNum.setFocusable(true);
-                        return;
-                    }
-                } else {
-                    if (!Utils.isPhoneNum(num)) {
-                        Utils.showToast("µØÇòÉÏÃ²ËÆÃ»ÓĞÕâÖÖ¸ñÊ½µÄÊÖ»úºÅÂë:)",
-                                Toast.LENGTH_SHORT);
-                        ediNum.setFocusable(true);
-                        return;
-                    }
-                    if (ediPassword.getText().toString().length() == 0) {
-                        Utils.showToast("ºÅÂëÃÜÂë¶¼ÊäÈë£¬²ÅÄÜµÇÂ¼³£ÁªÏµ:)", Toast.LENGTH_SHORT);
-                        return;
-                    }
-                }
-                Utils.hideSoftInput(this);
-                dialog = DialogUtil.getWaitDialog(this, "µÇÂ¼ÖĞ");
-                dialog.show();
-                login(num);
+                login();
                 break;
-            case R.id.findpd:
-                intent = new Intent();
-                intent.setClass(this, FindPasswordActivity.class);
-                startActivity(intent);
+            case R.id.btn_findPasswrod:
+                startActivity(new Intent(this, FindPasswordActivity.class));
                 Utils.leftOutRightIn(this);
                 break;
-            // case R.id.qita:
-            // intent = new Intent();
-            // intent.setClass(this, ThreeLoginActivity.class);
-            // startActivity(intent);
-            // Utils.leftOutRightIn(this);
+            case R.id.btn_register:
+                startActivity(new Intent(this, RegisterActivity.class));
+                Utils.leftOutRightIn(this);
+                break;
             default:
                 break;
         }
+    }
 
+    private void login() {
+        if (!Utils.isNetworkAvailable()) {
+            Utils.showToast("æ¯å…·ï¼Œç½‘ç»œä¸é€šï¼Œå¿«æ£€æŸ¥ä¸‹å§ï¼", Toast.LENGTH_SHORT);
+            return;
+        }
+        String userName = editUserName.getText().toString();
+        String password = editPassword.getText().toString();
+        if (userName.length() == 0 || password.length() == 0) {
+            Utils.showToast("å·ç å¯†ç éƒ½è¾“å…¥ï¼Œæ‰èƒ½ç™»å½•å¸¸è”ç³»:)", Toast.LENGTH_SHORT);
+            return;
+        }
+        if (userName.contains("@")) {
+            if (!Utils.isEmail(userName)) {
+                Utils.showToast("é‚®ç®±æ ¼å¼ä¸æ­£ç¡®", Toast.LENGTH_SHORT);
+                return;
+            }
+        } else {
+            if (!Utils.isPhoneNum(userName)) {
+                Utils.showToast("åœ°çƒä¸Šè²Œä¼¼æ²¡æœ‰è¿™ç§æ ¼å¼çš„æ‰‹æœºå·ç :)", Toast.LENGTH_SHORT);
+                return;
+            }
+        }
+        loginTask(userName, password);
     }
 
     /**
-     * µÇÂ¼
-     */
-    private void login(String num) {
+    * ç™»å½•
+    */
+    private void loginTask(String unserName, String password) {
+        dialog = DialogUtil.getWaitDialog(this, "ç™»å½•ä¸­");
+        dialog.show();
         Map<String, Object> map = new HashMap<String, Object>();
-        if (num.contains("@")) {
-            map.put("email", num);
+        if (unserName.contains("@")) {
+            map.put("email", unserName);
         } else {
-            map.put("cellphone", num);
+            map.put("cellphone", unserName);
         }
-        map.put("passwd", ediPassword.getText().toString());
+        map.put("passwd", password);
         map.put("device", Utils.getModelAndRelease());
         map.put("version", Utils.getVersionName(this));
         map.put("os", Utils.getOS());
         PostAsyncTask task = new PostAsyncTask(this, map, "/users/ilogin2");
-        task.setTaskCallBack(this);
+        task.setTaskCallBack(new PostCallBack() {
+            @Override
+            public void taskFinish(String result) {
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+                isUserExist(result);
+            }
+        });
         task.execute();
     }
 
     /**
-     * µÇÂ¼½Ó¿Ú´¦Àí»Øµ÷
+     * ç™»å½•æ—¶åˆ¤æ–­ç”¨æˆ·åæ˜¯å¦å­˜åœ¨
+     * 
+     * @param str
+     * @return
      */
-    @Override
-    public void taskFinish(String result) {
-        isUserExist(result);
+    private void isUserExist(String str) {
+        try {
+            JSONObject object = new JSONObject(str);
+            int rt = object.getInt("rt");
+            if (rt == 1) {
+                SharedUtils.setString("userName", editUserName.getText()
+                        .toString());
+                SharedUtils.setInt("loginType", 2);// ç™»å½•æ–¹å¼æ ‡è®° 1 æ³¨å†Œç™»å½• 2 æ­£å¸¸ç™»å½•
+                SharedUtils.setString("uid", object.getString("uid"));
+                SharedUtils.setString("token", object.getString("token"));
+                startActivity(new Intent(this, MainActivity.class));
+                finish();
+            } else {
+                String errorCoce = object.getString("err");
+                if (errorCoce.equals("NOT_EXIST_USER")
+                        || errorCoce.equals("WRONG_PASSWORD")) {
+                    if (editUserName.getText().toString().contains("@")) {
+                        Utils.showToast("é‚®ç®±åœ°å€æˆ–å¯†ç æœ‰è¯¯ï¼", Toast.LENGTH_SHORT);
+                    } else {
+                        Utils.showToast("æ‰‹æœºå·æˆ–å¯†ç æœ‰è¯¯ï¼", Toast.LENGTH_SHORT);
+                    }
+                } else {
+                    Utils.showToast("å•Šå“¦ï¼Œç™»é™†æ²¡æœ‰æˆåŠŸï¼Œè¯·æŸ¥çœ‹ä¸‹æ‚¨çš„ç½‘ç»œæ˜¯å¦æ­£å¸¸ï¼",
+                            Toast.LENGTH_SHORT);
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            finish();
+    public void onTextLengthChanged(boolean isBlank) {
+        if (!isBlank) {
+            if (editPassword.getText().toString().length() != 0
+                    && editUserName.getText().toString().length() != 0) {
+                btnLogin.setEnabled(true);
+                btnLogin.setBackgroundResource(R.drawable.button_new);
+                return;
+            }
         }
-        return super.onKeyDown(keyCode, event);
-
-    }
-
-    /**
-     * ÔÚActivityÖĞÊµÏÖOnSizeChangedListener£¬Ô­ÀíÊÇÉèÖÃ¸Ã²¼¾ÖµÄpaddingTopÊôĞÔÀ´¿ØÖÆ×ÓViewµÄÆ«ÒÆ
-     */
-    @Override
-    public void onSizeChange(boolean flag, int w, int h) {
-        if (flag) {// ¼üÅÌµ¯³öÊ±
-            parent.setPadding(0, -150, 0, 0);
-            // layButtom.setVisibility(View.GONE);
-            buttonTxt.setVisibility(View.GONE);
-
-        } else { // ¼üÅÌÒş²ØÊ±
-            parent.setPadding(0, 0, 0, 0);
-            // layButtom.setVisibility(View.VISIBLE);
-            buttonTxt.setVisibility(View.VISIBLE);
-
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        if (dialog != null) {
-            dialog.dismiss();
-        }
-        super.onDestroy();
+        btnLogin.setEnabled(false);
+        btnLogin.setBackgroundResource(R.drawable.button_hui_new);
     }
 
 }

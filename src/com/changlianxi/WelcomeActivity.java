@@ -3,87 +3,57 @@ package com.changlianxi;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 
+import com.changlianxi.activity.register.RegisterActivity;
 import com.changlianxi.applation.CLXApplication;
-import com.changlianxi.data.Global;
 import com.changlianxi.util.SharedUtils;
 import com.changlianxi.util.Utils;
-import com.umeng.analytics.MobclickAgent;
 
-public class WelcomeActivity extends Activity {
-    private ImageView imgWelcome1;
-    private LinearLayout layWelcome2;
-    private Button btnGo;
-    private Handler mHandler = new Handler() {
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case 0:
-                    imgWelcome1.setVisibility(View.GONE);
-                    layWelcome2.setVisibility(View.VISIBLE);
-                    break;
-                case 1:
-                    if (!"".equals(Global.getUid())
-                            && !"".equals(Global.getUserToken())) {
-                        startActivity(new Intent(WelcomeActivity.this,
-                                MainActivity.class));
-                    } else {
-                        startActivity(new Intent(WelcomeActivity.this,
-                                LoginActivity.class));
-                    }
-                    finish();
-                    break;
-                default:
-                    break;
-            }
-        };
-    };
-
-    /**
-      * 
-     */
-    @Override
-    protected void onResume() {
-        super.onResume();
-        MobclickAgent.onPageStart(getClass().getName());
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        MobclickAgent.onPageEnd(getClass().getName());
-    }
+public class WelcomeActivity extends Activity implements OnClickListener {
+    private Button btnRegister;
+    private Button btnLogin;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
         CLXApplication.exit(false);
-        if (SharedUtils.getBoolean("welcome", false)) {
-            mHandler.sendEmptyMessageDelayed(1, 1000);
+        CLXApplication.addActivity(this);
+        String userName = SharedUtils.getString("userName", "");
+        if (!"".equals(userName)) {
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
             return;
         }
-        imgWelcome1 = (ImageView) findViewById(R.id.imgWelcome1);
-        layWelcome2 = (LinearLayout) findViewById(R.id.layWelcome2);
-        btnGo = (Button) findViewById(R.id.btnGO);
-        btnGo.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(WelcomeActivity.this,
-                        LoginActivity.class));
-                finish();
-                Utils.leftOutRightIn(WelcomeActivity.this);
+        initView();
+    }
 
-            }
-        });
-        mHandler.sendEmptyMessageDelayed(0, 3000);
-        SharedUtils.setBoolean("welcome", true);
+    private void initView() {
+        btnLogin = (Button) findViewById(R.id.btn_login);
+        btnRegister = (Button) findViewById(R.id.btn_register);
+        setListener();
+    }
 
+    private void setListener() {
+        btnLogin.setOnClickListener(this);
+        btnRegister.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_login:
+                startActivity(new Intent(this, LoginActivity.class));
+                break;
+            case R.id.btn_register:
+                startActivity(new Intent(this, RegisterActivity.class));
+                break;
+            default:
+                break;
+        }
+        Utils.leftOutRightIn(this);
     }
 }

@@ -200,5 +200,9 @@
     <string name="title_activity_circle_guide">CircleGuideActivity</string>
     <string name="title_activity_main_tab_activity1">MainTabActivity1</string>
     <string name="title_activity_login_activity1">LoginActivity1</string>
+    <string name="title_activity_register">RegisterActivity</string>
+    <string name="title_activity_register_activity1">RegisterActivity1</string>
+    <string name="title_activity_find_paswrod">FindPaswrodActivity</string>
+    <string name="title_activity_find_password_activity1">FindPasswordActivity1</string>
 
 </resources>
