@@ -204,5 +204,11 @@
     <string name="title_activity_register_activity1">RegisterActivity1</string>
     <string name="title_activity_find_paswrod">FindPaswrodActivity</string>
     <string name="title_activity_find_password_activity1">FindPasswordActivity1</string>
+    <string name="title_activity_circle_home">CircleHomeActivity</string>
+    <string name="title_activity_setting">SettingActivity</string>
+    <string name="title_activity_circle_home_search">CircleHomeSearchActivity</string>
+    <string name="title_activity_add_circle_member_activity1">AddCircleMemberActivity1</string>
+    <string name="title_activity_message_list">MessageListActivity</string>
+    <string name="title_activity_my_card">MyCardActivity</string>
 
 </resources>

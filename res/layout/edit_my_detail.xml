@@ -2,31 +2,54 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#fff8de" >
+    android:background="#b3231815"
+    android:orientation="vertical" >
 
     <TextView
-        android:layout_width="0dip"
+        android:id="@+id/txtShow"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dip"
-        android:layout_weight="1"
-        android:paddingBottom="15dip"
-        android:paddingTop="15dip"
+        android:layout_marginBottom="18dip"
+        android:layout_marginTop="22dip"
+        android:paddingLeft="@dimen/dp42"
         android:text="有人修改了你的资料，快去查看下。"
-        android:textColor="#ff7800"
-        android:textSize="@dimen/scale32sp" />
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_38" />
 
-    <Button
-        android:id="@+id/btnLook"
-        android:layout_width="@dimen/scale129dip"
-        android:layout_height="33dip"
-        android:layout_marginRight="15dip"
-        android:background="@drawable/my_detail_edit_btn"
-        android:focusable="false"
-        android:gravity="center"
-        android:paddingLeft="10dip"
-        android:paddingRight="10dip"
-        android:text="查看"
-        android:textColor="#fff8de"
-        android:textSize="@dimen/scale30sp" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.9dip"
+        android:layout_marginLeft="@dimen/dp42"
+        android:layout_marginRight="@dimen/dp42"
+        android:background="@color/white" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/btnLook"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/scale97dip"
+            android:layout_marginRight="@dimen/scale10dip"
+            android:layout_weight="1"
+            android:background="@null"
+            android:drawablePadding="9dip"
+            android:text="查看"
+            android:textColor="@color/white"
+            android:textSize="@dimen/scale36sp" />
+
+        <Button
+            android:id="@+id/btnNotLook"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/scale97dip"
+            android:layout_marginLeft="@dimen/scale10dip"
+            android:layout_weight="1"
+            android:background="@null"
+            android:drawablePadding="9dip"
+            android:text="忽略"
+            android:textColor="#ff8080"
+            android:textSize="@dimen/scale36sp" />
+    </LinearLayout>
 
 </LinearLayout>

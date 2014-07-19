@@ -1,81 +1,74 @@
 package com.changlianxi;
 
+import com.changlianxi.applation.CLXApplication;
+import com.changlianxi.util.Utils;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.changlianxi.applation.CLXApplication;
-import com.changlianxi.util.Utils;
-import com.umeng.analytics.MobclickAgent;
-
-/**
- * 选择添加成员方式界面
- * 
- * @author teeker_bin
- * 
- */
 public class AddCircleMemberActivity extends BaseActivity implements
         OnClickListener {
-    private Button add;
-    private Button input;
     private ImageView back;
+    private TextView txtTitle;
+    private LinearLayout layByContacts;
+    private LinearLayout layByInput;
+    private LinearLayout layByClx;
+    private LinearLayout layPage;
+    private LinearLayout layExcel;
     private String type;
     private int cid;
     private String cirName;
-    private TextView titleTxt;
-    private TextView btnPage;
-    private TextView btnExcel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_circle_member);
+        setContentView(R.layout.activity_add_circle_member_activity1);
         CLXApplication.addInviteActivity(this);
+        initView();
+        getDataFromActivity();
+    }
+
+    private void initView() {
         back = (ImageView) findViewById(R.id.back);
-        titleTxt = (TextView) findViewById(R.id.titleTxt);
-        titleTxt.setText("添加第一批成员");
-        add = (Button) findViewById(R.id.addFromAddBook);
-        input = (Button) findViewById(R.id.inputContact);
-        add.setOnClickListener(this);
-        input.setOnClickListener(this);
+        txtTitle = (TextView) findViewById(R.id.titleTxt);
+        txtTitle.setText("添加第一批成员");
+        layByClx = (LinearLayout) findViewById(R.id.addByClx);
+        layByContacts = (LinearLayout) findViewById(R.id.addByContacts);
+        layByInput = (LinearLayout) findViewById(R.id.addByInput);
+        layExcel = (LinearLayout) findViewById(R.id.btnExcel);
+        layPage = (LinearLayout) findViewById(R.id.btnPage);
+        setListener();
+    }
+
+    private void setListener() {
         back.setOnClickListener(this);
+        layByClx.setOnClickListener(this);
+        layByContacts.setOnClickListener(this);
+        layByInput.setOnClickListener(this);
+        layExcel.setOnClickListener(this);
+        layPage.setOnClickListener(this);
+
+    }
+
+    private void getDataFromActivity() {
         type = getIntent().getStringExtra("type");
         cid = getIntent().getIntExtra("cid", 0);
         if (type.equals("add")) {
-            titleTxt.setText("添加成员");
+            txtTitle.setText("添加成员");
             cirName = getIntent().getStringExtra("cirName");
         }
-        btnPage = (TextView) findViewById(R.id.btnPage);
-        btnPage.setOnClickListener(this);
-        btnExcel = (TextView) findViewById(R.id.btnExcel);
-        btnExcel.setOnClickListener(this);
-    }
-
-    /**
-    * 设置页面统计
-    * 
-    */
-    @Override
-    protected void onResume() {
-        super.onResume();
-        MobclickAgent.onPageStart(getClass().getName());
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        MobclickAgent.onPageEnd(getClass().getName());
     }
 
     @Override
     public void onClick(View v) {
         Intent intent = new Intent();
         switch (v.getId()) {
-            case R.id.addFromAddBook:
+            case R.id.addByContacts:
                 intent.setClass(this, SelectContactsActivity.class);
                 intent.putExtra("type", type);
                 intent.putExtra("cid", cid);
@@ -83,7 +76,7 @@ public class AddCircleMemberActivity extends BaseActivity implements
                 startActivity(intent);
                 Utils.leftOutRightIn(this);
                 break;
-            case R.id.inputContact:
+            case R.id.addByInput:
                 intent.setClass(this, AddOneMemberActivity.class);
                 intent.putExtra("cid", cid);
                 intent.putExtra("cirName", cirName);

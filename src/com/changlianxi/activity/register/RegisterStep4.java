@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.changlianxi.CircleHomeActivity;
 import com.changlianxi.MainActivity;
 import com.changlianxi.R;
 import com.changlianxi.data.enums.RetError;
@@ -72,7 +73,7 @@ public class RegisterStep4 extends RegisterStep implements OnClickListener,
                 }
                 SharedUtils.setInt("loginType", 1);// 登录方式标记 1 注册登录 2 正常登录
                 Intent intent = new Intent();
-                intent.setClass(mContext, MainActivity.class);
+                intent.setClass(mContext, CircleHomeActivity.class);
                 mContext.startActivity(intent);
             }
 

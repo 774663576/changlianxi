@@ -41,8 +41,7 @@
                 android:layout_marginTop="@dimen/scale39dip"
                 android:adjustViewBounds="true"
                 android:maxHeight="200dip"
-                android:maxWidth="200dip"
-                android:src="@drawable/login_wrap_bg" />
+                android:maxWidth="200dip" />
 
             <TextView
                 android:layout_width="fill_parent"

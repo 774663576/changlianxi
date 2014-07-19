@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.changlianxi"
     android:versionCode="3"
-    android:versionName="1.3.07.16" >
+    android:versionName="1.3.07.19" >
 
     <uses-sdk
         android:minSdkVersion="8"
@@ -386,11 +386,6 @@
             android:windowSoftInputMode="stateHidden|adjustResize" >
         </activity>
         <activity
-            android:name=".AddCircleMemberActivity"
-            android:configChanges="keyboardHidden|orientation"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
             android:name=".CreateCircleActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait" >
@@ -521,6 +516,42 @@
             android:name=".activity.findpassword.FindPasswordActivity"
             android:configChanges="keyboardHidden|orientation"
             android:label="@string/title_activity_find_password_activity1"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".CircleHomeActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:label="@string/title_activity_circle_home"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".SettingActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:label="@string/title_activity_setting"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".CircleHomeSearchActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:label="@string/title_activity_circle_home_search"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".AddCircleMemberActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:label="@string/title_activity_add_circle_member_activity1"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".MessageListActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:label="@string/title_activity_message_list"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".MyCardActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:label="@string/title_activity_my_card"
             android:screenOrientation="portrait" >
         </activity>
     </application>

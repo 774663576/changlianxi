@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/backgroundcolor"
     android:orientation="vertical" >
 
     <include
@@ -10,67 +10,29 @@
         android:layout_width="fill_parent"
         layout="@layout/title_bar" />
 
-    <LinearLayout
+    <EditText
+        android:id="@+id/editCircleName"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dip"
-        android:layout_marginRight="13dip"
-        android:layout_marginTop="20dip"
-        android:orientation="vertical"
-        android:paddingLeft="20dip" >
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="35dip" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:layout_marginTop="5dip"
-                android:gravity="center"
-                android:paddingLeft="15dip"
-                android:paddingRight="10dip"
-                android:text="圈子名称"
-                android:textColor="#a0a0a0"
-                android:textSize="15sp" />
-
-            <View
-                android:id="@+id/line"
-                android:layout_width="1dip"
-                android:layout_height="fill_parent"
-                android:background="#d1d1d1" />
-
-            <EditText
-                android:id="@+id/circleName"
-                android:layout_width="0dip"
-                android:layout_height="fill_parent"
-                android:layout_marginTop="5dip"
-                android:layout_weight="1"
-                android:background="@null"
-                android:maxLength="12"
-                android:paddingLeft="15dip"
-                android:singleLine="true"
-                android:textColor="#a0a0a0"
-                android:textSize="15sp" >
-            </EditText>
-        </LinearLayout>
-
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dip"
-            android:background="#d1d1d1" />
-    </LinearLayout>
+        android:layout_height="@dimen/dp98"
+        android:layout_marginTop="@dimen/dp80"
+        android:background="@drawable/input_new"
+        android:hint="请输入圈子名称"
+        android:paddingLeft="@dimen/dp54"
+        android:paddingRight="15dip"
+        android:textColor="@color/black"
+        android:textColorHint="@color/editTextClolor"
+        android:textSize="@dimen/sp_40" />
 
     <Button
-        android:id="@+id/createCircle"
-        android:layout_width="fill_parent"
-        android:layout_height="@dimen/scale97dip"
-        android:layout_marginLeft="11dip"
-        android:layout_marginRight="11dip"
-        android:layout_marginTop="15dip"
-        android:background="@drawable/btn_14c1c7"
-        android:text="@string/complete"
+        android:id="@+id/btnFinish"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp94"
+        android:layout_marginLeft="@dimen/dp76"
+        android:layout_marginRight="@dimen/dp76"
+        android:layout_marginTop="@dimen/dp86"
+        android:background="@drawable/button_new"
+        android:text="完成"
         android:textColor="@color/white"
-        android:textSize="19sp" />
+        android:textSize="@dimen/sp_48" />
 
 </LinearLayout>

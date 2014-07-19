@@ -80,8 +80,8 @@ public class MessageListFragMent extends Fragment implements OnClickListener,
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.activity_messages_list, null);
-    }
+        return inflater.inflate(R.layout.home, null);
+     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {

@@ -1,0 +1,195 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundcolor"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        layout="@layout/title_bar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp80"
+        android:background="@drawable/input_new"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@+id/addByContacts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingBottom="10dip"
+            android:paddingLeft="@dimen/dp61"
+            android:paddingTop="10dip" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/add_contacts_img" />
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp28"
+                android:layout_marginRight="10dip"
+                android:layout_weight="1"
+                android:drawableRight="@drawable/angle_right_new"
+                android:text="手机通讯录添加"
+                android:textColor="#595757"
+                android:textSize="@dimen/sp_38" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.8dip"
+            android:background="@color/bg_line" />
+
+        <LinearLayout
+            android:id="@+id/addByInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingBottom="10dip"
+            android:paddingLeft="@dimen/dp61"
+            android:paddingTop="10dip" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/add_input_img" />
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp28"
+                android:layout_marginRight="10dip"
+                android:layout_weight="1"
+                android:drawableRight="@drawable/angle_right_new"
+                android:text="输入联系人信息"
+                android:textColor="#595757"
+                android:textSize="@dimen/sp_38" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.8dip"
+            android:background="@color/bg_line" />
+
+        <LinearLayout
+            android:id="@+id/addByClx"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingBottom="10dip"
+            android:paddingLeft="@dimen/dp61"
+            android:paddingTop="10dip" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/add_clx_img" />
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp28"
+                android:layout_marginRight="10dip"
+                android:layout_weight="1"
+                android:drawableRight="@drawable/angle_right_new"
+                android:text="常联系好友中添加"
+                android:textColor="#595757"
+                android:textSize="@dimen/sp_38" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp52"
+        android:layout_marginRight="@dimen/dp52"
+        android:layout_marginTop="@dimen/dp26"
+        android:text="友情提示：成员可以互相看到联系方式，建议不要将互不认识的朋友拉进一个圈子。"
+        android:textColor="#727171"
+        android:textSize="@dimen/sp_24" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp52"
+        android:layout_marginTop="@dimen/dp92"
+        android:text="您还可以选择"
+        android:textColor="#888888"
+        android:textSize="@dimen/sp_36" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp26"
+        android:background="@drawable/input_new"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@+id/btnExcel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingBottom="10dip"
+            android:paddingLeft="@dimen/dp61"
+            android:paddingTop="10dip" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/noimg1" />
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp28"
+                android:layout_marginRight="10dip"
+                android:layout_weight="1"
+                android:drawableRight="@drawable/angle_right_new"
+                android:text="电子表格通讯录"
+                android:textColor="#595757"
+                android:textSize="@dimen/sp_38" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.8dip"
+            android:background="@color/bg_line" />
+
+        <LinearLayout
+            android:id="@+id/btnPage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingBottom="10dip"
+            android:paddingLeft="@dimen/dp61"
+            android:paddingTop="10dip" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/noimg2" />
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp28"
+                android:layout_marginRight="10dip"
+                android:layout_weight="1"
+                android:drawableRight="@drawable/angle_right_new"
+                android:text="纸质通讯录"
+                android:textColor="#595757"
+                android:textSize="@dimen/sp_38" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

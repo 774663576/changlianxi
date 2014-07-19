@@ -19,13 +19,7 @@ import android.widget.TextView;
 
 import com.changlianxi.R;
 
-/**
- * 成员排序
- * 
- * @author teeker_bin
- * 
- */
-public class UserSortPopwindow implements OnItemClickListener {
+public class CircleInfoPopwindow implements OnItemClickListener {
     private PopupWindow popupWindow;
     private Context mContext;
     private View v;
@@ -35,7 +29,7 @@ public class UserSortPopwindow implements OnItemClickListener {
     private OnlistOnclick callback;
     private List<String> listdata = new ArrayList<String>();
 
-    public UserSortPopwindow(Context context, View v, List<String> listdata) {
+    public CircleInfoPopwindow(Context context, View v, List<String> listdata) {
         this.mContext = context;
         this.v = v;
         LayoutInflater inflater = LayoutInflater.from(mContext);
@@ -67,7 +61,8 @@ public class UserSortPopwindow implements OnItemClickListener {
      * popwindow的显示
      */
     public void show() {
-        popupWindow.showAsDropDown(v);
+        // popupWindow.showAsDropDown(v);
+        popupWindow.showAsDropDown(v, 0, 18);
         // 使其聚集
         popupWindow.setFocusable(true);
         // 设置允许在外点击消失

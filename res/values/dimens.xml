@@ -117,7 +117,6 @@
     <dimen name="scale279dip">130dip</dimen>
     <dimen name="change_history_name">23sp</dimen>
     <dimen name="editpassword">55dip</dimen>
-    <dimen name="dp80">37dip</dimen>
     <dimen name="dp98">46dip</dimen>
     <dimen name="dp54">25dip</dimen>
     <dimen name="dp86">40dip</dimen>
@@ -147,5 +146,11 @@
     <dimen name="dp48">23dip</dimen>
     <dimen name="dp82">38dip</dimen>
     <dimen name="dp84">39dip</dimen>
+    <dimen name="dp64">30dip</dimen>
+    <dimen name="dp61">28dip</dimen>
+    <dimen name="dp80">37dip</dimen>
+    <dimen name="sp_38">18sp</dimen>
+    <dimen name="dp92">43dip</dimen>
+    <dimen name="dp115">54dip</dimen>
 
 </resources>

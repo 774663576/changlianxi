@@ -25,6 +25,7 @@ import com.changlianxi.view.CircularImage;
 public class CircleAdapter extends BaseAdapter {
     private List<Circle> circleLists;
     private Context mcontext;
+    private int mHidePosition = -1;
 
     public CircleAdapter(Context context, List<Circle> listModle) {
         this.circleLists = listModle;
@@ -117,6 +118,10 @@ public class CircleAdapter extends BaseAdapter {
             }
         }
         holder.circleName.setText(StringUtils.ToDBC(circleName));
+        if (position == mHidePosition) {
+            convertView.setVisibility(View.INVISIBLE);
+            mHidePosition = -1;
+        }
         return convertView;
     }
 
@@ -125,6 +130,15 @@ public class CircleAdapter extends BaseAdapter {
         ImageView circleBg;
         TextView circleName;
         TextView prompt;
+    }
+
+    /**
+     * 设置某项隐藏
+     * @param position
+     */
+    public void setItemHide(int position) {
+        this.mHidePosition = position;
+        notifyDataSetChanged();
     }
 
 }

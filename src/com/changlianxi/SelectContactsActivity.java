@@ -95,7 +95,7 @@ public class SelectContactsActivity extends BaseActivity implements
         public void handleMessage(android.os.Message msg) {
             switch (msg.what) {
                 case 0:
-                    listModle.add((ContactModle)msg.obj);
+                    listModle.add((ContactModle) msg.obj);
                     break;
                 case 1:
                     if (dialog != null) {
@@ -126,7 +126,6 @@ public class SelectContactsActivity extends BaseActivity implements
         modle.setSort_key(sortKey.replace(" ", ""));
         modle.setPhotoid(photoId);
         modle.setContactid((long) contactId);
-        // listModle.add(modle);
         Message msg = mHandler.obtainMessage();
         msg.what = 0;
         msg.obj = modle;

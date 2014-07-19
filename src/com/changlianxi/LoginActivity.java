@@ -38,7 +38,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener,
     private EditText editPassword;
     private Button btnLogin;
     private Button btnFindPswd;
-//    private Button btnRegister;
     private Dialog dialog;
 
     @Override
@@ -58,7 +57,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener,
         editUserName = (EditText) findViewById(R.id.edit_userName);
         btnLogin = (Button) findViewById(R.id.btn_login);
         btnFindPswd = (Button) findViewById(R.id.btn_findPasswrod);
-//        btnRegister = (Button) findViewById(R.id.btn_register);
         setListener();
         editUserName.setText(SharedUtils.getString("userName", ""));
     }
@@ -67,7 +65,6 @@ public class LoginActivity extends BaseActivity implements OnClickListener,
         back.setOnClickListener(this);
         btnFindPswd.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
-//        btnRegister.setOnClickListener(this);
         editUserName.setOnFocusChangeListener(new OnEditFocusChangeListener(
                 editUserName, this));
         editUserName.addTextChangedListener(new MyEditTextWatcher(editUserName,
@@ -174,7 +171,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener,
                 SharedUtils.setInt("loginType", 2);// 登录方式标记 1 注册登录 2 正常登录
                 SharedUtils.setString("uid", object.getString("uid"));
                 SharedUtils.setString("token", object.getString("token"));
-                startActivity(new Intent(this, MainActivity.class));
+                startActivity(new Intent(this, CircleHomeActivity.class));
                 finish();
             } else {
                 String errorCoce = object.getString("err");

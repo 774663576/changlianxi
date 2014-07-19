@@ -8,8 +8,8 @@
     <LinearLayout
         android:id="@+id/bg"
         android:layout_width="fill_parent"
-        android:layout_height="@dimen/scale110dip"
-        android:background="@drawable/top_bg"
+        android:layout_height="@dimen/dp104"
+        android:background="@color/titleBarBackGround"
         android:gravity="center_vertical" >
 
         <ImageView
@@ -18,13 +18,7 @@
             android:layout_height="fill_parent"
             android:paddingLeft="@dimen/scale30dip"
             android:paddingRight="@dimen/scale29dip"
-            android:src="@drawable/icon_list" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_marginRight="@dimen/scale28dip"
-            android:src="@drawable/top_line" />
+            android:src="@drawable/back_new" />
 
         <TextView
             android:id="@+id/titleTxt"

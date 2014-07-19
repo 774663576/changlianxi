@@ -14,7 +14,6 @@
         android:id="@+id/listView1"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_marginRight="8dip"
         android:background="@drawable/layer_bg_info"
         android:divider="@drawable/line_info"
         android:dividerHeight="0.8dip"

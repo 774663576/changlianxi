@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white" >
+
+    <RelativeLayout
+        android:id="@+id/titileLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp104"
+        android:background="@color/titleBarBackGround" >
+
+        <TextView
+            android:id="@+id/txt_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp64"
+            android:singleLine="true"
+            android:text="圈子"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_50" />
+
+        <ImageView
+            android:id="@+id/imgMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:paddingBottom="16dip"
+            android:paddingRight="@dimen/dp26"
+            android:paddingTop="16dip"
+            android:src="@drawable/circle_home_menu" />
+
+        <ImageView
+            android:id="@+id/imgAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/imgMenu"
+            android:paddingBottom="8dip"
+            android:paddingLeft="@dimen/dp34"
+            android:paddingRight="@dimen/dp34"
+            android:paddingTop="8dip"
+            android:src="@drawable/circle_home_add" />
+
+        <ImageView
+            android:id="@+id/imgSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/imgAdd"
+            android:paddingBottom="8dip"
+            android:paddingLeft="@dimen/dp34"
+            android:paddingTop="8dip"
+            android:src="@drawable/circle_home_search" />
+    </RelativeLayout>
+
+    <com.changlianxi.view.DragGridView
+        android:id="@+id/circleGridView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/titileLayout"
+        android:layout_marginLeft="@dimen/scale25dip"
+        android:layout_marginRight="@dimen/scale25dip"
+        android:layout_marginTop="@dimen/dp42"
+        android:numColumns="3"
+        android:scrollbars="none" >
+    </com.changlianxi.view.DragGridView>
+
+</RelativeLayout>

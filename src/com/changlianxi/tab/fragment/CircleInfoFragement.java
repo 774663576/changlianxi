@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,8 +33,8 @@ import com.changlianxi.data.enums.CircleMemberState;
 import com.changlianxi.data.enums.RetError;
 import com.changlianxi.db.DBUtils;
 import com.changlianxi.inteface.ConfirmDialog;
-import com.changlianxi.popwindow.UserSortPopwindow;
-import com.changlianxi.popwindow.UserSortPopwindow.OnlistOnclick;
+import com.changlianxi.popwindow.CircleInfoPopwindow;
+import com.changlianxi.popwindow.CircleInfoPopwindow.OnlistOnclick;
 import com.changlianxi.showBigPic.AvatarImagePagerActivity;
 import com.changlianxi.task.BaseAsyncTask;
 import com.changlianxi.task.CircleIdetailTask;
@@ -62,6 +63,7 @@ public class CircleInfoFragement extends Fragment implements OnClickListener,
     private View rootView;// 缓存Fragment view
     private boolean isOnCreate = false;
     private Bitmap logoBmp;
+    private RelativeLayout layTitle;
     private Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -107,6 +109,7 @@ public class CircleInfoFragement extends Fragment implements OnClickListener,
     }
 
     private void initView() {
+        layTitle = (RelativeLayout) getView().findViewById(R.id.titlebar);
         creatorName = (TextView) getView().findViewById(R.id.creatorName);
         titleName = (TextView) getView().findViewById(R.id.titleTxt);
         circleName = (TextView) getView().findViewById(R.id.circleName);
@@ -223,7 +226,8 @@ public class CircleInfoFragement extends Fragment implements OnClickListener,
         } else {
             strList.add("退出圈子");
         }
-        UserSortPopwindow pop = new UserSortPopwindow(getActivity(), v, strList);
+        CircleInfoPopwindow pop = new CircleInfoPopwindow(getActivity(),
+                v, strList);
         pop.show();
         pop.setOnlistOnclick(new OnlistOnclick() {
 

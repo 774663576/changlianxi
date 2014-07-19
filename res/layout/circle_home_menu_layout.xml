@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/circle_home_pop_bg"
+    android:orientation="vertical" >
+
+    <Button
+        android:id="@+id/btnMyCard"
+        android:layout_width="140dip"
+        android:layout_height="45dip"
+        android:background="@null"
+        android:gravity="center"
+        android:text="个人名片"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_36" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.8dip"
+        android:background="#888888" />
+
+    <Button
+        android:id="@+id/btnMessageCenter"
+        android:layout_width="140dip"
+        android:layout_height="45dip"
+        android:background="@null"
+        android:gravity="center"
+        android:text="消息中心"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_36" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.8dip"
+        android:background="#888888" />
+
+    <Button
+        android:id="@+id/btnSetting"
+        android:layout_width="140dip"
+        android:layout_height="45dip"
+        android:background="@null"
+        android:gravity="center"
+        android:text="设置"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_36" />
+
+</LinearLayout>

@@ -1,4 +1,4 @@
-#Sat Jul 12 14:29:15 CST 2014
+#Fri Jul 18 15:16:14 CST 2014
 eclipse.preferences.version=1
 encoding//src/com/changlianxi=UTF-8
 encoding//src/com/changlianxi/GrowthCommentActivity.java=gbk
@@ -23,4 +23,5 @@ encoding//src/com/changlianxi/task=UTF-8
 encoding//src/com/changlianxi/util=UTF-8
 encoding//src/com/changlianxi/util/UserInfoUtils.java=gbk
 encoding//src/com/changlianxi/view=UTF-8
+encoding//src/com/changlianxi/view/DragGridView.java=gbk
 encoding//src/com/changlianxi/view/HackyViewPager.java=UTF-8

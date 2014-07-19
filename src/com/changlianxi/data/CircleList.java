@@ -17,6 +17,7 @@ import com.changlianxi.data.enums.RetStatus;
 import com.changlianxi.data.parser.CircleListParser;
 import com.changlianxi.data.parser.CirclesNotifyParser;
 import com.changlianxi.data.parser.IParser;
+import com.changlianxi.data.parser.SimpleParser;
 import com.changlianxi.data.request.ApiRequest;
 import com.changlianxi.data.request.Result;
 import com.changlianxi.db.Const;
@@ -52,6 +53,7 @@ public class CircleList extends AbstractData {
     private static final long serialVersionUID = 1L;
     public final static String LIST_API = "/circles/ilist";
     public final static String NOTIFY_API = "/circles/inotify";// 圈子提醒数接口
+    private final static String ISEQUENCE_API = "/circles/isequence";// 圈子排序接口
 
     private List<Circle> circles = null;
     private long lastReqTime = 0L; // last request time
@@ -127,6 +129,7 @@ public class CircleList extends AbstractData {
 
     @Override
     public void write(SQLiteDatabase db) {
+
         if (this.status != Status.OLD) {
             // write one by one
             for (Circle c : this.circles) {
@@ -329,4 +332,21 @@ public class CircleList extends AbstractData {
         circles.add(0, circle);
 
     }
+
+    /**
+     * 设置圈子列表排序
+     * @param sequence
+     */
+    public RetError setCirclesSequence(String sequence) {
+        IParser parser = new SimpleParser();
+        HashMap<String, Object> params = new HashMap<String, Object>();
+        params.put("sequence", sequence);
+        Result ret = ApiRequest.requestWithToken(ISEQUENCE_API, params, parser);
+        if (ret.getStatus() == RetStatus.SUCC) {
+            return RetError.NONE;
+        } else {
+            return ret.getErr();
+        }
+    }
+
 }

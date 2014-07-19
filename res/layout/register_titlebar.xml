@@ -11,7 +11,7 @@
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:paddingLeft="@dimen/dp26"
-        android:paddingRight="@dimen/dp26"
+        android:paddingRight="16dip"
         android:src="@drawable/back_new" />
 
     <TextView
@@ -20,9 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerInParent="true"
-        android:layout_toLeftOf="@+id/txt_page"
         android:layout_toRightOf="@+id/back"
-        android:gravity="center"
         android:singleLine="true"
         android:textColor="@color/white"
         android:textSize="@dimen/sp_50" />

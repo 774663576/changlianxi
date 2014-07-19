@@ -75,8 +75,8 @@ public class MemberFragment extends Fragment implements
     private ImageView btadd;
     private ImageView back;
     private TextView title;
-    private Button btnOk;// 接受邀请按钮
-    private Button btnCancle;// 拒绝邀请按钮
+    private LinearLayout btnOk;// 接受邀请按钮
+    private LinearLayout btnCancle;// 拒绝邀请按钮
     private SearchEditText editSearch;
     private ViewStub vsLayInvite;
     private ViewStub vsLayEdit;
@@ -101,6 +101,7 @@ public class MemberFragment extends Fragment implements
     private LinearLayout titileLayout;
     private TextView inviteName;
     private Button btnLook;
+    private Button btnNotLook;
     private Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -201,7 +202,10 @@ public class MemberFragment extends Fragment implements
         vsLayEdit = (ViewStub) getView().findViewById(R.id.lay_edit);
         vsLayEdit.inflate();
         btnLook = (Button) getView().findViewById(R.id.btnLook);
+        btnNotLook = (Button) getView().findViewById(R.id.btnNotLook);
         btnLook.setOnClickListener(this);
+        btnNotLook.setOnClickListener(this);
+
     }
 
     /**
@@ -215,8 +219,8 @@ public class MemberFragment extends Fragment implements
         vsLayInvite = (ViewStub) getView().findViewById(
                 R.id.viewstub_lay_invite);
         vsLayInvite.inflate();
-        btnOk = (Button) getView().findViewById(R.id.btnOk);
-        btnCancle = (Button) getView().findViewById(R.id.btnCancle);
+        btnOk = (LinearLayout) getView().findViewById(R.id.btnOk);
+        btnCancle = (LinearLayout) getView().findViewById(R.id.btnCancle);
         btnOk.setOnClickListener(this);
         btnCancle.setOnClickListener(this);
         inviteName = (TextView) getView().findViewById(R.id.txtShow);
@@ -452,7 +456,6 @@ public class MemberFragment extends Fragment implements
         member = new CircleMember(cid, 0, Integer.valueOf(Global.getUid()));
         RefuseCircleInvitationTask task = new RefuseCircleInvitationTask();
         task.setTaskCallBack(new PostCallBack<RetError>() {
-
             @Override
             public void taskFinish(RetError result) {
                 if (progressDialog != null) {
@@ -522,6 +525,9 @@ public class MemberFragment extends Fragment implements
                 break;
             case R.id.btnLook:
                 intentUserInfoActivity(findMeFromMembersList());
+                vsLayEdit.setVisibility(View.GONE);
+                break;
+            case R.id.btnNotLook:
                 vsLayEdit.setVisibility(View.GONE);
                 break;
             default:

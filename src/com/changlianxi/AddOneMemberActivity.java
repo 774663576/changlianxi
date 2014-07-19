@@ -31,7 +31,6 @@ import com.changlianxi.util.Constants;
 import com.changlianxi.util.DialogUtil;
 import com.changlianxi.util.Utils;
 import com.changlianxi.view.SearchEditText;
-import com.umeng.analytics.MobclickAgent;
 
 /**
  * 通过输入方式添加圈子成员界面
@@ -66,26 +65,10 @@ public class AddOneMemberActivity extends BaseActivity implements
     }
 
     /**
-     * 设置页面统计
-     * 
-     */
-    @Override
-    protected void onResume() {
-        super.onResume();
-        MobclickAgent.onPageStart(getClass().getName());
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        MobclickAgent.onPageEnd(getClass().getName());
-    }
-
-    /**
      * 初始化控件
      */
     private void initView() {
-        btnNext = (Button) findViewById(R.id.next);
+        btnNext = (Button) findViewById(R.id.btnNext);
         editMobile = (SearchEditText) findViewById(R.id.editmobile);
         editName = (EditText) findViewById(R.id.editname);
         back = (ImageView) findViewById(R.id.back);
@@ -113,7 +96,7 @@ public class AddOneMemberActivity extends BaseActivity implements
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.next:
+            case R.id.btnNext:
                 editMobile.clearFocus();
                 String name = editName.getText().toString();
                 String mobile = editMobile.getText().toString().trim();

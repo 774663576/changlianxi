@@ -14,10 +14,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.changlianxi.applation.CLXApplication;
+import com.changlianxi.data.AbstractData.Status;
 import com.changlianxi.data.Circle;
 import com.changlianxi.data.CircleMember;
 import com.changlianxi.data.Global;
-import com.changlianxi.data.AbstractData.Status;
 import com.changlianxi.data.enums.RetError;
 import com.changlianxi.db.DBUtils;
 import com.changlianxi.inteface.ConfirmDialog;
@@ -31,7 +31,6 @@ import com.changlianxi.util.DateUtils;
 import com.changlianxi.util.DialogUtil;
 import com.changlianxi.util.StringUtils;
 import com.changlianxi.util.Utils;
-import com.umeng.analytics.MobclickAgent;
 
 /**
  * 创建圈子界面
@@ -44,7 +43,7 @@ public class CreateCircleActivity extends BaseActivity implements
     private List<CircleMember> contactsList = new ArrayList<CircleMember>();
     private ImageView btnBack;
     private EditText editCirName;
-    private Button createCir;
+    private Button btnFinish;
     private Dialog progressDialog;
     private int cid;// 创建圈子返回的cid 邀请成员和上传 logo用
     private TextView titleTxt;
@@ -58,30 +57,23 @@ public class CreateCircleActivity extends BaseActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_ciecle);
         CLXApplication.addInviteActivity(this);
-        btnBack = (ImageView) findViewById(R.id.back);
-        btnBack.setOnClickListener(this);
-        editCirName = (EditText) findViewById(R.id.circleName);
-        createCir = (Button) findViewById(R.id.createCircle);
-        createCir.setOnClickListener(this);
-        titleTxt = (TextView) findViewById(R.id.titleTxt);
-        titleTxt.setText("创建圈子");
+        initView();
         getActivityValue();
     }
 
-    /**
-     * 设置页面统计
-     * 
-     */
-    @Override
-    protected void onResume() {
-        super.onResume();
-        MobclickAgent.onPageStart(getClass().getName());
+    private void initView() {
+        btnBack = (ImageView) findViewById(R.id.back);
+        editCirName = (EditText) findViewById(R.id.editCircleName);
+        btnFinish = (Button) findViewById(R.id.btnFinish);
+        titleTxt = (TextView) findViewById(R.id.titleTxt);
+        titleTxt.setText("创建圈子");
+        setListener();
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        MobclickAgent.onPageEnd(getClass().getName());
+    private void setListener() {
+        btnBack.setOnClickListener(this);
+        btnFinish.setOnClickListener(this);
+
     }
 
     /**
@@ -129,7 +121,7 @@ public class CreateCircleActivity extends BaseActivity implements
                 finish();
                 Utils.rightOut(this);
                 break;
-            case R.id.createCircle:
+            case R.id.btnFinish:
                 String str = editCirName.getText().toString();
                 if (str.length() == 0) {
                     promptDialog("圈子名称是必须的哦！");

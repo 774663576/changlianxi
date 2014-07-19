@@ -18,7 +18,6 @@ import android.widget.TextView;
 
 import com.changlianxi.R;
 import com.changlianxi.inteface.ConfirmDialog;
-import com.changlianxi.service.UpdateService;
 
 public class DialogUtil {
     public static Dialog getWaitDialog(Context context, String str) {
