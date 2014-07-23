@@ -201,9 +201,9 @@ public class CircleHomeActivity extends BaseActivity implements
         switch (v.getId()) {
             case R.id.imgAdd:
                 Intent intent = new Intent();
-                intent.setClass(this, AddCircleMemberActivity.class);
-                intent.putExtra("type", "create");
+                intent.setClass(this, CreateCircleActivity.class);
                 startActivity(intent);
+                Utils.leftOutRightIn(this);
                 break;
             case R.id.imgMenu:
                 new CircleHomeMenuPopWindow(this, v).show();
@@ -477,11 +477,16 @@ public class CircleHomeActivity extends BaseActivity implements
         circleslists.set(to, temp);
         // 设置新到的item隐藏，
         adapter.setItemHide(to);
-         StringBuffer ids = new StringBuffer();
-         for (Circle c : circleslists) {
-         ids.append(c.getId() + ",");
-         }
-         setSequences(ids.toString());
+
+    }
+
+    @Override
+    public void dropFinish() {
+        StringBuffer ids = new StringBuffer();
+        for (Circle c : circleslists) {
+            ids.append(c.getId() + ",");
+        }
+        setSequences(ids.toString());
     }
 
     private void setSequences(String sequence) {
@@ -500,4 +505,5 @@ public class CircleHomeActivity extends BaseActivity implements
         });
         task.executeWithCheckNet(circleList);
     }
+
 }

@@ -12,6 +12,7 @@ import com.changlianxi.data.Circle;
 import com.changlianxi.data.CircleList;
 import com.changlianxi.data.enums.CircleMemberState;
 import com.changlianxi.data.request.Result;
+import com.changlianxi.util.SharedUtils;
 
 public class CircleListParser implements IParser {
 
@@ -58,7 +59,8 @@ public class CircleListParser implements IParser {
             }
             circles.add(c);
         }
-
+        String sequence = jsonObj.getString("sequence");
+        SharedUtils.setString("circleSequence", sequence);
         CircleList cl = new CircleList(circles);
         cl.setLastReqTime(requestTime);
         Result ret = new Result();

@@ -20,7 +20,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -63,7 +62,6 @@ public class CircleInfoFragement extends Fragment implements OnClickListener,
     private View rootView;// 缓存Fragment view
     private boolean isOnCreate = false;
     private Bitmap logoBmp;
-    private RelativeLayout layTitle;
     private Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -109,7 +107,6 @@ public class CircleInfoFragement extends Fragment implements OnClickListener,
     }
 
     private void initView() {
-        layTitle = (RelativeLayout) getView().findViewById(R.id.titlebar);
         creatorName = (TextView) getView().findViewById(R.id.creatorName);
         titleName = (TextView) getView().findViewById(R.id.titleTxt);
         circleName = (TextView) getView().findViewById(R.id.circleName);
@@ -226,8 +223,8 @@ public class CircleInfoFragement extends Fragment implements OnClickListener,
         } else {
             strList.add("退出圈子");
         }
-        CircleInfoPopwindow pop = new CircleInfoPopwindow(getActivity(),
-                v, strList);
+        CircleInfoPopwindow pop = new CircleInfoPopwindow(getActivity(), v,
+                strList);
         pop.show();
         pop.setOnlistOnclick(new OnlistOnclick() {
 
@@ -463,7 +460,6 @@ public class CircleInfoFragement extends Fragment implements OnClickListener,
 
     @Override
     public void onLoadingCancelled(String arg0, View arg1) {
-        // TODO Auto-generated method stub
 
     }
 
@@ -475,13 +471,11 @@ public class CircleInfoFragement extends Fragment implements OnClickListener,
 
     @Override
     public void onLoadingFailed(String arg0, View arg1, FailReason arg2) {
-        // TODO Auto-generated method stub
 
     }
 
     @Override
     public void onLoadingStarted(String arg0, View arg1) {
-        // TODO Auto-generated method stub
 
     }
 }

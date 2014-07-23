@@ -223,6 +223,9 @@ public class DragGridView extends GridView {
      * @return
      */
     private boolean isTouchInItem(View dragView, int x, int y) {
+        if (dragView == null) {
+            return false;
+        }
         int leftOffset = dragView.getLeft();
         int topOffset = dragView.getTop();
         if (x < leftOffset || x > leftOffset + dragView.getWidth()) {
@@ -247,6 +250,9 @@ public class DragGridView extends GridView {
                 case MotionEvent.ACTION_UP:
                     onStopDrag();
                     isDrag = false;
+                    if (onChanageListener != null) {
+                        onChanageListener.dropFinish();
+                    }
                     break;
             }
             return true;
@@ -408,5 +414,10 @@ public class DragGridView extends GridView {
          *          拖拽到的position
          */
         public void onChange(int form, int to);
+
+        /**
+         * 拖拽完成
+         */
+        public void dropFinish();
     }
 }

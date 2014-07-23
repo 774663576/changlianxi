@@ -17,7 +17,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,7 +49,6 @@ public class VerifyWaitActivity extends BaseActivity implements
     private String PATH = "/users/isetBindCellphone";
     private String PATH2 = "/users/iverifyAuthCode";
     private Button btn_yz;
-    private LinearLayout bg;
     private TextView title;
     private InputMethodRelativeLayout parent;
     private Handler mHandler = new Handler() {
@@ -79,7 +77,6 @@ public class VerifyWaitActivity extends BaseActivity implements
         }
     };
 
-    @SuppressLint({ "HandlerLeak", "HandlerLeak" })
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verifywait);
@@ -101,7 +98,6 @@ public class VerifyWaitActivity extends BaseActivity implements
         cellphone = getIntent().getExtras().getString("cellphone")
                 .replace("-", "");
         txtShowNum.setText(getIntent().getExtras().getString("cellphone"));
-        bg = (LinearLayout) findViewById(R.id.bg);
         title = (TextView) findViewById(R.id.titleTxt);
         title.setText("验证手机号");
         parent = (InputMethodRelativeLayout) findViewById(R.id.Layparent);

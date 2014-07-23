@@ -1,7 +1,6 @@
 package com.changlianxi;
 
 import java.io.InputStream;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -42,11 +41,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.changlianxi.applation.CLXApplication;
+import com.changlianxi.data.Circle;
 import com.changlianxi.data.CircleMember;
 import com.changlianxi.data.Global;
 import com.changlianxi.data.enums.RetError;
+import com.changlianxi.db.DBUtils;
 import com.changlianxi.inteface.ConfirmDialog;
 import com.changlianxi.modle.ContactModle;
+import com.changlianxi.tab.fragment.MainTabActivity;
 import com.changlianxi.task.BaseAsyncTask;
 import com.changlianxi.task.IinviteCircleMemberTask;
 import com.changlianxi.util.BroadCast;
@@ -140,7 +142,7 @@ public class SelectContactsActivity extends BaseActivity implements
         type = getIntent().getStringExtra("type");
         initView();
         titleTxt.setText("添加第一批成员");
-        if (type.equals("add")) {
+        if ("add".equals(type)) {
             titleTxt.setText("添加成员");
         }
         cid = getIntent().getIntExtra("cid", 0);
@@ -453,25 +455,15 @@ public class SelectContactsActivity extends BaseActivity implements
                     selectMembers.add(smsModle);
                 }
 
-                if (type.equals("add")) {
-                    if (selectMembers.size() == 0) {
-                        Utils.showToast("请至少要选择一个联系人:)", Toast.LENGTH_SHORT);
-                        return;
-                    }
-                    InviteMember(selectMembers);
+                // if (type.equals("add")) {
+                if (selectMembers.size() == 0) {
+                    Utils.showToast("请至少要选择一个联系人:)", Toast.LENGTH_SHORT);
                     return;
                 }
+                InviteMember(selectMembers);
+                // return;
+                // }
 
-                Intent intent = new Intent();
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("contactsList",
-                        (Serializable) selectMembers);
-                intent.putExtras(bundle);
-                intent.setClass(this, CreateCircleActivity.class);
-                intent.putExtra("cid", cid);
-                startActivity(intent);
-                finish();
-                Utils.leftOutRightIn(this);
                 break;
             case R.id.search:
                 break;
@@ -500,7 +492,7 @@ public class SelectContactsActivity extends BaseActivity implements
                 }
                 BroadCast.sendBroadCast(SelectContactsActivity.this,
                         Constants.REFRESH_CIRCLE_USER_LIST);
-                intentSmsPreviewActivity(contactsList);
+                showDialog(contactsList);
             }
 
             @Override
@@ -518,6 +510,24 @@ public class SelectContactsActivity extends BaseActivity implements
                     public void onOKClick() {
                         CLXApplication.exitSmsInvite();
                         Utils.rightOut(SelectContactsActivity.this);
+                        if (!"add".equals(type)) {
+                            Intent it = new Intent();
+                            it.setClass(SelectContactsActivity.this,
+                                    MainTabActivity.class);
+                            Circle c = new Circle(cid);
+                            c.getCircleName(DBUtils.getDBsa(2));
+                            it.putExtra("circleName", c.getName());
+                            it.putExtra("cid", cid);
+                            it.putExtra("newGrowthCount", 1);
+                            startActivity(it);
+                            Intent intent = new Intent();
+                            intent.setClass(SelectContactsActivity.this,
+                                    SetingPublicInfomationActivity.class);
+                            intent.putExtra("cid", cid);
+                            intent.putExtra("type", "createCircle");
+                            startActivity(intent);
+                            Utils.leftOutRightIn(SelectContactsActivity.this);
+                        }
                     }
 
                     @Override
@@ -528,10 +538,7 @@ public class SelectContactsActivity extends BaseActivity implements
         dialog.show();
     }
 
-    /**
-     * 跳转到短信预览界面
-     */
-    private void intentSmsPreviewActivity(List<CircleMember> contactsList) {
+    private void showDialog(List<CircleMember> contactsList) {
         if (contactsList.size() > 1) {
             inviteMore(contactsList);
             return;

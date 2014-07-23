@@ -22,6 +22,7 @@ import com.changlianxi.data.request.ApiRequest;
 import com.changlianxi.data.request.Result;
 import com.changlianxi.db.Const;
 import com.changlianxi.db.DBUtils;
+import com.changlianxi.util.SharedUtils;
 
 /**
  * Circle List of a user
@@ -79,7 +80,29 @@ public class CircleList extends AbstractData {
     }
 
     private void sort(boolean byTimeAsc) {
+        setCircleSequence();
         Collections.sort(this.circles, Circle.getComparator(byTimeAsc));
+
+    }
+
+    private void setCircleSequence() {
+        String sequence = SharedUtils.getString("circleSequence", "");
+        if ("".equals(sequence)) {
+            return;
+        }
+        String seAry[] = sequence.split(",");
+        if (seAry.length != this.circles.size()) {
+            return;
+        }
+        for (int i = 0; i < seAry.length; i++) {
+            for (Circle c : this.circles) {
+                if (c.getId() == Integer.valueOf(seAry[i])) {
+                    c.setSequence(i + 1);
+                    break;
+                }
+            }
+        }
+
     }
 
     @Override

@@ -98,7 +98,7 @@ public class Circle extends AbstractData implements Serializable {
     private String joinTime = "";
     private boolean isNew = false;
     private CircleMemberState myState = CircleMemberState.STATUS_INVALID;
-
+    private int sequence = 0;
     // member counts
     private int totalCnt = 0;
     private int invitingCnt = 0;
@@ -196,6 +196,14 @@ public class Circle extends AbstractData implements Serializable {
 
     public List<CircleRole> getRoles() {
         return roles;
+    }
+
+    public int getSequence() {
+        return sequence;
+    }
+
+    public void setSequence(int sequence) {
+        this.sequence = sequence;
     }
 
     public void setRoles(List<CircleRole> roles) {
@@ -909,6 +917,10 @@ public class Circle extends AbstractData implements Serializable {
                 public int compare(Circle l, Circle r) {
                     long lTime = DateUtils.convertToDate(l.getJoinTime()), rTime = DateUtils
                             .convertToDate(r.getJoinTime());
+                    int lSequ = l.getSequence(), rSequ = r.getSequence();
+                    if (lSequ != 0 && rSequ != 0) {
+                        return lSequ > rSequ ? 1 : -1;
+                    }
                     return lTime > rTime ? 1 : -1;
                 }
             };
@@ -918,6 +930,10 @@ public class Circle extends AbstractData implements Serializable {
                 public int compare(Circle l, Circle r) {
                     long lTime = DateUtils.convertToDate(l.getJoinTime()), rTime = DateUtils
                             .convertToDate(r.getJoinTime());
+                    int lSequ = l.getSequence(), rSequ = r.getSequence();
+                    if (lSequ != 0 && rSequ != 0) {
+                        return lSequ > rSequ ? 1 : -1;
+                    }
                     return lTime > rTime ? -1 : 1;
                 }
             };

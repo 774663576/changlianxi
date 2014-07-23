@@ -23,10 +23,10 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener {
             if (!"".equals(SharedUtils.getString("uid", ""))
                     && !"".equals(SharedUtils.getString("token", ""))) {
                 startActivity(new Intent(this, CircleHomeActivity.class));
+                finish();
             } else {
                 startActivity(new Intent(this, LoginActivity.class));
             }
-            finish();
             return;
         }
         initView();

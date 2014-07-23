@@ -44,8 +44,8 @@ public class CircleHomeSearchActivity extends BaseActivity implements
         btnCancle = (Button) findViewById(R.id.btnCancle);
         searchListView = (ListView) findViewById(R.id.search_list);
         searchEdit = (SearchEditText) findViewById(R.id.edit_search);
-
         setListener();
+        Utils.popUp(this);
     }
 
     private void setListener() {

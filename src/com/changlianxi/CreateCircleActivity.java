@@ -1,8 +1,5 @@
 package com.changlianxi;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,15 +13,11 @@ import android.widget.TextView;
 import com.changlianxi.applation.CLXApplication;
 import com.changlianxi.data.AbstractData.Status;
 import com.changlianxi.data.Circle;
-import com.changlianxi.data.CircleMember;
-import com.changlianxi.data.Global;
 import com.changlianxi.data.enums.RetError;
 import com.changlianxi.db.DBUtils;
 import com.changlianxi.inteface.ConfirmDialog;
-import com.changlianxi.tab.fragment.MainTabActivity;
 import com.changlianxi.task.BaseAsyncTask;
 import com.changlianxi.task.CreateNewCircleTask;
-import com.changlianxi.task.IinviteCircleMemberTask;
 import com.changlianxi.util.BroadCast;
 import com.changlianxi.util.Constants;
 import com.changlianxi.util.DateUtils;
@@ -40,14 +33,11 @@ import com.changlianxi.util.Utils;
  */
 public class CreateCircleActivity extends BaseActivity implements
         OnClickListener, ConfirmDialog {
-    private List<CircleMember> contactsList = new ArrayList<CircleMember>();
     private ImageView btnBack;
     private EditText editCirName;
     private Button btnFinish;
     private Dialog progressDialog;
-    private int cid;// 创建圈子返回的cid 邀请成员和上传 logo用
     private TextView titleTxt;
-    private CircleMember member;
     private Circle circle;
     private boolean isCallBack = false;
     private int initCircleID = 0;
@@ -58,7 +48,6 @@ public class CreateCircleActivity extends BaseActivity implements
         setContentView(R.layout.activity_create_ciecle);
         CLXApplication.addInviteActivity(this);
         initView();
-        getActivityValue();
     }
 
     private void initView() {
@@ -73,39 +62,6 @@ public class CreateCircleActivity extends BaseActivity implements
     private void setListener() {
         btnBack.setOnClickListener(this);
         btnFinish.setOnClickListener(this);
-
-    }
-
-    /**
-     * 得到上一个activi传过来的值
-     */
-    @SuppressWarnings("unchecked")
-    private void getActivityValue() {
-        Bundle bundle = getIntent().getExtras();
-        contactsList = (List<CircleMember>) bundle
-                .getSerializable("contactsList");
-        initCircleID = getIntent().getIntExtra("cid", 0);
-        if (initCircleID != 0) {
-            Circle c = new Circle(initCircleID);
-            c.getCircleName(DBUtils.getDBsa(1));
-            editCirName.setText(c.getName());
-        }
-    }
-
-    private void inviteFInish() {
-        Intent it = new Intent();
-        it.setClass(this, MainTabActivity.class);
-        it.putExtra("circleName", editCirName.getText().toString());
-        it.putExtra("cid", cid);
-        it.putExtra("newGrowthCount", 1);
-        startActivity(it);
-        CLXApplication.exitSmsInvite();
-        Intent intent = new Intent();
-        intent.setClass(this, SetingPublicInfomationActivity.class);
-        intent.putExtra("cid", cid);
-        intent.putExtra("type", "createCircle");
-        startActivity(intent);
-        Utils.leftOutRightIn(this);
 
     }
 
@@ -151,6 +107,9 @@ public class CreateCircleActivity extends BaseActivity implements
         circleTask.setTaskCallBack(new BaseAsyncTask.PostCallBack<RetError>() {
             @Override
             public void taskFinish(RetError result) {
+                if (progressDialog != null) {
+                    progressDialog.dismiss();
+                }
                 if (result != RetError.NONE) {
                     return;
                 }
@@ -163,22 +122,11 @@ public class CreateCircleActivity extends BaseActivity implements
                     c.setStatus(Status.DEL);
                     c.write(DBUtils.getDBsa(2));
                 }
-                cid = circle.getId();
                 intent = new Intent(Constants.ADD_NEW_CIRCLE);
-                // intent.putExtra("cirName", circle.getName());
-                // intent.putExtra("cid", cid);
                 intent.putExtra("circle", circle);
                 BroadCast.sendBroadCast(CreateCircleActivity.this, intent);
-                if (contactsList.size() == 0) {
-                    if (progressDialog != null) {
-                        progressDialog.dismiss();
-                    }
-                    promptDialog("圈子创建成功");
-                    isCallBack = true;
-                    return;
-                }
+                promptDialog("圈子创建成功");
                 isCallBack = true;
-                InviteMember(circle.getId());
 
             }
 
@@ -190,43 +138,15 @@ public class CreateCircleActivity extends BaseActivity implements
         circleTask.executeWithCheckNet(circle);
     }
 
-    /**
-     * 邀请 成员
-     */
-    private void InviteMember(int cid) {
-        for (CircleMember m : contactsList) {
-            m.setCid(cid);
-        }
-        member = new CircleMember(cid, 0, Integer.valueOf(Global.getUid()));
-        IinviteCircleMemberTask task = new IinviteCircleMemberTask(contactsList);
-        task.setTaskCallBack(new BaseAsyncTask.PostCallBack<RetError>() {
-
-            @Override
-            public void taskFinish(RetError result) {
-                if (progressDialog != null) {
-                    progressDialog.dismiss();
-                }
-                if (result != RetError.NONE) {
-                    promptDialog("圈子创建成功");
-                    return;
-                }
-                promptDialog("圈子创建成功");
-
-            }
-
-            @Override
-            public void readDBFinish() {
-
-            }
-        });
-        task.isPrompt = false;
-        task.executeWithCheckNet(member);
-    }
-
     @Override
     public void onOKClick() {
         if (isCallBack) {
-            inviteFInish();
+            Intent intent = new Intent();
+            intent.putExtra("cid", circle.getId());
+            intent.setClass(CreateCircleActivity.this,
+                    AddCircleMemberActivity.class);
+            startActivity(intent);
+            finish();
         }
         isCallBack = false;
     }

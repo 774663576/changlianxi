@@ -58,7 +58,7 @@ public class AddCircleMemberActivity extends BaseActivity implements
     private void getDataFromActivity() {
         type = getIntent().getStringExtra("type");
         cid = getIntent().getIntExtra("cid", 0);
-        if (type.equals("add")) {
+        if ("add".equals(type)) {
             txtTitle.setText("添加成员");
             cirName = getIntent().getStringExtra("cirName");
         }

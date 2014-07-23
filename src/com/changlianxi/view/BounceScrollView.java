@@ -1,8 +1,5 @@
 package com.changlianxi.view;
 
-import com.changlianxi.util.Utils;
-
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Rect;
 import android.util.AttributeSet;

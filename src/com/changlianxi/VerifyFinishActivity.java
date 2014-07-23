@@ -55,7 +55,6 @@ public class VerifyFinishActivity extends BaseActivity implements
     private String PATH2 = "/users/iverifyAuthCode";
     private String PATH3 = "/users/isendAuthCode";
     private TextView titleName;
-    private LinearLayout bg;
     private InputMethodRelativeLayout parent;
     private LinearLayout layButtom;
 
@@ -81,7 +80,6 @@ public class VerifyFinishActivity extends BaseActivity implements
         btGetCode.setOnClickListener(this);
         titleName = (TextView) findViewById(R.id.titleTxt);
         titleName.setText("验证手机号");
-        bg = (LinearLayout) findViewById(R.id.bg);
         parent = (InputMethodRelativeLayout) findViewById(R.id.Layparent);
         parent.setOnSizeChangedListenner(this);
         layButtom = (LinearLayout) findViewById(R.id.layoutBottom);

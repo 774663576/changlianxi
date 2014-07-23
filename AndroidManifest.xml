@@ -532,6 +532,7 @@
         </activity>
         <activity
             android:name=".CircleHomeSearchActivity"
+            android:windowSoftInputMode="stateVisible"
             android:configChanges="keyboardHidden|orientation"
             android:label="@string/title_activity_circle_home_search"
             android:screenOrientation="portrait" >
