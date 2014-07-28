@@ -57,4 +57,13 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener {
         }
         Utils.leftOutRightIn(this);
     }
+
+    // @Override
+    // protected void onNewIntent(Intent intent) {
+    // super.onNewIntent(intent);
+    // // ÍË³ö
+    // if ((Intent.FLAG_ACTIVITY_CLEAR_TOP & intent.getFlags()) != 0) {
+    // finish();
+    // }
+    // }
 }

@@ -1,8 +1,7 @@
-#Fri Jul 18 15:16:14 CST 2014
+#Fri Jul 25 16:11:22 CST 2014
 eclipse.preferences.version=1
 encoding//src/com/changlianxi=UTF-8
 encoding//src/com/changlianxi/GrowthCommentActivity.java=gbk
-encoding//src/com/changlianxi/MainActivity.java=gbk
 encoding//src/com/changlianxi/ReleaseGrowthActivity.java=UTF-8
 encoding//src/com/changlianxi/SelectContactsActivity.java=UTF-8
 encoding//src/com/changlianxi/UserInfoEditActivity.java=gbk
@@ -22,6 +21,7 @@ encoding//src/com/changlianxi/showBigPic/ImagePagerActivity.java=UTF-8
 encoding//src/com/changlianxi/task=UTF-8
 encoding//src/com/changlianxi/util=UTF-8
 encoding//src/com/changlianxi/util/UserInfoUtils.java=gbk
+encoding//src/com/changlianxi/util/WigdtContorl.java=gbk
 encoding//src/com/changlianxi/view=UTF-8
 encoding//src/com/changlianxi/view/DragGridView.java=gbk
 encoding//src/com/changlianxi/view/HackyViewPager.java=UTF-8

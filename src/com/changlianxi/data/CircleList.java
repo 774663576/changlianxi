@@ -12,6 +12,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.changlianxi.data.enums.CircleMemberState;
 import com.changlianxi.data.enums.RetError;
 import com.changlianxi.data.enums.RetStatus;
 import com.changlianxi.data.parser.CircleListParser;
@@ -105,6 +106,50 @@ public class CircleList extends AbstractData {
 
     }
 
+    // @Override
+    // public void read(SQLiteDatabase db) {
+    // if (this.circles == null) {
+    // this.circles = new ArrayList<Circle>();
+    // } else {
+    // this.circles.clear();
+    // }
+    //
+    // // read ids
+    // Cursor cursor = db.query(Const.CIRCLE_TABLE_NAME,
+    // new String[] { "id" }, null, null, null, null, null);
+    // List<Integer> cids = new ArrayList<Integer>();
+    // if (cursor.getCount() > 0) {
+    // cursor.moveToFirst();
+    // for (int i = 0; i < cursor.getCount(); i++) {
+    // int id = cursor.getInt(cursor.getColumnIndex("id"));
+    // cids.add(id);
+    // cursor.moveToNext();
+    // }
+    // }
+    // cursor.close();
+    //
+    // // read one by one
+    // for (int cid : cids) {
+    // Circle c = new Circle(cid);
+    // c.read(db);
+    // this.circles.add(c);
+    // }
+    //
+    // // read last request time
+    // Cursor cursor2 = db.query(Const.TIME_RECORD_TABLE_NAME,
+    // new String[] { "time" }, "key=? and subkey=?",
+    // new String[] { Const.TIME_RECORD_KEY_PREFIX_CIRCLES,
+    // "last_req_time" }, null, null, null);
+    // if (cursor2.getCount() > 0) {
+    // cursor2.moveToFirst();
+    // long time = cursor2.getLong(cursor2.getColumnIndex("time"));
+    // this.lastReqTime = time;
+    // }
+    // cursor2.close();
+    //
+    // this.status = Status.OLD;
+    // sort(false);
+    // }
     @Override
     public void read(SQLiteDatabase db) {
         if (this.circles == null) {
@@ -114,25 +159,69 @@ public class CircleList extends AbstractData {
         }
 
         // read ids
-        Cursor cursor = db.query(Const.CIRCLE_TABLE_NAME,
-                new String[] { "id" }, null, null, null, null, null);
-        List<Integer> cids = new ArrayList<Integer>();
+        Cursor cursor = db.query(Const.CIRCLE_TABLE_NAME, new String[] { "id",
+                "name", "logo", "description", "isNew", "mystate", "creator",
+                "myInvitor", "created", "joinTime", "total", "inviting",
+                "verified", "unverified", "newMemberCnt", "newGrowthCnt",
+                "newMyDetailEditCnt", "newDynamicCnt", "newGrowthCommentCnt" },
+                null, null, null, null, null);
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
             for (int i = 0; i < cursor.getCount(); i++) {
                 int id = cursor.getInt(cursor.getColumnIndex("id"));
-                cids.add(id);
+                String name = cursor.getString(cursor.getColumnIndex("name"));
+                String logo = cursor.getString(cursor.getColumnIndex("logo"));
+                String description = cursor.getString(cursor
+                        .getColumnIndex("description"));
+                int isNew = cursor.getInt(cursor.getColumnIndex("isNew"));
+                String myState = cursor.getString(cursor
+                        .getColumnIndex("myState"));
+                int creator = cursor.getInt(cursor.getColumnIndex("creator"));
+                int myInvitor = cursor.getInt(cursor
+                        .getColumnIndex("myInvitor"));
+                String created = cursor.getString(cursor
+                        .getColumnIndex("created"));
+                String joinTime = cursor.getString(cursor
+                        .getColumnIndex("joinTime"));
+                int total = cursor.getInt(cursor.getColumnIndex("total"));
+                int inviting = cursor.getInt(cursor.getColumnIndex("inviting"));
+                int verified = cursor.getInt(cursor.getColumnIndex("verified"));
+                int unverified = cursor.getInt(cursor
+                        .getColumnIndex("unverified"));
+                int newMemberCnt = cursor.getInt(cursor
+                        .getColumnIndex("newMemberCnt"));
+                int newGrowthCnt = cursor.getInt(cursor
+                        .getColumnIndex("newGrowthCnt"));
+                int newChatCnt = cursor.getInt(cursor
+                        .getColumnIndex("newMyDetailEditCnt"));
+                int newDynamicCnt = cursor.getInt(cursor
+                        .getColumnIndex("newDynamicCnt"));
+                int newGrowthCommentCnt = cursor.getInt(cursor
+                        .getColumnIndex("newGrowthCommentCnt"));
+                Circle c = new Circle(id);
+                c.setName(name);
+                c.setLogo(logo);
+                c.setDescription(description);
+                c.setNew((isNew > 0));
+                c.setMyState(CircleMemberState.convert(myState));
+                c.setJoinTime(joinTime);
+                c.setCreated(created);
+                c.setCreator(creator);
+                c.setTotalCnt(total);
+                c.setInvitingCnt(inviting);
+                c.setVerifiedCnt(verified);
+                c.setNewMemberCnt(newMemberCnt);
+                c.setNewGrowthCnt(newGrowthCnt);
+                c.setNewGrowthCommentCnt(newGrowthCommentCnt);
+                c.setNewDynamicCnt(newDynamicCnt);
+                c.setNewMyDetailEditCnt(newChatCnt);
+                c.setUnverifiedCnt(unverified);
+                c.setMyInvitor(myInvitor);
+                circles.add(c);
                 cursor.moveToNext();
             }
         }
         cursor.close();
-
-        // read one by one
-        for (int cid : cids) {
-            Circle c = new Circle(cid);
-            c.read(db);
-            this.circles.add(c);
-        }
 
         // read last request time
         Cursor cursor2 = db.query(Const.TIME_RECORD_TABLE_NAME,

@@ -113,7 +113,7 @@ public class VerifyActivity extends BaseActivity implements OnClickListener,
 
             case R.id.tiaoguo:
                 Intent it = new Intent();
-                it.setClass(VerifyActivity.this, MainActivity.class);
+                it.setClass(VerifyActivity.this, CircleHomeActivity.class);
                 startActivity(it);
                 finish();
                 break;

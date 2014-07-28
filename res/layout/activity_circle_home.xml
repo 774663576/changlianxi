@@ -55,7 +55,8 @@
             android:paddingTop="8dip"
             android:src="@drawable/circle_home_search" />
     </RelativeLayout>
-
+<!--         android:layout_marginTop="@dimen/dp42" -->
+    
     <com.changlianxi.view.DragGridView
         android:id="@+id/circleGridView"
         android:layout_width="fill_parent"

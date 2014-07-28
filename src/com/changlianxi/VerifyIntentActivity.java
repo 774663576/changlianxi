@@ -102,7 +102,7 @@ public class VerifyIntentActivity extends BaseActivity {
                     }
                     Intent intent = new Intent();
                     intent.setClass(VerifyIntentActivity.this,
-                            MainActivity.class);
+                            CircleHomeActivity.class);
                     startActivity(intent);
                     break;
                 case 2:

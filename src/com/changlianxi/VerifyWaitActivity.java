@@ -166,7 +166,7 @@ public class VerifyWaitActivity extends BaseActivity implements
                                             Intent it = new Intent();
                                             it.setClass(
                                                     VerifyWaitActivity.this,
-                                                    MainActivity.class);
+                                                    CircleHomeActivity.class);
                                             startActivity(it);
                                             finish();
                                         } else {

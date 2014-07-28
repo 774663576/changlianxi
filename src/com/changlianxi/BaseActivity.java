@@ -16,7 +16,13 @@ public class BaseActivity extends Activity {
         super.onCreate(savedInstanceState);
         CLXApplication.addActivity(this);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-
+        if (savedInstanceState != null) {
+            // Intent intent = new Intent();
+            // intent.setClass(this, WelcomeActivity.class);
+            // intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // 注意本行的FLAG设置
+            // startActivity(intent);
+            // finish();// 关掉自己
+        }
     }
 
     public void exit() {

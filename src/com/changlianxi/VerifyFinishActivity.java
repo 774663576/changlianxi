@@ -144,7 +144,7 @@ public class VerifyFinishActivity extends BaseActivity implements
                                             Intent it = new Intent();
                                             it.setClass(
                                                     VerifyFinishActivity.this,
-                                                    MainActivity.class);
+                                                    CircleHomeActivity.class);
                                             startActivity(it);
                                             finish();
                                         } else {

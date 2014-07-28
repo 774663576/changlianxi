@@ -75,7 +75,7 @@ public class CircleHomeActivity extends BaseActivity implements
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 0:
-                    if (circleslists.size() > 1) {
+                    if (circleslists.size() != 0) {
                         if (dialog != null) {
                             dialog.dismiss();
                         }
@@ -122,7 +122,7 @@ public class CircleHomeActivity extends BaseActivity implements
         circleList = new CircleList(circleslists);
         adapter = new CircleAdapter(this, null);
         circleGridView.setAdapter(adapter);
-        dialog = DialogUtil.getWaitDialog(this, "请稍候");
+        dialog = DialogUtil.getWaitDialog(CircleHomeActivity.this, "请稍候");
         dialog.show();
         getCircleLists(true, true, true);
     }

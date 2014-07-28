@@ -246,7 +246,7 @@ public class BitmapUtils {
         if (bd == null) {
             return null;
         }
-        return BitmapUtils.toRoundBitmap(bd.getBitmap());
+        return toRoundBitmap(bd.getBitmap());
     }
 
     /**

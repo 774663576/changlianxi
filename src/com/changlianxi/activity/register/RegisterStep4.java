@@ -8,7 +8,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.changlianxi.CircleHomeActivity;
-import com.changlianxi.MainActivity;
 import com.changlianxi.R;
 import com.changlianxi.data.enums.RetError;
 import com.changlianxi.inteface.MyEditTextWatcher.OnTextLengthChange;

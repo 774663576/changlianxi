@@ -117,6 +117,7 @@
     <dimen name="scale279dip">130dip</dimen>
     <dimen name="change_history_name">23sp</dimen>
     <dimen name="editpassword">55dip</dimen>
+    <dimen name="cicle_item">150dip</dimen>
     <dimen name="dp98">46dip</dimen>
     <dimen name="dp54">25dip</dimen>
     <dimen name="dp86">40dip</dimen>
@@ -135,7 +136,6 @@
     <dimen name="dp76">36dip</dimen>
     <dimen name="dp60">28dip</dimen>
     <dimen name="sp_32">15sp</dimen>
-    <dimen name="sp_36">17sp</dimen>
     <dimen name="dp36">17dip</dimen>
     <dimen name="dp52">24dip</dimen>
     <dimen name="dp58">27dip</dimen>
@@ -152,5 +152,11 @@
     <dimen name="sp_38">18sp</dimen>
     <dimen name="dp92">43dip</dimen>
     <dimen name="dp115">54dip</dimen>
-
+    <dimen name="dp55">26dip</dimen>
+    <dimen name="dp212">99dip</dimen>
+    <dimen name="dp24">11dip</dimen>
+    <dimen name="sp_36">17sp</dimen>
+    <dimen name="dp18">8dip</dimen>
+    <dimen name="dp66">31dip</dimen>
+    
 </resources>

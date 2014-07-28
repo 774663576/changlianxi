@@ -32,7 +32,7 @@ public class MainTabActivity extends FragmentActivity implements
     private MemberFragment tabMember;
     private GrowthAndAlbumFragment tabGrowth;
     private DynamicFragment tabDynamic;
-    private CircleInfoFragement tabCircleInfo;
+    private NomalCircleInfoFragment tabCircleInfo;
     private String ciecleName;// 圈子名称
     private boolean isNewCircle;
     private int inviterID;
@@ -213,7 +213,7 @@ public class MainTabActivity extends FragmentActivity implements
                 break;
             case R.id.tab_circleInfo:
                 if (tabCircleInfo == null) {
-                    tabCircleInfo = new CircleInfoFragement();
+                    tabCircleInfo = new NomalCircleInfoFragment();
                     tabCircleInfo.setArguments(getCircleInfoBundle());
                     transaction.add(R.id.main_layout, tabCircleInfo);
                 } else {
@@ -329,6 +329,19 @@ public class MainTabActivity extends FragmentActivity implements
             }
         }
     };
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == Constants.REQUEST_CODE_GETIMAGE_BYSDCARD
+                || requestCode == Constants.REQUEST_CODE_GETIMAGE_BYCAMERA
+                || requestCode == Constants.REQUEST_CODE_GETIMAGE_DROP) {
+            if (tabCircleInfo != null) {
+                tabCircleInfo.onActivityResult(requestCode, resultCode, data);
+            }
+        }
+
+    }
 
     @Override
     public void onDestroy() {

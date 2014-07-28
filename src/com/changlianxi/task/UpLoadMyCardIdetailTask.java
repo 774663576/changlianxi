@@ -19,7 +19,6 @@ public class UpLoadMyCardIdetailTask extends
     protected RetError doInBackground(MyCard... arg0) {
         oldCircleMember = arg0[0];
         newCircleMember = arg0[1];
-        File file = new File(avatarPath);
         RetError ret = oldCircleMember.uploadAfterEdit(newCircleMember,
                 avatarPath);
 

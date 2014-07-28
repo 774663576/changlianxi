@@ -76,10 +76,7 @@ public class CircleAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         holder.circleImg.setVisibility(View.VISIBLE);
-        if (circleLogo.equals("addroot")) {
-            holder.circleBg.setImageResource(R.drawable.pic_add);
-            holder.circleImg.setVisibility(View.INVISIBLE);
-        } else if (circleLogo == null || circleLogo.equals("")
+        if (circleLogo == null || circleLogo.equals("")
                 || !circleLogo.startsWith("http")) {
             if (circleLists.get(position).getId() == -1) {
                 holder.circleImg
@@ -119,7 +116,7 @@ public class CircleAdapter extends BaseAdapter {
         }
         holder.circleName.setText(StringUtils.ToDBC(circleName));
         if (position == mHidePosition) {
-//            convertView.setVisibility(View.INVISIBLE);
+            // convertView.setVisibility(View.INVISIBLE);
             mHidePosition = -1;
         }
         return convertView;
