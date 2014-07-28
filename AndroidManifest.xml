@@ -555,6 +555,12 @@
             android:label="@string/title_activity_my_card"
             android:screenOrientation="portrait" >
         </activity>
+        <activity
+            android:name=".EditCircleActivity1"
+            android:configChanges="keyboardHidden|orientation"
+            android:label="@string/title_activity_edit_circle_activity1"
+            android:screenOrientation="portrait" >
+        </activity>
     </application>
 
 </manifest>

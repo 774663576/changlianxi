@@ -25,7 +25,7 @@ public class BaseActivity extends Activity {
         }
     }
 
-    public void exit() {
+    protected void exit() {
         finish();
         Utils.rightOut(this);
 

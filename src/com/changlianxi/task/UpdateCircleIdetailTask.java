@@ -5,9 +5,9 @@ import com.changlianxi.data.enums.RetError;
 import com.changlianxi.db.DBUtils;
 
 /**
- * 获取圈子的详细资料
- * 
+ * 编辑圈子信息
  * @author teeker_bin
+ *
  */
 public class UpdateCircleIdetailTask extends
         BaseAsyncTask<Void, Void, RetError> {
@@ -23,14 +23,8 @@ public class UpdateCircleIdetailTask extends
     protected RetError doInBackground(Void... params) {
         RetError retError = null;
         retError = oldCircle.uploadAfterEdit(newCircle);
-        if (retError != RetError.NONE) {
-            return retError;
-        }
-        // oldCircle.write(DBUtils.getDBsa(2));
-        retError = oldCircle.uploadLogo(newCircle.getOriginalLogo());
-        oldCircle.write(DBUtils.getDBsa(2));
-        if (retError == RetError.INVALID) {
-            return RetError.NONE;
+        if (retError == RetError.NONE) {
+            oldCircle.write(DBUtils.getDBsa(2));
         }
         return retError;
     }

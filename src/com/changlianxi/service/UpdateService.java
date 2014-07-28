@@ -28,7 +28,6 @@ import android.os.Message;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
-import com.changlianxi.LoginActivity;
 import com.changlianxi.R;
 import com.changlianxi.util.FileUtils;
 

@@ -335,7 +335,8 @@ public class MainTabActivity extends FragmentActivity implements
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Constants.REQUEST_CODE_GETIMAGE_BYSDCARD
                 || requestCode == Constants.REQUEST_CODE_GETIMAGE_BYCAMERA
-                || requestCode == Constants.REQUEST_CODE_GETIMAGE_DROP) {
+                || requestCode == Constants.REQUEST_CODE_GETIMAGE_DROP
+                || requestCode == Constants.EDIT_CIRCL) {
             if (tabCircleInfo != null) {
                 tabCircleInfo.onActivityResult(requestCode, resultCode, data);
             }

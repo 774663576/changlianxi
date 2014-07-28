@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.changlianxi.EditCircleActivity1;
 import com.changlianxi.R;
 import com.changlianxi.data.Circle;
 import com.changlianxi.data.CircleMember;
@@ -125,17 +126,23 @@ public class NomalCircleInfoFragment extends Fragment implements
     }
 
     private void setListener() {
+        circleName.setOnClickListener(this);
         back.setOnClickListener(this);
         circleLogo.setOnClickListener(this);
-        exitCircle.setOnClickListener(this);
         dissolveCircle.setOnClickListener(this);
+        exitCircle.setOnClickListener(this);
         getServerData();
     }
 
     private void isCreator() {
         if (circle.getCreator() != Global.getIntUid()) {
             exitCircle.setVisibility(View.VISIBLE);
+            if ("".equals(circle.getDescription())) {
+                circleDescription.setVisibility(View.GONE);
+            }
         } else {
+            circleName.setOnClickListener(this);
+            circleDescription.setOnClickListener(this);
             editCircleLogo = (ImageView) getView().findViewById(
                     R.id.edit_circle_logo);
             editCircleLogo.setOnClickListener(this);
@@ -157,9 +164,6 @@ public class NomalCircleInfoFragment extends Fragment implements
     private void setvalue(String name, String cirIcon, String des,
             String total, String ver) {
         circleDescription.setText(des);
-        if ("".equals(des)) {
-            circleDescription.setVisibility(View.GONE);
-        }
         circleName.setText(name);
         titleName.setText(name);
         setCircleImg(cirIcon);
@@ -281,7 +285,8 @@ public class NomalCircleInfoFragment extends Fragment implements
                 BroadCast.sendBroadCast(getActivity(), Constants.CHANGE_TAB);
                 break;
             case R.id.exit_circle:
-                confirmDialog("退出后，您将失去与圈内朋友的互动，不能了解大家的近况，您确定要退出么？");
+                confirmDialog("退出后，您将失去与圈内朋友的互动，不能了解大家的近况，您确定要退出么？",
+                        R.id.exit_circle);
                 break;
             case R.id.circleLogo:
                 intentShowBigImg();
@@ -291,19 +296,50 @@ public class NomalCircleInfoFragment extends Fragment implements
                 pop.show();
                 pop.setCallBack(this);
                 break;
+            case R.id.circleName:
+                intentEditActivity(v.getId());
+                break;
+            case R.id.circleDis:
+                intentEditActivity(v.getId());
+                break;
+            case R.id.dissolve_circle:
+                if (circle.getVerifiedCnt() > 1) {
+                    promptDialog();
+                    return;
+                }
+                confirmDialog("您确认不是一时冲动？真的要解散本圈子吗？本操作不可恢复，误操作后果很严重哦。",
+                        R.id.dissolve_circle);
+                break;
             default:
                 break;
         }
     }
 
-    private void confirmDialog(String str) {
+    private void intentEditActivity(int id) {
+        Intent intent = new Intent();
+        Bundle b = new Bundle();
+        b.putSerializable("circle", circle);
+        intent.putExtras(b);
+        intent.setClass(getActivity(), EditCircleActivity1.class);
+        if (id == R.id.circleName) {
+            intent.putExtra("tag", 1);
+        } else if (id == R.id.circleDis) {
+            intent.putExtra("tag", 2);
+        }
+        getActivity().startActivityForResult(intent, Constants.EDIT_CIRCL);
+    }
+
+    private void confirmDialog(String str, final int id) {
         Dialog dialog = DialogUtil.confirmDialog(getActivity(), str, "确定",
                 "取消", new ConfirmDialog() {
 
                     @Override
                     public void onOKClick() {
-                        quitCircle();
-
+                        if (id == R.id.exit_circle) {
+                            quitCircle();
+                        } else {
+                            dissolveCircle();
+                        }
                     }
 
                     @Override
@@ -315,10 +351,74 @@ public class NomalCircleInfoFragment extends Fragment implements
 
     }
 
+    private void promptDialog() {
+        Dialog dialog = DialogUtil.promptDialog(getActivity(),
+                "圈子中还有其他认证成员存在，您目前还不能解散本圈子", "确定", new ConfirmDialog() {
+                    @Override
+                    public void onOKClick() {
+                    }
+
+                    @Override
+                    public void onCancleClick() {
+
+                    }
+                });
+        dialog.show();
+    }
+
+    /**
+     * 解散圈子
+     */
+    private void dissolveCircle() {
+
+        dialog = DialogUtil.getWaitDialog(getActivity(), "请稍后");
+        dialog.show();
+        BaseAsyncTask<Void, Void, RetError> task = new BaseAsyncTask<Void, Void, RetError>() {
+
+            @Override
+            protected RetError doInBackground(Void... params) {
+                RetError ret = circle.dissolve();
+                if (ret == RetError.NONE) {
+                    circle.write(DBUtils.getDBsa(2));
+                }
+                return ret;
+            }
+        };
+        task.setTaskCallBack(new BaseAsyncTask.PostCallBack<RetError>() {
+
+            @Override
+            public void taskFinish(RetError result) {
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+                if (result != RetError.NONE) {
+                    return;
+                }
+                Utils.showToast("解散成功", Toast.LENGTH_SHORT);
+                exitSuccess();
+            }
+
+            @Override
+            public void readDBFinish() {
+
+            }
+        });
+        task.executeWithCheckNet();
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == Constants.REQUEST_CODE_GETIMAGE_BYSDCARD
+        if (requestCode == Constants.EDIT_CIRCL && data != null) {
+            Circle circle = (Circle) data.getExtras().getSerializable("circle");
+            titleName.setText(circle.getName());
+            circleDescription.setText(circle.getDescription());
+            circleName.setText(circle.getName());
+            circle = null;
+            BroadCast.sendBroadCast(getActivity(),
+                    Constants.REFRESH_CIRCLE_LIST);
+
+        } else if (requestCode == Constants.REQUEST_CODE_GETIMAGE_BYSDCARD
                 && data != null) {
             selectPicPath = BitmapUtils.startPhotoZoom(getActivity(),
                     data.getData());

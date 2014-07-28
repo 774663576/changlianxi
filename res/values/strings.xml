@@ -210,5 +210,6 @@
     <string name="title_activity_add_circle_member_activity1">AddCircleMemberActivity1</string>
     <string name="title_activity_message_list">MessageListActivity</string>
     <string name="title_activity_my_card">MyCardActivity</string>
+    <string name="title_activity_edit_circle_activity1">EditCircleActivity1</string>
 
 </resources>

@@ -43,7 +43,6 @@ import com.changlianxi.util.BroadCast;
 import com.changlianxi.util.Constants;
 import com.changlianxi.util.DateUtils;
 import com.changlianxi.util.DialogUtil;
-import com.changlianxi.util.RotateImageViewAware;
 import com.changlianxi.util.SharedUtils;
 import com.changlianxi.util.StringUtils;
 import com.changlianxi.util.UniversalImageLoadTool;
