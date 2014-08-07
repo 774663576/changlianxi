@@ -58,17 +58,20 @@ public class CircleListParser implements IParser {
             } else {
                 c.setStatus(Status.NEW);
             }
-            List<CircleGroup> groups = new ArrayList<CircleGroup>();
-            JSONArray jsonGroups = obj.getJSONArray("groups");
-            for (int j = 0; j < jsonGroups.length(); j++) {
-                JSONObject objGroups = (JSONObject) jsonGroups.opt(j);
-                int group_id = objGroups.getInt("id");
-                String group_name = objGroups.getString("name");
-                CircleGroup group = new CircleGroup(id, group_id, group_name);
-                groups.add(group);
+            if (obj.has("groups")) {
+                List<CircleGroup> groups = new ArrayList<CircleGroup>();
+                JSONArray jsonGroups = obj.getJSONArray("groups");
+                for (int j = 0; j < jsonGroups.length(); j++) {
+                    JSONObject objGroups = (JSONObject) jsonGroups.opt(j);
+                    int group_id = objGroups.getInt("id");
+                    String group_name = objGroups.getString("name");
+                    CircleGroup group = new CircleGroup(id, group_id,
+                            group_name);
+                    groups.add(group);
+                }
+                c.setGroups(groups);
+                circles.add(c);
             }
-            c.setGroups(groups);
-            circles.add(c);
         }
         String sequence = "";
         if (jsonObj.has("sequence")) {
