@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#7f000000"
+    android:orientation="vertical" >
+
+    <Button
+        android:id="@+id/btn_all"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="left"
+        android:paddingBottom="10dip"
+        android:paddingLeft="23dp"
+        android:paddingTop="10dip"
+        android:text="全部"
+        android:textColor="@color/f6f"
+        android:textSize="18sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.8dip"
+        android:background="#d1d1d1" />
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:cacheColorHint="@android:color/transparent"
+        android:divider="#d1d1d1"
+        android:dividerHeight="1dip"
+        android:listSelector="@android:color/transparent" >
+    </ListView>
+
+</LinearLayout>

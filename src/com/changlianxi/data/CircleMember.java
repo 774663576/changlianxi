@@ -136,11 +136,13 @@ public class CircleMember extends AbstractData implements Serializable {
     private CircleMemberState state = CircleMemberState.STATUS_INVALID;
     private int cmid = 0;
     private String register = "";
+    private boolean isManager = false;
     private String inviteCode = "";
     private String inviteRt = "1";// 邀请结果标示 1成功 非1失败
     private String inviteContent = "";// 邀请内容 短信预览界面 使用
     private List<EditData> editData = new ArrayList<EditData>();
     private List<PersonDetail> keyAndValue = new ArrayList<PersonDetail>();
+    private List<CircleMemberGroups> groups = new ArrayList<CircleMemberGroups>();
 
     public CircleMember(int cid) {
         this(cid, 0);
@@ -289,6 +291,14 @@ public class CircleMember extends AbstractData implements Serializable {
         this.register = register;
     }
 
+    public boolean isManager() {
+        return isManager;
+    }
+
+    public void setManager(boolean isManager) {
+        this.isManager = isManager;
+    }
+
     public List<PersonDetail> getDetails() {
         for (int i = details.size() - 1; i >= 0; i--) {
             if (details.get(i).status == Status.DEL) {
@@ -367,6 +377,14 @@ public class CircleMember extends AbstractData implements Serializable {
         this.editData = editData;
     }
 
+    public List<CircleMemberGroups> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(List<CircleMemberGroups> groups) {
+        this.groups = groups;
+    }
+
     @Override
     public String toString() {
         return "CircleMember [cid=" + cid + ", uid=" + uid + ", pid=" + pid
@@ -391,7 +409,8 @@ public class CircleMember extends AbstractData implements Serializable {
                 "_id", "uid", "pid", "cmid", "name", "cellphone",
                 "account_email", "location", "avatar", "employer",
                 "lastModTime", "state", "inviteCode", "sortkey", "pinyinFir",
-                "register" }, conditionsKey, conditionsValue, null, null, null);
+                "register", "isManager" }, conditionsKey, conditionsValue,
+                null, null, null);
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
             int _id = cursor.getInt(cursor.getColumnIndex("_id"));
@@ -419,6 +438,7 @@ public class CircleMember extends AbstractData implements Serializable {
                     .getColumnIndex("pinyinFir"));
             String register = cursor.getString(cursor
                     .getColumnIndex("register"));
+            int isManager = cursor.getInt(cursor.getColumnIndex("isManager"));
 
             this._id = _id;
             this.uid = uid;
@@ -436,6 +456,7 @@ public class CircleMember extends AbstractData implements Serializable {
             this.pinyinFir = pinyinFir;
             this.sortkey = sortkey;
             this.register = register;
+            this.isManager = isManager == 1;
             // set status
             this.status = Status.OLD;
         }
@@ -610,12 +631,32 @@ public class CircleMember extends AbstractData implements Serializable {
         cv.put("sortkey", sortkey);
         cv.put("pinyinFir", pinyinFir);
         cv.put("register", register);
+        cv.put("isManager", isManager ? 1 : 0);
         if (this.status == Status.NEW) {
             db.insert(dbName, null, cv);
         } else if (this.status == Status.UPDATE) {
             db.update(dbName, cv, conditionsKey, conditionsValue);
         }
         this.status = Status.OLD;
+    }
+
+    /**
+     * 更新管理员状态
+     * @param db
+     */
+    public void updateManager(SQLiteDatabase db) {
+        String dbName = Const.CIRCLE_MEMBER_TABLE_NAME;
+
+        String conditionsKey = "cid=? and pid=?";
+        String[] conditionsValue = { this.cid + "", this.pid + "" };
+        if (pid == 0) {
+            conditionsKey = "cid=? and uid=?";
+            conditionsValue = new String[] { this.cid + "", this.uid + "" };
+        }
+        ContentValues cv = new ContentValues();
+        cv.put("isManager", isManager ? 1 : 0);
+        db.update(dbName, cv, conditionsKey, conditionsValue);
+
     }
 
     /**
@@ -711,7 +752,7 @@ public class CircleMember extends AbstractData implements Serializable {
             this.lastModTime = another.lastModTime;
             this.location = another.location;
             this.state = another.state;
-
+            this.groups = another.groups;
             this.details = another.details;
             isChange = true;
         }
@@ -1506,12 +1547,14 @@ public class CircleMember extends AbstractData implements Serializable {
         String employer = this.employer.replaceAll("'", "''");
         String sortkey = this.sortkey.replaceAll("'", "");
         String pinyinFir = this.pinyinFir.replaceAll("'", "");
+        int isManager = this.isManager ? 1 : 0;
 
         return "(" + cid + "," + uid + "," + pid + "," + cmid + ",'" + name
                 + "','" + cellphone + "','" + account_email + "','" + location
                 + "','" + avatar + "','" + employer + "','" + lastModTime
                 + "','" + state.name() + "','" + inviteCode + "','" + sortkey
-                + "','" + pinyinFir + "','" + register + "')";
+                + "','" + pinyinFir + "','" + register + "','" + isManager
+                + "')";
     }
 
     public String toDbUnionInsertString() {
@@ -1519,18 +1562,18 @@ public class CircleMember extends AbstractData implements Serializable {
         String employer = this.employer.replaceAll("'", "''");
         String sortkey = this.sortkey.replaceAll("'", "");
         String pinyinFir = this.pinyinFir.replaceAll("'", "");
-
+        int isManager = this.isManager ? 1 : 0;
         return cid + "," + uid + "," + pid + "," + cmid + ",'" + name + "','"
                 + cellphone + "','" + account_email + "','" + location + "','"
                 + avatar + "','" + employer + "','" + lastModTime + "','"
                 + state.name() + "','" + inviteCode + "','" + sortkey + "','"
-                + pinyinFir + "','" + register + "'";
+                + pinyinFir + "','" + register + "','" + isManager + "'";
     }
 
     public static String getDbInsertKeyString() {
         return " (cid, uid, pid, cmid, name, cellphone,account_email, location, avatar,"
                 + " employer, lastModTime, state, inviteCode, sortkey, pinyinFir,"
-                + " register) ";
+                + " register, isManager) ";
     }
 
 }

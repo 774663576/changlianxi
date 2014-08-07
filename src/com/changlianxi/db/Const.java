@@ -17,7 +17,7 @@ public class Const {
     public static final String CIRCLE_MEMBER_TABLE_STRUCTURE = "_id integer PRIMARY KEY AUTOINCREMENT,"
             + " cid integer, uid integer, pid integer, cmid integer, name varchar, cellphone varchar, account_email varchar,"
             + " location varchar, avatar varchar, employer varchar, lastModTime varchar, state varchar,"
-            + " inviteCode varchar, sortkey varchar, pinyinFir varchar, register varchar";
+            + " inviteCode varchar, sortkey varchar, pinyinFir varchar, register varchar,isManager integer";
 
     /**
      * @deprecated use PERSON_DETAIL_TABLEddd_NAME1
@@ -104,5 +104,10 @@ public class Const {
             + " id integer, cid integer, publisher integer, content varchar, location varchar, happened integer,"
             + " published varchar, praiseCnt integer, commentCnt integer, isPraised integer,"
             + " lastCommentsReqTime long,albumName varchar,strKey varchar,year varchar,month varchar,day varchar";
-
+    public static final String CIRCLE_GROUP_TABLE_NAME = "circle_group";
+    public static final String CIRCLE_GROUP_TABLE_STRUCTURE = "_id integer PRIMARY KEY AUTOINCREMENT,"
+            + "cid integer, group_id integer, group_name varchar";
+    public static final String CIRCLE_MEMBERS_GROUPS_TABLE_NAME = "circle_member_groups";
+    public static final String CIRCLE_MEMBERS_GROUPS_STRUCTURE = "_id integer PRIMARY KEY AUTOINCREMENT,"
+            + "cid integer, group_id integer, pid integer";
 }

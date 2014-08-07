@@ -57,9 +57,7 @@ public class CircleMemberList extends AbstractData {
     private List<CircleMember> members = new ArrayList<CircleMember>();
 
     enum Type {
-        NEW,
-        MOD,
-        DEL
+        NEW, MOD, DEL
     } // TODO
 
     public CircleMemberList(int cid) {
@@ -198,11 +196,13 @@ public class CircleMemberList extends AbstractData {
 
         String conditionsKey = "cid=?";
         String[] conditionsValue = { this.cid + "" };
-        Cursor cursor = db.query(Const.CIRCLE_MEMBER_TABLE_NAME, new String[] {
-                "_id", "uid", "pid", "cmid", "name", "cellphone",
-                "account_email", "location", "avatar", "employer",
-                "lastModTime", "state", "inviteCode", "sortkey", "pinyinFir" },
-                conditionsKey, conditionsValue, null, null, null);
+        Cursor cursor = db
+                .query(Const.CIRCLE_MEMBER_TABLE_NAME, new String[] { "_id",
+                        "uid", "pid", "cmid", "name", "cellphone",
+                        "account_email", "location", "avatar", "employer",
+                        "lastModTime", "state", "inviteCode", "sortkey",
+                        "pinyinFir", "isManager" }, conditionsKey,
+                        conditionsValue, null, null, null);
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
             for (int i = 0; i < cursor.getCount(); i++) {
@@ -230,6 +230,8 @@ public class CircleMemberList extends AbstractData {
                         .getColumnIndex("sortkey"));
                 String pinyinFir = cursor.getString(cursor
                         .getColumnIndex("pinyinFir"));
+                int isManager = cursor.getInt(cursor
+                        .getColumnIndex("isManager"));
 
                 CircleMember member = new CircleMember(cid, pid, uid, name);
                 member.set_id(_id);
@@ -244,6 +246,7 @@ public class CircleMemberList extends AbstractData {
                 member.setInviteCode(inviteCode);
                 member.setPinyinFir(pinyinFir);
                 member.setSortkey(sortkey);
+                member.setManager(isManager == 1);
                 // set status
                 member.setStatus(Status.OLD);
 
@@ -387,6 +390,7 @@ public class CircleMemberList extends AbstractData {
 
         List<CircleMember> newMembers = new ArrayList<CircleMember>();
         List<CircleMember> delMembers = new ArrayList<CircleMember>();
+
         for (CircleMember m : members) {
             if (m.status == Status.OLD) {
                 continue;
@@ -494,7 +498,6 @@ public class CircleMemberList extends AbstractData {
                     cnt++;
                     if (cnt >= MAX_INSERT_COUNT_FOR_PERSONAL_DETAIL) {
                         db.execSQL(sqlBuffer.toString());
-
                         cnt = 0;
                         sqlBuffer = new StringBuffer();
                         sqlBuffer.append("insert into "
@@ -513,9 +516,18 @@ public class CircleMemberList extends AbstractData {
                 }
             }
 
+            // write gorups
+            for (CircleMember m : newMembers) {
+                String dbName = Const.CIRCLE_MEMBERS_GROUPS_TABLE_NAME;
+                db.delete(dbName, "pid=?", new String[] { m.getPid() + "" });
+                for (CircleMemberGroups group : m.getGroups()) {
+                    group.write(db);
+                }
+
+            }
+
             // reset status
             this.status = Status.OLD;
-
             // write last request time
             ContentValues cv = new ContentValues();
             cv.put("time", lastReqTime);
@@ -574,6 +586,23 @@ public class CircleMemberList extends AbstractData {
 
         this.status = Status.UPDATE;
         sort();
+    }
+
+    public void readCircleMembersByGroupID(SQLiteDatabase db, int group_id) {
+        Cursor cursor = db.query(Const.CIRCLE_MEMBERS_GROUPS_TABLE_NAME,
+                new String[] { "pid" }, "cid=? and group_id=?", new String[] {
+                        this.cid + "", group_id + "" }, null, null, null);
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            for (int i = 0; i < cursor.getCount(); i++) {
+                int pid = cursor.getInt(cursor.getColumnIndex("pid"));
+                CircleMember member = new CircleMember(cid, pid);
+                member.read(db);
+                members.add(member);
+                cursor.moveToNext();
+            }
+        }
+        cursor.close();
     }
 
     /**

@@ -32,7 +32,7 @@ public class MainTabActivity extends FragmentActivity implements
     private MemberFragment tabMember;
     private GrowthAndAlbumFragment tabGrowth;
     private DynamicFragment tabDynamic;
-    private NomalCircleInfoFragment tabCircleInfo;
+    private CircleInfoFragment tabCircleInfo;
     private String ciecleName;// 圈子名称
     private boolean isNewCircle;
     private int inviterID;
@@ -213,7 +213,7 @@ public class MainTabActivity extends FragmentActivity implements
                 break;
             case R.id.tab_circleInfo:
                 if (tabCircleInfo == null) {
-                    tabCircleInfo = new NomalCircleInfoFragment();
+                    tabCircleInfo = new CircleInfoFragment();
                     tabCircleInfo.setArguments(getCircleInfoBundle());
                     transaction.add(R.id.main_layout, tabCircleInfo);
                 } else {

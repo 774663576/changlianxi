@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import com.changlianxi.data.AbstractData.Status;
 import com.changlianxi.data.Circle;
+import com.changlianxi.data.CircleGroup;
 import com.changlianxi.data.CircleList;
 import com.changlianxi.data.enums.CircleMemberState;
 import com.changlianxi.data.request.Result;
@@ -57,9 +58,22 @@ public class CircleListParser implements IParser {
             } else {
                 c.setStatus(Status.NEW);
             }
+            List<CircleGroup> groups = new ArrayList<CircleGroup>();
+            JSONArray jsonGroups = obj.getJSONArray("groups");
+            for (int j = 0; j < jsonGroups.length(); j++) {
+                JSONObject objGroups = (JSONObject) jsonGroups.opt(j);
+                int group_id = objGroups.getInt("id");
+                String group_name = objGroups.getString("name");
+                CircleGroup group = new CircleGroup(id, group_id, group_name);
+                groups.add(group);
+            }
+            c.setGroups(groups);
             circles.add(c);
         }
-        String sequence = jsonObj.getString("sequence");
+        String sequence = "";
+        if (jsonObj.has("sequence")) {
+            sequence = jsonObj.getString("sequence");
+        }
         SharedUtils.setString("circleSequence", sequence);
         CircleList cl = new CircleList(circles);
         cl.setLastReqTime(requestTime);

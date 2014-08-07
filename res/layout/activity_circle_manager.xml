@@ -1,0 +1,75 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundcolor" >
+
+    <RelativeLayout
+        android:id="@+id/layTitle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp104"
+        android:background="@color/titleBarBackGround" >
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:paddingLeft="@dimen/dp26"
+            android:paddingRight="16dip"
+            android:src="@drawable/back_new" />
+
+        <TextView
+            android:id="@+id/txt_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
+            android:layout_toRightOf="@+id/back"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_50" />
+
+        <Button
+            android:id="@+id/btn_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:paddingBottom="5dip"
+            android:paddingLeft="5dip"
+            android:paddingRight="@dimen/dp32"
+            android:paddingTop="5dip"
+            android:text="保存"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_38" />
+    </RelativeLayout>
+
+    <com.changlianxi.view.DrawableCenterTextView
+        android:id="@+id/btn_add_manager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layTitle"
+        android:background="#b3231815"
+        android:drawableLeft="@drawable/circle_home_add"
+        android:drawablePadding="8dip"
+        android:paddingBottom="13dip"
+        android:paddingTop="13dip"
+        android:text="添加管理员"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/btn_add_manager"
+        android:cacheColorHint="#00000000"
+        android:divider="#cecece"
+        android:listSelector="#00000000"
+        android:scrollbars="none" >
+    </ListView>
+
+</RelativeLayout>

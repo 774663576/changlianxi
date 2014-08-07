@@ -250,7 +250,6 @@ public class CircleList extends AbstractData {
                 }
                 c.write(db);
             }
-
             // write last request time
             ContentValues cv = new ContentValues();
             cv.put("time", lastReqTime);

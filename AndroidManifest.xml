@@ -556,10 +556,43 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".EditCircleActivity1"
+            android:name=".CircleGroupActivity"
             android:configChanges="keyboardHidden|orientation"
-            android:label="@string/title_activity_edit_circle_activity1"
+            android:label="@string/title_activity_circle_group"
             android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".InputCircleGroupNameActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:label="@string/title_activity_input_circle_group_name"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".EditCircleGroupActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:label="@string/title_activity_edit_circle_group"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".AddCircleGroupMemberActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:label="@string/title_activity_add_circle_group_member"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".CircleManagerActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:label="@string/title_activity_circle_manager"
+            android:screenOrientation="portrait" >
+        </activity>
+        <!-- 注意这个地方的位置，是在application标签里面；android:authorities对应Provider.AUTHORITY -->
+        <provider
+            android:name=".contentprovider.CircleMemberContentProvider"
+            android:authorities="com.changlianxi.circle.members" />
+
+        <activity
+            android:name=".ManagerActiviy"
+            android:label="@string/title_activity_manager_activiy" >
         </activity>
     </application>
 

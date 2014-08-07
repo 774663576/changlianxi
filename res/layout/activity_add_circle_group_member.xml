@@ -1,0 +1,100 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundcolor" >
+
+    <include
+        android:id="@+id/layTitle"
+        android:layout_width="match_parent"
+        layout="@layout/title_bar" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layTitle"
+        android:background="#b3231815"
+        android:gravity="center_vertical" >
+
+        <com.changlianxi.view.SearchEditText
+            android:id="@+id/search"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dip"
+            android:layout_marginLeft="10dip"
+            android:layout_marginTop="6dip"
+            android:layout_weight="1"
+            android:background="@drawable/search_bg"
+            android:focusable="false"
+            android:paddingLeft="29dip"
+            android:singleLine="true"
+            android:textColor="#b3b3b3"
+            android:textColorHint="#b3b3b3"
+            android:textSize="@dimen/scale30sp" >
+        </com.changlianxi.view.SearchEditText>
+
+        <ImageView
+            android:id="@+id/btn_cancle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dip"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:paddingTop="5dip"
+            android:src="@drawable/circle_group_cancle" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layBottom"
+        android:layout_width="fill_parent"
+        android:layout_height="55dip"
+        android:layout_alignParentBottom="true"
+        android:background="#b3231815"
+        android:gravity="center"
+        android:visibility="gone" >
+
+        <HorizontalScrollView
+            android:id="@+id/horizontalScrollView1"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:scrollbars="none" >
+
+            <LinearLayout
+                android:id="@+id/addicon"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal" >
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <Button
+            android:id="@+id/btnfinish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dip"
+            android:background="@drawable/button_new"
+            android:gravity="center"
+            android:paddingBottom="8dip"
+            android:paddingLeft="15dip"
+            android:paddingRight="15dip"
+            android:paddingTop="8dip"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/layBottom"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/linearLayout1"
+        android:cacheColorHint="#00000000"
+        android:divider="#cecece"
+        android:listSelector="#00000000"
+        android:scrollbars="none" >
+    </ListView>
+
+</RelativeLayout>

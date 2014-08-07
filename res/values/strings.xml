@@ -211,5 +211,11 @@
     <string name="title_activity_message_list">MessageListActivity</string>
     <string name="title_activity_my_card">MyCardActivity</string>
     <string name="title_activity_edit_circle_activity1">EditCircleActivity1</string>
+    <string name="title_activity_circle_group">CircleGroupActivity</string>
+    <string name="title_activity_input_circle_group_name">InputCircleGroupNameActivity</string>
+    <string name="title_activity_edit_circle_group">EditCircleGroupActivity</string>
+    <string name="title_activity_add_circle_group_member">AddCircleGroupMemberActivity</string>
+    <string name="title_activity_circle_manager">CircleManagerActivity</string>
+    <string name="title_activity_manager_activiy">ManagerActiviy</string>
 
 </resources>

@@ -113,6 +113,14 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.execSQL("create table IF NOT EXISTS "
                 + Const.ALBUM_GROWTH_TABLE_NAME + "("
                 + Const.ALBUM_GROWTH_TABLE_STRUCTURE + ")");
+        // circle groups
+        db.execSQL("create table IF NOT EXISTS "
+                + Const.CIRCLE_GROUP_TABLE_NAME + "("
+                + Const.CIRCLE_GROUP_TABLE_STRUCTURE + ")");
+        // circle members groups
+        db.execSQL("create table IF NOT EXISTS "
+                + Const.CIRCLE_MEMBERS_GROUPS_TABLE_NAME + "("
+                + Const.CIRCLE_MEMBERS_GROUPS_STRUCTURE + ")");
     }
 
     @Override
@@ -143,9 +151,14 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + Const.CIRCLE_DYNAMIC_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + Const.AMENDMENT_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + Const.MYINFO_TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + Const.GROWTH_ALBUM_IMAGE_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS "
+                + Const.GROWTH_ALBUM_IMAGE_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + Const.GROWTH_ALBUM_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + Const.ALBUM_GROWTH_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + Const.CIRCLE_GROUP_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS "
+                + Const.CIRCLE_MEMBERS_GROUPS_TABLE_NAME);
+
     }
 
 }

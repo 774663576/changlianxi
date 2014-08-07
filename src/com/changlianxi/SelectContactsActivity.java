@@ -93,7 +93,7 @@ public class SelectContactsActivity extends BaseActivity implements
     private Dialog dialog;
     private CircleMember member;
     private HorizontalScrollView scrollview;
-    Handler mHandler = new Handler() {
+    private Handler mHandler = new Handler() {
         public void handleMessage(android.os.Message msg) {
             switch (msg.what) {
                 case 0:

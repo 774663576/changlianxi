@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -35,6 +36,7 @@ import com.changlianxi.R;
 import com.changlianxi.SetingPublicInfomationActivity;
 import com.changlianxi.UserInfoActivity;
 import com.changlianxi.adapter.MemberAdapter;
+import com.changlianxi.data.Circle;
 import com.changlianxi.data.CircleMember;
 import com.changlianxi.data.CircleMemberList;
 import com.changlianxi.data.Global;
@@ -42,6 +44,8 @@ import com.changlianxi.data.enums.CircleMemberState;
 import com.changlianxi.data.enums.RetError;
 import com.changlianxi.db.DBUtils;
 import com.changlianxi.inteface.ConfirmDialog;
+import com.changlianxi.popwindow.CircleMemberGroupsPopwindow;
+import com.changlianxi.popwindow.CircleMemberGroupsPopwindow.OnGroupClick;
 import com.changlianxi.popwindow.SearchLayerPopwindow;
 import com.changlianxi.popwindow.SearchLayerPopwindow.OnCancleClick;
 import com.changlianxi.task.AcceptCircleInvitationTask;
@@ -50,6 +54,7 @@ import com.changlianxi.task.BaseAsyncTask.PostCallBack;
 import com.changlianxi.task.CircleMemberListFirstTask;
 import com.changlianxi.task.CircleMemberListTask;
 import com.changlianxi.task.CircleMemberListTask.GetCircleMemberList;
+import com.changlianxi.task.GetCircleGroupMembersTask;
 import com.changlianxi.task.RefuseCircleInvitationTask;
 import com.changlianxi.util.BroadCast;
 import com.changlianxi.util.Constants;
@@ -98,10 +103,11 @@ public class MemberFragment extends Fragment implements
     private Dialog progressDialog;
     private boolean isAuth;
     private CircleMember member = null;
-    private LinearLayout titileLayout;
+    private RelativeLayout titileLayout;
     private TextView inviteName;
     private Button btnLook;
     private Button btnNotLook;
+    private CircleMemberGroupsPopwindow pop;
     private Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -161,7 +167,7 @@ public class MemberFragment extends Fragment implements
     }
 
     private void initView() {
-        titileLayout = (LinearLayout) getView().findViewById(R.id.titileLay);
+        titileLayout = (RelativeLayout) getView().findViewById(R.id.titileLay);
         mPullDownView = (PullDownView) getView().findViewById(
                 R.id.PullDownlistView);
         listView = mPullDownView.getListView();
@@ -177,6 +183,11 @@ public class MemberFragment extends Fragment implements
         btadd = (ImageView) getView().findViewById(R.id.rightImg);
         btadd.setImageResource(R.drawable.icon_add);
         title = (TextView) getView().findViewById(R.id.titleTxt);
+        Drawable drawable = getResources().getDrawable(
+                R.drawable.new_angle_down);
+        drawable.setBounds(0, 0, drawable.getMinimumWidth(),
+                drawable.getMinimumHeight());
+        title.setCompoundDrawables(null, null, drawable, null);
         listView.setCacheColorHint(0);
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.header,
                 null);
@@ -245,6 +256,7 @@ public class MemberFragment extends Fragment implements
         mPullDownView.notifyDidMore();
         editSearch.setOnClickListener(this);
         btadd.setOnClickListener(this);
+        title.setOnClickListener(this);
         setValue();
     }
 
@@ -530,9 +542,47 @@ public class MemberFragment extends Fragment implements
             case R.id.btnNotLook:
                 vsLayEdit.setVisibility(View.GONE);
                 break;
+            case R.id.titleTxt:
+                Circle circle = new Circle(cid);
+                circle.readCircleGorups(DBUtils.getDBsa(1));
+                pop = new CircleMemberGroupsPopwindow(getActivity(), v,
+                        circle.getGroups());
+                pop.setOnlistOnclick(new OnGroupClick() {
+
+                    @Override
+                    public void onclick(int groups_id) {
+                        showGroupMembers(groups_id);
+                    }
+
+                    @Override
+                    public void onAllClick() {
+                        adapter.setData(lists);
+                    }
+                });
+                pop.show();
+                break;
             default:
                 break;
         }
+    }
+
+    private void showGroupMembers(int groups_id) {
+        final CircleMemberList membersList = new CircleMemberList(cid);
+        GetCircleGroupMembersTask task = new GetCircleGroupMembersTask(
+                groups_id);
+        task.setTaskCallBack(new PostCallBack<RetError>() {
+
+            @Override
+            public void taskFinish(RetError result) {
+                adapter.setData(membersList.getMembers());
+            }
+
+            @Override
+            public void readDBFinish() {
+
+            }
+        });
+        task.executeWithCheckNet(membersList);
     }
 
     private CircleMember findMeFromMembersList() {

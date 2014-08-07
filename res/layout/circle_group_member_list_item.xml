@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <!-- 首字母 -->
+
+    <TextView
+        android:id="@+id/alpha"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/scale56dip"
+        android:layout_marginBottom="9dip"
+        android:gravity="center_vertical"
+        android:paddingLeft="13dip"
+        android:paddingTop="9dip"
+        android:textColor="#3e3a39"
+        android:textSize="@dimen/sp_30" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dip"
+        android:layout_marginRight="8dip"
+        android:layout_marginTop="10dip"
+        android:background="@drawable/circle_group_member_item"
+        android:gravity="center_vertical" >
+
+        <include
+            android:id="@+id/avatar_layout"
+            android:layout_width="fill_parent"
+            layout="@layout/circle_group_item_avatar_layout" />
+
+        <LinearLayout
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dip"
+            android:layout_marginRight="5dip"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/txt_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:textColor="#3e3a39"
+                android:textSize="@dimen/sp_30" />
+
+            <TextView
+                android:id="@+id/txt_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dip"
+                android:singleLine="true"
+                android:textColor="#595757"
+                android:textSize="@dimen/sp_24" />
+
+            <TextView
+                android:id="@+id/txt_tel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:textColor="#595757"
+                android:textSize="@dimen/sp_24" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/img_del"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/circle_group_del" />
+    </LinearLayout>
+
+</LinearLayout>

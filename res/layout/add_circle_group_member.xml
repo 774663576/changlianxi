@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dip"
+        android:layout_marginRight="8dip"
+        android:layout_marginTop="10dip"
+        android:background="@drawable/circle_group_member_item"
+        android:gravity="center_vertical" >
+
+        <ImageView
+            android:id="@+id/img_avatar"
+            android:layout_width="65dip"
+            android:layout_height="65dip"
+            android:layout_marginBottom="5dip"
+            android:layout_marginTop="5dip"
+            android:src="@drawable/head_bg" />
+
+        <LinearLayout
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dip"
+            android:layout_marginRight="5dip"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/txt_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="姓名"
+                android:textColor="#3e3a39" />
+
+            <TextView
+                android:id="@+id/txt_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dip"
+                android:text="公司"
+                android:textColor="#595757" />
+
+            <TextView
+                android:id="@+id/txt_tel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="电话"
+                android:textColor="#595757" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/img_del"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/circle_group_del" />
+    </LinearLayout>
+
+</LinearLayout>

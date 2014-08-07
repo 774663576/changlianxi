@@ -48,14 +48,9 @@ public class CircleMemberListFirstTask extends
             return RetError.NONE;
         }
 
-        // long start = System.currentTimeMillis();
         circleMemberList
                 .refreshMembers(circleMemberList.getLastReqTime() / 1000);
-        // System.out.println("end::::::::::::::::"
-        // + (System.currentTimeMillis() - start));
         circleMemberList.write(DBUtils.getDBsa(2));
-        // System.out.println("end::::::::::::::::=="
-        // + (System.currentTimeMillis() - start));
 
         return RetError.NONE;
     }

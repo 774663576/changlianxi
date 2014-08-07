@@ -95,6 +95,65 @@
                 android:textColor="#3e3a39"
                 android:textSize="@dimen/sp_36" />
 
+            <LinearLayout
+                android:id="@+id/linearLayout1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp24"
+                android:background="@drawable/input_new"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/circle_manager"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:lineSpacingExtra="3dip"
+                    android:paddingBottom="8dip"
+                    android:paddingLeft="@dimen/dp66"
+                    android:paddingRight="@dimen/dp24"
+                    android:paddingTop="8dip"
+                    android:text="圈子管理员"
+                    android:textColor="#00aaea"
+                    android:textSize="@dimen/sp_36" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.8dip"
+                    android:layout_marginLeft="30dip"
+                    android:background="@color/bg_line" />
+
+                <TextView
+                    android:id="@+id/circle_manager_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:lineSpacingExtra="3dip"
+                    android:paddingBottom="8dip"
+                    android:paddingLeft="@dimen/dp66"
+                    android:paddingRight="@dimen/dp24"
+                    android:paddingTop="8dip"
+                    android:textColor="#3e3a39"
+                    android:textSize="@dimen/sp_36" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/circle_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp24"
+                android:background="@drawable/input_new"
+                android:drawableRight="@drawable/circle_info_right_angle"
+                android:gravity="center_vertical"
+                android:lineSpacingExtra="3dip"
+                android:paddingBottom="8dip"
+                android:paddingLeft="@dimen/dp66"
+                android:paddingRight="@dimen/dp24"
+                android:paddingTop="8dip"
+                android:text="分组"
+                android:textColor="#00aaea"
+                android:textSize="@dimen/sp_36" />
+
             <TextView
                 android:id="@+id/exit_circle"
                 android:layout_width="match_parent"

@@ -6,7 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Dialog;
+import android.content.AsyncQueryHandler;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -23,8 +26,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.changlianxi.EditCircleActivity1;
+import com.changlianxi.CircleGroupActivity;
+import com.changlianxi.CircleManagerActivity;
+import com.changlianxi.EditCircleActivity;
 import com.changlianxi.R;
+import com.changlianxi.contentprovider.CircleMemberProvider;
 import com.changlianxi.data.Circle;
 import com.changlianxi.data.CircleMember;
 import com.changlianxi.data.Global;
@@ -46,14 +52,17 @@ import com.changlianxi.util.FileUtils;
 import com.changlianxi.util.UniversalImageLoadTool;
 import com.changlianxi.util.Utils;
 
-public class NomalCircleInfoFragment extends Fragment implements
-        OnClickListener, CameraPath {
+public class CircleInfoFragment extends Fragment implements OnClickListener,
+        CameraPath {
     private TextView circleName;// 圈子名称
     private TextView titleName;
     private TextView circleDescription;// 圈子描述
     private TextView circleMemberCount;
     private TextView exitCircle;
     private TextView dissolveCircle;
+    private TextView circleGroup;
+    private TextView circleManager;
+    private TextView circleManagerName;
     private ImageView circleLogo;
     private ImageView back;
     private ImageView editCircleLogo;
@@ -65,6 +74,8 @@ public class NomalCircleInfoFragment extends Fragment implements
     private boolean isOnCreate;
     private SelectPicPopwindow pop;
     private String selectPicPath = "";
+    private AsyncQueryHandler asyncQuery;
+
     private Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -112,6 +123,7 @@ public class NomalCircleInfoFragment extends Fragment implements
     }
 
     private void initView() {
+        circleGroup = (TextView) getView().findViewById(R.id.circle_group);
         dissolveCircle = (TextView) getView()
                 .findViewById(R.id.dissolve_circle);
         exitCircle = (TextView) getView().findViewById(R.id.exit_circle);
@@ -122,16 +134,21 @@ public class NomalCircleInfoFragment extends Fragment implements
         back = (ImageView) getView().findViewById(R.id.back);
         circleMemberCount = (TextView) getView().findViewById(
                 R.id.circleMemberCount);
+        circleManager = (TextView) getView().findViewById(R.id.circle_manager);
+        circleManagerName = (TextView) getView().findViewById(
+                R.id.circle_manager_name);
         setListener();
     }
 
     private void setListener() {
-        circleName.setOnClickListener(this);
+        circleGroup.setOnClickListener(this);
         back.setOnClickListener(this);
         circleLogo.setOnClickListener(this);
         dissolveCircle.setOnClickListener(this);
         exitCircle.setOnClickListener(this);
         getServerData();
+        asyncQuery = new MyAsyncQueryHandler(getActivity().getContentResolver());
+        initQuery();
     }
 
     private void isCreator() {
@@ -148,11 +165,13 @@ public class NomalCircleInfoFragment extends Fragment implements
             editCircleLogo.setOnClickListener(this);
             editCircleLogo.setVisibility(View.VISIBLE);
             dissolveCircle.setVisibility(View.VISIBLE);
+            circleManager.setOnClickListener(this);
             Drawable dra = getResources().getDrawable(
                     R.drawable.circle_info_right_angle);
             dra.setBounds(0, 0, dra.getMinimumWidth(), dra.getMinimumHeight());
             circleName.setCompoundDrawables(null, null, dra, null);
             circleDescription.setCompoundDrawables(null, null, dra, null);
+            circleManager.setCompoundDrawables(null, null, dra, null);
         }
     }
 
@@ -215,6 +234,45 @@ public class NomalCircleInfoFragment extends Fragment implements
         intent.putExtra(Constants.EXTRA_IMAGE_INDEX, 1);
         startActivity(intent);
 
+    }
+
+    private void initQuery() {
+        String[] projection = { CircleMemberProvider.CircleMemberColumns.NAME, }; // 查询的列
+        asyncQuery.startQuery(0, null,
+                CircleMemberProvider.CircleMemberColumns.CONTENT_URI,
+                projection, CircleMemberProvider.CircleMemberColumns.CID
+                        + "=? and "
+                        + CircleMemberProvider.CircleMemberColumns.ISMANAGER
+                        + "=?", new String[] { cid + "", "1" }, null);
+    }
+
+    /**
+     * 数据库异步查询类AsyncQueryHandler
+     * 
+     * 
+     */
+    private class MyAsyncQueryHandler extends AsyncQueryHandler {
+        public MyAsyncQueryHandler(ContentResolver cr) {
+            super(cr);
+        }
+
+        /**
+         * 查询结束的回调函数
+         */
+        @Override
+        protected void onQueryComplete(int token, Object cookie,
+                final Cursor cursor) {
+            if (cursor != null && cursor.getCount() > 0) {
+                cursor.moveToFirst();
+                StringBuilder sbName = new StringBuilder();
+                for (int i = 0; i < cursor.getCount(); i++) {
+                    sbName.append(cursor.getString(0) + ",");
+                    cursor.moveToNext();
+                }
+                circleManagerName.setText(sbName.toString());
+            }
+
+        }
     }
 
     /**
@@ -280,6 +338,7 @@ public class NomalCircleInfoFragment extends Fragment implements
 
     @Override
     public void onClick(View v) {
+        Intent intent;
         switch (v.getId()) {
             case R.id.back:
                 BroadCast.sendBroadCast(getActivity(), Constants.CHANGE_TAB);
@@ -310,6 +369,20 @@ public class NomalCircleInfoFragment extends Fragment implements
                 confirmDialog("您确认不是一时冲动？真的要解散本圈子吗？本操作不可恢复，误操作后果很严重哦。",
                         R.id.dissolve_circle);
                 break;
+            case R.id.circle_group:
+                intent = new Intent();
+                intent.putExtra("cid", cid);
+                intent.setClass(getActivity(), CircleGroupActivity.class);
+                getActivity().startActivity(intent);
+                Utils.leftOutRightIn(getActivity());
+                break;
+            case R.id.circle_manager:
+                intent = new Intent();
+                intent.putExtra("cid", cid);
+                intent.setClass(getActivity(), CircleManagerActivity.class);
+                getActivity().startActivity(intent);
+                Utils.leftOutRightIn(getActivity());
+                break;
             default:
                 break;
         }
@@ -320,7 +393,7 @@ public class NomalCircleInfoFragment extends Fragment implements
         Bundle b = new Bundle();
         b.putSerializable("circle", circle);
         intent.putExtras(b);
-        intent.setClass(getActivity(), EditCircleActivity1.class);
+        intent.setClass(getActivity(), EditCircleActivity.class);
         if (id == R.id.circleName) {
             intent.putExtra("tag", 1);
         } else if (id == R.id.circleDis) {

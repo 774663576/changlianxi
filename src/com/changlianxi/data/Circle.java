@@ -5,8 +5,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -86,7 +88,8 @@ public class Circle extends AbstractData implements Serializable {
     public final static String EDIT_LOGO_API = "/circles/iuploadLogo";
     public final static String ADD_API = "/circles/iadd";
     public final static String DISSOLVE_API = "/circles/idissolve";
-
+    private final static String EDIT_GROUP_API = "/circles/ieditGroups";
+    private final static String SET_MANAGERS_API = "/circles/isetManagers";
     // circle basic info
     private int id = 0;
     private String name = "";
@@ -115,6 +118,9 @@ public class Circle extends AbstractData implements Serializable {
     // circle roles
     private List<CircleRole> roles = new ArrayList<CircleRole>();
 
+    // circle groups
+    private List<CircleGroup> groups = new ArrayList<CircleGroup>();
+
     public Circle(int id) {
         this(id, "");
     }
@@ -136,6 +142,14 @@ public class Circle extends AbstractData implements Serializable {
 
     public boolean isEmpty() {
         return this.creator == 0;
+    }
+
+    public List<CircleGroup> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(List<CircleGroup> groups) {
+        this.groups = groups;
     }
 
     public int getId() {
@@ -485,7 +499,8 @@ public class Circle extends AbstractData implements Serializable {
         for (CircleRole cRole : roles) {
             cRole.write(db);
         }
-
+        // wirte circle groups
+        writeCirleGroups(db);
         this.status = Status.OLD;
     }
 
@@ -674,6 +689,32 @@ public class Circle extends AbstractData implements Serializable {
         if (isChange && this.status == Status.OLD) {
             this.status = Status.UPDATE;
         }
+    }
+
+    public void writeCirleGroups(SQLiteDatabase db) {
+        for (CircleGroup group : groups) {
+            group.write(db);
+        }
+    }
+
+    public void readCircleGorups(SQLiteDatabase db) {
+        Cursor cursor = db.query(Const.CIRCLE_GROUP_TABLE_NAME, new String[] {
+                "cid", "group_name", "group_id" }, "cid=?", new String[] { id
+                + "" }, null, null, null);
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            for (int i = 0; i < cursor.getCount(); i++) {
+                String group_name = cursor.getString(cursor
+                        .getColumnIndex("group_name"));
+                int cid = cursor.getInt(cursor.getColumnIndex("cid"));
+                int group_id = cursor.getInt(cursor.getColumnIndex("group_id"));
+                CircleGroup group = new CircleGroup(cid, group_id, group_name);
+                group.setStatus(Status.OLD);
+                this.groups.add(group);
+                cursor.moveToNext();
+            }
+        }
+        cursor.close();
     }
 
     /**
@@ -908,6 +949,111 @@ public class Circle extends AbstractData implements Serializable {
             this.name = name;
         }
         cursor.close();
+    }
+
+    /**
+     * 获取编辑的圈子分组  json格式
+     * @param editGroups
+     * @return
+     */
+    public String getEditGroups(List<CircleGroup> editGroups) {
+        JSONArray array = null;
+        try {
+            array = new JSONArray();
+            JSONObject object = null;
+            for (CircleGroup group : editGroups) {
+                object = new JSONObject();
+                if (group.getGroupsId() == 0) {
+                    object.put("op", "new");
+                } else {
+                    object.put("op", "del");
+                    object.put("id", group.getGroupsId());
+                }
+                object.put("name", group.getGroupsName());
+                array.put(object);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return array.toString();
+    }
+
+    /**
+     * 编辑圈子分组
+     */
+    public RetError editGroups(List<CircleGroup> editListsGroups) {
+        String groups = getEditGroups(editListsGroups);
+        IParser parser = new ArrayParser("results");
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("cid", id);
+        params.put("groups", groups);
+        Result ret = ApiRequest.requestWithToken(Circle.EDIT_GROUP_API, params,
+                parser);
+        if (ret.getStatus() == RetStatus.SUCC) {
+            for (CircleGroup group : editListsGroups) {
+                if (group.getGroupsId() != 0) {
+                    group.setStatus(com.changlianxi.data.AbstractData.Status.DEL);
+                    group.write(DBUtils.getDBsa(2));
+                }
+            }
+            ArrayResult aret = (ArrayResult) ret;
+            for (int i = 0; i < aret.getArrs().size(); i++) {
+                for (CircleGroup group : editListsGroups) {
+                    if (group.getGroupsId() == 0) {
+                        int id = Integer.valueOf(String.valueOf(aret.getArrs()
+                                .get(i)));
+                        group.setGroupsId(id);
+                        group.setStatus(Status.NEW);
+                        group.write(DBUtils.getDBsa(2));
+                        break;
+                    }
+                }
+            }
+            return RetError.NONE;
+        } else {
+            return ret.getErr();
+        }
+    }
+
+    /**
+     * 设置圈子管理员
+     */
+    public RetError setManagers(List<CircleMember> oldListMembers,
+            List<CircleMember> newListMembers) {
+        StringBuilder sb = new StringBuilder();
+        for (CircleMember m : newListMembers) {
+            sb.append(m.getPid() + ",");
+        }
+        IParser parser = new SimpleParser();
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("cid", id);
+        params.put("managers", sb.toString());
+        Result ret = ApiRequest.requestWithToken(Circle.SET_MANAGERS_API,
+                params, parser);
+        if (ret.getStatus() == RetStatus.SUCC) {
+            Set<CircleMember> result = new HashSet<CircleMember>();
+            // 删除的管理员
+            result.clear();
+            result.addAll(oldListMembers);
+            result.removeAll(newListMembers);
+            for (CircleMember m : result) {
+                m.setStatus(Status.UPDATE);
+                m.setManager(false);
+                m.updateManager(DBUtils.getDBsa(2));
+            }
+            // 新增加的管理成员
+            result.clear();
+            result.addAll(newListMembers);
+            result.removeAll(oldListMembers);
+            for (CircleMember m : result) {
+                m.setStatus(Status.UPDATE);
+                m.setManager(true);
+                m.updateManager(DBUtils.getDBsa(2));
+            }
+            return RetError.NONE;
+        } else {
+            return ret.getErr();
+        }
     }
 
     public static Comparator<Circle> getComparator(boolean byTimeAsc) {
