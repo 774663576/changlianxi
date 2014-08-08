@@ -209,5 +209,10 @@ public class CircleMemberContentProvider extends ContentProvider {
         sMembersProjectionMap.put(
                 CircleMemberProvider.CircleMemberColumns.ISMANAGER,
                 CircleMemberProvider.CircleMemberColumns.ISMANAGER);
+        sMembersProjectionMap.put(
+                CircleMemberProvider.CircleMemberColumns.STATE,
+                CircleMemberProvider.CircleMemberColumns.STATE);
+        sMembersProjectionMap.put(CircleMemberProvider.CircleMemberColumns.CID,
+                CircleMemberProvider.CircleMemberColumns.CID);
     }
 }

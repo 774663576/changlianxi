@@ -70,8 +70,9 @@ public class CircleListParser implements IParser {
                     groups.add(group);
                 }
                 c.setGroups(groups);
-                circles.add(c);
             }
+            circles.add(c);
+
         }
         String sequence = "";
         if (jsonObj.has("sequence")) {

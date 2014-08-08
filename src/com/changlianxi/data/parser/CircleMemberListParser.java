@@ -48,7 +48,6 @@ public class CircleMemberListParser implements IParser {
             String state = obj.getString("state");
             String ic = obj.getString("ic");
             String time = obj.getString("time");
-            int isManager = obj.getInt("ismanager");
             CircleMember m = new CircleMember(cid, pid, uid);
             m.setName(name);
             m.setSortkey(pinyin.toLowerCase());
@@ -56,7 +55,10 @@ public class CircleMemberListParser implements IParser {
             m.setState(CircleMemberState.convert(state));
             m.setLastModTime(time);
             m.setInviteCode(ic);
-            m.setManager(isManager == 1);
+            if (obj.has("ismanager")) {
+                int isManager = obj.getInt("ismanager");
+                m.setManager(isManager == 1);
+            }
             if (obj.has("account_email")) {
                 String account_email = obj.getString("account_email");
                 m.setAccount_email(account_email);
@@ -116,15 +118,17 @@ public class CircleMemberListParser implements IParser {
             }
 
             m.setDetails(properties);
-            JSONArray jsonGroup = obj.getJSONArray("groups");
-            List<CircleMemberGroups> groups = new ArrayList<CircleMemberGroups>();
-            for (int k = 0; k < jsonGroup.length(); k++) {
-                int group_id = jsonGroup.getInt(k);
-                CircleMemberGroups gro = new CircleMemberGroups(cid, group_id,
-                        pid);
-                groups.add(gro);
+            if (obj.has("groups")) {
+                JSONArray jsonGroup = obj.getJSONArray("groups");
+                List<CircleMemberGroups> groups = new ArrayList<CircleMemberGroups>();
+                for (int k = 0; k < jsonGroup.length(); k++) {
+                    int group_id = jsonGroup.getInt(k);
+                    CircleMemberGroups gro = new CircleMemberGroups(cid,
+                            group_id, pid);
+                    groups.add(gro);
+                }
+                m.setGroups(groups);
             }
-            m.setGroups(groups);
             members.add(m);
         }
 

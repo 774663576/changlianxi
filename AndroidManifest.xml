@@ -589,11 +589,6 @@
         <provider
             android:name=".contentprovider.CircleMemberContentProvider"
             android:authorities="com.changlianxi.circle.members" />
-
-        <activity
-            android:name=".ManagerActiviy"
-            android:label="@string/title_activity_manager_activiy" >
-        </activity>
     </application>
 
 </manifest>
