@@ -158,6 +158,7 @@ public class CircleInfoFragment extends Fragment implements OnClickListener,
                 circleDescription.setVisibility(View.GONE);
             }
         } else {
+            circleGroup.setVisibility(View.VISIBLE);
             circleName.setOnClickListener(this);
             circleDescription.setOnClickListener(this);
             editCircleLogo = (ImageView) getView().findViewById(
@@ -187,7 +188,6 @@ public class CircleInfoFragment extends Fragment implements OnClickListener,
         titleName.setText(name);
         setCircleImg(cirIcon);
         setCount(total, ver);
-
     }
 
     private void setCircleImg(String img) {
@@ -405,7 +405,6 @@ public class CircleInfoFragment extends Fragment implements OnClickListener,
     private void confirmDialog(String str, final int id) {
         Dialog dialog = DialogUtil.confirmDialog(getActivity(), str, "确定",
                 "取消", new ConfirmDialog() {
-
                     @Override
                     public void onOKClick() {
                         if (id == R.id.exit_circle) {

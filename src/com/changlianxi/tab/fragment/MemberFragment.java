@@ -183,11 +183,16 @@ public class MemberFragment extends Fragment implements
         btadd = (ImageView) getView().findViewById(R.id.rightImg);
         btadd.setImageResource(R.drawable.icon_add);
         title = (TextView) getView().findViewById(R.id.titleTxt);
-        Drawable drawable = getResources().getDrawable(
-                R.drawable.new_angle_down);
-        drawable.setBounds(0, 0, drawable.getMinimumWidth(),
-                drawable.getMinimumHeight());
-        title.setCompoundDrawables(null, null, drawable, null);
+        Circle c = new Circle(cid);
+        int count = c.getCircleGroupsCount(DBUtils.getDBsa(1));
+        if (count > 0) {
+            Drawable drawable = getResources().getDrawable(
+                    R.drawable.new_angle_down);
+            drawable.setBounds(0, 0, drawable.getMinimumWidth(),
+                    drawable.getMinimumHeight());
+            title.setCompoundDrawables(null, null, drawable, null);
+        }
+
         listView.setCacheColorHint(0);
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.header,
                 null);

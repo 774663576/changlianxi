@@ -717,6 +717,13 @@ public class Circle extends AbstractData implements Serializable {
         cursor.close();
     }
 
+    public int getCircleGroupsCount(SQLiteDatabase db) {
+        Cursor cursor = db.query(Const.CIRCLE_GROUP_TABLE_NAME,
+                new String[] { "group_id" }, "cid=?", new String[] { id + "" },
+                null, null, null);
+        return cursor.getCount();
+    }
+
     /**
      * refresh this circle info from server
      */

@@ -152,7 +152,8 @@
                 android:paddingTop="8dip"
                 android:text="分组"
                 android:textColor="#00aaea"
-                android:textSize="@dimen/sp_36" />
+                android:textSize="@dimen/sp_36"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/exit_circle"
